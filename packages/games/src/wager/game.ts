@@ -4,7 +4,21 @@
  */
 import { defineGame, type GameContext, type GameResult, type PlayerId, type ScoreAward } from "@apr/shared";
 import { z } from "zod";
-import { drawPayload, roundsOption, secondsOption, timer } from "../util.ts";
+import {
+  applyPick,
+  emptyPick,
+  isPickAction,
+  offerToPick,
+  openPick,
+  type PickState,
+  type PickView,
+  pickActionSchemas,
+  pickOnTimeout,
+  pickSecondsOption,
+  pickView,
+  rotatePicker,
+} from "../pick.ts";
+import { roundsOption, secondsOption, timer } from "../util.ts";
 
 export const POINTS_CLOSEST_GUESS = 2;
 export const POINTS_EXACT = 1;
@@ -12,6 +26,7 @@ export const POINTS_GOOD_BET = 1;
 
 const payload = z.object({ text: z.string(), unit: z.string(), answer: z.number(), note: z.string().optional() });
 const configSchema = z.object({
+  pickSeconds: z.number().int().min(0).max(600).default(60),
   rounds: z.number().int().min(0).max(30).default(5),
   answerSeconds: z.number().int().min(0).max(600).default(60),
   betSeconds: z.number().int().min(0).max(600).default(45),
@@ -19,6 +34,7 @@ const configSchema = z.object({
 type Config = z.infer<typeof configSchema>;
 
 const actionSchema = z.discriminatedUnion("type", [
+  ...pickActionSchemas,
   z.object({ type: z.literal("guess"), step: z.number().int(), value: z.number().finite() }),
   /** Bet on the player whose estimate you think is closest (your own is allowed). */
   z.object({ type: z.literal("bet"), step: z.number().int(), on: z.string() }),
@@ -27,12 +43,14 @@ const actionSchema = z.discriminatedUnion("type", [
 type Action = z.infer<typeof actionSchema>;
 
 export interface WagerState {
+  /** Topic choice before each round formally starts. */
+  pick: PickState<z.infer<typeof payload>>;
   config: Config;
   round: number;
   step: number;
-  phase: "guess" | "bet" | "reveal" | "finished";
+  phase: "pick" | "guess" | "bet" | "reveal" | "finished";
   participants: PlayerId[];
-  question: { contentId: string; text: string; unit: string; answer: number; note?: string };
+  question: { contentId: string | null; text: string; unit: string; answer: number; note?: string };
   guesses: Record<PlayerId, number>;
   bets: Record<PlayerId, PlayerId>;
   closest: PlayerId[];
@@ -45,6 +63,8 @@ export interface WagerView {
   totalRounds: number;
   step: number;
   phase: WagerState["phase"];
+  /** Present while this round\'s topic is being chosen. */
+  pick: PickView | null;
   participants: PlayerId[];
   question: { text: string; unit: string };
   submitted: PlayerId[];
@@ -102,6 +122,26 @@ function beginBet(state: WagerState, ctx: GameContext): GameResult<WagerState> {
   return { ok: true, state };
 }
 
+function finishNoContent(state: WagerState): GameResult<WagerState> {
+  state.phase = "finished";
+  state.step += 1;
+  state.endedBecause = "no-content";
+  state.deadlineAt = null;
+  return { ok: true, state, finished: true };
+}
+
+/** Opens a round with the topic choice; the round formally starts once a topic is confirmed. */
+function openRound(state: WagerState, ctx: GameContext): GameResult<WagerState> {
+  state.phase = "pick";
+  state.step += 1;
+  openPick(state.pick, rotatePicker(state.pick, ctx.players), payload, ctx);
+  state.deadlineAt = timer(state.config.pickSeconds, ctx);
+  if (state.pick.candidates.length === 0) return finishNoContent(state);
+  return { ok: true, state };
+}
+
+const PICK = { schema: payload, contentType: "numeric-fact", allowCustom: false };
+
 function advance(state: WagerState, ctx: GameContext): GameResult<WagerState> {
   const end = (why: WagerState["endedBecause"]): GameResult<WagerState> => {
     state.phase = "finished";
@@ -111,11 +151,8 @@ function advance(state: WagerState, ctx: GameContext): GameResult<WagerState> {
     return { ok: true, state, finished: true };
   };
   if (state.config.rounds > 0 && state.round >= state.config.rounds) return end("rounds");
-  const drawn = drawPayload(ctx, payload);
-  if (!drawn) return end("no-content");
   state.round += 1;
-  startRound(state, { contentId: drawn.contentId, ...drawn.data }, ctx);
-  return { ok: true, state };
+  return openRound(state, ctx);
 }
 
 export const wagerGame = defineGame<WagerState, Action, WagerView, Config>({
@@ -126,13 +163,14 @@ export const wagerGame = defineGame<WagerState, Action, WagerView, Config>({
     minPlayers: 3,
     maxPlayers: 8,
     rulesSummary:
-      "每轮一道答案是数字的题。所有人各自秘密估一个数。全部提交后公开所有估计（从小到大），每人押一位玩家，赌 TA 的估计最接近答案（可以押自己）。然后公开答案。中途加入的玩家从下一轮开始参与。",
+      "每轮开始前，由轮流担任的出题人从候选题里选一道（只看得到题干，看不到答案；可以换一批，不能自己出题）。每轮一道答案是数字的题。所有人各自秘密估一个数。全部提交后公开所有估计（从小到大），每人押一位玩家，赌 TA 的估计最接近答案（可以押自己）。然后公开答案。中途加入的玩家从下一轮开始参与。",
     scoringSummary: `估得最接近的玩家 +${POINTS_CLOSEST_GUESS} 分（并列都得），完全猜中再 +${POINTS_EXACT} 分；押中最接近者的玩家 +${POINTS_GOOD_BET} 分。被跳过的题不计分。`,
     contentType: "numeric-fact",
     options: [
       roundsOption(5),
       secondsOption("answerSeconds", "估数时限", 60),
       secondsOption("betSeconds", "下注时限", 45),
+      pickSecondsOption,
     ],
   },
   configSchema,
@@ -140,10 +178,9 @@ export const wagerGame = defineGame<WagerState, Action, WagerView, Config>({
 
   setup(config, ctx) {
     if (ctx.players.length < 3) return { ok: false, error: "至少需要 3 名玩家" };
-    const drawn = drawPayload(ctx, payload);
-    if (!drawn) return { ok: false, error: "题库中没有可用的题目" };
     const state: WagerState = {
       config,
+      pick: emptyPick(),
       round: 1,
       step: 0,
       phase: "guess",
@@ -155,14 +192,25 @@ export const wagerGame = defineGame<WagerState, Action, WagerView, Config>({
       deadlineAt: null,
       endedBecause: null,
     };
-    startRound(state, { contentId: drawn.contentId, ...drawn.data }, ctx);
-    return { ok: true, state };
+    const opened = openRound(state, ctx);
+    if (opened.ok && opened.finished) return { ok: false, error: "题库中没有可用的题目" };
+    return opened;
   },
 
   apply(state, action, actor, ctx) {
     if (actor.kind !== "player") return { ok: false, error: "无效的操作来源" };
     if (state.phase === "finished") return { ok: false, error: "游戏已结束" };
     if (action.step !== state.step) return { ok: false, error: "该操作属于已结束的阶段" };
+    if (isPickAction(action)) {
+      if (state.phase !== "pick") return { ok: false, error: "这一轮的题目已经确定了" };
+      const r = applyPick(state.pick, action, actor.playerId, ctx, PICK);
+      if (!r.ok) return r;
+      if (!r.chosen) return { ok: true, state };
+      const c = r.chosen;
+      startRound(state, { contentId: c.contentId, ...c.data }, ctx);
+      return { ok: true, state, contributed: r.contributed };
+    }
+    if (state.phase === "pick") return { ok: false, error: "出题人正在选题，稍等一下" };
     const me = actor.playerId;
     switch (action.type) {
       case "guess": {
@@ -194,15 +242,31 @@ export const wagerGame = defineGame<WagerState, Action, WagerView, Config>({
     voters: (state) => state.participants,
     apply: (state, ctx) => advance(state, ctx),
   },
-  currentContentId: (state) => (state.phase === "finished" ? null : state.question.contentId),
-  atSafePoint: (state) => state.phase === "reveal",
-  deadline: (state) => (state.phase === "guess" || state.phase === "bet" ? state.deadlineAt : null),
+  currentContentId: (state) => (state.phase === "pick" || state.phase === "finished" ? null : state.question.contentId),
+  offer(state, items) {
+    const r = offerToPick(state.pick, state.phase === "pick", items, payload, "估数下注");
+    return r.ok ? { ok: true, state, message: r.message } : r;
+  },
+  atSafePoint: (state) => state.phase === "pick" || state.phase === "reveal",
+  deadline: (state) =>
+    state.phase === "pick"
+      ? state.deadlineAt
+      : state.phase === "guess" || state.phase === "bet"
+        ? state.deadlineAt
+        : null,
   onTimeout(state, ctx) {
+    if (state.phase === "pick") {
+      const c = pickOnTimeout(state.pick, ctx);
+      if (!c) return finishNoContent(state);
+      startRound(state, { contentId: c.contentId, ...c.data }, ctx);
+      return { ok: true, state };
+    }
     if (state.phase === "guess") return beginBet(state, ctx);
     if (state.phase === "bet") return settle(state);
     return { ok: true, state };
   },
   onResume(state, ctx) {
+    if (state.phase === "pick") state.deadlineAt = timer(state.config.pickSeconds, ctx);
     if (state.phase === "guess") state.deadlineAt = timer(state.config.answerSeconds, ctx);
     if (state.phase === "bet") state.deadlineAt = timer(state.config.betSeconds, ctx);
     return state;
@@ -216,6 +280,7 @@ export const wagerGame = defineGame<WagerState, Action, WagerView, Config>({
       totalRounds: state.config.rounds,
       step: state.step,
       phase: state.phase,
+      pick: state.phase === "pick" ? pickView(state.pick, (d) => d.text, PICK.allowCustom) : null,
       participants: state.participants,
       question: { text: state.question.text, unit: state.question.unit },
       submitted: Object.keys(guessing ? state.guesses : state.phase === "bet" ? state.bets : {}),
@@ -234,6 +299,7 @@ export const wagerGame = defineGame<WagerState, Action, WagerView, Config>({
   },
 
   publicSummary(state) {
+    if (state.phase === "pick") return `估数下注 第 ${state.round} 轮：出题人正在选题，尚未开始`;
     const base = `估数下注 第 ${state.round} 轮，题目：「${state.question.text}」，阶段：${state.phase}`;
     if (state.phase === "reveal" || state.phase === "finished")
       return `${base}，答案 ${state.question.answer}${state.question.unit}（已揭晓）`;

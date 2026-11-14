@@ -6,7 +6,7 @@ interface View {
   round: number;
   totalRounds: number;
   step: number;
-  phase: "write" | "pick" | "reveal" | "finished";
+  phase: "write" | "select" | "reveal" | "finished";
   participants: string[];
   question: string;
   submitted: string[];
@@ -56,7 +56,7 @@ export function BluffGame({ view, room, paused, act }: GameProps) {
         </>
       )}
 
-      {v.phase === "pick" && v.options && (
+      {v.phase === "select" && v.options && (
         <>
           <p className="muted">其中只有一个是真的。选出你相信的那个。</p>
           <div className="pick-grid">
@@ -103,7 +103,7 @@ export function BluffGame({ view, room, paused, act }: GameProps) {
             不等了，开始选择
           </button>
         )}
-        {v.phase === "pick" && (
+        {v.phase === "select" && (
           <button type="button" disabled={paused} onClick={() => go({ type: "advance" })}>
             提前揭晓
           </button>

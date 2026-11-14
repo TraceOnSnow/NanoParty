@@ -16,7 +16,7 @@ describe("bluff", () => {
     expect(t.wire("b")).not.toContain("八");
     t.do(as("b"), { type: "lie", text: "两" });
     t.do(as("c"), { type: "lie", text: "八" }); // same fake as a: merged into one option
-    expect(t.state.phase).toBe("pick");
+    expect(t.state.phase).toBe("select");
     const view = t.view("b");
     expect(view.options?.map((o) => o.text).sort()).toEqual(["三", "两", "八"].sort());
     expect(JSON.stringify(view.options)).not.toMatch(/truth|authors/);
@@ -47,7 +47,7 @@ describe("bluff", () => {
     const writeStep = t.state.step;
     t.do(as("a"), { type: "lie", text: "八" });
     t.timeout();
-    expect(t.state.phase).toBe("pick");
+    expect(t.state.phase).toBe("select");
     expect(t.rejects(as("b"), { type: "lie", step: writeStep, text: "迟到" })).toBe(true);
     t.do(host, { type: "advance" });
     expect(t.state.phase).toBe("reveal");

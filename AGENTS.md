@@ -26,7 +26,7 @@ pnpm db:generate  # 改了 apps/server/src/db/schema.ts 之后
 ## 如何新增一款游戏
 
 1. 在 `docs/games/<id>.md` 写规则规格（PRD §5.2 列出的各项）。
-2. `packages/games/src/<id>/game.ts`：用 `defineGame` 实现 `GameModule`（`setup / apply / view / publicSummary`，需要计时再加 `deadline / onTimeout / onResume`，有题目的游戏再加 `skip` 和 `currentContentId`），配套 `game.test.ts`（可用 `packages/games/src/testkit.ts`）。通用小工具在 `packages/games/src/util.ts`。
+2. `packages/games/src/<id>/game.ts`：用 `defineGame` 实现 `GameModule`（`setup / apply / view / publicSummary`，需要计时再加 `deadline / onTimeout / onResume`，有题目的游戏再加 `skip` 和 `currentContentId`；需要「每轮先选题」的，用 `packages/games/src/pick.ts` 里的共用工具并实现 `offer`，参照 `quip/game.ts`，界面会自动使用 `apps/web/src/games/PickPanel.tsx`），配套 `game.test.ts`（可用 `packages/games/src/testkit.ts`）。通用小工具在 `packages/games/src/util.ts`。
    - 不要使用商业桌游/电子游戏的名称、题目、卡牌文本或美术；只借鉴机制，名称和内容自定。
 3. 需要题库时添加 `content.json` 并在 `packages/games/src/index.ts` 的 `bundledContent` 中登记；内容类型用 `meta.contentType` 声明。
 4. 在 `packages/games/src/index.ts` 的 `games` 注册表登记。

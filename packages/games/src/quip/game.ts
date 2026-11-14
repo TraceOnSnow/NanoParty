@@ -4,13 +4,28 @@
  */
 import { defineGame, type GameContext, type GameResult, type PlayerId, type ScoreAward } from "@apr/shared";
 import { z } from "zod";
-import { drawPayload, groupVotes, roundsOption, secondsOption, shuffle, timer } from "../util.ts";
+import {
+  applyPick,
+  emptyPick,
+  isPickAction,
+  offerToPick,
+  openPick,
+  type PickState,
+  type PickView,
+  pickActionSchemas,
+  pickOnTimeout,
+  pickSecondsOption,
+  pickView,
+  rotatePicker,
+} from "../pick.ts";
+import { groupVotes, roundsOption, secondsOption, shuffle, timer } from "../util.ts";
 
 export const QUIP_MAX = 60;
 const payload = z.object({ text: z.string() });
 /** Payload shape of this game's content type (used to validate imported and generated content). */
 export const quipContentSchema = payload;
 const configSchema = z.object({
+  pickSeconds: z.number().int().min(0).max(600).default(60),
   rounds: z.number().int().min(0).max(30).default(5),
   writeSeconds: z.number().int().min(0).max(600).default(90),
   voteSeconds: z.number().int().min(0).max(600).default(60),
@@ -18,6 +33,7 @@ const configSchema = z.object({
 type Config = z.infer<typeof configSchema>;
 
 const actionSchema = z.discriminatedUnion("type", [
+  ...pickActionSchemas,
   z.object({ type: z.literal("answer"), step: z.number().int(), text: z.string().trim().min(1).max(QUIP_MAX) }),
   z.object({ type: z.literal("vote"), step: z.number().int(), index: z.number().int().min(0) }),
   /** Host: close the current phase now / continue after the reveal. */
@@ -26,12 +42,14 @@ const actionSchema = z.discriminatedUnion("type", [
 type Action = z.infer<typeof actionSchema>;
 
 export interface QuipState {
+  /** Topic choice before each round formally starts. */
+  pick: PickState<z.infer<typeof payload>>;
   config: Config;
   round: number;
   step: number;
-  phase: "write" | "vote" | "reveal" | "finished";
+  phase: "pick" | "write" | "vote" | "reveal" | "finished";
   participants: PlayerId[];
-  prompt: { contentId: string; text: string };
+  prompt: { contentId: string | null; text: string };
   answers: Record<PlayerId, string>;
   /** Display order of the answers during voting; hides authorship. */
   order: PlayerId[];
@@ -45,6 +63,8 @@ export interface QuipView {
   totalRounds: number;
   step: number;
   phase: QuipState["phase"];
+  /** Present while this round\'s topic is being chosen. */
+  pick: PickView | null;
   participants: PlayerId[];
   prompt: string;
   submitted: PlayerId[];
@@ -105,6 +125,25 @@ function beginVote(state: QuipState, ctx: GameContext): GameResult<QuipState> {
   return { ok: true, state };
 }
 
+function finishNoContent(state: QuipState): GameResult<QuipState> {
+  state.phase = "finished";
+  state.step += 1;
+  state.endedBecause = "no-content";
+  state.deadlineAt = null;
+  return { ok: true, state, finished: true };
+}
+
+/** Opens a round with the topic choice; the round formally starts once a topic is confirmed. */
+function openRound(state: QuipState, ctx: GameContext): GameResult<QuipState> {
+  state.phase = "pick";
+  state.step += 1;
+  openPick(state.pick, rotatePicker(state.pick, ctx.players), payload, ctx);
+  state.deadlineAt = timer(state.config.pickSeconds, ctx);
+  return { ok: true, state };
+}
+
+const PICK = { schema: payload, contentType: "quip-prompt", allowCustom: true };
+
 function advance(state: QuipState, ctx: GameContext): GameResult<QuipState> {
   const end = (why: QuipState["endedBecause"]): GameResult<QuipState> => {
     state.phase = "finished";
@@ -114,11 +153,8 @@ function advance(state: QuipState, ctx: GameContext): GameResult<QuipState> {
     return { ok: true, state, finished: true };
   };
   if (state.config.rounds > 0 && state.round >= state.config.rounds) return end("rounds");
-  const drawn = drawPayload(ctx, payload);
-  if (!drawn) return end("no-content");
   state.round += 1;
-  startRound(state, { contentId: drawn.contentId, text: drawn.data.text }, ctx);
-  return { ok: true, state };
+  return openRound(state, ctx);
 }
 
 /** A voter can vote if there is at least one answer that is not their own. */
@@ -132,13 +168,14 @@ export const quipGame = defineGame<QuipState, Action, QuipView, Config>({
     minPlayers: 3,
     maxPlayers: 8,
     rulesSummary:
-      "每轮一个开放问题，所有人各写一个回答（最多 60 字），揭晓前互相看不到。写完后回答匿名、乱序展示，每人投一票（不能投自己），投完公开作者和票数。中途加入的玩家从下一轮开始参与。",
+      "每轮开始前，由轮流担任的出题人从候选题里选一道（可以不限次数地换一批，也可以自己出题）。每轮一个开放问题，所有人各写一个回答（最多 60 字），揭晓前互相看不到。写完后回答匿名、乱序展示，每人投一票（不能投自己），投完公开作者和票数。中途加入的玩家从下一轮开始参与。",
     scoringSummary: "每得 1 票 +1 分；得票最多的回答再 +1 分（并列都加）。被跳过的题不计分。",
     contentType: "quip-prompt",
     options: [
       roundsOption(5),
       secondsOption("writeSeconds", "作答时限", 90),
       secondsOption("voteSeconds", "投票时限", 60),
+      pickSecondsOption,
     ],
   },
   configSchema,
@@ -146,10 +183,9 @@ export const quipGame = defineGame<QuipState, Action, QuipView, Config>({
 
   setup(config, ctx) {
     if (ctx.players.length < 3) return { ok: false, error: "至少需要 3 名玩家" };
-    const drawn = drawPayload(ctx, payload);
-    if (!drawn) return { ok: false, error: "题库中没有可用的题目" };
     const state: QuipState = {
       config,
+      pick: emptyPick(),
       round: 1,
       step: 0,
       phase: "write",
@@ -161,14 +197,25 @@ export const quipGame = defineGame<QuipState, Action, QuipView, Config>({
       deadlineAt: null,
       endedBecause: null,
     };
-    startRound(state, { contentId: drawn.contentId, text: drawn.data.text }, ctx);
-    return { ok: true, state };
+    const opened = openRound(state, ctx);
+    if (opened.ok && opened.finished) return { ok: false, error: "题库中没有可用的题目" };
+    return opened;
   },
 
   apply(state, action, actor, ctx) {
     if (actor.kind !== "player") return { ok: false, error: "无效的操作来源" };
     if (state.phase === "finished") return { ok: false, error: "游戏已结束" };
     if (action.step !== state.step) return { ok: false, error: "该操作属于已结束的阶段" };
+    if (isPickAction(action)) {
+      if (state.phase !== "pick") return { ok: false, error: "这一轮的题目已经确定了" };
+      const r = applyPick(state.pick, action, actor.playerId, ctx, PICK);
+      if (!r.ok) return r;
+      if (!r.chosen) return { ok: true, state };
+      const c = r.chosen;
+      startRound(state, { contentId: c.contentId, text: c.data.text }, ctx);
+      return { ok: true, state, contributed: r.contributed };
+    }
+    if (state.phase === "pick") return { ok: false, error: "出题人正在选题，稍等一下" };
     const me = actor.playerId;
     switch (action.type) {
       case "answer": {
@@ -203,15 +250,31 @@ export const quipGame = defineGame<QuipState, Action, QuipView, Config>({
     voters: (state) => state.participants,
     apply: (state, ctx) => advance(state, ctx),
   },
-  currentContentId: (state) => (state.phase === "finished" ? null : state.prompt.contentId),
-  atSafePoint: (state) => state.phase === "reveal",
-  deadline: (state) => (state.phase === "write" || state.phase === "vote" ? state.deadlineAt : null),
+  currentContentId: (state) => (state.phase === "pick" || state.phase === "finished" ? null : state.prompt.contentId),
+  offer(state, items) {
+    const r = offerToPick(state.pick, state.phase === "pick", items, payload, "脑洞问答");
+    return r.ok ? { ok: true, state, message: r.message } : r;
+  },
+  atSafePoint: (state) => state.phase === "pick" || state.phase === "reveal",
+  deadline: (state) =>
+    state.phase === "pick"
+      ? state.deadlineAt
+      : state.phase === "write" || state.phase === "vote"
+        ? state.deadlineAt
+        : null,
   onTimeout(state, ctx) {
+    if (state.phase === "pick") {
+      const c = pickOnTimeout(state.pick, ctx);
+      if (!c) return finishNoContent(state);
+      startRound(state, { contentId: c.contentId, text: c.data.text }, ctx);
+      return { ok: true, state };
+    }
     if (state.phase === "write") return beginVote(state, ctx);
     if (state.phase === "vote") return settle(state);
     return { ok: true, state };
   },
   onResume(state, ctx) {
+    if (state.phase === "pick") state.deadlineAt = timer(state.config.pickSeconds, ctx);
     if (state.phase === "write") state.deadlineAt = timer(state.config.writeSeconds, ctx);
     if (state.phase === "vote") state.deadlineAt = timer(state.config.voteSeconds, ctx);
     return state;
@@ -225,6 +288,7 @@ export const quipGame = defineGame<QuipState, Action, QuipView, Config>({
       totalRounds: state.config.rounds,
       step: state.step,
       phase: state.phase,
+      pick: state.phase === "pick" ? pickView(state.pick, (d) => d.text, PICK.allowCustom) : null,
       participants: state.participants,
       prompt: state.prompt.text,
       submitted: Object.keys(voting ? state.votes : state.phase === "write" ? state.answers : {}),
@@ -243,6 +307,7 @@ export const quipGame = defineGame<QuipState, Action, QuipView, Config>({
   },
 
   publicSummary(state) {
+    if (state.phase === "pick") return `脑洞问答 第 ${state.round} 轮：出题人正在选题，尚未开始`;
     const base = `脑洞问答 第 ${state.round} 轮，题目：「${state.prompt.text}」，阶段：${state.phase}`;
     if (state.phase === "write")
       return `${base}，已作答 ${Object.keys(state.answers).length}/${state.participants.length} 人（回答未公开）`;

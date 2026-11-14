@@ -48,12 +48,32 @@ export class Table<S extends { step: number }, A = any, V = unknown> {
   scores: { playerId: string; points: number; key: string }[] = [];
   finished = false;
 
+  /**
+   * With `autoPick` (default), whenever the game is choosing a topic the picker takes the first
+   * candidate, so rule tests can focus on the rounds themselves. Pick-phase tests turn it off.
+   */
   constructor(
     readonly game: GameModule<S, A, V, unknown>,
     readonly ctx: GameContext,
     config: Record<string, number> = {},
+    readonly autoPick = true,
   ) {
     this.state = must(game.setup(game.configSchema.parse(config), ctx)).state;
+    this.settlePick();
+  }
+
+  private settlePick() {
+    const s = this.state as unknown as { phase: string; pick?: { picker: string; candidates: unknown[] } };
+    if (!this.autoPick || s.phase !== "pick" || !s.pick || s.pick.candidates.length === 0) return;
+    const r = must(
+      this.game.apply(
+        structuredClone(this.state),
+        { step: this.state.step, type: "choose", index: 0 } as A,
+        as(s.pick.picker),
+        this.ctx,
+      ),
+    );
+    this.state = r.state;
   }
 
   /** Applies an action for the current step; throws if the game rejects it. */
@@ -62,6 +82,7 @@ export class Table<S extends { step: number }, A = any, V = unknown> {
     this.state = r.state;
     this.scores.push(...(r.scores ?? []));
     this.finished = r.finished ?? false;
+    this.settlePick();
     return r;
   }
 
@@ -78,6 +99,8 @@ export class Table<S extends { step: number }, A = any, V = unknown> {
     const r = must(this.game.onTimeout?.(structuredClone(this.state), this.ctx) as GameResult<S>);
     this.state = r.state;
     this.scores.push(...(r.scores ?? []));
+    this.finished = r.finished ?? false;
+    this.settlePick();
     return r;
   }
 

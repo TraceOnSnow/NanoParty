@@ -4,7 +4,21 @@
  */
 import { defineGame, type GameContext, type GameResult, type PlayerId, type ScoreAward } from "@apr/shared";
 import { z } from "zod";
-import { drawPayload, norm, roundsOption, secondsOption, timer } from "../util.ts";
+import {
+  applyPick,
+  emptyPick,
+  isPickAction,
+  offerToPick,
+  openPick,
+  type PickState,
+  type PickView,
+  pickActionSchemas,
+  pickOnTimeout,
+  pickSecondsOption,
+  pickView,
+  rotatePicker,
+} from "../pick.ts";
+import { norm, roundsOption, secondsOption, timer } from "../util.ts";
 
 export const CLUE_WORD_MAX = 10;
 export const POINTS_TEAM_CORRECT = 1;
@@ -13,6 +27,7 @@ const payload = z.object({ word: z.string() });
 /** Payload shape of this game's content type (used to validate imported and generated content). */
 export const oneclueContentSchema = payload;
 const configSchema = z.object({
+  pickSeconds: z.number().int().min(0).max(600).default(60),
   rounds: z.number().int().min(0).max(30).default(6),
   clueSeconds: z.number().int().min(0).max(600).default(60),
   guessSeconds: z.number().int().min(0).max(600).default(60),
@@ -20,6 +35,7 @@ const configSchema = z.object({
 type Config = z.infer<typeof configSchema>;
 
 const actionSchema = z.discriminatedUnion("type", [
+  ...pickActionSchemas,
   z.object({ type: z.literal("clue"), step: z.number().int(), text: z.string().trim().min(1).max(CLUE_WORD_MAX) }),
   z.object({ type: z.literal("guess"), step: z.number().int(), text: z.string().trim().min(1).max(20) }),
   /** Guesser: give up this word. */
@@ -31,14 +47,16 @@ const actionSchema = z.discriminatedUnion("type", [
 type Action = z.infer<typeof actionSchema>;
 
 export interface OneClueState {
+  /** Topic choice before each round formally starts. */
+  pick: PickState<z.infer<typeof payload>>;
   config: Config;
   round: number;
   step: number;
-  phase: "clue" | "guess" | "reveal" | "finished";
+  phase: "pick" | "clue" | "guess" | "reveal" | "finished";
   participants: PlayerId[];
   guesser: PlayerId;
   turns: Record<PlayerId, number>;
-  word: { contentId: string; text: string };
+  word: { contentId: string | null; text: string };
   clues: Record<PlayerId, string>;
   /** Authors whose clue collided with someone else's and was removed. */
   cancelled: PlayerId[];
@@ -53,6 +71,8 @@ export interface OneClueView {
   totalRounds: number;
   step: number;
   phase: OneClueState["phase"];
+  /** Present while this round\'s topic is being chosen. */
+  pick: PickView | null;
   participants: PlayerId[];
   guesser: PlayerId;
   /** Hidden from the guesser until the reveal. */
@@ -74,11 +94,6 @@ const givers = (state: OneClueState) => state.participants.filter((p) => p !== s
 function startRound(state: OneClueState, word: OneClueState["word"], ctx: GameContext) {
   state.phase = "clue";
   state.step += 1;
-  state.participants = [...ctx.players];
-  let guesser = state.participants[0] as PlayerId;
-  for (const p of state.participants) if ((state.turns[p] ?? 0) < (state.turns[guesser] ?? 0)) guesser = p;
-  state.turns[guesser] = (state.turns[guesser] ?? 0) + 1;
-  state.guesser = guesser;
   state.word = word;
   state.clues = {};
   state.cancelled = [];
@@ -117,6 +132,38 @@ function settle(state: OneClueState, guess: string | null): GameResult<OneClueSt
   return { ok: true, state, scores: state.correct ? teamAward(state) : [] };
 }
 
+function finishNoContent(state: OneClueState): GameResult<OneClueState> {
+  state.phase = "finished";
+  state.step += 1;
+  state.endedBecause = "no-content";
+  state.deadlineAt = null;
+  return { ok: true, state, finished: true };
+}
+
+/** Opens a round with the topic choice; the round formally starts once a topic is confirmed. */
+function openRound(state: OneClueState, ctx: GameContext): GameResult<OneClueState> {
+  state.phase = "pick";
+  state.step += 1;
+  state.participants = [...ctx.players];
+  let guesser = state.participants[0] as PlayerId;
+  for (const p of state.participants) if ((state.turns[p] ?? 0) < (state.turns[guesser] ?? 0)) guesser = p;
+  state.turns[guesser] = (state.turns[guesser] ?? 0) + 1;
+  state.guesser = guesser;
+  openPick(
+    state.pick,
+    rotatePicker(
+      state.pick,
+      state.participants.filter((p) => p !== state.guesser),
+    ),
+    payload,
+    ctx,
+  );
+  state.deadlineAt = timer(state.config.pickSeconds, ctx);
+  return { ok: true, state };
+}
+
+const PICK = { schema: payload, contentType: "guess-word", allowCustom: true };
+
 function advance(state: OneClueState, ctx: GameContext): GameResult<OneClueState> {
   const end = (why: OneClueState["endedBecause"]): GameResult<OneClueState> => {
     state.phase = "finished";
@@ -127,11 +174,8 @@ function advance(state: OneClueState, ctx: GameContext): GameResult<OneClueState
   };
   if (state.config.rounds > 0 && state.round >= state.config.rounds) return end("rounds");
   if (ctx.players.length < 3) return end("rounds");
-  const drawn = drawPayload(ctx, payload);
-  if (!drawn) return end("no-content");
   state.round += 1;
-  startRound(state, { contentId: drawn.contentId, text: drawn.data.word }, ctx);
-  return { ok: true, state };
+  return openRound(state, ctx);
 }
 
 export const oneClueGame = defineGame<OneClueState, Action, OneClueView, Config>({
@@ -142,13 +186,14 @@ export const oneClueGame = defineGame<OneClueState, Action, OneClueView, Config>
     minPlayers: 3,
     maxPlayers: 8,
     rulesSummary:
-      "猜词者轮流担任，看不到目标词。其他人各写一个线索词（最多 10 字，不能包含目标词），互相看不到。全部提交后，内容相同的线索全部作废；猜词者只能看到剩下的线索，只有一次机会猜词，也可以放弃。猜的词与目标词意思相同但写法不同时，房主可以判为正确。中途加入的玩家从下一轮开始参与。",
+      "每轮开始前，由猜词者以外的一名玩家（轮流担任）从候选词里选一个（可以不限次数地换一批，也可以自己出一个）；猜词者看不到候选。猜词者轮流担任，看不到目标词。其他人各写一个线索词（最多 10 字，不能包含目标词），互相看不到。全部提交后，内容相同的线索全部作废；猜词者只能看到剩下的线索，只有一次机会猜词，也可以放弃。猜的词与目标词意思相同但写法不同时，房主可以判为正确。中途加入的玩家从下一轮开始参与。",
     scoringSummary: `团队计分：猜中则本轮所有人 +${POINTS_TEAM_CORRECT} 分；猜错或放弃不得分。`,
     contentType: "guess-word",
     options: [
       roundsOption(6),
       secondsOption("clueSeconds", "写线索时限", 60),
       secondsOption("guessSeconds", "猜词时限", 60),
+      pickSecondsOption,
     ],
   },
   configSchema,
@@ -156,10 +201,9 @@ export const oneClueGame = defineGame<OneClueState, Action, OneClueView, Config>
 
   setup(config, ctx) {
     if (ctx.players.length < 3) return { ok: false, error: "至少需要 3 名玩家" };
-    const drawn = drawPayload(ctx, payload);
-    if (!drawn) return { ok: false, error: "题库中没有可用的词语" };
     const state: OneClueState = {
       config,
+      pick: emptyPick(),
       round: 1,
       step: 0,
       phase: "clue",
@@ -174,14 +218,25 @@ export const oneClueGame = defineGame<OneClueState, Action, OneClueView, Config>
       deadlineAt: null,
       endedBecause: null,
     };
-    startRound(state, { contentId: drawn.contentId, text: drawn.data.word }, ctx);
-    return { ok: true, state };
+    const opened = openRound(state, ctx);
+    if (opened.ok && opened.finished) return { ok: false, error: "题库中没有可用的题目" };
+    return opened;
   },
 
   apply(state, action, actor, ctx) {
     if (actor.kind !== "player") return { ok: false, error: "无效的操作来源" };
     if (state.phase === "finished") return { ok: false, error: "游戏已结束" };
     if (action.step !== state.step) return { ok: false, error: "该操作属于已结束的阶段" };
+    if (isPickAction(action)) {
+      if (state.phase !== "pick") return { ok: false, error: "这一轮的题目已经确定了" };
+      const r = applyPick(state.pick, action, actor.playerId, ctx, PICK);
+      if (!r.ok) return r;
+      if (!r.chosen) return { ok: true, state };
+      const c = r.chosen;
+      startRound(state, { contentId: c.contentId, text: c.data.word }, ctx);
+      return { ok: true, state, contributed: r.contributed };
+    }
+    if (state.phase === "pick") return { ok: false, error: "出题人正在选题，稍等一下" };
     const me = actor.playerId;
     switch (action.type) {
       case "clue": {
@@ -231,14 +286,30 @@ export const oneClueGame = defineGame<OneClueState, Action, OneClueView, Config>
   },
   // Exposed only after the reveal: the content id identifies the secret word.
   currentContentId: (state) => (state.phase === "reveal" ? state.word.contentId : null),
-  atSafePoint: (state) => state.phase === "reveal",
-  deadline: (state) => (state.phase === "clue" || state.phase === "guess" ? state.deadlineAt : null),
+  offer(state, items) {
+    const r = offerToPick(state.pick, state.phase === "pick", items, payload, "不撞词");
+    return r.ok ? { ok: true, state, message: r.message } : r;
+  },
+  atSafePoint: (state) => state.phase === "pick" || state.phase === "reveal",
+  deadline: (state) =>
+    state.phase === "pick"
+      ? state.deadlineAt
+      : state.phase === "clue" || state.phase === "guess"
+        ? state.deadlineAt
+        : null,
   onTimeout(state, ctx) {
+    if (state.phase === "pick") {
+      const c = pickOnTimeout(state.pick, ctx);
+      if (!c) return finishNoContent(state);
+      startRound(state, { contentId: c.contentId, text: c.data.word }, ctx);
+      return { ok: true, state };
+    }
     if (state.phase === "clue") return beginGuess(state, ctx);
     if (state.phase === "guess") return settle(state, null);
     return { ok: true, state };
   },
   onResume(state, ctx) {
+    if (state.phase === "pick") state.deadlineAt = timer(state.config.pickSeconds, ctx);
     if (state.phase === "clue") state.deadlineAt = timer(state.config.clueSeconds, ctx);
     if (state.phase === "guess") state.deadlineAt = timer(state.config.guessSeconds, ctx);
     return state;
@@ -254,6 +325,8 @@ export const oneClueGame = defineGame<OneClueState, Action, OneClueView, Config>
       totalRounds: state.config.rounds,
       step: state.step,
       phase: state.phase,
+      pick:
+        state.phase === "pick" ? pickView(state.pick, (d) => d.word, PICK.allowCustom, viewer !== state.guesser) : null,
       participants: state.participants,
       guesser: state.guesser,
       word: knowsWord ? state.word.text : null,
@@ -273,6 +346,7 @@ export const oneClueGame = defineGame<OneClueState, Action, OneClueView, Config>
   },
 
   publicSummary(state) {
+    if (state.phase === "pick") return `不撞词 第 ${state.round} 轮：出题人正在选题，尚未开始`;
     const base = `不撞词 第 ${state.round} 轮，阶段：${state.phase}`;
     if (state.phase === "reveal" || state.phase === "finished") {
       return `${base}，目标词「${state.word.text}」，${state.correct ? "猜中" : "没猜中"}（已揭晓）`;

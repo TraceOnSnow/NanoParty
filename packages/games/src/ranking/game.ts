@@ -4,7 +4,21 @@
  */
 import { defineGame, type GameContext, type GameResult, type PlayerId, type ScoreAward } from "@apr/shared";
 import { z } from "zod";
-import { drawPayload, roundsOption, secondsOption, shuffle, timer } from "../util.ts";
+import {
+  applyPick,
+  emptyPick,
+  isPickAction,
+  offerToPick,
+  openPick,
+  type PickState,
+  type PickView,
+  pickActionSchemas,
+  pickOnTimeout,
+  pickSecondsOption,
+  pickView,
+  rotatePicker,
+} from "../pick.ts";
+import { roundsOption, secondsOption, shuffle, timer } from "../util.ts";
 
 export const ANSWER_MAX = 40;
 export const POINTS_PERFECT = 3;
@@ -14,6 +28,7 @@ const payload = z.object({ text: z.string(), low: z.string(), high: z.string() }
 /** Payload shape of this game's content type (used to validate imported and generated content). */
 export const rankingContentSchema = payload;
 const configSchema = z.object({
+  pickSeconds: z.number().int().min(0).max(600).default(60),
   rounds: z.number().int().min(0).max(30).default(4),
   writeSeconds: z.number().int().min(0).max(600).default(120),
   orderSeconds: z.number().int().min(0).max(600).default(120),
@@ -21,6 +36,7 @@ const configSchema = z.object({
 type Config = z.infer<typeof configSchema>;
 
 const actionSchema = z.discriminatedUnion("type", [
+  ...pickActionSchemas,
   z.object({ type: z.literal("answer"), step: z.number().int(), text: z.string().trim().min(1).max(ANSWER_MAX) }),
   /** Captain: the answers' authors from lowest to highest. */
   z.object({ type: z.literal("order"), step: z.number().int(), order: z.array(z.string()).max(8) }),
@@ -29,14 +45,16 @@ const actionSchema = z.discriminatedUnion("type", [
 type Action = z.infer<typeof actionSchema>;
 
 export interface RankingState {
+  /** Topic choice before each round formally starts. */
+  pick: PickState<z.infer<typeof payload>>;
   config: Config;
   round: number;
   step: number;
-  phase: "write" | "order" | "reveal" | "finished";
+  phase: "pick" | "write" | "order" | "reveal" | "finished";
   participants: PlayerId[];
   captain: PlayerId;
   turns: Record<PlayerId, number>;
-  scenario: { contentId: string; text: string; low: string; high: string };
+  scenario: { contentId: string | null; text: string; low: string; high: string };
   numbers: Record<PlayerId, number>;
   answers: Record<PlayerId, string>;
   /** Shuffled presentation order for the captain (must not hint at the numbers). */
@@ -53,6 +71,8 @@ export interface RankingView {
   totalRounds: number;
   step: number;
   phase: RankingState["phase"];
+  /** Present while this round\'s topic is being chosen. */
+  pick: PickView | null;
   participants: PlayerId[];
   captain: PlayerId;
   scenario: { text: string; low: string; high: string };
@@ -72,11 +92,6 @@ const pointsFor = (slips: number) => (slips === 0 ? POINTS_PERFECT : slips === 1
 function startRound(state: RankingState, scenario: RankingState["scenario"], ctx: GameContext) {
   state.phase = "write";
   state.step += 1;
-  state.participants = [...ctx.players];
-  let captain = state.participants[0] as PlayerId;
-  for (const p of state.participants) if ((state.turns[p] ?? 0) < (state.turns[captain] ?? 0)) captain = p;
-  state.turns[captain] = (state.turns[captain] ?? 0) + 1;
-  state.captain = captain;
   state.scenario = scenario;
   const deck = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], ctx.random);
   state.numbers = Object.fromEntries(writers(state).map((p, i) => [p, deck[i] as number]));
@@ -123,6 +138,30 @@ function beginOrder(state: RankingState, ctx: GameContext): GameResult<RankingSt
   return { ok: true, state };
 }
 
+function finishNoContent(state: RankingState): GameResult<RankingState> {
+  state.phase = "finished";
+  state.step += 1;
+  state.endedBecause = "no-content";
+  state.deadlineAt = null;
+  return { ok: true, state, finished: true };
+}
+
+/** Opens a round with the topic choice; the round formally starts once a topic is confirmed. */
+function openRound(state: RankingState, ctx: GameContext): GameResult<RankingState> {
+  state.phase = "pick";
+  state.step += 1;
+  state.participants = [...ctx.players];
+  let captain = state.participants[0] as PlayerId;
+  for (const p of state.participants) if ((state.turns[p] ?? 0) < (state.turns[captain] ?? 0)) captain = p;
+  state.turns[captain] = (state.turns[captain] ?? 0) + 1;
+  state.captain = captain;
+  openPick(state.pick, state.captain, payload, ctx);
+  state.deadlineAt = timer(state.config.pickSeconds, ctx);
+  return { ok: true, state };
+}
+
+const PICK = { schema: payload, contentType: "scale-scenario", allowCustom: true };
+
 function advance(state: RankingState, ctx: GameContext): GameResult<RankingState> {
   const end = (why: RankingState["endedBecause"]): GameResult<RankingState> => {
     state.phase = "finished";
@@ -133,11 +172,8 @@ function advance(state: RankingState, ctx: GameContext): GameResult<RankingState
   };
   if (state.config.rounds > 0 && state.round >= state.config.rounds) return end("rounds");
   if (ctx.players.length < 3) return end("rounds");
-  const drawn = drawPayload(ctx, payload);
-  if (!drawn) return end("no-content");
   state.round += 1;
-  startRound(state, { contentId: drawn.contentId, ...drawn.data }, ctx);
-  return { ok: true, state };
+  return openRound(state, ctx);
 }
 
 export const rankingGame = defineGame<RankingState, Action, RankingView, Config>({
@@ -148,13 +184,14 @@ export const rankingGame = defineGame<RankingState, Action, RankingView, Config>
     minPlayers: 3,
     maxPlayers: 8,
     rulesSummary:
-      "每轮一个情境和一条程度刻度（例如「形容一种食物：最难吃 → 最好吃」）。队长轮流担任。其他人各拿到一个互不相同的秘密数字（1–10），写一个程度与数字相符的回答，不能写出数字。写完后回答公开（数字仍保密），队长把它们从低到高排序，然后揭晓数字。中途加入的玩家从下一轮开始参与。",
+      "每轮开始前，由本轮队长从候选情境里选一个（可以不限次数地换一批，也可以自己出一个）。每轮一个情境和一条程度刻度（例如「形容一种食物：最难吃 → 最好吃」）。队长轮流担任。其他人各拿到一个互不相同的秘密数字（1–10），写一个程度与数字相符的回答，不能写出数字。写完后回答公开（数字仍保密），队长把它们从低到高排序，然后揭晓数字。中途加入的玩家从下一轮开始参与。",
     scoringSummary: `团队计分：全部排对，本轮所有人 +${POINTS_PERFECT} 分；只有一对顺序排反，所有人 +${POINTS_ONE_SLIP} 分；否则不得分。`,
     contentType: "scale-scenario",
     options: [
       roundsOption(4),
       secondsOption("writeSeconds", "作答时限", 120),
       secondsOption("orderSeconds", "排序时限", 120),
+      pickSecondsOption,
     ],
   },
   configSchema,
@@ -162,10 +199,9 @@ export const rankingGame = defineGame<RankingState, Action, RankingView, Config>
 
   setup(config, ctx) {
     if (ctx.players.length < 3) return { ok: false, error: "至少需要 3 名玩家" };
-    const drawn = drawPayload(ctx, payload);
-    if (!drawn) return { ok: false, error: "题库中没有可用的情境" };
     const state: RankingState = {
       config,
+      pick: emptyPick(),
       round: 1,
       step: 0,
       phase: "write",
@@ -181,14 +217,25 @@ export const rankingGame = defineGame<RankingState, Action, RankingView, Config>
       deadlineAt: null,
       endedBecause: null,
     };
-    startRound(state, { contentId: drawn.contentId, ...drawn.data }, ctx);
-    return { ok: true, state };
+    const opened = openRound(state, ctx);
+    if (opened.ok && opened.finished) return { ok: false, error: "题库中没有可用的题目" };
+    return opened;
   },
 
   apply(state, action, actor, ctx) {
     if (actor.kind !== "player") return { ok: false, error: "无效的操作来源" };
     if (state.phase === "finished") return { ok: false, error: "游戏已结束" };
     if (action.step !== state.step) return { ok: false, error: "该操作属于已结束的阶段" };
+    if (isPickAction(action)) {
+      if (state.phase !== "pick") return { ok: false, error: "这一轮的题目已经确定了" };
+      const r = applyPick(state.pick, action, actor.playerId, ctx, PICK);
+      if (!r.ok) return r;
+      if (!r.chosen) return { ok: true, state };
+      const c = r.chosen;
+      startRound(state, { contentId: c.contentId, ...c.data }, ctx);
+      return { ok: true, state, contributed: r.contributed };
+    }
+    if (state.phase === "pick") return { ok: false, error: "出题人正在选题，稍等一下" };
     const me = actor.playerId;
     switch (action.type) {
       case "answer": {
@@ -225,15 +272,31 @@ export const rankingGame = defineGame<RankingState, Action, RankingView, Config>
     voters: (state) => state.participants,
     apply: (state, ctx) => advance(state, ctx),
   },
-  currentContentId: (state) => (state.phase === "finished" ? null : state.scenario.contentId),
-  atSafePoint: (state) => state.phase === "reveal",
-  deadline: (state) => (state.phase === "write" || state.phase === "order" ? state.deadlineAt : null),
+  currentContentId: (state) => (state.phase === "pick" || state.phase === "finished" ? null : state.scenario.contentId),
+  offer(state, items) {
+    const r = offerToPick(state.pick, state.phase === "pick", items, payload, "排排座");
+    return r.ok ? { ok: true, state, message: r.message } : r;
+  },
+  atSafePoint: (state) => state.phase === "pick" || state.phase === "reveal",
+  deadline: (state) =>
+    state.phase === "pick"
+      ? state.deadlineAt
+      : state.phase === "write" || state.phase === "order"
+        ? state.deadlineAt
+        : null,
   onTimeout(state, ctx) {
+    if (state.phase === "pick") {
+      const c = pickOnTimeout(state.pick, ctx);
+      if (!c) return finishNoContent(state);
+      startRound(state, { contentId: c.contentId, ...c.data }, ctx);
+      return { ok: true, state };
+    }
     if (state.phase === "write") return beginOrder(state, ctx);
     if (state.phase === "order") return settle(state, state.shown);
     return { ok: true, state };
   },
   onResume(state, ctx) {
+    if (state.phase === "pick") state.deadlineAt = timer(state.config.pickSeconds, ctx);
     if (state.phase === "write") state.deadlineAt = timer(state.config.writeSeconds, ctx);
     if (state.phase === "order") state.deadlineAt = timer(state.config.orderSeconds, ctx);
     return state;
@@ -246,6 +309,10 @@ export const rankingGame = defineGame<RankingState, Action, RankingView, Config>
       totalRounds: state.config.rounds,
       step: state.step,
       phase: state.phase,
+      pick:
+        state.phase === "pick"
+          ? pickView(state.pick, (d) => `${d.text}（${d.low} → ${d.high}）`, PICK.allowCustom)
+          : null,
       participants: state.participants,
       captain: state.captain,
       scenario: { text: state.scenario.text, low: state.scenario.low, high: state.scenario.high },
@@ -268,6 +335,7 @@ export const rankingGame = defineGame<RankingState, Action, RankingView, Config>
   },
 
   publicSummary(state) {
+    if (state.phase === "pick") return `排排座 第 ${state.round} 轮：出题人正在选题，尚未开始`;
     const base = `排排座 第 ${state.round} 轮，情境：「${state.scenario.text}」（${state.scenario.low} → ${state.scenario.high}），阶段：${state.phase}`;
     if (state.phase === "reveal" || state.phase === "finished") return `${base}，排错 ${state.slips} 对（已揭晓）`;
     return `${base}（各人的秘密数字未公开）`;

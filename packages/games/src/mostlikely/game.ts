@@ -4,18 +4,34 @@
  */
 import { defineGame, type GameContext, type GameResult, type PlayerId, type ScoreAward } from "@apr/shared";
 import { z } from "zod";
-import { drawPayload, groupVotes, roundsOption, secondsOption, timer } from "../util.ts";
+import {
+  applyPick,
+  emptyPick,
+  isPickAction,
+  offerToPick,
+  openPick,
+  type PickState,
+  type PickView,
+  pickActionSchemas,
+  pickOnTimeout,
+  pickSecondsOption,
+  pickView,
+  rotatePicker,
+} from "../pick.ts";
+import { groupVotes, roundsOption, secondsOption, timer } from "../util.ts";
 
 const payload = z.object({ text: z.string() });
 /** Payload shape of this game's content type (used to validate imported and generated content). */
 export const mostlikelyContentSchema = payload;
 const configSchema = z.object({
+  pickSeconds: z.number().int().min(0).max(600).default(60),
   rounds: z.number().int().min(0).max(30).default(8),
   voteSeconds: z.number().int().min(0).max(600).default(45),
 });
 type Config = z.infer<typeof configSchema>;
 
 const actionSchema = z.discriminatedUnion("type", [
+  ...pickActionSchemas,
   z.object({ type: z.literal("vote"), step: z.number().int(), target: z.string() }),
   z.object({ type: z.literal("reveal"), step: z.number().int() }),
   z.object({ type: z.literal("next"), step: z.number().int() }),
@@ -23,12 +39,14 @@ const actionSchema = z.discriminatedUnion("type", [
 type Action = z.infer<typeof actionSchema>;
 
 export interface MostLikelyState {
+  /** Topic choice before each round formally starts. */
+  pick: PickState<z.infer<typeof payload>>;
   config: Config;
   round: number;
   step: number;
-  phase: "vote" | "reveal" | "finished";
+  phase: "pick" | "vote" | "reveal" | "finished";
   participants: PlayerId[];
-  prompt: { contentId: string; text: string };
+  prompt: { contentId: string | null; text: string };
   votes: Record<PlayerId, PlayerId>;
   top: PlayerId[];
   deadlineAt: number | null;
@@ -40,6 +58,8 @@ export interface MostLikelyView {
   totalRounds: number;
   step: number;
   phase: MostLikelyState["phase"];
+  /** Present while this round\'s topic is being chosen. */
+  pick: PickView | null;
   participants: PlayerId[];
   prompt: string;
   submitted: PlayerId[];
@@ -78,6 +98,25 @@ function settle(state: MostLikelyState): GameResult<MostLikelyState> {
   return { ok: true, state, scores };
 }
 
+function finishNoContent(state: MostLikelyState): GameResult<MostLikelyState> {
+  state.phase = "finished";
+  state.step += 1;
+  state.endedBecause = "no-content";
+  state.deadlineAt = null;
+  return { ok: true, state, finished: true };
+}
+
+/** Opens a round with the topic choice; the round formally starts once a topic is confirmed. */
+function openRound(state: MostLikelyState, ctx: GameContext): GameResult<MostLikelyState> {
+  state.phase = "pick";
+  state.step += 1;
+  openPick(state.pick, rotatePicker(state.pick, ctx.players), payload, ctx);
+  state.deadlineAt = timer(state.config.pickSeconds, ctx);
+  return { ok: true, state };
+}
+
+const PICK = { schema: payload, contentType: "who-prompt", allowCustom: true };
+
 function advance(state: MostLikelyState, ctx: GameContext): GameResult<MostLikelyState> {
   const end = (why: MostLikelyState["endedBecause"]): GameResult<MostLikelyState> => {
     state.phase = "finished";
@@ -87,11 +126,8 @@ function advance(state: MostLikelyState, ctx: GameContext): GameResult<MostLikel
     return { ok: true, state, finished: true };
   };
   if (state.config.rounds > 0 && state.round >= state.config.rounds) return end("rounds");
-  const drawn = drawPayload(ctx, payload);
-  if (!drawn) return end("no-content");
   state.round += 1;
-  startRound(state, { contentId: drawn.contentId, text: drawn.data.text }, ctx);
-  return { ok: true, state };
+  return openRound(state, ctx);
 }
 
 export const mostLikelyGame = defineGame<MostLikelyState, Action, MostLikelyView, Config>({
@@ -102,20 +138,19 @@ export const mostLikelyGame = defineGame<MostLikelyState, Action, MostLikelyView
     minPlayers: 3,
     maxPlayers: 8,
     rulesSummary:
-      "每轮出现一个「谁最可能……」的情境。每人秘密投票给在场的一位玩家（可以投自己），全部投完后公开谁投了谁。中途加入的玩家从下一轮开始参与。",
+      "每轮开始前，由轮流担任的出题人从候选题里选一道（可以不限次数地换一批，也可以自己出题）。每轮出现一个「谁最可能……」的情境。每人秘密投票给在场的一位玩家（可以投自己），全部投完后公开谁投了谁。中途加入的玩家从下一轮开始参与。",
     scoringSummary: "投给得票最多的人（并列都算）的玩家各 +1 分。被跳过的题不计分。",
     contentType: "who-prompt",
-    options: [roundsOption(8), secondsOption("voteSeconds", "投票时限", 45)],
+    options: [roundsOption(8), secondsOption("voteSeconds", "投票时限", 45), pickSecondsOption],
   },
   configSchema,
   actionSchema,
 
   setup(config, ctx) {
     if (ctx.players.length < 3) return { ok: false, error: "至少需要 3 名玩家" };
-    const drawn = drawPayload(ctx, payload);
-    if (!drawn) return { ok: false, error: "题库中没有可用的题目" };
     const state: MostLikelyState = {
       config,
+      pick: emptyPick(),
       round: 1,
       step: 0,
       phase: "vote",
@@ -126,14 +161,25 @@ export const mostLikelyGame = defineGame<MostLikelyState, Action, MostLikelyView
       deadlineAt: null,
       endedBecause: null,
     };
-    startRound(state, { contentId: drawn.contentId, text: drawn.data.text }, ctx);
-    return { ok: true, state };
+    const opened = openRound(state, ctx);
+    if (opened.ok && opened.finished) return { ok: false, error: "题库中没有可用的题目" };
+    return opened;
   },
 
   apply(state, action, actor, ctx) {
     if (actor.kind !== "player") return { ok: false, error: "无效的操作来源" };
     if (state.phase === "finished") return { ok: false, error: "游戏已结束" };
     if (action.step !== state.step) return { ok: false, error: "该操作属于已结束的阶段" };
+    if (isPickAction(action)) {
+      if (state.phase !== "pick") return { ok: false, error: "这一轮的题目已经确定了" };
+      const r = applyPick(state.pick, action, actor.playerId, ctx, PICK);
+      if (!r.ok) return r;
+      if (!r.chosen) return { ok: true, state };
+      const c = r.chosen;
+      startRound(state, { contentId: c.contentId, text: c.data.text }, ctx);
+      return { ok: true, state, contributed: r.contributed };
+    }
+    if (state.phase === "pick") return { ok: false, error: "出题人正在选题，稍等一下" };
     switch (action.type) {
       case "vote": {
         if (state.phase !== "vote") return { ok: false, error: "现在不是投票阶段" };
@@ -161,11 +207,24 @@ export const mostLikelyGame = defineGame<MostLikelyState, Action, MostLikelyView
     voters: (state) => state.participants,
     apply: (state, ctx) => advance(state, ctx),
   },
-  currentContentId: (state) => (state.phase === "finished" ? null : state.prompt.contentId),
-  atSafePoint: (state) => state.phase === "reveal",
-  deadline: (state) => (state.phase === "vote" ? state.deadlineAt : null),
-  onTimeout: (state) => (state.phase === "vote" ? settle(state) : { ok: true, state }),
+  currentContentId: (state) => (state.phase === "pick" || state.phase === "finished" ? null : state.prompt.contentId),
+  offer(state, items) {
+    const r = offerToPick(state.pick, state.phase === "pick", items, payload, "谁最可能");
+    return r.ok ? { ok: true, state, message: r.message } : r;
+  },
+  atSafePoint: (state) => state.phase === "pick" || state.phase === "reveal",
+  deadline: (state) => (state.phase === "pick" ? state.deadlineAt : state.phase === "vote" ? state.deadlineAt : null),
+  onTimeout(state, ctx) {
+    if (state.phase === "pick") {
+      const c = pickOnTimeout(state.pick, ctx);
+      if (!c) return finishNoContent(state);
+      startRound(state, { contentId: c.contentId, text: c.data.text }, ctx);
+      return { ok: true, state };
+    }
+    return state.phase === "vote" ? settle(state) : { ok: true, state };
+  },
   onResume(state, ctx) {
+    if (state.phase === "pick") state.deadlineAt = timer(state.config.pickSeconds, ctx);
     if (state.phase === "vote") state.deadlineAt = timer(state.config.voteSeconds, ctx);
     return state;
   },
@@ -177,6 +236,7 @@ export const mostLikelyGame = defineGame<MostLikelyState, Action, MostLikelyView
       totalRounds: state.config.rounds,
       step: state.step,
       phase: state.phase,
+      pick: state.phase === "pick" ? pickView(state.pick, (d) => d.text, PICK.allowCustom) : null,
       participants: state.participants,
       prompt: state.prompt.text,
       submitted: Object.keys(state.votes),
@@ -187,6 +247,7 @@ export const mostLikelyGame = defineGame<MostLikelyState, Action, MostLikelyView
   },
 
   publicSummary(state) {
+    if (state.phase === "pick") return `谁最可能 第 ${state.round} 轮：出题人正在选题，尚未开始`;
     const base = `谁最可能 第 ${state.round} 轮，题目：「${state.prompt.text}」`;
     return state.phase === "vote"
       ? `${base}，已投票 ${Object.keys(state.votes).length}/${state.participants.length} 人（投票内容未公开）`

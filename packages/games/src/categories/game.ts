@@ -4,7 +4,21 @@
  */
 import { defineGame, type GameContext, type GameResult, type PlayerId } from "@apr/shared";
 import { z } from "zod";
-import { drawPayload, norm, roundsOption, secondsOption, timer } from "../util.ts";
+import {
+  applyPick,
+  emptyPick,
+  isPickAction,
+  offerToPick,
+  openPick,
+  type PickState,
+  type PickView,
+  pickActionSchemas,
+  pickOnTimeout,
+  pickSecondsOption,
+  pickView,
+  rotatePicker,
+} from "../pick.ts";
+import { norm, roundsOption, secondsOption, timer } from "../util.ts";
 
 export const WORD_MAX = 20;
 export const POINTS_ROUND_WIN = 2;
@@ -13,12 +27,14 @@ const payload = z.object({ name: z.string(), hint: z.string().optional() });
 /** Payload shape of this game's content type (used to validate imported and generated content). */
 export const categoriesContentSchema = payload;
 const configSchema = z.object({
+  pickSeconds: z.number().int().min(0).max(600).default(60),
   rounds: z.number().int().min(0).max(30).default(3),
   turnSeconds: z.number().int().min(0).max(600).default(20),
 });
 type Config = z.infer<typeof configSchema>;
 
 const actionSchema = z.discriminatedUnion("type", [
+  ...pickActionSchemas,
   z.object({ type: z.literal("say"), step: z.number().int(), text: z.string().trim().min(1).max(WORD_MAX) }),
   /** Current player gives up their turn and is out for this round. */
   z.object({ type: z.literal("giveUp"), step: z.number().int() }),
@@ -31,14 +47,16 @@ type Action = z.infer<typeof actionSchema>;
 type OutReason = "timeout" | "gave-up" | "invalid";
 
 export interface CategoriesState {
+  /** Topic choice before each round formally starts. */
+  pick: PickState<z.infer<typeof payload>>;
   config: Config;
   round: number;
   step: number;
-  phase: "playing" | "roundOver" | "finished";
+  phase: "pick" | "playing" | "roundOver" | "finished";
   participants: PlayerId[];
   alive: PlayerId[];
   current: PlayerId;
-  category: { contentId: string; name: string; hint?: string };
+  category: { contentId: string | null; name: string; hint?: string };
   words: { playerId: PlayerId; text: string; invalid?: boolean }[];
   out: { playerId: PlayerId; reason: OutReason }[];
   winner: PlayerId | null;
@@ -47,7 +65,9 @@ export interface CategoriesState {
 }
 
 /** The whole state is public in this game. */
-export type CategoriesView = Omit<CategoriesState, "config" | "category"> & {
+export type CategoriesView = Omit<CategoriesState, "config" | "category" | "pick"> & {
+  /** Present while this round's category is being chosen. */
+  pick: PickView | null;
   totalRounds: number;
   category: { name: string; hint?: string };
 };
@@ -110,6 +130,25 @@ function eliminate(
   return { ok: true, state };
 }
 
+function finishNoContent(state: CategoriesState): GameResult<CategoriesState> {
+  state.phase = "finished";
+  state.step += 1;
+  state.endedBecause = "no-content";
+  state.deadlineAt = null;
+  return { ok: true, state, finished: true };
+}
+
+/** Opens a round with the topic choice; the round formally starts once a topic is confirmed. */
+function openRound(state: CategoriesState, ctx: GameContext): GameResult<CategoriesState> {
+  state.phase = "pick";
+  state.step += 1;
+  openPick(state.pick, rotatePicker(state.pick, ctx.players), payload, ctx);
+  state.deadlineAt = timer(state.config.pickSeconds, ctx);
+  return { ok: true, state };
+}
+
+const PICK = { schema: payload, contentType: "category", allowCustom: true };
+
 function advance(state: CategoriesState, ctx: GameContext): GameResult<CategoriesState> {
   const end = (why: CategoriesState["endedBecause"]): GameResult<CategoriesState> => {
     state.phase = "finished";
@@ -119,11 +158,8 @@ function advance(state: CategoriesState, ctx: GameContext): GameResult<Categorie
     return { ok: true, state, finished: true };
   };
   if (state.config.rounds > 0 && state.round >= state.config.rounds) return end("rounds");
-  const drawn = drawPayload(ctx, payload);
-  if (!drawn) return end("no-content");
   state.round += 1;
-  startRound(state, { contentId: drawn.contentId, ...drawn.data }, ctx);
-  return { ok: true, state };
+  return openRound(state, ctx);
 }
 
 export const categoriesGame = defineGame<CategoriesState, Action, CategoriesView, Config>({
@@ -134,20 +170,19 @@ export const categoriesGame = defineGame<CategoriesState, Action, CategoriesView
     minPlayers: 2,
     maxPlayers: 8,
     rulesSummary:
-      "每轮给出一个类别（例如「水果园」）。玩家按顺序轮流在限时内输入一个属于该类别的词。与已出现的词重复会被系统拒绝（可以马上换一个，时间不停）。超时或认输的人本轮出局。词是否属于该类别由大家口头把关：有争议时房主可判定最新的词无效，其作者出局。剩最后一人时本轮结束。中途加入的玩家从下一轮开始参与。",
+      "每轮开始前，由轮流担任的出题人从候选类别里选一个（可以不限次数地换一批，也可以自己出一个类别）。每轮给出一个类别（例如「水果园」）。玩家按顺序轮流在限时内输入一个属于该类别的词。与已出现的词重复会被系统拒绝（可以马上换一个，时间不停）。超时或认输的人本轮出局。词是否属于该类别由大家口头把关：有争议时房主可判定最新的词无效，其作者出局。剩最后一人时本轮结束。中途加入的玩家从下一轮开始参与。",
     scoringSummary: `每轮撑到最后的玩家 +${POINTS_ROUND_WIN} 分。被跳过的类别不计分。`,
     contentType: "category",
-    options: [roundsOption(3), secondsOption("turnSeconds", "每人每次限时", 20)],
+    options: [roundsOption(3), secondsOption("turnSeconds", "每人每次限时", 20), pickSecondsOption],
   },
   configSchema,
   actionSchema,
 
   setup(config, ctx) {
     if (ctx.players.length < 2) return { ok: false, error: "至少需要 2 名玩家" };
-    const drawn = drawPayload(ctx, payload);
-    if (!drawn) return { ok: false, error: "题库中没有可用的类别" };
     const state: CategoriesState = {
       config,
+      pick: emptyPick(),
       round: 1,
       step: 0,
       phase: "playing",
@@ -161,14 +196,25 @@ export const categoriesGame = defineGame<CategoriesState, Action, CategoriesView
       deadlineAt: null,
       endedBecause: null,
     };
-    startRound(state, { contentId: drawn.contentId, ...drawn.data }, ctx);
-    return { ok: true, state };
+    const opened = openRound(state, ctx);
+    if (opened.ok && opened.finished) return { ok: false, error: "题库中没有可用的题目" };
+    return opened;
   },
 
   apply(state, action, actor, ctx) {
     if (actor.kind !== "player") return { ok: false, error: "无效的操作来源" };
     if (state.phase === "finished") return { ok: false, error: "游戏已结束" };
     if (action.step !== state.step) return { ok: false, error: "该操作已过期" };
+    if (isPickAction(action)) {
+      if (state.phase !== "pick") return { ok: false, error: "这一轮的题目已经确定了" };
+      const r = applyPick(state.pick, action, actor.playerId, ctx, PICK);
+      if (!r.ok) return r;
+      if (!r.chosen) return { ok: true, state };
+      const c = r.chosen;
+      startRound(state, { contentId: c.contentId, ...c.data }, ctx);
+      return { ok: true, state, contributed: r.contributed };
+    }
+    if (state.phase === "pick") return { ok: false, error: "出题人正在选题，稍等一下" };
     const me = actor.playerId;
     switch (action.type) {
       case "say": {
@@ -211,22 +257,41 @@ export const categoriesGame = defineGame<CategoriesState, Action, CategoriesView
     voters: (state) => state.participants,
     apply: (state, ctx) => advance(state, ctx),
   },
-  currentContentId: (state) => (state.phase === "finished" ? null : state.category.contentId),
-  atSafePoint: (state) => state.phase === "roundOver",
-  deadline: (state) => (state.phase === "playing" ? state.deadlineAt : null),
-  onTimeout: (state, ctx) =>
-    state.phase === "playing" ? eliminate(state, state.current, "timeout", ctx) : { ok: true, state },
+  currentContentId: (state) => (state.phase === "pick" || state.phase === "finished" ? null : state.category.contentId),
+  offer(state, items) {
+    const r = offerToPick(state.pick, state.phase === "pick", items, payload, "逛三园");
+    return r.ok ? { ok: true, state, message: r.message } : r;
+  },
+  atSafePoint: (state) => state.phase === "pick" || state.phase === "roundOver",
+  deadline: (state) =>
+    state.phase === "pick" ? state.deadlineAt : state.phase === "playing" ? state.deadlineAt : null,
+  onTimeout(state, ctx) {
+    if (state.phase === "pick") {
+      const c = pickOnTimeout(state.pick, ctx);
+      if (!c) return finishNoContent(state);
+      startRound(state, { contentId: c.contentId, ...c.data }, ctx);
+      return { ok: true, state };
+    }
+    return state.phase === "playing" ? eliminate(state, state.current, "timeout", ctx) : { ok: true, state };
+  },
   onResume(state, ctx) {
+    if (state.phase === "pick") state.deadlineAt = timer(state.config.pickSeconds, ctx);
     if (state.phase === "playing") state.deadlineAt = timer(state.config.turnSeconds, ctx);
     return state;
   },
 
   view(state) {
-    const { config, category, ...rest } = state;
-    return { ...rest, totalRounds: config.rounds, category: { name: category.name, hint: category.hint } };
+    const { config, category, pick, ...rest } = state;
+    return {
+      ...rest,
+      pick: state.phase === "pick" ? pickView(pick, (d) => d.name, PICK.allowCustom) : null,
+      totalRounds: config.rounds,
+      category: { name: category.name, hint: category.hint },
+    };
   },
 
   publicSummary(state) {
+    if (state.phase === "pick") return `逛三园 第 ${state.round} 轮：出题人正在选题，尚未开始`;
     return `逛三园 第 ${state.round} 轮，类别「${state.category.name}」，已说 ${state.words.length} 个词，在场 ${state.alive.length}/${state.participants.length} 人，阶段：${state.phase}`;
   },
 });
