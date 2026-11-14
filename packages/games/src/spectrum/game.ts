@@ -179,6 +179,11 @@ export const spectrumGame = defineGame<SpectrumState, SpectrumAction, SpectrumVi
       "每轮有一条两端相反的刻度（例如 冷 ↔ 热）。轮到的提示者会看到刻度上的秘密位置，并写一句提示（不能含数字）。其他人各自拖动滑块猜位置，互相看不到，全部提交后揭晓。提示者轮流担任；中途加入的玩家从下一轮开始参与。",
     scoringSummary: `猜测与目标相差 ≤${SCORE_BANDS[0].within} 得 ${SCORE_BANDS[0].points} 分，≤${SCORE_BANDS[1].within} 得 ${SCORE_BANDS[1].points} 分，≤${SCORE_BANDS[2].within} 得 ${SCORE_BANDS[2].points} 分（刻度 0–100）。提示者得到猜测者得分的平均值（四舍五入）。被跳过的轮次不计分。`,
     contentType: SPECTRUM_CONTENT_TYPE,
+    options: [
+      { key: "rounds", label: "轮数", min: 0, max: 40, default: 6, hint: "0 = 不限" },
+      { key: "clueSeconds", label: "写提示时限（秒）", min: 0, max: 600, default: 120, hint: "0 = 不限时" },
+      { key: "guessSeconds", label: "猜测时限（秒）", min: 0, max: 600, default: 90, hint: "0 = 不限时" },
+    ],
   },
   configSchema,
   actionSchema,
@@ -249,6 +254,13 @@ export const spectrumGame = defineGame<SpectrumState, SpectrumAction, SpectrumVi
       }
     }
   },
+
+  skip: {
+    key: (state) => (state.phase === "clue" || state.phase === "guessing" ? `r${state.round}` : null),
+    voters: (state) => state.participants,
+    apply: (state, ctx) => advance(state, ctx),
+  },
+  currentContentId: (state) => (state.phase === "finished" ? null : state.scale.contentId),
 
   deadline: (state) => (state.phase === "clue" || state.phase === "guessing" ? state.deadlineAt : null),
 

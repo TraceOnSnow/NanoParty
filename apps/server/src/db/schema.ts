@@ -24,6 +24,8 @@ export const players = pgTable(
     nickname: text("nickname").notNull(),
     /** SHA-256 of the player's session token; the token itself is never stored. */
     sessionTokenHash: text("session_token_hash").notNull().unique(),
+    /** Set when the host removes the player; the session token stops working. */
+    removedAt: timestamp("removed_at", { withTimezone: true }),
     createdAt: createdAt(),
   },
   (t) => [index("players_room_idx").on(t.roomId)],

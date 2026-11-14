@@ -60,6 +60,29 @@ export interface GameMeta {
   scoringSummary: string;
   /** Content type consumed from the content library, if any. */
   contentType?: string;
+  /** Numeric settings the host may change before starting. Keys match the config schema. */
+  options?: GameOption[];
+}
+
+export interface GameOption {
+  key: string;
+  label: string;
+  min: number;
+  max: number;
+  default: number;
+  hint?: string;
+}
+
+/**
+ * Vote-to-skip support. The runtime owns the voting (who voted, threshold); the game only
+ * says what is currently skippable, who is entitled to vote on it, and how to skip it.
+ */
+export interface SkipSupport<S> {
+  /** Stable id of the item that can be skipped right now, or null when nothing can. */
+  key(state: S): string | null;
+  voters(state: S): PlayerId[];
+  /** Skips the current item without awarding anything. */
+  apply(state: S, ctx: GameContext): GameResult<S>;
 }
 
 export interface GameModule<S = unknown, A = unknown, V = unknown, C = unknown> {
@@ -81,6 +104,9 @@ export interface GameModule<S = unknown, A = unknown, V = unknown, C = unknown> 
   onResume?(state: S, ctx: GameContext): S;
   /** What one player may see. MUST NOT contain other players' secrets or unrevealed answers. */
   view(state: S, viewer: PlayerId): V;
+  skip?: SkipSupport<S>;
+  /** Id of the content item currently on screen, for feedback. */
+  currentContentId?(state: S): string | null;
   /** Public, secret-free description of the current situation, used as AI host context. */
   publicSummary(state: S): string;
 }

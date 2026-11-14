@@ -21,16 +21,27 @@ export function Lobby({ view, command }: Props) {
             <strong>邀请朋友</strong>
             <p className="muted">把链接发给朋友，对方填写昵称即可加入。拿到链接的人都能加入，请只发给朋友。</p>
           </div>
-          <button
-            type="button"
-            onClick={async () => {
-              await navigator.clipboard.writeText(inviteUrl);
-              setCopied(true);
-              setTimeout(() => setCopied(false), 2000);
-            }}
-          >
-            {copied ? "已复制 ✓" : "复制邀请链接"}
-          </button>
+          <div className="host-row">
+            <button
+              type="button"
+              onClick={async () => {
+                await navigator.clipboard.writeText(inviteUrl);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
+            >
+              {copied ? "已复制 ✓" : "复制邀请链接"}
+            </button>
+            <button
+              type="button"
+              title="旧链接立即失效；已在房间里的人不受影响"
+              onClick={() =>
+                confirm("更换后旧邀请链接将失效（已加入的人不受影响）。继续？") && command({ type: "rotateInvite" })
+              }
+            >
+              更换链接
+            </button>
+          </div>
         </div>
       )}
 
@@ -73,6 +84,41 @@ export function Lobby({ view, command }: Props) {
         </div>
       )}
 
+      {me.isHost && (
+        <div className="card">
+          <div className="lobby-head">
+            <strong>房间管理</strong>
+            <button
+              type="button"
+              onClick={() =>
+                confirm("结束本场聚会？积分会清零并开始新的一场，聊天记录保留。") && command({ type: "endSession" })
+              }
+            >
+              结束本场并清零积分
+            </button>
+          </div>
+          <ul className="chips">
+            {members
+              .filter((m) => !m.isHost)
+              .map((m) => (
+                <li key={m.id} className="chip">
+                  {m.nickname}
+                  <button
+                    type="button"
+                    className="link"
+                    onClick={() =>
+                      confirm(`把 ${m.nickname} 移出房间？TA 将无法再用原身份进入。`) &&
+                      command({ type: "removeMember", playerId: m.id })
+                    }
+                  >
+                    移出
+                  </button>
+                </li>
+              ))}
+          </ul>
+        </div>
+      )}
+
       <div className="lobby-head">
         <h2>选择游戏</h2>
         <button
@@ -96,6 +142,9 @@ export function Lobby({ view, command }: Props) {
 function GameCard({ game, view, command }: { game: GameMeta; view: RoomView; command: Props["command"] }) {
   const count = view.members.length;
   const playable = count >= game.minPlayers && count <= game.maxPlayers;
+  const [config, setConfig] = useState<Record<string, number>>(() =>
+    Object.fromEntries((game.options ?? []).map((o) => [o.key, o.default])),
+  );
   return (
     <div className="card game-card">
       <div className="lobby-head">
@@ -110,12 +159,39 @@ function GameCard({ game, view, command }: { game: GameMeta; view: RoomView; com
         <p>{game.rulesSummary}</p>
         <p>{game.scoringSummary}</p>
       </details>
+      {view.me.isHost && game.options && game.options.length > 0 && (
+        <details>
+          <summary>设置</summary>
+          <div className="options">
+            {game.options.map((o) => (
+              <label key={o.key}>
+                <span>
+                  {o.label}
+                  {o.hint && <span className="muted">（{o.hint}）</span>}
+                </span>
+                <input
+                  type="number"
+                  min={o.min}
+                  max={o.max}
+                  value={config[o.key] ?? o.default}
+                  onChange={(e) =>
+                    setConfig((c) => ({
+                      ...c,
+                      [o.key]: Math.min(o.max, Math.max(o.min, Math.round(Number(e.target.value) || 0))),
+                    }))
+                  }
+                />
+              </label>
+            ))}
+          </div>
+        </details>
+      )}
       {view.me.isHost ? (
         <button
           type="button"
           className="primary"
           disabled={!playable}
-          onClick={() => command({ type: "startGame", gameId: game.id })}
+          onClick={() => command({ type: "startGame", gameId: game.id, config })}
         >
           {playable ? "开始" : `需要 ${game.minPlayers}–${game.maxPlayers} 人（当前 ${count} 人）`}
         </button>

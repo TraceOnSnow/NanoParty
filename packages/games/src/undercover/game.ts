@@ -232,6 +232,11 @@ export const undercoverGame = defineGame<UndercoverState, UndercoverAction, Unde
       "系统给每人秘密发一个词：多数人（平民）相同，卧底拿到相近但不同的词，谁也不知道自己的身份（3–5 人 1 个卧底，6–8 人 2 个）。每轮所有存活玩家各写一句描述（不能直接写出自己的词），全部提交后统一公开；语音讨论后在网页上投票，得票最高者出局并公开身份，平票则无人出局。卧底全部出局则平民获胜；卧底人数不少于平民则卧底获胜。中途加入的玩家从下一局开始参与。",
     scoringSummary: `平民获胜：每位平民 +${POINTS_CIVILIAN_WIN} 分（含已出局的）。卧底获胜：每位卧底 +${POINTS_UNDERCOVER_WIN} 分。换词跳过的一局不计分。`,
     contentType: UNDERCOVER_CONTENT_TYPE,
+    options: [
+      { key: "games", label: "局数", min: 0, max: 20, default: 3, hint: "0 = 不限" },
+      { key: "describeSeconds", label: "描述时限（秒）", min: 0, max: 600, default: 120, hint: "0 = 不限时" },
+      { key: "voteSeconds", label: "投票时限（秒）", min: 0, max: 900, default: 0, hint: "0 = 不限时，由房主收票" },
+    ],
   },
   configSchema,
   actionSchema,
@@ -299,6 +304,15 @@ export const undercoverGame = defineGame<UndercoverState, UndercoverAction, Unde
       }
     }
   },
+
+  skip: {
+    key: (state) =>
+      state.phase === "describe" || state.phase === "vote" ? `g${state.game}:${state.words.contentId}` : null,
+    voters: (state) => state.players,
+    apply: (state, ctx) => (deal(state, ctx) ? { ok: true, state } : finish(state, "no-content")),
+  },
+  // Not exposed before the game is over: the id could be used to look the words up.
+  currentContentId: (state) => (state.phase === "gameOver" ? state.words.contentId : null),
 
   deadline: (state) => (state.phase === "describe" || state.phase === "vote" ? state.deadlineAt : null),
 

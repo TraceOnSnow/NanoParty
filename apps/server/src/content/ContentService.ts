@@ -7,10 +7,11 @@
  * Game modules never see this service; the runtime hands them a synchronous `drawContent`.
  */
 import type { BundledContent } from "@apr/games";
-import type { ContentItem } from "@apr/shared";
-import { and, eq } from "drizzle-orm";
+import type { ContentItem, FeedbackKind } from "@apr/shared";
+import { and, eq, sql } from "drizzle-orm";
 import type { Db, Tx } from "../db/client.ts";
-import { contentItems, contentUsage } from "../db/schema.ts";
+import { contentFeedback, contentItems, contentUsage } from "../db/schema.ts";
+import { newId } from "../util/tokens.ts";
 
 export class ContentService {
   constructor(
@@ -64,6 +65,22 @@ export class ContentService {
       [items[i], items[j]] = [items[j] as ContentItem, items[i] as ContentItem];
     }
     return items;
+  }
+
+  /** Stores a player's lightweight feedback on a content item (used later for selection and revision). */
+  async recordFeedback(sessionId: string, contentId: string, playerId: string, kind: FeedbackKind): Promise<void> {
+    const [latest] = await this.db
+      .select({ version: sql<number>`max(${contentItems.version})::int` })
+      .from(contentItems)
+      .where(eq(contentItems.id, contentId));
+    await this.db.insert(contentFeedback).values({
+      id: newId("fb"),
+      sessionId,
+      contentId,
+      contentVersion: latest?.version ?? 1,
+      playerId,
+      kind,
+    });
   }
 
   /** Records shown content inside the caller's transaction (same commit as the game state). */

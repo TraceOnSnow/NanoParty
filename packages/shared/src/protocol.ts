@@ -52,6 +52,9 @@ export const MSG = {
 
 export const chatRequest = z.object({ text: z.string().trim().min(1).max(CHAT_MAX) });
 
+export const feedbackKind = z.enum(["not-interested", "too-hard", "unclear", "wrong-answer"]);
+export type FeedbackKind = z.infer<typeof feedbackKind>;
+
 export const commandSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("startGame"), gameId: z.string(), config: z.unknown().optional() }),
   /** `segmentId` binds the action to one game segment so late/retried actions cannot hit a newer one. */
@@ -60,6 +63,12 @@ export const commandSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("resumeSegment"), segmentId: z.string() }),
   z.object({ type: z.literal("askAgent"), kind: z.literal("recommend") }),
   z.object({ type: z.literal("dismissSuggestion") }),
+  /** `key` binds the vote to the item on screen; a vote for an earlier item is rejected. */
+  z.object({ type: z.literal("voteSkip"), segmentId: z.string(), key: z.string() }),
+  z.object({ type: z.literal("contentFeedback"), segmentId: z.string(), contentId: z.string(), kind: feedbackKind }),
+  z.object({ type: z.literal("endSession") }),
+  z.object({ type: z.literal("rotateInvite") }),
+  z.object({ type: z.literal("removeMember"), playerId: z.string() }),
 ]);
 export type Command = z.infer<typeof commandSchema>;
 
@@ -90,6 +99,10 @@ export interface SegmentView {
   status: "active" | "paused";
   /** Game-specific, already filtered for the receiving player. */
   view: unknown;
+  /** Present while the current item can be skipped by vote. */
+  skip: { key: string; votes: number; needed: number; canVote: boolean; voted: boolean } | null;
+  /** Content item on screen that feedback can be given on. */
+  contentId: string | null;
 }
 
 export interface LastSegmentView {

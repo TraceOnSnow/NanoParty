@@ -167,6 +167,10 @@ export const estimateGame = defineGame<EstimateState, EstimateAction, EstimateVi
       "每轮展示一道答案是数字的题目。所有人各自提交一个数字，提交后不可修改，揭晓前互相看不到。全部提交、超时或房主提前揭晓后公布答案。中途加入的玩家从下一轮开始参与。",
     scoringSummary: `最接近答案的玩家得 ${POINTS_CLOSEST} 分（并列都得分），完全猜中再加 ${POINTS_EXACT_BONUS} 分；被跳过的题不计分。`,
     contentType: ESTIMATE_CONTENT_TYPE,
+    options: [
+      { key: "rounds", label: "轮数", min: 0, max: 30, default: 5, hint: "0 = 不限" },
+      { key: "answerSeconds", label: "答题时限（秒）", min: 0, max: 600, default: 60, hint: "0 = 不限时" },
+    ],
   },
   configSchema,
   actionSchema,
@@ -222,6 +226,13 @@ export const estimateGame = defineGame<EstimateState, EstimateAction, EstimateVi
       }
     }
   },
+
+  skip: {
+    key: (state) => (state.phase === "answering" ? `r${state.round}` : null),
+    voters: (state) => state.participants,
+    apply: (state, ctx) => advance(state, ctx),
+  },
+  currentContentId: (state) => (state.phase === "finished" ? null : state.question.contentId),
 
   deadline: (state) => (state.phase === "answering" ? state.deadlineAt : null),
 

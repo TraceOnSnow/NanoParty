@@ -571,3 +571,52 @@ button:focus-visible {
 .history summary {
   cursor: pointer;
 }
+
+/* --- platform controls --- */
+.game-toolbar {
+  max-width: 640px;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--muted);
+}
+.game-toolbar button {
+  padding: 4px 10px;
+  font-size: 13px;
+}
+.game-toolbar summary {
+  cursor: pointer;
+  padding: 5px 0;
+}
+.game-toolbar details[open] summary {
+  margin-bottom: 6px;
+}
+button.link {
+  background: none;
+  border: 0;
+  padding: 0 0 0 8px;
+  color: var(--bad);
+  font-size: 12px;
+}
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+.options label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.options input {
+  width: 90px;
+  padding: 4px 8px;
+}

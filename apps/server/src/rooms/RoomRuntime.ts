@@ -25,14 +25,15 @@ import {
   type PlayerId,
   type RoomView,
   type ScoreEntry,
+  type SegmentView,
 } from "@apr/shared";
-import { and, asc, desc, eq, inArray, sql } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, isNull, sql } from "drizzle-orm";
 import type { AgentRoomContext, AgentRoomPort, AgentService } from "../agent/AgentService.ts";
 import type { ContentService } from "../content/ContentService.ts";
 import type { Db } from "../db/client.ts";
 import { chatMessages, partySessions, players, rooms, scoreEvents, segments } from "../db/schema.ts";
 import { RateLimiter } from "../util/rateLimit.ts";
-import { newId, sha256 } from "../util/tokens.ts";
+import { newId, randomToken, sha256 } from "../util/tokens.ts";
 
 export interface RuntimeDeps {
   db: Db;
@@ -64,7 +65,7 @@ const MAX_CACHED_COMMANDS = 500;
 
 export class RoomRuntime implements AgentRoomPort {
   private queue: Promise<unknown> = Promise.resolve();
-  private readonly connections = new Map<number, { playerId: PlayerId; send: Send }>();
+  private readonly connections = new Map<number, { playerId: PlayerId; send: Send; close?: () => void }>();
   private nextConnId = 1;
   private readonly members = new Map<PlayerId, { id: PlayerId; nickname: string }>();
   private readonly scores = new Map<PlayerId, number>();
@@ -77,12 +78,14 @@ export class RoomRuntime implements AgentRoomPort {
   private readonly commandResults = new Map<string, Promise<Ack>>();
   private readonly chatLimiter = new RateLimiter(8, 10_000);
   private disposed = false;
+  /** In-progress vote to skip the current item. Bound to the item's key; voters are fixed when it opens. */
+  private skipVote: { key: string; voters: PlayerId[]; votes: Set<PlayerId> } | null = null;
 
   private constructor(
     private readonly deps: RuntimeDeps,
     readonly roomId: string,
     private readonly roomName: string,
-    private readonly inviteToken: string,
+    private inviteToken: string,
     private readonly hostPlayerId: PlayerId,
     private sessionId: string,
   ) {
@@ -111,7 +114,11 @@ export class RoomRuntime implements AgentRoomPort {
 
     const rt = new RoomRuntime(deps, room.id, room.name, room.inviteToken, room.hostPlayerId, session.id);
 
-    for (const p of await db.select().from(players).where(eq(players.roomId, roomId)).orderBy(asc(players.createdAt))) {
+    for (const p of await db
+      .select()
+      .from(players)
+      .where(and(eq(players.roomId, roomId), isNull(players.removedAt)))
+      .orderBy(asc(players.createdAt))) {
       rt.members.set(p.id, { id: p.id, nickname: p.nickname });
     }
 
@@ -165,7 +172,13 @@ export class RoomRuntime implements AgentRoomPort {
     const [player] = await this.deps.db
       .select()
       .from(players)
-      .where(and(eq(players.sessionTokenHash, sha256(sessionToken)), eq(players.roomId, this.roomId)));
+      .where(
+        and(
+          eq(players.sessionTokenHash, sha256(sessionToken)),
+          eq(players.roomId, this.roomId),
+          isNull(players.removedAt),
+        ),
+      );
     if (!player) return null;
     if (!this.members.has(player.id)) {
       this.members.set(player.id, { id: player.id, nickname: player.nickname });
@@ -174,9 +187,9 @@ export class RoomRuntime implements AgentRoomPort {
   }
 
   /** Registers a live connection and sends it the full snapshot. Returns the disconnect function. */
-  connect(playerId: PlayerId, send: Send): () => void {
+  connect(playerId: PlayerId, send: Send, close?: () => void): () => void {
     const connId = this.nextConnId++;
-    this.connections.set(connId, { playerId, send });
+    this.connections.set(connId, { playerId, send, close });
     send(MSG.chatHistory, this.chat);
     this.broadcast();
     return () => {
@@ -316,6 +329,88 @@ export class RoomRuntime implements AgentRoomPort {
       case "dismissSuggestion": {
         if (!isHost) return { ok: false, error: "只有房主可以处理建议" };
         this.suggestion = null;
+        this.broadcast();
+        return { ok: true };
+      }
+      case "voteSkip": {
+        const seg = this.segment;
+        if (!seg || seg.id !== command.segmentId) return { ok: false, error: "这局游戏已经结束" };
+        if (seg.status === "paused") return { ok: false, error: "游戏已暂停，等待房主恢复" };
+        const key = seg.module.skip?.key(seg.state) ?? null;
+        // The vote is for the item the player was looking at; if that item is gone, so is the vote.
+        if (!seg.module.skip || key === null || key !== command.key) return { ok: false, error: "这一题已经过去了" };
+        if (this.skipVote?.key !== key) {
+          this.skipVote = { key, voters: [...seg.module.skip.voters(seg.state)], votes: new Set() };
+        }
+        if (!this.skipVote.voters.includes(playerId)) return { ok: false, error: "只有参与本题的玩家可以投票" };
+        this.skipVote.votes.add(playerId);
+        // Strict majority of the players who were in when the vote opened.
+        if (this.skipVote.votes.size * 2 <= this.skipVote.voters.length) {
+          this.broadcast();
+          return { ok: true };
+        }
+        this.skipVote = null;
+        const { ctx, drawn } = this.makeContext(seg.pool);
+        return this.commit(seg, seg.module.skip.apply(structuredClone(seg.state), ctx), drawn);
+      }
+      case "contentFeedback": {
+        const seg = this.segment;
+        if (!seg || seg.id !== command.segmentId) return { ok: false, error: "这局游戏已经结束" };
+        if (seg.module.currentContentId?.(seg.state) !== command.contentId) {
+          return { ok: false, error: "这一题已经过去了" };
+        }
+        await this.deps.content.recordFeedback(this.sessionId, command.contentId, playerId, command.kind);
+        return { ok: true };
+      }
+      case "endSession": {
+        if (!isHost) return { ok: false, error: "只有房主可以结束本场聚会" };
+        if (this.segment) return { ok: false, error: "请先结束当前游戏" };
+        const summary = this.scoreboard()
+          .filter((s) => s.points > 0)
+          .map((s) => `${this.members.get(s.playerId)?.nickname ?? "?"} ${s.points} 分`)
+          .join("，");
+        const next = newId("ses");
+        await this.deps.db.transaction(async (tx) => {
+          await tx
+            .update(partySessions)
+            .set({ status: "ended", endedAt: new Date() })
+            .where(eq(partySessions.id, this.sessionId));
+          await tx.insert(partySessions).values({ id: next, roomId: this.roomId, status: "active" });
+        });
+        this.sessionId = next;
+        this.scores.clear();
+        this.lastSegment = null;
+        this.suggestion = null;
+        await this.appendChat(
+          { kind: "system" },
+          `本场聚会结束。最终成绩：${summary || "没有人得分"}。新的一场从零开始。`,
+        );
+        this.broadcast();
+        return { ok: true };
+      }
+      case "rotateInvite": {
+        if (!isHost) return { ok: false, error: "只有房主可以更换邀请链接" };
+        const token = randomToken();
+        await this.deps.db.update(rooms).set({ inviteToken: token }).where(eq(rooms.id, this.roomId));
+        // The old link stops admitting new players; people already in the room are unaffected.
+        this.inviteToken = token;
+        this.broadcast();
+        return { ok: true };
+      }
+      case "removeMember": {
+        if (!isHost) return { ok: false, error: "只有房主可以移除成员" };
+        if (command.playerId === this.hostPlayerId) return { ok: false, error: "不能移除房主" };
+        if (this.segment) return { ok: false, error: "请在大厅（没有进行中的游戏）时移除成员" };
+        const target = this.members.get(command.playerId);
+        if (!target) return { ok: false, error: "该成员不在房间里" };
+        await this.deps.db.update(players).set({ removedAt: new Date() }).where(eq(players.id, target.id));
+        this.members.delete(target.id);
+        for (const [id, c] of this.connections) {
+          if (c.playerId !== target.id) continue;
+          this.connections.delete(id);
+          c.close?.();
+        }
+        await this.appendChat({ kind: "system" }, `${target.nickname} 已被房主移出房间。`);
         this.broadcast();
         return { ok: true };
       }
@@ -500,11 +595,33 @@ export class RoomRuntime implements AgentRoomPort {
       scoreboard: this.scoreboard(),
       games: Object.values(games).map((g) => g.meta),
       segment: seg
-        ? { id: seg.id, gameId: seg.gameId, status: seg.status, view: seg.module.view(seg.state, playerId) }
+        ? {
+            id: seg.id,
+            gameId: seg.gameId,
+            status: seg.status,
+            view: seg.module.view(seg.state, playerId),
+            skip: this.skipViewFor(seg, playerId),
+            contentId: seg.module.currentContentId?.(seg.state) ?? null,
+          }
         : null,
       lastSegment: this.lastSegment,
       suggestion: this.suggestion,
       ai: this.aiStatus,
+    };
+  }
+
+  private skipViewFor(seg: LiveSegment, playerId: PlayerId): SegmentView["skip"] {
+    const key = seg.status === "active" ? (seg.module.skip?.key(seg.state) ?? null) : null;
+    if (!seg.module.skip || key === null) return null;
+    // Votes cast for an earlier item never carry over.
+    const vote = this.skipVote?.key === key ? this.skipVote : null;
+    const voters = vote?.voters ?? seg.module.skip.voters(seg.state);
+    return {
+      key,
+      votes: vote?.votes.size ?? 0,
+      needed: Math.floor(voters.length / 2) + 1,
+      canVote: voters.includes(playerId),
+      voted: vote?.votes.has(playerId) ?? false,
     };
   }
 

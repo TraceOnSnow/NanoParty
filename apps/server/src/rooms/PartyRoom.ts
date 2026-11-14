@@ -53,7 +53,11 @@ export function createPartyRoomClass(manager: RoomManager) {
       const { playerId } = client.auth as PartyAuth;
       this.disconnectors.set(
         client.sessionId,
-        this.runtime.connect(playerId, (type, payload) => client.send(type, payload)),
+        this.runtime.connect(
+          playerId,
+          (type, payload) => client.send(type, payload),
+          () => client.leave(4003),
+        ),
       );
     }
 

@@ -1,6 +1,6 @@
 import { existsSync } from "node:fs";
 import { createRoomRequest, type InviteInfo, type JoinResponse, joinRoomRequest } from "@apr/shared";
-import { eq, sql } from "drizzle-orm";
+import { and, eq, isNull, sql } from "drizzle-orm";
 import express, { type Request, type Response } from "express";
 import type { AgentService } from "../agent/AgentService.ts";
 import type { Config } from "../config.ts";
@@ -90,7 +90,7 @@ export function mountRoutes(app: express.Application, { config, db, agent }: Htt
       const [count] = await tx
         .select({ n: sql<number>`count(*)::int` })
         .from(players)
-        .where(eq(players.roomId, room.id));
+        .where(and(eq(players.roomId, room.id), isNull(players.removedAt)));
       if ((count?.n ?? 0) >= MAX_ROOM_MEMBERS) return false;
       await tx.insert(players).values({
         id: playerId,

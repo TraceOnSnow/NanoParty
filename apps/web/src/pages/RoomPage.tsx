@@ -2,6 +2,7 @@ import type { Ack } from "@apr/shared";
 import { useState } from "react";
 import { clearSession, loadSession } from "../api.ts";
 import { ChatPanel } from "../components/ChatPanel.tsx";
+import { GameToolbar } from "../components/GameToolbar.tsx";
 import { Lobby } from "../components/Lobby.tsx";
 import { Scoreboard } from "../components/Scoreboard.tsx";
 import { gameComponents } from "../games/registry.tsx";
@@ -82,12 +83,15 @@ export function RoomPage({ roomId }: { roomId: string }) {
         )}
         {segment ? (
           Game ? (
-            <Game
-              view={segment.view}
-              room={view}
-              paused={segment.status === "paused"}
-              act={(action) => conn.command({ type: "gameAction", segmentId: segment.id, action })}
-            />
+            <>
+              <Game
+                view={segment.view}
+                room={view}
+                paused={segment.status === "paused"}
+                act={(action) => conn.command({ type: "gameAction", segmentId: segment.id, action })}
+              />
+              <GameToolbar segment={segment} command={(c) => run(conn.command(c))} />
+            </>
           ) : (
             <p className="muted">这个版本的页面还不支持该游戏。</p>
           )
