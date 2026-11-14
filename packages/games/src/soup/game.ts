@@ -21,7 +21,7 @@ import {
   pickView,
   rotatePicker,
 } from "../pick.ts";
-import { roundsOption, secondsOption, timer } from "../util.ts";
+import { secondsOption, timer } from "../util.ts";
 
 export const QUESTION_MAX = 60;
 export const POINTS_SOLVER = 3;

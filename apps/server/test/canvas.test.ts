@@ -223,7 +223,7 @@ describe("dynamic canvas", () => {
     // The host stops waiting; each close wakes the agent, which keeps asking — until the step cap.
     for (let i = 0; i < 12; i++) {
       const open = current(h2);
-      if (!open || open.status !== "open") break;
+      if (open?.status !== "open") break;
       await h2.cmd({ type: "closeInteraction", interactionId: open.id });
       await waitFor(() => current(h2)?.id !== open.id || h2.chat.at(-1)?.text.includes("连续自动") === true);
       if (h2.chat.at(-1)?.text.includes("连续自动")) break;

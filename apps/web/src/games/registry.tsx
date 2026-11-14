@@ -3,13 +3,17 @@ import type { ComponentType } from "react";
 import { BluffGame } from "./bluff/BluffGame.tsx";
 import { CategoriesGame } from "./categories/CategoriesGame.tsx";
 import { CrewGame } from "./crew/CrewGame.tsx";
+import { DuelGame } from "./duel/DuelGame.tsx";
 import { EstimateGame } from "./estimate/EstimateGame.tsx";
+import { FlushGame } from "./flush/FlushGame.tsx";
 import { MostLikelyGame } from "./mostlikely/MostLikelyGame.tsx";
+import { NoThanksGame } from "./nothanks/NoThanksGame.tsx";
 import { OneClueGame } from "./oneclue/OneClueGame.tsx";
 import type { CustomField } from "./PickPanel.tsx";
 import { QuipGame } from "./quip/QuipGame.tsx";
 import { RankingGame } from "./ranking/RankingGame.tsx";
 import { RowCardsGame } from "./rowcards/RowCardsGame.tsx";
+import { SkullGame } from "./skull/SkullGame.tsx";
 import { SoupGame } from "./soup/SoupGame.tsx";
 import { SpectrumGame } from "./spectrum/SpectrumGame.tsx";
 import { SplitGame } from "./split/SplitGame.tsx";
@@ -42,6 +46,10 @@ export const gameComponents: Record<string, ComponentType<GameProps>> = {
   split: SplitGame,
   wordhunt: WordHuntGame,
   crew: CrewGame,
+  skull: SkullGame,
+  nothanks: NoThanksGame,
+  flush: FlushGame,
+  duel: DuelGame,
   estimate: EstimateGame,
 };
 

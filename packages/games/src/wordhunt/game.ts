@@ -22,7 +22,7 @@ import {
 } from "../pick.ts";
 import { groupVotes, norm, secondsOption, shuffle, timer } from "../util.ts";
 
-export const POINTS_WIN = 3;
+const POINTS_WIN = 3;
 const payload = oneclueContentSchema;
 type Word = z.infer<typeof payload>;
 

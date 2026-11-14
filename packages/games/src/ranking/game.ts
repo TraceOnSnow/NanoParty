@@ -16,7 +16,6 @@ import {
   pickOnTimeout,
   pickSecondsOption,
   pickView,
-  rotatePicker,
 } from "../pick.ts";
 import { roundsOption, secondsOption, shuffle, timer } from "../util.ts";
 

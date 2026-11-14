@@ -4,10 +4,13 @@ import { bluffGame } from "./bluff/game.ts";
 import categoriesContent from "./categories/content.json" with { type: "json" };
 import { categoriesGame } from "./categories/game.ts";
 import { crewGame } from "./crew/game.ts";
+import { duelGame } from "./duel/game.ts";
 import estimateContent from "./estimate/content.json" with { type: "json" };
 import { estimateGame } from "./estimate/game.ts";
+import { flushGame } from "./flush/game.ts";
 import mostlikelyContent from "./mostlikely/content.json" with { type: "json" };
 import { mostLikelyGame } from "./mostlikely/game.ts";
+import { noThanksGame } from "./nothanks/game.ts";
 import oneclueContent from "./oneclue/content.json" with { type: "json" };
 import { oneClueGame } from "./oneclue/game.ts";
 import quipContent from "./quip/content.json" with { type: "json" };
@@ -15,6 +18,7 @@ import { quipGame } from "./quip/game.ts";
 import rankingContent from "./ranking/content.json" with { type: "json" };
 import { rankingGame } from "./ranking/game.ts";
 import { rowCardsGame } from "./rowcards/game.ts";
+import { skullGame } from "./skull/game.ts";
 import soupContent from "./soup/content.json" with { type: "json" };
 import { soupGame } from "./soup/game.ts";
 import spectrumContent from "./spectrum/content.json" with { type: "json" };
@@ -30,12 +34,16 @@ export * from "./bluff/game.ts";
 export * from "./categories/game.ts";
 export * from "./contentTypes.ts";
 export * from "./crew/game.ts";
+export * from "./duel/game.ts";
 export * from "./estimate/game.ts";
+export * from "./flush/game.ts";
 export * from "./mostlikely/game.ts";
+export * from "./nothanks/game.ts";
 export * from "./oneclue/game.ts";
 export * from "./quip/game.ts";
 export * from "./ranking/game.ts";
 export * from "./rowcards/game.ts";
+export * from "./skull/game.ts";
 export * from "./soup/game.ts";
 export * from "./spectrum/game.ts";
 export * from "./split/game.ts";
@@ -69,6 +77,10 @@ export const games: Record<string, GameModule<any, any, any, any>> = {
   [splitGame.meta.id]: splitGame,
   [wordHuntGame.meta.id]: wordHuntGame,
   [crewGame.meta.id]: crewGame,
+  [skullGame.meta.id]: skullGame,
+  [noThanksGame.meta.id]: noThanksGame,
+  [flushGame.meta.id]: flushGame,
+  [duelGame.meta.id]: duelGame,
   [estimateGame.meta.id]: estimateGame,
 };
 

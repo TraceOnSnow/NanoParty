@@ -844,3 +844,35 @@ button.link.ok {
 .card-face.dim {
   opacity: 0.35;
 }
+.offer {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.card-face.big-card {
+  width: 96px;
+  height: 128px;
+}
+.card-face.big-card strong {
+  font-size: 40px;
+}
+.results tr.turn-row td:first-child {
+  color: var(--accent);
+  font-weight: 600;
+}
+.results tr.out-row td {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+.stack {
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+.card-face.duel-card {
+  width: 72px;
+}
+.card-face.duel-card span {
+  font-size: 12px;
+  color: var(--text);
+  letter-spacing: 0;
+}
