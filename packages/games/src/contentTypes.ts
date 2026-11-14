@@ -11,7 +11,9 @@ import { mostlikelyContentSchema } from "./mostlikely/game.ts";
 import { oneclueContentSchema } from "./oneclue/game.ts";
 import { quipContentSchema } from "./quip/game.ts";
 import { rankingContentSchema } from "./ranking/game.ts";
+import { soupContentSchema } from "./soup/game.ts";
 import { spectrumContentSchema } from "./spectrum/game.ts";
+import { splitContentSchema } from "./split/game.ts";
 import { undercoverContentSchema } from "./undercover/game.ts";
 
 export interface ContentTypeDef {
@@ -59,6 +61,16 @@ export const contentTypes: Record<string, ContentTypeDef> = {
     schema: rankingContentSchema,
     guide:
       '排排座的情境：{"text": 要大家说什么, "low": 1 分代表的程度, "high": 10 分代表的程度}。例：{"text":"说一种食物","low":"最难吃","high":"最好吃"}',
+  },
+  soup: {
+    schema: soupContentSchema,
+    guide:
+      '海龟汤：{"surface": 汤面（一个看似离奇的简短情境）, "solution": 汤底（能解释一切的完整真相）}。汤底要能通过是非问题一步步推出，不能依赖冷僻知识。例：{"surface":"他在电梯里按了 10 楼，却在 7 楼下电梯走楼梯。为什么？","solution":"他个子矮，只够得着 7 楼的按钮；下雨天带伞时才能用伞按到 10 楼。"}',
+  },
+  "split-prompt": {
+    schema: splitContentSchema,
+    guide:
+      '五五开的两难题：{"text": 含且仅含一个「____」空格的情境, "yes": 同意选项（可选，默认「愿意」）, "no": 反对选项（可选）}。空格处由玩家填写代价或条件。例：{"text":"有个按钮，按下就能得到一百万，但____。你按吗？","yes":"按","no":"不按"}',
   },
   "guess-word": {
     schema: oneclueContentSchema,

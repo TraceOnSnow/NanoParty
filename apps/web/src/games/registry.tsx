@@ -2,6 +2,7 @@ import type { Ack, RoomView } from "@apr/shared";
 import type { ComponentType } from "react";
 import { BluffGame } from "./bluff/BluffGame.tsx";
 import { CategoriesGame } from "./categories/CategoriesGame.tsx";
+import { CrewGame } from "./crew/CrewGame.tsx";
 import { EstimateGame } from "./estimate/EstimateGame.tsx";
 import { MostLikelyGame } from "./mostlikely/MostLikelyGame.tsx";
 import { OneClueGame } from "./oneclue/OneClueGame.tsx";
@@ -9,9 +10,12 @@ import type { CustomField } from "./PickPanel.tsx";
 import { QuipGame } from "./quip/QuipGame.tsx";
 import { RankingGame } from "./ranking/RankingGame.tsx";
 import { RowCardsGame } from "./rowcards/RowCardsGame.tsx";
+import { SoupGame } from "./soup/SoupGame.tsx";
 import { SpectrumGame } from "./spectrum/SpectrumGame.tsx";
+import { SplitGame } from "./split/SplitGame.tsx";
 import { UndercoverGame } from "./undercover/UndercoverGame.tsx";
 import { WagerGame } from "./wager/WagerGame.tsx";
+import { WordHuntGame } from "./wordhunt/WordHuntGame.tsx";
 
 export interface GameProps {
   /** Game-specific view, already filtered by the server for this player. */
@@ -34,6 +38,10 @@ export const gameComponents: Record<string, ComponentType<GameProps>> = {
   quip: QuipGame,
   oneclue: OneClueGame,
   rowcards: RowCardsGame,
+  soup: SoupGame,
+  split: SplitGame,
+  wordhunt: WordHuntGame,
+  crew: CrewGame,
   estimate: EstimateGame,
 };
 
@@ -51,4 +59,10 @@ export const customTopicFields: Record<string, CustomField[]> = {
     { key: "high", label: "10 分", placeholder: "10 分代表，如 最好吃" },
   ],
   oneclue: [{ key: "word", label: "目标词", placeholder: "一个常见名词" }],
+  soup: [
+    { key: "surface", label: "汤面", placeholder: "汤面：一个离奇的情境" },
+    { key: "solution", label: "汤底", placeholder: "汤底：完整真相（只有你看得到）" },
+  ],
+  split: [{ key: "text", label: "题目", placeholder: "带一个 ____ 的两难题，如 按下就得一百万，但____。你按吗？" }],
+  wordhunt: [{ key: "word", label: "秘密词", placeholder: "一个常见名词" }],
 };

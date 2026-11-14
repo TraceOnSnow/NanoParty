@@ -815,3 +815,32 @@ button.card-face:hover:not(:disabled) {
 .scale-card {
   font-size: 18px;
 }
+
+/* --- second batch --- */
+.soup-solution {
+  border-color: var(--accent);
+}
+button.link.ok {
+  color: var(--good);
+}
+.card-face.suit-red strong {
+  color: #ff7a7a;
+}
+.card-face.suit-blue strong {
+  color: #6ea8ff;
+}
+.card-face.suit-green strong {
+  color: #5fd39a;
+}
+.card-face.suit-yellow strong {
+  color: #ffd257;
+}
+.card-face.suit-trump {
+  border-color: var(--ai);
+}
+.card-face.suit-trump strong {
+  color: var(--ai);
+}
+.card-face.dim {
+  opacity: 0.35;
+}

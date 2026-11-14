@@ -3,6 +3,7 @@ import bluffContent from "./bluff/content.json" with { type: "json" };
 import { bluffGame } from "./bluff/game.ts";
 import categoriesContent from "./categories/content.json" with { type: "json" };
 import { categoriesGame } from "./categories/game.ts";
+import { crewGame } from "./crew/game.ts";
 import estimateContent from "./estimate/content.json" with { type: "json" };
 import { estimateGame } from "./estimate/game.ts";
 import mostlikelyContent from "./mostlikely/content.json" with { type: "json" };
@@ -14,24 +15,33 @@ import { quipGame } from "./quip/game.ts";
 import rankingContent from "./ranking/content.json" with { type: "json" };
 import { rankingGame } from "./ranking/game.ts";
 import { rowCardsGame } from "./rowcards/game.ts";
+import soupContent from "./soup/content.json" with { type: "json" };
+import { soupGame } from "./soup/game.ts";
 import spectrumContent from "./spectrum/content.json" with { type: "json" };
 import { spectrumGame } from "./spectrum/game.ts";
+import splitContent from "./split/content.json" with { type: "json" };
+import { splitGame } from "./split/game.ts";
 import undercoverContent from "./undercover/content.json" with { type: "json" };
 import { undercoverGame } from "./undercover/game.ts";
 import { wagerGame } from "./wager/game.ts";
+import { wordHuntGame } from "./wordhunt/game.ts";
 
 export * from "./bluff/game.ts";
 export * from "./categories/game.ts";
 export * from "./contentTypes.ts";
+export * from "./crew/game.ts";
 export * from "./estimate/game.ts";
 export * from "./mostlikely/game.ts";
 export * from "./oneclue/game.ts";
 export * from "./quip/game.ts";
 export * from "./ranking/game.ts";
 export * from "./rowcards/game.ts";
+export * from "./soup/game.ts";
 export * from "./spectrum/game.ts";
+export * from "./split/game.ts";
 export * from "./undercover/game.ts";
 export * from "./wager/game.ts";
+export * from "./wordhunt/game.ts";
 
 /** Content shipped with the repo; seeded into the content library at server start. */
 export interface BundledContent extends ContentItem {
@@ -55,10 +65,16 @@ export const games: Record<string, GameModule<any, any, any, any>> = {
   [quipGame.meta.id]: quipGame,
   [oneClueGame.meta.id]: oneClueGame,
   [rowCardsGame.meta.id]: rowCardsGame,
+  [soupGame.meta.id]: soupGame,
+  [splitGame.meta.id]: splitGame,
+  [wordHuntGame.meta.id]: wordHuntGame,
+  [crewGame.meta.id]: crewGame,
   [estimateGame.meta.id]: estimateGame,
 };
 
 export const bundledContent: BundledContent[] = [
+  ...(soupContent as BundledContent[]),
+  ...(splitContent as BundledContent[]),
   ...(spectrumContent as BundledContent[]),
   ...(undercoverContent as BundledContent[]),
   ...(categoriesContent as BundledContent[]),

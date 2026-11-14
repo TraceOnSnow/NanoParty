@@ -1,0 +1,146 @@
+[
+  {
+    "id": "split-001",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "有个按钮，按下就能立刻得到一百万，但____。你按吗？",
+      "yes": "按",
+      "no": "不按"
+    }
+  },
+  {
+    "id": "split-002",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你可以拥有任意一种超能力，但代价是____。你要吗？",
+      "yes": "要",
+      "no": "不要"
+    }
+  },
+  {
+    "id": "split-003",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你可以免费去任何地方旅行一个月，但____。你去吗？",
+      "yes": "去",
+      "no": "不去"
+    }
+  },
+  {
+    "id": "split-004",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你能永远不用上班还照拿工资，但____。你愿意吗？"
+    }
+  },
+  {
+    "id": "split-005",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你可以回到过去改变一件事，但____。你回去吗？",
+      "yes": "回去",
+      "no": "不回去"
+    }
+  },
+  {
+    "id": "split-006",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你可以吃到全世界最好吃的火锅，但____。你吃吗？",
+      "yes": "吃",
+      "no": "不吃"
+    }
+  },
+  {
+    "id": "split-007",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你能听懂所有动物说话，但____。你愿意吗？"
+    }
+  },
+  {
+    "id": "split-008",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你可以每天多睡两个小时，但____。你愿意吗？"
+    }
+  },
+  {
+    "id": "split-009",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你可以知道自己未来十年会发生的所有事，但____。你想知道吗？",
+      "yes": "想",
+      "no": "不想"
+    }
+  },
+  {
+    "id": "split-010",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你可以和喜欢的明星做一天朋友，但____。你愿意吗？"
+    }
+  },
+  {
+    "id": "split-011",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你可以永远不再生病，但____。你愿意吗？"
+    }
+  },
+  {
+    "id": "split-012",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你可以让手机永远满电，但____。你愿意吗？"
+    }
+  }
+]

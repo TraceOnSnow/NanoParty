@@ -62,7 +62,7 @@ export function PickPanel({ view, room, paused, act, fields }: GameProps & { fie
         {isPicker
           ? `轮到你出这一轮的题。挑一道，不满意可以一直换${pick.allowCustom ? "，也可以自己出" : ""}；想要特定主题可以在群聊里 @AI。`
           : pick.candidates === null
-            ? `${name(pick.picker)} 正在选题。你是本轮猜词者，看不到候选。`
+            ? `${name(pick.picker)} 正在选题，候选只有 TA 能看到。`
             : `${name(pick.picker)} 正在选这一轮的题…（想要特定主题可以在群聊里 @AI）`}
       </p>
       {pick.candidates !== null && (
