@@ -1,0 +1,178 @@
+[
+  {
+    "id": "who-001",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能在聚会上第一个睡着？"
+    }
+  },
+  {
+    "id": "who-002",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能把同一个笑话讲三遍？"
+    }
+  },
+  {
+    "id": "who-003",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能出门忘带手机？"
+    }
+  },
+  {
+    "id": "who-004",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能半夜突然想吃火锅？"
+    }
+  },
+  {
+    "id": "who-005",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能在恐怖片里第一个领盒饭？"
+    }
+  },
+  {
+    "id": "who-006",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能中了彩票却忘了兑奖？"
+    }
+  },
+  {
+    "id": "who-007",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能和外卖小哥聊成朋友？"
+    }
+  },
+  {
+    "id": "who-008",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能为了省十块钱多走两公里？"
+    }
+  },
+  {
+    "id": "who-009",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能在 KTV 霸占麦克风？"
+    }
+  },
+  {
+    "id": "who-010",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能迷路了还坚持说「我认识路」？"
+    }
+  },
+  {
+    "id": "who-011",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能养一只很奇怪的宠物？"
+    }
+  },
+  {
+    "id": "who-012",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能在重要场合笑场？"
+    }
+  },
+  {
+    "id": "who-013",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能把闹钟按掉继续睡？"
+    }
+  },
+  {
+    "id": "who-014",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能突然宣布要去环游世界？"
+    }
+  },
+  {
+    "id": "who-015",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能收藏一堆从来不用的东西？"
+    }
+  },
+  {
+    "id": "who-016",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能被小孩子问住？"
+    }
+  }
+]

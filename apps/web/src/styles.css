@@ -620,3 +620,144 @@ button.link {
   width: 90px;
   padding: 4px 8px;
 }
+
+/* --- shared game pieces --- */
+.small {
+  font-size: 13px;
+}
+.big {
+  font-size: 26px;
+  color: var(--accent);
+}
+.plus {
+  color: var(--good);
+}
+.tag.timer.urgent {
+  color: var(--bad);
+}
+.pick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+.pick {
+  padding: 14px;
+  font-size: 17px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.pick.picked {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.describe-list li.wrong {
+  border-color: var(--bad);
+}
+.chip.turn {
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+.scale-line {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+}
+.word-card.static {
+  cursor: default;
+  border: 1px solid var(--line);
+}
+.clue-chips .chip {
+  font-size: 18px;
+  padding: 6px 14px;
+}
+.word-log {
+  max-height: 260px;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: var(--panel);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.word .who {
+  color: var(--muted);
+  margin-right: 10px;
+  font-size: 13px;
+}
+.word .text {
+  font-size: 17px;
+}
+.word.invalid .text {
+  text-decoration: line-through;
+  color: var(--bad);
+}
+
+/* --- row card game --- */
+.game.wide {
+  max-width: 760px;
+}
+.card-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.card-row,
+.hand {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.card-face {
+  width: 58px;
+  height: 78px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 0;
+  flex: none;
+}
+.card-face strong {
+  font-size: 22px;
+}
+.card-face span {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+.card-face.p2 {
+  border-color: #5b8def;
+}
+.card-face.p3 {
+  border-color: var(--accent);
+}
+.card-face.p5 {
+  border-color: var(--bad);
+}
+.card-face.p5 span {
+  color: var(--bad);
+}
+.card-face.empty {
+  border-style: dashed;
+  background: none;
+}
+.card-face.danger {
+  border-style: dashed;
+  border-color: #6b3037;
+  color: #6b3037;
+  background: none;
+}
+.card-face.selected {
+  outline: 2px solid var(--accent);
+  transform: translateY(-6px);
+}
+button.card-face:hover:not(:disabled) {
+  transform: translateY(-4px);
+}

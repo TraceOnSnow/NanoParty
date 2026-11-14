@@ -1,0 +1,156 @@
+[
+  {
+    "id": "quip-001",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "给一家永远不会有人去的餐厅起个名字。"
+    }
+  },
+  {
+    "id": "quip-002",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "外星人来到地球后，说的第一句话是什么？"
+    }
+  },
+  {
+    "id": "quip-003",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "一个最没用的超能力是什么？"
+    }
+  },
+  {
+    "id": "quip-004",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "如果猫会说话，它每天早上第一句话是什么？"
+    }
+  },
+  {
+    "id": "quip-005",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "给「周一」写一句广告语。"
+    }
+  },
+  {
+    "id": "quip-006",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "最糟糕的生日礼物是什么？"
+    }
+  },
+  {
+    "id": "quip-007",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "在电梯里最不该说的一句话是什么？"
+    }
+  },
+  {
+    "id": "quip-008",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "如果要给月亮差评，理由是什么？"
+    }
+  },
+  {
+    "id": "quip-009",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "发明一个没人需要的 App，它是干什么的？"
+    }
+  },
+  {
+    "id": "quip-010",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "史上最敷衍的请假理由是什么？"
+    }
+  },
+  {
+    "id": "quip-011",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "给一部根本不好看的电影起个名字。"
+    }
+  },
+  {
+    "id": "quip-012",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "机器人统治世界后颁布的第一条法律是什么？"
+    }
+  },
+  {
+    "id": "quip-013",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "最不适合当闹钟铃声的声音是什么？"
+    }
+  },
+  {
+    "id": "quip-014",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "如果蔬菜会骂人，西兰花会骂什么？"
+    }
+  }
+]

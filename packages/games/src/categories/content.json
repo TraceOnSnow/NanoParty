@@ -1,0 +1,194 @@
+[
+  {
+    "id": "cat-001",
+    "version": 1,
+    "type": "category",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "name": "水果园",
+      "hint": "说一种水果"
+    }
+  },
+  {
+    "id": "cat-002",
+    "version": 1,
+    "type": "category",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "name": "动物园",
+      "hint": "说一种动物"
+    }
+  },
+  {
+    "id": "cat-003",
+    "version": 1,
+    "type": "category",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "name": "蔬菜园",
+      "hint": "说一种蔬菜"
+    }
+  },
+  {
+    "id": "cat-004",
+    "version": 1,
+    "type": "category",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "name": "城市园",
+      "hint": "说一个中国城市"
+    }
+  },
+  {
+    "id": "cat-005",
+    "version": 1,
+    "type": "category",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "name": "国家园",
+      "hint": "说一个国家"
+    }
+  },
+  {
+    "id": "cat-006",
+    "version": 1,
+    "type": "category",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "name": "饮料园",
+      "hint": "说一种饮料"
+    }
+  },
+  {
+    "id": "cat-007",
+    "version": 1,
+    "type": "category",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "name": "交通工具园",
+      "hint": "说一种交通工具"
+    }
+  },
+  {
+    "id": "cat-008",
+    "version": 1,
+    "type": "category",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "name": "运动园",
+      "hint": "说一项体育运动"
+    }
+  },
+  {
+    "id": "cat-009",
+    "version": 1,
+    "type": "category",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "name": "乐器园",
+      "hint": "说一种乐器"
+    }
+  },
+  {
+    "id": "cat-010",
+    "version": 1,
+    "type": "category",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "name": "职业园",
+      "hint": "说一种职业"
+    }
+  },
+  {
+    "id": "cat-011",
+    "version": 1,
+    "type": "category",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "name": "颜色园",
+      "hint": "说一种颜色"
+    }
+  },
+  {
+    "id": "cat-012",
+    "version": 1,
+    "type": "category",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "name": "家电园",
+      "hint": "说一种家用电器"
+    }
+  },
+  {
+    "id": "cat-013",
+    "version": 1,
+    "type": "category",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "name": "零食园",
+      "hint": "说一种零食"
+    }
+  },
+  {
+    "id": "cat-014",
+    "version": 1,
+    "type": "category",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "name": "花卉园",
+      "hint": "说一种花"
+    }
+  },
+  {
+    "id": "cat-015",
+    "version": 1,
+    "type": "category",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "name": "文具园",
+      "hint": "说一种文具"
+    }
+  },
+  {
+    "id": "cat-016",
+    "version": 1,
+    "type": "category",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "name": "早餐园",
+      "hint": "说一种早餐吃的东西"
+    }
+  }
+]

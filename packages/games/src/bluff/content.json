@@ -1,0 +1,152 @@
+[
+  {
+    "id": "fact-001",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "章鱼有____颗心脏。",
+      "answer": "三"
+    }
+  },
+  {
+    "id": "fact-002",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "北极熊的皮肤其实是____色的。",
+      "answer": "黑"
+    }
+  },
+  {
+    "id": "fact-003",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "在植物学分类上，香蕉属于____。",
+      "answer": "浆果"
+    }
+  },
+  {
+    "id": "fact-004",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "金星上的「一天」比它的「一年」____。",
+      "answer": "还要长",
+      "note": "自转一周比公转一周用时更长"
+    }
+  },
+  {
+    "id": "fact-005",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "按面积算，世界上最大的沙漠在____。",
+      "answer": "南极洲",
+      "note": "沙漠按降水量定义"
+    }
+  },
+  {
+    "id": "fact-006",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "长颈鹿的舌头通常是____色的。",
+      "answer": "蓝黑"
+    }
+  },
+  {
+    "id": "fact-007",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "蜗牛有成千上万颗细小的牙齿，长在它的____上。",
+      "answer": "舌头",
+      "note": "称为齿舌"
+    }
+  },
+  {
+    "id": "fact-008",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "英语里，一群乌鸦被称为 a ____ of crows。",
+      "answer": "murder"
+    }
+  },
+  {
+    "id": "fact-009",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "火烈鸟的羽毛呈粉红色，主要是因为____。",
+      "answer": "食物里的色素",
+      "note": "藻类和小虾中的类胡萝卜素"
+    }
+  },
+  {
+    "id": "fact-010",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "考拉一天中大部分时间都在____。",
+      "answer": "睡觉",
+      "note": "每天约 18–22 小时"
+    }
+  },
+  {
+    "id": "fact-011",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "密封良好的____几乎不会变质，可以保存很多年。",
+      "answer": "蜂蜜"
+    }
+  },
+  {
+    "id": "fact-012",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "人的指甲，____上的长得比较快。",
+      "answer": "手",
+      "note": "手指甲比脚趾甲长得快"
+    }
+  }
+]

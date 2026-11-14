@@ -1,0 +1,266 @@
+[
+  {
+    "id": "word-001",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "月亮"
+    }
+  },
+  {
+    "id": "word-002",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "火锅"
+    }
+  },
+  {
+    "id": "word-003",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "地铁"
+    }
+  },
+  {
+    "id": "word-004",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "雨伞"
+    }
+  },
+  {
+    "id": "word-005",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "钢琴"
+    }
+  },
+  {
+    "id": "word-006",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "恐龙"
+    }
+  },
+  {
+    "id": "word-007",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "冰箱"
+    }
+  },
+  {
+    "id": "word-008",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "沙漠"
+    }
+  },
+  {
+    "id": "word-009",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "医生"
+    }
+  },
+  {
+    "id": "word-010",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "足球"
+    }
+  },
+  {
+    "id": "word-011",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "蛋糕"
+    }
+  },
+  {
+    "id": "word-012",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "图书馆"
+    }
+  },
+  {
+    "id": "word-013",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "闹钟"
+    }
+  },
+  {
+    "id": "word-014",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "熊猫"
+    }
+  },
+  {
+    "id": "word-015",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "火山"
+    }
+  },
+  {
+    "id": "word-016",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "口罩"
+    }
+  },
+  {
+    "id": "word-017",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "风筝"
+    }
+  },
+  {
+    "id": "word-018",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "奶茶"
+    }
+  },
+  {
+    "id": "word-019",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "长城"
+    }
+  },
+  {
+    "id": "word-020",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "外卖"
+    }
+  },
+  {
+    "id": "word-021",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "牙刷"
+    }
+  },
+  {
+    "id": "word-022",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "彩虹"
+    }
+  },
+  {
+    "id": "word-023",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "相机"
+    }
+  },
+  {
+    "id": "word-024",
+    "version": 1,
+    "type": "guess-word",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "春节"
+    }
+  }
+]

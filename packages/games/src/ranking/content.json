@@ -1,0 +1,184 @@
+[
+  {
+    "id": "scn-001",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一种食物",
+      "low": "最难吃",
+      "high": "最好吃"
+    }
+  },
+  {
+    "id": "scn-002",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一件周末会做的事",
+      "low": "最无聊",
+      "high": "最有趣"
+    }
+  },
+  {
+    "id": "scn-003",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一种动物",
+      "low": "最不危险",
+      "high": "最危险"
+    }
+  },
+  {
+    "id": "scn-004",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一份工作",
+      "low": "最轻松",
+      "high": "最辛苦"
+    }
+  },
+  {
+    "id": "scn-005",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一件礼物",
+      "low": "最敷衍",
+      "high": "最用心"
+    }
+  },
+  {
+    "id": "scn-006",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一个迟到的理由",
+      "low": "最离谱",
+      "high": "最合理"
+    }
+  },
+  {
+    "id": "scn-007",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一种交通方式",
+      "low": "最慢",
+      "high": "最快"
+    }
+  },
+  {
+    "id": "scn-008",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一样东西",
+      "low": "最便宜",
+      "high": "最贵"
+    }
+  },
+  {
+    "id": "scn-009",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一件事",
+      "low": "最不需要勇气",
+      "high": "最需要勇气"
+    }
+  },
+  {
+    "id": "scn-010",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一种天气",
+      "low": "最讨厌",
+      "high": "最喜欢"
+    }
+  },
+  {
+    "id": "scn-011",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一个超能力",
+      "low": "最没用",
+      "high": "最厉害"
+    }
+  },
+  {
+    "id": "scn-012",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一种声音",
+      "low": "最安静",
+      "high": "最吵"
+    }
+  },
+  {
+    "id": "scn-013",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一个地方",
+      "low": "最不想去",
+      "high": "最想去"
+    }
+  },
+  {
+    "id": "scn-014",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一种味道",
+      "low": "最难闻",
+      "high": "最好闻"
+    }
+  }
+]
