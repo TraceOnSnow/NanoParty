@@ -3,6 +3,7 @@
  * Client -> server payloads are validated with zod on the server.
  */
 import { z } from "zod";
+import type { CanvasView } from "./canvas.ts";
 import type { GameMeta, PlayerId } from "./game.ts";
 
 export const NICKNAME_MAX = 20;
@@ -69,6 +70,14 @@ export const commandSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("endSession") }),
   z.object({ type: z.literal("rotateInvite") }),
   z.object({ type: z.literal("removeMember"), playerId: z.string() }),
+  /** Response to a Canvas interaction: text (collect), option id (choose) or approval (confirm). */
+  z.object({
+    type: z.literal("respond"),
+    interactionId: z.string(),
+    value: z.union([z.string().max(80), z.boolean()]),
+  }),
+  /** Host: close an open interaction with the responses received so far, or dismiss a closed one. */
+  z.object({ type: z.literal("closeInteraction"), interactionId: z.string() }),
 ]);
 export type Command = z.infer<typeof commandSchema>;
 
@@ -133,6 +142,7 @@ export interface RoomView {
   /** Game suggestion made by the AI host; only the host can act on it. */
   suggestion: { gameId: string; reason: string } | null;
   ai: AiStatus;
+  canvas: CanvasView;
 }
 
 export interface ChatMessageView {

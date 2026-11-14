@@ -45,7 +45,7 @@ export async function startApp(config: Config, overrides: AppOverrides = {}): Pr
               refusalFallback: config.ai.refusalFallback,
             })
           : null;
-  const agent = new AgentService(model, db, config.ai);
+  const agent = new AgentService(model, db, config.ai, config.ai.mock ? "模拟" : config.ai.model);
 
   const manager = new RoomManager({ db, content, agent });
 

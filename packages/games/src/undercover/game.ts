@@ -22,6 +22,8 @@ export const POINTS_CIVILIAN_WIN = 2;
 export const POINTS_UNDERCOVER_WIN = 4;
 
 const payloadSchema = z.object({ a: z.string(), b: z.string() });
+/** Payload shape of this game's content type (used to validate imported and generated content). */
+export const undercoverContentSchema = payloadSchema;
 
 const configSchema = z.object({
   /** Number of games (局) in this segment. 0 = keep going until the host ends it. */
@@ -314,6 +316,7 @@ export const undercoverGame = defineGame<UndercoverState, UndercoverAction, Unde
   // Not exposed before the game is over: the id could be used to look the words up.
   currentContentId: (state) => (state.phase === "gameOver" ? state.words.contentId : null),
 
+  atSafePoint: (state) => state.phase === "result" || state.phase === "gameOver",
   deadline: (state) => (state.phase === "describe" || state.phase === "vote" ? state.deadlineAt : null),
 
   onTimeout(state, ctx) {

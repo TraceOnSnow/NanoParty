@@ -761,3 +761,57 @@ button.link {
 button.card-face:hover:not(:disabled) {
   transform: translateY(-4px);
 }
+
+/* --- dynamic canvas --- */
+.canvas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+  border-color: var(--ai);
+}
+.canvas.confirm {
+  border-color: var(--accent);
+}
+.canvas-queued {
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+}
+.topic-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.scale-card {
+  font-size: 18px;
+}
+
+/* --- dynamic canvas --- */
+.canvas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+  border-color: var(--ai);
+}
+.canvas.confirm {
+  border-color: var(--accent);
+}
+.canvas-queued {
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+}
+.topic-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.scale-card {
+  font-size: 18px;
+}

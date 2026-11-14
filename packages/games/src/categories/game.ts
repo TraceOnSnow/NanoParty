@@ -10,6 +10,8 @@ export const WORD_MAX = 20;
 export const POINTS_ROUND_WIN = 2;
 
 const payload = z.object({ name: z.string(), hint: z.string().optional() });
+/** Payload shape of this game's content type (used to validate imported and generated content). */
+export const categoriesContentSchema = payload;
 const configSchema = z.object({
   rounds: z.number().int().min(0).max(30).default(3),
   turnSeconds: z.number().int().min(0).max(600).default(20),
@@ -210,6 +212,7 @@ export const categoriesGame = defineGame<CategoriesState, Action, CategoriesView
     apply: (state, ctx) => advance(state, ctx),
   },
   currentContentId: (state) => (state.phase === "finished" ? null : state.category.contentId),
+  atSafePoint: (state) => state.phase === "roundOver",
   deadline: (state) => (state.phase === "playing" ? state.deadlineAt : null),
   onTimeout: (state, ctx) =>
     state.phase === "playing" ? eliminate(state, state.current, "timeout", ctx) : { ok: true, state },

@@ -195,6 +195,7 @@ export const wagerGame = defineGame<WagerState, Action, WagerView, Config>({
     apply: (state, ctx) => advance(state, ctx),
   },
   currentContentId: (state) => (state.phase === "finished" ? null : state.question.contentId),
+  atSafePoint: (state) => state.phase === "reveal",
   deadline: (state) => (state.phase === "guess" || state.phase === "bet" ? state.deadlineAt : null),
   onTimeout(state, ctx) {
     if (state.phase === "guess") return beginBet(state, ctx);

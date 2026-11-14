@@ -1,5 +1,6 @@
 import type { Actor, ContentItem, GameContext } from "@apr/shared";
 import { describe, expect, it } from "vitest";
+import { poolCtx } from "../testkit.ts";
 import { undercoverGame as game, type UndercoverState, undercoverCountFor } from "./game.ts";
 
 const item = (n: number): ContentItem => ({
@@ -12,8 +13,10 @@ const item = (n: number): ContentItem => ({
 
 /** random() = 0.9 keeps the shuffle order and makes word `b` the civilians' word; undercover = first player. */
 function makeCtx(players: string[], count = 5): GameContext {
-  const pool = Array.from({ length: count }, (_, i) => item(i + 1));
-  return { now: 1000, random: () => 0.9, players, drawContent: () => pool.shift() ?? null };
+  return poolCtx(
+    players,
+    Array.from({ length: count }, (_, i) => item(i + 1)),
+  );
 }
 
 const as = (playerId: string, isHost = false): Actor => ({ kind: "player", playerId, isHost });

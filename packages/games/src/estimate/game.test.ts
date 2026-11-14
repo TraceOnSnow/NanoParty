@@ -1,5 +1,6 @@
 import type { Actor, ContentItem, GameContext } from "@apr/shared";
 import { describe, expect, it } from "vitest";
+import { poolCtx } from "../testkit.ts";
 import { type EstimateState, estimateGame as game } from "./game.ts";
 
 const item = (n: number, answer: number): ContentItem => ({
@@ -11,8 +12,7 @@ const item = (n: number, answer: number): ContentItem => ({
 });
 
 function makeCtx(players: string[], items: ContentItem[], now = 1000): GameContext {
-  const pool = [...items];
-  return { now, random: () => 0.5, players, drawContent: () => pool.shift() ?? null };
+  return poolCtx(players, [...items], () => 0.5, now);
 }
 
 const host: Actor = { kind: "player", playerId: "a", isHost: true };

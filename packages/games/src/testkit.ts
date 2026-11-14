@@ -2,14 +2,35 @@
 import type { Actor, ContentItem, GameContext, GameModule, GameResult } from "@apr/shared";
 
 export function makeCtx(players: string[], payloads: unknown[], random: () => number = () => 0.9): GameContext {
-  const pool: ContentItem[] = payloads.map((payload, i) => ({
-    id: `c${i + 1}`,
-    version: 1,
-    type: "t",
-    theme: "t",
-    payload,
-  }));
-  return { now: 1000, random, players, drawContent: () => pool.shift() ?? null };
+  return poolCtx(
+    players,
+    payloads.map((payload, i) => ({ id: `c${i + 1}`, version: 1, type: "t", theme: "t", payload })),
+    random,
+  );
+}
+
+/** Context over an explicit content pool, mirroring the runtime's draw / peek / consume behaviour. */
+export function poolCtx(
+  players: string[],
+  pool: ContentItem[],
+  random: () => number = () => 0.9,
+  now = 1000,
+): GameContext {
+  return {
+    now,
+    random,
+    players,
+    drawContent: () => pool.shift() ?? null,
+    peekContent: (count) => {
+      const items = pool.splice(0, count);
+      pool.push(...items);
+      return items;
+    },
+    consumeContent: (id) => {
+      const index = pool.findIndex((item) => item.id === id);
+      if (index >= 0) pool.splice(index, 1);
+    },
+  };
 }
 
 export const as = (playerId: string, isHost = false): Actor => ({ kind: "player", playerId, isHost });

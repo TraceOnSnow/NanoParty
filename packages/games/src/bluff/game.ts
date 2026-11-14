@@ -11,6 +11,8 @@ export const POINTS_TRUTH = 2;
 export const POINTS_PER_FOOLED = 1;
 
 const payload = z.object({ text: z.string(), answer: z.string(), note: z.string().optional() });
+/** Payload shape of this game's content type (used to validate imported and generated content). */
+export const bluffContentSchema = payload;
 const configSchema = z.object({
   rounds: z.number().int().min(0).max(30).default(5),
   writeSeconds: z.number().int().min(0).max(600).default(90),
@@ -211,6 +213,7 @@ export const bluffGame = defineGame<BluffState, Action, BluffView, Config>({
     apply: (state, ctx) => advance(state, ctx),
   },
   currentContentId: (state) => (state.phase === "finished" ? null : state.fact.contentId),
+  atSafePoint: (state) => state.phase === "reveal",
   deadline: (state) => (state.phase === "write" || state.phase === "pick" ? state.deadlineAt : null),
   onTimeout(state, ctx) {
     if (state.phase === "write") return beginPick(state, ctx);

@@ -10,6 +10,8 @@ export const rooms = pgTable("rooms", {
   /** Random invite credential. Rotating it revokes the old link (blocks new joins only). */
   inviteToken: text("invite_token").notNull().unique(),
   hostPlayerId: text("host_player_id").notNull(),
+  /** The AI host's own short note about what it is in the middle of organising. */
+  agentNote: text("agent_note"),
   createdAt: createdAt(),
 });
 
@@ -153,6 +155,30 @@ export const contentFeedback = pgTable("content_feedback", {
   kind: text("kind", { enum: ["not-interested", "too-hard", "unclear", "wrong-answer", "skipped"] }).notNull(),
   createdAt: createdAt(),
 });
+
+/**
+ * Canvas interaction: a piece of UI the AI host (or the program) put on the main panel,
+ * the responses to it and its structured result. Survives restarts.
+ */
+export const interactions = pgTable(
+  "interactions",
+  {
+    id: text("id").primaryKey(),
+    roomId: text("room_id")
+      .notNull()
+      .references(() => rooms.id, { onDelete: "cascade" }),
+    sessionId: text("session_id").notNull(),
+    createdBy: text("created_by", { enum: ["agent", "system"] }).notNull(),
+    /** queued = waiting for a safe point; open = on screen; closed = has a result. */
+    status: text("status", { enum: ["queued", "open", "closed", "cancelled"] }).notNull(),
+    spec: jsonb("spec").notNull(),
+    responses: jsonb("responses").notNull().default({}),
+    result: jsonb("result"),
+    createdAt: createdAt(),
+    closedAt: timestamp("closed_at", { withTimezone: true }),
+  },
+  (t) => [index("interactions_room_idx").on(t.roomId, t.status)],
+);
 
 /** One row per model call, for usage observation and budget enforcement. */
 export const aiCalls = pgTable(

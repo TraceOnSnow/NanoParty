@@ -10,6 +10,8 @@ export const CLUE_WORD_MAX = 10;
 export const POINTS_TEAM_CORRECT = 1;
 
 const payload = z.object({ word: z.string() });
+/** Payload shape of this game's content type (used to validate imported and generated content). */
+export const oneclueContentSchema = payload;
 const configSchema = z.object({
   rounds: z.number().int().min(0).max(30).default(6),
   clueSeconds: z.number().int().min(0).max(600).default(60),
@@ -229,6 +231,7 @@ export const oneClueGame = defineGame<OneClueState, Action, OneClueView, Config>
   },
   // Exposed only after the reveal: the content id identifies the secret word.
   currentContentId: (state) => (state.phase === "reveal" ? state.word.contentId : null),
+  atSafePoint: (state) => state.phase === "reveal",
   deadline: (state) => (state.phase === "clue" || state.phase === "guess" ? state.deadlineAt : null),
   onTimeout(state, ctx) {
     if (state.phase === "clue") return beginGuess(state, ctx);

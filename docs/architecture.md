@@ -92,6 +92,10 @@
 - **更换邀请链接**：旧令牌立即失效，只影响新加入者。
 - **移除成员**：仅限大厅；写入 `players.removed_at`，该玩家的会话令牌随即失效并断开连接。
 
+## Dynamic Canvas
+
+见 [ADR 0005](adr/0005-dynamic-canvas.md)。代码：`packages/shared/src/canvas.ts`（原语规格）、`apps/server/src/rooms/canvas.ts`（结果计算与视图）、`RoomRuntime` 的 canvas 部分（排队、回应、效果）、`AgentService` 的工具、`apps/web/src/components/CanvasPanel.tsx`。
+
 ## 已知的未实现项
 
-主要包括：题库导入与主题选择、AI 集体选择与偏好记录、题目生成后台任务、成绩修正/已结算题作废流程、房主离线时的控制权恢复、真实模型联调、管理端。
+主要包括：真实模型联调（Canvas 编排目前只用脚本化模型验证过）、题库导入与主题选择、偏好记录、其它游戏的选题阶段、题目生成后台任务、成绩修正/已结算题作废流程、房主离线时的控制权恢复、真实模型联调、管理端。

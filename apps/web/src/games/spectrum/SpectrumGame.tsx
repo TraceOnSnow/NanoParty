@@ -6,9 +6,10 @@ import { useAct, useCountdown } from "../shared.ts";
 interface SpectrumView {
   round: number;
   totalRounds: number;
-  phase: "clue" | "guessing" | "reveal" | "finished";
+  phase: "pick" | "clue" | "guessing" | "reveal" | "finished";
   participants: string[];
   giver: string;
+  candidates: { left: string; right: string }[];
   scale: { left: string; right: string };
   target: number | null;
   clue: string | null;
@@ -42,6 +43,67 @@ function Scale({ left, right, markers }: { left: string; right: string; markers:
         <span>{left}</span>
         <span>{right}</span>
       </div>
+    </div>
+  );
+}
+
+function TopicPicker(props: {
+  v: SpectrumView;
+  isGiver: boolean;
+  giverName: string;
+  paused: boolean;
+  send(action: object): Promise<boolean>;
+}) {
+  const { v, isGiver, paused, send } = props;
+  const [left, setLeft] = useState("");
+  const [right, setRight] = useState("");
+  const [own, setOwn] = useState(false);
+  return (
+    <div className="topic-picker">
+      <p className="notice">
+        {isGiver
+          ? "你是本轮提示者，先选一条刻度。不满意可以一直换，也可以自己出一条，或者在群聊里 @AI 要某个主题的题。"
+          : `${props.giverName} 正在选这一轮的刻度…（想要特定主题可以在群聊里 @AI）`}
+      </p>
+      <div className="pick-grid">
+        {v.candidates.map((c, i) => (
+          <button
+            key={`${c.left}-${c.right}`}
+            type="button"
+            className="pick scale-card"
+            disabled={!isGiver || paused}
+            onClick={() => send({ type: "choose", index: i })}
+          >
+            {c.left} <span className="muted">↔</span> {c.right}
+          </button>
+        ))}
+        {v.candidates.length === 0 && <p className="muted">题库里暂时没有候选，自己出一条吧。</p>}
+      </div>
+      {isGiver && (
+        <div className="host-row">
+          <button type="button" disabled={paused} onClick={() => send({ type: "refresh" })}>
+            换一批
+          </button>
+          <button type="button" disabled={paused} onClick={() => setOwn((o) => !o)}>
+            {own ? "收起" : "自己出题"}
+          </button>
+        </div>
+      )}
+      {isGiver && own && (
+        <form
+          className="answer-row"
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (left.trim() && right.trim()) void send({ type: "custom", left: left.trim(), right: right.trim() });
+          }}
+        >
+          <input value={left} onChange={(e) => setLeft(e.target.value)} maxLength={12} placeholder="一端，如 冷" />
+          <input value={right} onChange={(e) => setRight(e.target.value)} maxLength={12} placeholder="另一端，如 热" />
+          <button type="submit" className="primary" disabled={paused}>
+            用这条
+          </button>
+        </form>
+      )}
     </div>
   );
 }
@@ -91,7 +153,11 @@ export function SpectrumGame({ view, room, paused, act }: GameProps) {
         {seconds != null && v.phase !== "reveal" && <span className="tag timer">{seconds}s</span>}
       </div>
 
-      <Scale left={v.scale.left} right={v.scale.right} markers={markers} />
+      {v.phase === "pick" ? (
+        <TopicPicker v={v} isGiver={isGiver} giverName={name(v.giver)} paused={paused} send={withRound} />
+      ) : (
+        <Scale left={v.scale.left} right={v.scale.right} markers={markers} />
+      )}
       {v.clue && (
         <p className="clue">
           <span className="muted">{name(v.giver)} 的提示：</span>

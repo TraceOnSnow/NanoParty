@@ -7,6 +7,8 @@ import { z } from "zod";
 import { drawPayload, groupVotes, roundsOption, secondsOption, timer } from "../util.ts";
 
 const payload = z.object({ text: z.string() });
+/** Payload shape of this game's content type (used to validate imported and generated content). */
+export const mostlikelyContentSchema = payload;
 const configSchema = z.object({
   rounds: z.number().int().min(0).max(30).default(8),
   voteSeconds: z.number().int().min(0).max(600).default(45),
@@ -160,6 +162,7 @@ export const mostLikelyGame = defineGame<MostLikelyState, Action, MostLikelyView
     apply: (state, ctx) => advance(state, ctx),
   },
   currentContentId: (state) => (state.phase === "finished" ? null : state.prompt.contentId),
+  atSafePoint: (state) => state.phase === "reveal",
   deadline: (state) => (state.phase === "vote" ? state.deadlineAt : null),
   onTimeout: (state) => (state.phase === "vote" ? settle(state) : { ok: true, state }),
   onResume(state, ctx) {

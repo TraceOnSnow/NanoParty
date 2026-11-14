@@ -8,6 +8,8 @@ import { drawPayload, groupVotes, roundsOption, secondsOption, shuffle, timer } 
 
 export const QUIP_MAX = 60;
 const payload = z.object({ text: z.string() });
+/** Payload shape of this game's content type (used to validate imported and generated content). */
+export const quipContentSchema = payload;
 const configSchema = z.object({
   rounds: z.number().int().min(0).max(30).default(5),
   writeSeconds: z.number().int().min(0).max(600).default(90),
@@ -202,6 +204,7 @@ export const quipGame = defineGame<QuipState, Action, QuipView, Config>({
     apply: (state, ctx) => advance(state, ctx),
   },
   currentContentId: (state) => (state.phase === "finished" ? null : state.prompt.contentId),
+  atSafePoint: (state) => state.phase === "reveal",
   deadline: (state) => (state.phase === "write" || state.phase === "vote" ? state.deadlineAt : null),
   onTimeout(state, ctx) {
     if (state.phase === "write") return beginVote(state, ctx);

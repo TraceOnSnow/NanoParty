@@ -229,6 +229,7 @@ export const rowCardsGame = defineGame<RowCardsState, Action, RowCardsView, Conf
     }
   },
 
+  atSafePoint: (state) => state.phase === "handOver",
   deadline: (state) => (state.phase === "choose" ? state.deadlineAt : null),
   onTimeout: (state, ctx) => (state.phase === "choose" ? forceTrick(state, ctx) : { ok: true, state }),
   onResume(state, ctx) {

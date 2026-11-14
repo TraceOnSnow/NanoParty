@@ -11,6 +11,8 @@ export const POINTS_PERFECT = 3;
 export const POINTS_ONE_SLIP = 1;
 
 const payload = z.object({ text: z.string(), low: z.string(), high: z.string() });
+/** Payload shape of this game's content type (used to validate imported and generated content). */
+export const rankingContentSchema = payload;
 const configSchema = z.object({
   rounds: z.number().int().min(0).max(30).default(4),
   writeSeconds: z.number().int().min(0).max(600).default(120),
@@ -224,6 +226,7 @@ export const rankingGame = defineGame<RankingState, Action, RankingView, Config>
     apply: (state, ctx) => advance(state, ctx),
   },
   currentContentId: (state) => (state.phase === "finished" ? null : state.scenario.contentId),
+  atSafePoint: (state) => state.phase === "reveal",
   deadline: (state) => (state.phase === "write" || state.phase === "order" ? state.deadlineAt : null),
   onTimeout(state, ctx) {
     if (state.phase === "write") return beginOrder(state, ctx);

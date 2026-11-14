@@ -1,5 +1,6 @@
 import type { Actor, ContentItem, GameContext } from "@apr/shared";
 import { describe, expect, it } from "vitest";
+import { poolCtx } from "../testkit.ts";
 import { spectrumGame as game, pointsFor, type SpectrumState } from "./game.ts";
 
 const item = (n: number): ContentItem => ({
@@ -11,19 +12,30 @@ const item = (n: number): ContentItem => ({
 });
 
 function makeCtx(players: string[], count = 5, rand = 0.5): GameContext {
-  const pool = Array.from({ length: count }, (_, i) => item(i + 1));
-  return { now: 1000, random: () => rand, players, drawContent: () => pool.shift() ?? null };
+  return poolCtx(
+    players,
+    Array.from({ length: count }, (_, i) => item(i + 1)),
+    () => rand,
+  );
 }
 
 const as = (playerId: string, isHost = false): Actor => ({ kind: "player", playerId, isHost });
 const host = as("a", true);
-const cfg = { rounds: 3, clueSeconds: 60, guessSeconds: 30 };
+const cfg = { rounds: 3, pickSeconds: 45, clueSeconds: 60, guessSeconds: 30 };
 
-function start(ctx: GameContext, config = cfg): SpectrumState {
+/** A fresh game, still in the topic-pick phase. */
+function open(ctx: GameContext, config = cfg): SpectrumState {
   const r = game.setup(config, ctx);
   if (!r.ok) throw new Error(r.error);
   return r.state;
 }
+/** The clue giver takes the first candidate, which formally starts the round. */
+function pick(s: SpectrumState, ctx: GameContext): SpectrumState {
+  const r = game.apply(s, { type: "choose", round: s.round, index: 0 }, as(s.giver), ctx);
+  if (!r.ok) throw new Error(r.error);
+  return r.state;
+}
+const start = (ctx: GameContext, config = cfg) => pick(open(ctx, config), ctx);
 const must = (r: ReturnType<typeof game.apply>) => {
   if (!r.ok) throw new Error(r.error);
   return r;
@@ -88,6 +100,7 @@ describe("spectrum game", () => {
     let s = start(ctx);
     const givers = [s.giver];
     for (let round = 1; round <= 3; round++) {
+      if (round > 1) s = pick(s, ctx);
       s = must(game.apply(s, { type: "clue", round, text: "提示" }, as(s.giver), ctx)).state;
       s = must(game.apply(s, { type: "reveal", round }, host, ctx)).state;
       if (round === 1) ctx.players = ["a", "b", "c"];
@@ -119,13 +132,81 @@ describe("spectrum game", () => {
     expect(resumed?.deadlineAt).toBe(130_000);
   });
 
-  it("ends cleanly when the content runs out", () => {
-    const ctx = makeCtx(["a", "b"], 1);
-    let s = start(ctx, { rounds: 0, clueSeconds: 0, guessSeconds: 0 });
-    s = must(game.apply(s, { type: "clue", round: 1, text: "提示" }, as("a"), ctx)).state;
-    s = must(game.apply(s, { type: "guess", round: 1, value: 1 }, as("b"), ctx)).state;
-    const end = must(game.apply(s, { type: "next", round: 1 }, host, ctx));
-    expect(end.finished).toBe(true);
-    expect(end.state.endedBecause).toBe("no-content");
+  it("lets the clue giver choose, refresh without limit, or write a scale before the round starts", () => {
+    const ctx = makeCtx(["a", "b"], 7);
+    let s = open(ctx);
+    expect(s.phase).toBe("pick");
+    expect(game.view(s, "b").candidates).toEqual([
+      { left: "左1", right: "右1" },
+      { left: "左2", right: "右2" },
+      { left: "左3", right: "右3" },
+    ]);
+    // Picking is the giver's call, and it is not a skippable (started) round yet.
+    expect(game.apply(structuredClone(s), { type: "choose", round: 1, index: 0 }, as("b"), ctx).ok).toBe(false);
+    expect(game.apply(structuredClone(s), { type: "refresh", round: 1 }, as("b"), ctx).ok).toBe(false);
+    expect(game.apply(structuredClone(s), { type: "clue", round: 1, text: "太早" }, as("a"), ctx).ok).toBe(false);
+    expect(game.skip?.key(s)).toBeNull();
+    expect(game.atSafePoint?.(s)).toBe(true);
+
+    // Refreshing cycles through the pool and comes back around: effectively unlimited.
+    const seen: string[] = [];
+    for (let i = 0; i < 5; i++) {
+      s = must(game.apply(s, { type: "refresh", round: 1 }, as("a"), ctx)).state;
+      seen.push(s.candidates.map((c) => c.left).join(""));
+    }
+    expect(seen[0]).toBe("左4左5左6");
+    expect(new Set(seen).size).toBeGreaterThan(2);
+    expect(s.round).toBe(1);
+
+    const chosen = s.candidates[1];
+    s = must(game.apply(s, { type: "choose", round: 1, index: 1 }, as("a"), ctx)).state;
+    expect([s.phase, s.scale.left]).toEqual(["clue", chosen?.left]);
+    expect(game.skip?.key(s)).toBe("r1");
+    // Only the confirmed scale left the pool; the ones refreshed away are still available.
+    expect(ctx.peekContent(20)).toHaveLength(6);
+  });
+
+  it("accepts a player's own scale and reports it as contributed content", () => {
+    const ctx = makeCtx(["a", "b"], 0); // empty library: writing your own still works
+    const s = open(ctx);
+    expect(s.candidates).toEqual([]);
+    expect(game.apply(structuredClone(s), { type: "refresh", round: 1 }, as("a"), ctx).ok).toBe(false);
+    expect(game.apply(structuredClone(s), { type: "custom", round: 1, left: "甜", right: "甜" }, as("a"), ctx).ok).toBe(
+      false,
+    );
+    const r = must(game.apply(s, { type: "custom", round: 1, left: "青铜", right: "王者" }, as("a"), ctx));
+    expect([r.state.phase, r.state.scale]).toEqual(["clue", { contentId: null, left: "青铜", right: "王者" }]);
+    expect(r.contributed).toEqual([
+      { type: "spectrum", theme: "玩家自拟", payload: { left: "青铜", right: "王者" }, authorId: "a" },
+    ]);
+    expect(game.currentContentId?.(r.state)).toBeNull();
+  });
+
+  it("takes outside offers: now if still picking, otherwise at the next pick; picks time out to the first candidate", () => {
+    const ctx = makeCtx(["a", "b"], 5);
+    const offered = [
+      { id: "gen1", version: 1, type: "spectrum", theme: "英雄联盟", payload: { left: "脆皮", right: "坦克" } },
+      { id: "bad", version: 1, type: "spectrum", theme: "x", payload: { nope: true } },
+    ];
+    let s = open(ctx);
+    expect(game.offer?.(structuredClone(s), [offered[1] as (typeof offered)[0]], ctx).ok).toBe(false);
+    const now = game.offer?.(s, offered, ctx);
+    expect(now?.ok && now.state.candidates).toEqual([{ contentId: "gen1", left: "脆皮", right: "坦克" }]);
+    s = (now?.ok ? now.state : s) as SpectrumState;
+
+    const timedOut = game.onTimeout?.(structuredClone(s), ctx);
+    expect(timedOut?.ok && [timedOut.state.phase, timedOut.state.scale.left]).toEqual(["clue", "脆皮"]);
+
+    // Offered mid-round: kept for the next clue giver.
+    s = pick(s, ctx);
+    const later = game.offer?.(s, offered, ctx);
+    expect(later?.ok && [later.state.candidates, later.state.queued.length, later.message]).toEqual([
+      [],
+      1,
+      expect.stringContaining("下一轮"),
+    ]);
+    s = (later?.ok ? later.state : s) as SpectrumState;
+    s = must(game.apply(s, { type: "skip", round: 1 }, host, ctx)).state;
+    expect([s.round, s.phase, s.candidates.map((c) => c.left)]).toEqual([2, "pick", ["脆皮"]]);
   });
 });

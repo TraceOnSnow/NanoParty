@@ -24,6 +24,8 @@ const questionPayload = z.object({
   answer: z.number(),
   note: z.string().optional(),
 });
+/** Payload shape of this game's content type (used to validate imported and generated content). */
+export const estimateContentSchema = questionPayload;
 
 const configSchema = z.object({
   /** 0 = keep going until the host ends the game. */
@@ -234,6 +236,7 @@ export const estimateGame = defineGame<EstimateState, EstimateAction, EstimateVi
   },
   currentContentId: (state) => (state.phase === "finished" ? null : state.question.contentId),
 
+  atSafePoint: (state) => state.phase === "reveal",
   deadline: (state) => (state.phase === "answering" ? state.deadlineAt : null),
 
   onTimeout(state) {

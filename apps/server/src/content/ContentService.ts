@@ -6,9 +6,9 @@
  * (results saved here with their real source), and feedback-driven selection.
  * Game modules never see this service; the runtime hands them a synchronous `drawContent`.
  */
-import type { BundledContent } from "@apr/games";
+import { type BundledContent, contentTypes } from "@apr/games";
 import type { ContentItem, FeedbackKind } from "@apr/shared";
-import { and, eq, sql } from "drizzle-orm";
+import { and, eq, inArray, sql } from "drizzle-orm";
 import type { Db, Tx } from "../db/client.ts";
 import { contentFeedback, contentItems, contentUsage } from "../db/schema.ts";
 import { newId } from "../util/tokens.ts";
@@ -65,6 +65,60 @@ export class ContentService {
       [items[i], items[j]] = [items[j] as ContentItem, items[i] as ContentItem];
     }
     return items;
+  }
+
+  /**
+   * Adds new content to the library after validating each payload against its content type.
+   * `source` says truthfully where it came from (a player, a model). New content is always
+   * "unverified". Returns the saved items and the reasons for any that were rejected.
+   */
+  async save(
+    exec: Db | Tx,
+    items: { type: string; theme: string; payload: unknown }[],
+    source: string,
+  ): Promise<{ saved: ContentItem[]; rejected: string[] }> {
+    const saved: ContentItem[] = [];
+    const rejected: string[] = [];
+    for (const [index, item] of items.entries()) {
+      const def = contentTypes[item.type];
+      if (!def) {
+        rejected.push(`第 ${index + 1} 条：未知的内容类型 ${item.type}`);
+        continue;
+      }
+      const parsed = def.schema.safeParse(item.payload);
+      if (!parsed.success) {
+        const why = parsed.error.issues.map((i) => `${i.path.join(".") || "payload"} ${i.message}`).join("；");
+        rejected.push(`第 ${index + 1} 条格式不对：${why}`);
+        continue;
+      }
+      saved.push({
+        id: newId("cnt"),
+        version: 1,
+        type: item.type,
+        theme: item.theme.slice(0, 40) || "未分类",
+        payload: parsed.data,
+      });
+    }
+    if (saved.length > 0) {
+      await exec.insert(contentItems).values(saved.map((i) => ({ ...i, source, verification: "unverified" as const })));
+    }
+    return { saved, rejected };
+  }
+
+  /** Latest version of each requested item that exists and is active. */
+  async getByIds(ids: string[]): Promise<ContentItem[]> {
+    if (ids.length === 0) return [];
+    const rows = await this.db
+      .select()
+      .from(contentItems)
+      .where(and(inArray(contentItems.id, ids), eq(contentItems.status, "active")));
+    const latest = new Map<string, ContentItem>();
+    for (const r of rows) {
+      if ((latest.get(r.id)?.version ?? 0) < r.version) {
+        latest.set(r.id, { id: r.id, version: r.version, type: r.type, theme: r.theme, payload: r.payload });
+      }
+    }
+    return ids.map((id) => latest.get(id)).filter((i): i is ContentItem => i !== undefined);
   }
 
   /** Stores a player's lightweight feedback on a content item (used later for selection and revision). */

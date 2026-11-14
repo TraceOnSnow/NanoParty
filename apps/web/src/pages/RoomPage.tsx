@@ -1,6 +1,7 @@
 import type { Ack } from "@apr/shared";
 import { useState } from "react";
 import { clearSession, loadSession } from "../api.ts";
+import { CanvasPanel } from "../components/CanvasPanel.tsx";
 import { ChatPanel } from "../components/ChatPanel.tsx";
 import { GameToolbar } from "../components/GameToolbar.tsx";
 import { Lobby } from "../components/Lobby.tsx";
@@ -81,6 +82,7 @@ export function RoomPage({ roomId }: { roomId: string }) {
             )}
           </div>
         )}
+        <CanvasPanel view={view} command={(c) => run(conn.command(c))} />
         {segment ? (
           Game ? (
             <>

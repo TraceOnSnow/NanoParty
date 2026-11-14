@@ -22,6 +22,7 @@ import { wagerGame } from "./wager/game.ts";
 
 export * from "./bluff/game.ts";
 export * from "./categories/game.ts";
+export * from "./contentTypes.ts";
 export * from "./estimate/game.ts";
 export * from "./mostlikely/game.ts";
 export * from "./oneclue/game.ts";
