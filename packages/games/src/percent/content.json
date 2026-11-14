@@ -1,0 +1,222 @@
+[
+  {
+    "id": "yesno-001",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你今天喝过咖啡或茶吗？"
+    }
+  },
+  {
+    "id": "yesno-002",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你曾经在考试里睡着过吗？"
+    }
+  },
+  {
+    "id": "yesno-003",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你现在的手机壳是深色的吗？"
+    }
+  },
+  {
+    "id": "yesno-004",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你会游泳吗？"
+    }
+  },
+  {
+    "id": "yesno-005",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你昨晚 12 点以后才睡吗？"
+    }
+  },
+  {
+    "id": "yesno-006",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你吃香菜吗？"
+    }
+  },
+  {
+    "id": "yesno-007",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你养过宠物吗？"
+    }
+  },
+  {
+    "id": "yesno-008",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你坐过过山车吗？"
+    }
+  },
+  {
+    "id": "yesno-009",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你今天出过门吗？"
+    }
+  },
+  {
+    "id": "yesno-010",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你相信星座吗？"
+    }
+  },
+  {
+    "id": "yesno-011",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你曾经把手机掉进过水里吗？"
+    }
+  },
+  {
+    "id": "yesno-012",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你甜豆花党吗？"
+    }
+  },
+  {
+    "id": "yesno-013",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你会骑自行车不扶把吗？"
+    }
+  },
+  {
+    "id": "yesno-014",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你去过三个以上的国家吗？"
+    }
+  },
+  {
+    "id": "yesno-015",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你这周点过外卖吗？"
+    }
+  },
+  {
+    "id": "yesno-016",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你小时候学过乐器吗？"
+    }
+  },
+  {
+    "id": "yesno-017",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你曾经在公共场合认错过人吗？"
+    }
+  },
+  {
+    "id": "yesno-018",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你早上会赖床超过十分钟吗？"
+    }
+  },
+  {
+    "id": "yesno-019",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你看过同一部电影三遍以上吗？"
+    }
+  },
+  {
+    "id": "yesno-020",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你现在手边有水杯吗？"
+    }
+  }
+]

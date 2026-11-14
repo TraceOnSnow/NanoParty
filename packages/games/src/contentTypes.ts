@@ -9,11 +9,14 @@ import { categoriesContentSchema } from "./categories/game.ts";
 import { estimateContentSchema } from "./estimate/game.ts";
 import { mostlikelyContentSchema } from "./mostlikely/game.ts";
 import { oneclueContentSchema } from "./oneclue/game.ts";
+import { yesnoContentSchema } from "./percent/game.ts";
+import { pollContentSchema } from "./pollmine/game.ts";
 import { quipContentSchema } from "./quip/game.ts";
 import { rankingContentSchema } from "./ranking/game.ts";
 import { soupContentSchema } from "./soup/game.ts";
 import { spectrumContentSchema } from "./spectrum/game.ts";
 import { splitContentSchema } from "./split/game.ts";
+import { tabooContentSchema } from "./taboo/game.ts";
 import { undercoverContentSchema } from "./undercover/game.ts";
 
 export interface ContentTypeDef {
@@ -75,5 +78,20 @@ export const contentTypes: Record<string, ContentTypeDef> = {
   "guess-word": {
     schema: oneclueContentSchema,
     guide: '不撞词的目标词：{"word": 一个常见名词}。例：{"word":"月亮"}',
+  },
+  "taboo-card": {
+    schema: tabooContentSchema,
+    guide:
+      '禁词描述的词卡：{"word": 目标词, "taboo": [2–5 个描述它时最容易说出口的禁词]}。例：{"word":"火锅","taboo":["辣","涮","重庆","锅底"]}',
+  },
+  poll: {
+    schema: pollContentSchema,
+    guide:
+      '猜大家选的选择题：{"text": 关于个人偏好的问题, "options": [4–8 个选项，每个不超过 16 字]}。没有标准答案，选项之间要势均力敌。例：{"text":"最想拥有哪种超能力？","options":["飞行","隐身","读心","时间暂停"]}',
+  },
+  "yesno-prompt": {
+    schema: yesnoContentSchema,
+    guide:
+      '百分比竞猜的是非题：{"text": 一个每个人都能如实回答「是 / 否」的关于自己的问题}。不要涉及隐私或让人难堪的内容。例：{"text":"你今天喝过咖啡或茶吗？"}',
   },
 };

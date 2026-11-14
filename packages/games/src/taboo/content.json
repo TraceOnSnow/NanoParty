@@ -1,0 +1,290 @@
+[
+  {
+    "id": "taboo-001",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "火锅",
+      "taboo": ["辣", "涮", "重庆", "锅底"]
+    }
+  },
+  {
+    "id": "taboo-002",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "地铁",
+      "taboo": ["站", "轨道", "坐车", "地下"]
+    }
+  },
+  {
+    "id": "taboo-003",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "熊猫",
+      "taboo": ["黑白", "竹子", "国宝", "四川"]
+    }
+  },
+  {
+    "id": "taboo-004",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "外卖",
+      "taboo": ["骑手", "送", "点餐", "手机"]
+    }
+  },
+  {
+    "id": "taboo-005",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "春节",
+      "taboo": ["过年", "红包", "鞭炮", "饺子"]
+    }
+  },
+  {
+    "id": "taboo-006",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "自拍",
+      "taboo": ["手机", "照片", "镜头", "美颜"]
+    }
+  },
+  {
+    "id": "taboo-007",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "加班",
+      "taboo": ["公司", "下班", "老板", "工作"]
+    }
+  },
+  {
+    "id": "taboo-008",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "奶茶",
+      "taboo": ["珍珠", "喝", "甜", "吸管"]
+    }
+  },
+  {
+    "id": "taboo-009",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "闹钟",
+      "taboo": ["起床", "早上", "响", "时间"]
+    }
+  },
+  {
+    "id": "taboo-010",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "彩虹",
+      "taboo": ["颜色", "雨", "七", "天空"]
+    }
+  },
+  {
+    "id": "taboo-011",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "牙医",
+      "taboo": ["牙齿", "拔", "疼", "医生"]
+    }
+  },
+  {
+    "id": "taboo-012",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "电梯",
+      "taboo": ["楼", "上下", "按钮", "坐"]
+    }
+  },
+  {
+    "id": "taboo-013",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "快递",
+      "taboo": ["包裹", "送", "驿站", "签收"]
+    }
+  },
+  {
+    "id": "taboo-014",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "篮球",
+      "taboo": ["投", "NBA", "运动", "筐"]
+    }
+  },
+  {
+    "id": "taboo-015",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "雨伞",
+      "taboo": ["下雨", "撑", "挡", "湿"]
+    }
+  },
+  {
+    "id": "taboo-016",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "蚊子",
+      "taboo": ["咬", "痒", "夏天", "血"]
+    }
+  },
+  {
+    "id": "taboo-017",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "钢琴",
+      "taboo": ["弹", "黑白", "键", "乐器"]
+    }
+  },
+  {
+    "id": "taboo-018",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "驾照",
+      "taboo": ["开车", "考试", "科目", "教练"]
+    }
+  },
+  {
+    "id": "taboo-019",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "火箭",
+      "taboo": ["太空", "发射", "宇航员", "飞"]
+    }
+  },
+  {
+    "id": "taboo-020",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "冰箱",
+      "taboo": ["冷", "食物", "保鲜", "厨房"]
+    }
+  },
+  {
+    "id": "taboo-021",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "婚礼",
+      "taboo": ["新娘", "结婚", "戒指", "新郎"]
+    }
+  },
+  {
+    "id": "taboo-022",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "机器人",
+      "taboo": ["人工智能", "金属", "程序", "自动"]
+    }
+  },
+  {
+    "id": "taboo-023",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "图书馆",
+      "taboo": ["书", "借", "安静", "看"]
+    }
+  },
+  {
+    "id": "taboo-024",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "word": "感冒",
+      "taboo": ["咳嗽", "发烧", "鼻涕", "药"]
+    }
+  }
+]

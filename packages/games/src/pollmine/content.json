@@ -1,0 +1,146 @@
+[
+  {
+    "id": "poll-001",
+    "version": 1,
+    "type": "poll",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "如果只能留一种，你选哪种主食？",
+      "options": ["米饭", "面条", "馒头", "饺子", "面包", "土豆", "粉", "粥"]
+    }
+  },
+  {
+    "id": "poll-002",
+    "version": 1,
+    "type": "poll",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "周末最想怎么过？",
+      "options": ["睡到自然醒", "打游戏", "出门逛街", "运动", "看剧", "和朋友聚会", "学点东西", "大扫除"]
+    }
+  },
+  {
+    "id": "poll-003",
+    "version": 1,
+    "type": "poll",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "最想拥有哪种超能力？",
+      "options": ["飞行", "隐身", "读心", "时间暂停", "瞬间移动", "预知未来", "力大无穷", "不用睡觉"]
+    }
+  },
+  {
+    "id": "poll-004",
+    "version": 1,
+    "type": "poll",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "火锅里第一个下的是什么？",
+      "options": ["肥牛", "毛肚", "虾滑", "土豆", "青菜", "午餐肉", "鸭血", "丸子"]
+    }
+  },
+  {
+    "id": "poll-005",
+    "version": 1,
+    "type": "poll",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "最受不了哪种行为？",
+      "options": ["迟到", "吧唧嘴", "外放声音", "插队", "已读不回", "抖腿", "剧透", "借钱不还"]
+    }
+  },
+  {
+    "id": "poll-006",
+    "version": 1,
+    "type": "poll",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "中了一千万，第一件事做什么？",
+      "options": ["买房", "辞职", "存起来", "环游世界", "告诉家人", "谁也不说", "投资", "请朋友吃饭"]
+    }
+  },
+  {
+    "id": "poll-007",
+    "version": 1,
+    "type": "poll",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "最想去哪里旅行？",
+      "options": ["海岛", "雪山", "沙漠", "古城", "大都市", "草原", "森林", "哪也不去"]
+    }
+  },
+  {
+    "id": "poll-008",
+    "version": 1,
+    "type": "poll",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "哪种天气最舒服？",
+      "options": ["大晴天", "阴天", "小雨", "下雪", "有风的秋天", "雷雨夜", "雾天", "初夏傍晚"]
+    }
+  },
+  {
+    "id": "poll-009",
+    "version": 1,
+    "type": "poll",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "手机里最离不开哪类应用？",
+      "options": ["聊天", "短视频", "游戏", "音乐", "购物", "地图", "外卖", "拍照"]
+    }
+  },
+  {
+    "id": "poll-010",
+    "version": 1,
+    "type": "poll",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "小时候最想当什么？",
+      "options": ["科学家", "老师", "医生", "明星", "宇航员", "警察", "老板", "画家"]
+    }
+  },
+  {
+    "id": "poll-011",
+    "version": 1,
+    "type": "poll",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "早餐最常吃什么？",
+      "options": ["包子", "煎饼", "面包", "粥", "面条", "鸡蛋", "不吃早餐", "咖啡就够了"]
+    }
+  },
+  {
+    "id": "poll-012",
+    "version": 1,
+    "type": "poll",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "text": "最害怕哪一个？",
+      "options": ["蟑螂", "蛇", "高处", "深海", "黑暗", "打针", "公开讲话", "鬼片"]
+    }
+  }
+]

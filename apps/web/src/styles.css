@@ -876,3 +876,161 @@ button.link.ok {
   color: var(--text);
   letter-spacing: 0;
 }
+
+/* --- team and word games --- */
+.team-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.team {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  font-size: 13px;
+}
+.team-0 {
+  border-left: 4px solid #ff7a7a;
+}
+.team-1 {
+  border-left: 4px solid #6ea8ff;
+}
+.team.active {
+  background: var(--panel-2);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.big-clue {
+  font-size: 22px;
+  color: var(--accent);
+  margin: 0 4px;
+}
+.word-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+.grid-word {
+  padding: 14px 4px;
+  font-size: 16px;
+  border: 2px solid var(--line);
+  background: var(--panel);
+}
+.grid-word:disabled {
+  opacity: 1;
+  cursor: default;
+}
+.grid-word.owner-0 {
+  border-color: #ff7a7a;
+}
+.grid-word.owner-1 {
+  border-color: #6ea8ff;
+}
+.grid-word.owner-neutral {
+  border-color: var(--muted);
+}
+.grid-word.owner-trap {
+  background: #000;
+  border-color: #fff;
+  color: #fff;
+}
+.grid-word.revealed {
+  opacity: 0.45;
+}
+.grid-word.revealed.owner-0 {
+  background: #7a2f2f;
+}
+.grid-word.revealed.owner-1 {
+  background: #2b4a7a;
+}
+.grid-word.revealed.owner-neutral {
+  background: var(--panel-2);
+}
+.keywords {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+}
+.keywords ol {
+  display: flex;
+  gap: 24px;
+  margin: 4px 0 0;
+  padding-left: 20px;
+  font-size: 17px;
+  flex-wrap: wrap;
+}
+.taboo-card h2 {
+  margin: 0;
+  font-size: 30px;
+  color: var(--accent);
+}
+.frame {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.frame > .muted {
+  min-width: 9em;
+}
+.frame-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.frame-words button {
+  padding: 4px 10px;
+}
+.clover-ring {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.clover-step {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.clover-slot {
+  padding: 12px;
+  font-size: 16px;
+  border-style: dashed;
+}
+.clover-slot.locked {
+  border-style: solid;
+  border-color: var(--good);
+  opacity: 1;
+}
+.clover-clue {
+  color: var(--accent);
+  padding-left: 16px;
+}
+.answer-row .pair {
+  min-width: 9em;
+}
+.poll-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.poll-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  font-size: 16px;
+}
+.poll-option.hit {
+  border-color: var(--good);
+  opacity: 1;
+}
+.poll-option.miss {
+  border-color: var(--bad);
+  text-decoration: line-through;
+}
+.poll-option.mine {
+  box-shadow: inset 0 0 0 1px var(--accent);
+}

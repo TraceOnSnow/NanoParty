@@ -1,7 +1,10 @@
 import type { Ack, RoomView } from "@apr/shared";
 import type { ComponentType } from "react";
+import { BlatherGame } from "./blather/BlatherGame.tsx";
 import { BluffGame } from "./bluff/BluffGame.tsx";
 import { CategoriesGame } from "./categories/CategoriesGame.tsx";
+import { CloverGame } from "./clover/CloverGame.tsx";
+import { CodeBreakGame } from "./codebreak/CodeBreakGame.tsx";
 import { CrewGame } from "./crew/CrewGame.tsx";
 import { DuelGame } from "./duel/DuelGame.tsx";
 import { EstimateGame } from "./estimate/EstimateGame.tsx";
@@ -10,6 +13,8 @@ import { MostLikelyGame } from "./mostlikely/MostLikelyGame.tsx";
 import { NoThanksGame } from "./nothanks/NoThanksGame.tsx";
 import { OneClueGame } from "./oneclue/OneClueGame.tsx";
 import type { CustomField } from "./PickPanel.tsx";
+import { PercentGame } from "./percent/PercentGame.tsx";
+import { PollMineGame } from "./pollmine/PollMineGame.tsx";
 import { QuipGame } from "./quip/QuipGame.tsx";
 import { RankingGame } from "./ranking/RankingGame.tsx";
 import { RowCardsGame } from "./rowcards/RowCardsGame.tsx";
@@ -17,8 +22,10 @@ import { SkullGame } from "./skull/SkullGame.tsx";
 import { SoupGame } from "./soup/SoupGame.tsx";
 import { SpectrumGame } from "./spectrum/SpectrumGame.tsx";
 import { SplitGame } from "./split/SplitGame.tsx";
+import { TabooGame } from "./taboo/TabooGame.tsx";
 import { UndercoverGame } from "./undercover/UndercoverGame.tsx";
 import { WagerGame } from "./wager/WagerGame.tsx";
+import { WordGridGame } from "./wordgrid/WordGridGame.tsx";
 import { WordHuntGame } from "./wordhunt/WordHuntGame.tsx";
 
 export interface GameProps {
@@ -50,6 +57,13 @@ export const gameComponents: Record<string, ComponentType<GameProps>> = {
   nothanks: NoThanksGame,
   flush: FlushGame,
   duel: DuelGame,
+  wordgrid: WordGridGame,
+  codebreak: CodeBreakGame,
+  taboo: TabooGame,
+  blather: BlatherGame,
+  clover: CloverGame,
+  pollmine: PollMineGame,
+  percent: PercentGame,
   estimate: EstimateGame,
 };
 
@@ -73,4 +87,6 @@ export const customTopicFields: Record<string, CustomField[]> = {
   ],
   split: [{ key: "text", label: "题目", placeholder: "带一个 ____ 的两难题，如 按下就得一百万，但____。你按吗？" }],
   wordhunt: [{ key: "word", label: "秘密词", placeholder: "一个常见名词" }],
+  blather: [{ key: "word", label: "要描述的词", placeholder: "一个常见名词" }],
+  percent: [{ key: "text", label: "题目", placeholder: "一个大家都能答「是 / 否」的问题，如 你今天喝过咖啡吗？" }],
 };
