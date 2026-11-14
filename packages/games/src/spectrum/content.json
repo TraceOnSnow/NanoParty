@@ -1,0 +1,434 @@
+[
+  {
+    "id": "spectrum-001",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "冷",
+      "right": "热"
+    }
+  },
+  {
+    "id": "spectrum-002",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "不值钱",
+      "right": "很值钱"
+    }
+  },
+  {
+    "id": "spectrum-003",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "难吃",
+      "right": "好吃"
+    }
+  },
+  {
+    "id": "spectrum-004",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "没人听过",
+      "right": "人人皆知"
+    }
+  },
+  {
+    "id": "spectrum-005",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "适合独处",
+      "right": "适合聚会"
+    }
+  },
+  {
+    "id": "spectrum-006",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "幼稚",
+      "right": "成熟"
+    }
+  },
+  {
+    "id": "spectrum-007",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "安静",
+      "right": "吵闹"
+    }
+  },
+  {
+    "id": "spectrum-008",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "便宜",
+      "right": "昂贵"
+    }
+  },
+  {
+    "id": "spectrum-009",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "无聊",
+      "right": "刺激"
+    }
+  },
+  {
+    "id": "spectrum-010",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "不需要天赋",
+      "right": "全靠天赋"
+    }
+  },
+  {
+    "id": "spectrum-011",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "健康",
+      "right": "不健康"
+    }
+  },
+  {
+    "id": "spectrum-012",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "土",
+      "right": "潮"
+    }
+  },
+  {
+    "id": "spectrum-013",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "一点都不可怕",
+      "right": "非常可怕"
+    }
+  },
+  {
+    "id": "spectrum-014",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "可有可无",
+      "right": "生活必需"
+    }
+  },
+  {
+    "id": "spectrum-015",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "被低估",
+      "right": "被高估"
+    }
+  },
+  {
+    "id": "spectrum-016",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "轻",
+      "right": "重"
+    }
+  },
+  {
+    "id": "spectrum-017",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "软",
+      "right": "硬"
+    }
+  },
+  {
+    "id": "spectrum-018",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "过时",
+      "right": "永不过时"
+    }
+  },
+  {
+    "id": "spectrum-019",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "容易学",
+      "right": "很难学"
+    }
+  },
+  {
+    "id": "spectrum-020",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "不浪漫",
+      "right": "很浪漫"
+    }
+  },
+  {
+    "id": "spectrum-021",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "适合早上",
+      "right": "适合深夜"
+    }
+  },
+  {
+    "id": "spectrum-022",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "小孩喜欢",
+      "right": "老人喜欢"
+    }
+  },
+  {
+    "id": "spectrum-023",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "闻起来臭",
+      "right": "闻起来香"
+    }
+  },
+  {
+    "id": "spectrum-024",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "慢",
+      "right": "快"
+    }
+  },
+  {
+    "id": "spectrum-025",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "不靠谱的借口",
+      "right": "完美的借口"
+    }
+  },
+  {
+    "id": "spectrum-026",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "难忘",
+      "right": "转头就忘"
+    }
+  },
+  {
+    "id": "spectrum-027",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "适合送礼",
+      "right": "千万别送"
+    }
+  },
+  {
+    "id": "spectrum-028",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "日常",
+      "right": "一生一次"
+    }
+  },
+  {
+    "id": "spectrum-029",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "理性",
+      "right": "感性"
+    }
+  },
+  {
+    "id": "spectrum-030",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "费钱",
+      "right": "省钱"
+    }
+  },
+  {
+    "id": "spectrum-031",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "朴素",
+      "right": "华丽"
+    }
+  },
+  {
+    "id": "spectrum-032",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "圆",
+      "right": "方"
+    }
+  },
+  {
+    "id": "spectrum-033",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "讨人厌的习惯",
+      "right": "可爱的习惯"
+    }
+  },
+  {
+    "id": "spectrum-034",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "需要勇气",
+      "right": "毫不费力"
+    }
+  },
+  {
+    "id": "spectrum-035",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "室内",
+      "right": "户外"
+    }
+  },
+  {
+    "id": "spectrum-036",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "left": "好养的宠物",
+      "right": "难养的宠物"
+    }
+  }
+]

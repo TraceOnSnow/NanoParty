@@ -1,0 +1,46 @@
+# NanoParty — self-hosted deployment.
+#   cp .env.example .env   (set ADMIN_PASSWORD and POSTGRES_PASSWORD)
+#   docker compose up -d --build
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      PORT: 3000
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?请在 .env 中设置 ADMIN_PASSWORD}
+      DATABASE_URL: postgres://apr:${POSTGRES_PASSWORD:?请在 .env 中设置 POSTGRES_PASSWORD}@db:5432/apr
+      TRUST_PROXY: ${TRUST_PROXY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_BASE_URL: ${ANTHROPIC_BASE_URL:-}
+      AI_ENABLED: ${AI_ENABLED:-true}
+      AI_MOCK: ${AI_MOCK:-}
+      AI_MODEL: ${AI_MODEL:-}
+      AI_EFFORT: ${AI_EFFORT:-}
+      AI_REFUSAL_FALLBACK: ${AI_REFUSAL_FALLBACK:-}
+      AI_TIMEOUT_MS: ${AI_TIMEOUT_MS:-}
+      AI_MAX_CONCURRENCY: ${AI_MAX_CONCURRENCY:-}
+      AI_ROOM_CALLS_PER_MINUTE: ${AI_ROOM_CALLS_PER_MINUTE:-}
+      AI_DAILY_CALL_LIMIT: ${AI_DAILY_CALL_LIMIT:-}
+
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: apr
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?请在 .env 中设置 POSTGRES_PASSWORD}
+      POSTGRES_DB: apr
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U apr -d apr"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:
