@@ -37,6 +37,7 @@ function config(port: number, pgliteDir?: string): Config {
     webDist: "/nonexistent",
     trustProxy: false,
     ai: {
+      provider: "anthropic",
       mock: false,
       model: "none",
       effort: "low",

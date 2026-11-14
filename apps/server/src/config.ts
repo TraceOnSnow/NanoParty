@@ -18,10 +18,16 @@ const envSchema = z.object({
   // --- AI host (all optional; leave ANTHROPIC_API_KEY empty to run without AI) ---
   ANTHROPIC_API_KEY: optionalString,
   ANTHROPIC_BASE_URL: optionalString,
+  /** Google AI Studio key (GEMINI_API_KEY is accepted as an alias). */
+  GOOGLE_API_KEY: optionalString,
+  GEMINI_API_KEY: optionalString,
+  GOOGLE_BASE_URL: optionalString,
+  /** Which provider to use; by default whichever key is set (Anthropic first). */
+  AI_PROVIDER: z.preprocess(emptyToUndefined, z.enum(["anthropic", "google"]).optional()),
   AI_ENABLED: z.preprocess(emptyToUndefined, z.enum(["true", "false"]).default("true")),
   /** Development only: use a canned fake model instead of calling an API. */
   AI_MOCK: z.preprocess(emptyToUndefined, z.enum(["true", "false"]).default("false")),
-  AI_MODEL: z.preprocess(emptyToUndefined, z.string().default("claude-opus-5-5")),
+  AI_MODEL: optionalString,
   AI_EFFORT: z.preprocess(emptyToUndefined, z.enum(["low", "medium", "high"]).default("low")),
   AI_REFUSAL_FALLBACK: z.preprocess(emptyToUndefined, z.enum(["true", "false"]).default("true")),
   AI_TIMEOUT_MS: int(45_000),
@@ -38,6 +44,7 @@ export interface Config {
   webDist: string;
   trustProxy: boolean;
   ai: {
+    provider: "anthropic" | "google";
     apiKey?: string;
     baseUrl?: string;
     mock: boolean;
@@ -58,6 +65,9 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
     throw new Error(`配置无效（参考 .env.example）：\n${lines.join("\n")}`);
   }
   const e = parsed.data;
+  const googleKey = e.GOOGLE_API_KEY ?? e.GEMINI_API_KEY;
+  const provider = e.AI_PROVIDER ?? (!e.ANTHROPIC_API_KEY && googleKey ? "google" : "anthropic");
+  const apiKey = provider === "google" ? googleKey : e.ANTHROPIC_API_KEY;
   return {
     port: e.PORT,
     adminPassword: e.ADMIN_PASSWORD,
@@ -66,10 +76,11 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
     webDist: e.WEB_DIST ?? DEFAULT_WEB_DIST,
     trustProxy: e.TRUST_PROXY === "1" || e.TRUST_PROXY === "true",
     ai: {
-      apiKey: e.AI_ENABLED === "true" ? e.ANTHROPIC_API_KEY : undefined,
-      baseUrl: e.ANTHROPIC_BASE_URL,
+      provider,
+      apiKey: e.AI_ENABLED === "true" ? apiKey : undefined,
+      baseUrl: provider === "google" ? e.GOOGLE_BASE_URL : e.ANTHROPIC_BASE_URL,
       mock: e.AI_ENABLED === "true" && e.AI_MOCK === "true",
-      model: e.AI_MODEL,
+      model: e.AI_MODEL ?? (provider === "google" ? "gemini-2.5-flash" : "claude-opus-5-5"),
       effort: e.AI_EFFORT,
       refusalFallback: e.AI_REFUSAL_FALLBACK === "true",
       timeoutMs: e.AI_TIMEOUT_MS,

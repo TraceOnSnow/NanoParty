@@ -2,6 +2,7 @@ import { bundledContent } from "@apr/games";
 import { Server } from "@colyseus/core";
 import { WebSocketTransport } from "@colyseus/ws-transport";
 import { AgentService } from "./agent/AgentService.ts";
+import { GeminiAgentModel } from "./agent/geminiModel.ts";
 import { MockAgentModel } from "./agent/mockModel.ts";
 import { type AgentModel, AnthropicAgentModel } from "./agent/model.ts";
 import type { Config } from "./config.ts";
@@ -36,15 +37,17 @@ export async function startApp(config: Config, overrides: AppOverrides = {}): Pr
       ? overrides.agentModel
       : config.ai.mock
         ? new MockAgentModel()
-        : config.ai.apiKey
-          ? new AnthropicAgentModel({
-              apiKey: config.ai.apiKey,
-              baseUrl: config.ai.baseUrl,
-              model: config.ai.model,
-              effort: config.ai.effort,
-              refusalFallback: config.ai.refusalFallback,
-            })
-          : null;
+        : config.ai.apiKey && config.ai.provider === "google"
+          ? new GeminiAgentModel({ apiKey: config.ai.apiKey, baseUrl: config.ai.baseUrl, model: config.ai.model })
+          : config.ai.apiKey
+            ? new AnthropicAgentModel({
+                apiKey: config.ai.apiKey,
+                baseUrl: config.ai.baseUrl,
+                model: config.ai.model,
+                effort: config.ai.effort,
+                refusalFallback: config.ai.refusalFallback,
+              })
+            : null;
   const agent = new AgentService(model, db, config.ai, config.ai.mock ? "模拟" : config.ai.model);
 
   const manager = new RoomManager({ db, content, agent });
