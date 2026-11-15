@@ -49,21 +49,40 @@
 
 ## 决策记录
 
-（随实现追加）
+- **候选历史放在平台层**（表 `candidate_history`，按派对 + 内容类型）：游戏模块仍是纯函数，通过 `ctx.history` 读、`ctx.peekContent(count, viewers)` 写。秘密候选（不撞词、词块描述、问出秘密词的目标词）记录看过的人，只再提供给「看过的人都仍有权看」的题主。
+- **AI 出题的应用规则在运行时判定**（`RoomRuntime.offerContent`）：选题中且请求来自题主 / 房主 / 多人流程 → 成为当前候选；其他人的请求和迟到结果 → 只进历史，标「未应用」。取消了旧的「排到下一轮自动展示」。
+- **选中待确认是前端本地状态**：点卡片只是选中，「确认使用」才发命令，所以取消选择不消耗任何东西。
+- **房主覆盖选题**：命令里显式带 `asPicker: true`，服务端校验是房主后以题主身份执行，并记 `pick.override` 事件。
+- **Game AI 与 Room Agent 分开**：`agent/GameAi.ts`（无工具、无聊天、拿得到汤底、只回结构化 JSON）与 `agent/AgentService.ts`（只看 `publicSummary`）。可共用同一模型服务。
+- **裁判输出是数据，不是规则**：游戏模块的 `judge.resolve` 用 zod 校验后才应用；不合格输出按失败处理，不编造判定。任务 id 带回合号，迟到结果不会落到新汤上。
+- **海龟汤改编由程序执行**：模型只提「替换词对」，`packages/games/src/soup/adapt.ts` 校验（只能换 `adaptable` 里的词，`fixed` 关键词必须原样保留）并同时替换汤面、汤底、关键事实；不通过就保留母题。
+- **测试模式**：`TEST_MODE=true` 才挂载 `/api/test/*`；未开启时路由不存在（404）。测试玩家的操作仍走 `handleCommand`。
+- **真实模型额度**：`.env` 里的 Google AI Studio 密钥是免费层，`gemini-2.5-flash` 每天 20 次请求（2026-11-15 实测报错信息）。真实模型验收集中执行、按模型分摊，并在每份报告里写明模型名。
 
 ## 已完成
 
-（随实现追加）
+| 批次 | 提交 | 内容 | 对应需求 |
+| --- | --- | --- | --- |
+| 1 | 1b4389a | 候选历史、题主权限与房主覆盖、双发送、原地反馈、事件日志、测试模式 | CHAT-01/02、CONTENT-01…07、DATA-03、TEST-01/02/07、AUTH-01 |
+| 1 | (tester) | `pnpm tester`：真实 HTTP + WebSocket 多玩家场景驱动 | TEST-03/05 |
+| 2a | 74295dc | 海龟汤 AI 裁判、纠错、失败重试、知情接管、受约束改编 | SOUP-01…08、HOST-03 |
+
+验证：`pnpm check` 205 个测试通过（含 `apps/server/test/vnext-content.test.ts`、`vnext-soup.test.ts`）；`pnpm tester tools/scenarios/picker-history.json` 14/14。
 
 ## 当前工作
 
-第一批：数据结构与候选历史。
+第三批：派对积分（名次奖励、两本账）、结算页、协商调分、派对生命周期与回顾、偏好与主持模式（普通 / 搞怪）。
+之后：真实模型验收（海龟汤问答集、搞怪主持、Canvas 多步、改编）、多浏览器回归、报告导出、Docker 迁移验证、验收文档。
 
 ## 阻塞
 
 - AC-22 的「从服务器拉取」：没有生产 SSH 条件，且本次不允许连接生产；只能在本机 Docker 上验证导出与拉取脚本。
 - 14.5 真实朋友局：需要真人，无法由我执行。
+- 真实模型额度很小（见决策记录），部分真实模型用例可能只能跑一遍或标 NOT RUN。
 
 ## 恢复入口
 
-`git log --oneline main..vnext` 查看已提交批次；`pnpm check` 验证；本文件「当前工作」一节是下一步。
+- `git log --oneline main..vnext` 查看已提交批次；`pnpm check` 验证。
+- 独立测试实例：`PORT=3100 TEST_MODE=true AI_MOCK=true PGLITE_DIR=<临时目录> ADMIN_PASSWORD=... tsx apps/server/src/index.ts`（不碰 Docker 数据卷）。
+- 场景驱动：`PORT=3100 pnpm tester tools/scenarios/<name>.json --out reports/artifacts/<name>.json`。
+- 真实模型评测：`pnpm model-eval soup`（可用 `AI_MODEL=<模型>` 换模型）。

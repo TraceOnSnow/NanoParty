@@ -108,7 +108,7 @@ export class GeminiAgentModel implements AgentModel {
     }
   }
 
-  private async generate(body: unknown, signal: AbortSignal): Promise<GenerateResponse> {
+  private async generate(body: unknown, signal: AbortSignal, attempt = 0): Promise<GenerateResponse> {
     const url = `${this.opts.baseUrl ?? DEFAULT_BASE}/models/${encodeURIComponent(this.opts.model)}:generateContent`;
     const res = await this.fetch(url, {
       method: "POST",
@@ -118,7 +118,27 @@ export class GeminiAgentModel implements AgentModel {
       signal,
     });
     const json = (await res.json().catch(() => ({}))) as GenerateResponse;
-    if (!res.ok) throw new Error(`Gemini API ${res.status}: ${json.error?.message ?? "request failed"}`);
-    return json;
+    if (res.ok) return json;
+    // Busy or rate-limited: wait briefly and try again (the caller's timeout still bounds the total).
+    if ((res.status === 429 || res.status === 503) && attempt < RETRY_WAITS_MS.length) {
+      await new Promise<void>((done, fail) => {
+        const timer = setTimeout(done, RETRY_WAITS_MS[attempt]);
+        signal.addEventListener("abort", () => {
+          clearTimeout(timer);
+          fail(named("Timeout", "aborted while waiting to retry"));
+        });
+      });
+      return this.generate(body, signal, attempt + 1);
+    }
+    throw named(`HTTP${res.status}`, `Gemini API ${res.status}: ${json.error?.message ?? "request failed"}`);
   }
+}
+
+const RETRY_WAITS_MS = [3000, 9000];
+
+/** Errors carry a short, secret-free class in `name` so callers can log it without the message. */
+function named(name: string, message: string): Error {
+  const err = new Error(message);
+  err.name = name;
+  return err;
 }
