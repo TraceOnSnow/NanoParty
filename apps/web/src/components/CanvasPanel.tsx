@@ -170,8 +170,10 @@ function Result({ it, name }: { it: InteractionView; name(id: string): string })
           {r.tally.map((t) => (
             <li key={t.id} className={r.winners.includes(t.id) ? "picked" : ""}>
               <span className="text">{t.label}</span>
-              <span className="muted small">{t.voters.map(name).join("、") || "—"}</span>
-              <strong>{t.voters.length}</strong>
+              <span className="muted small">
+                {"anonymous" in r && r.anonymous ? "匿名" : t.voters.map(name).join("、") || "—"}
+              </span>
+              <strong>{t.count ?? t.voters.length}</strong>
             </li>
           ))}
         </ul>

@@ -1782,6 +1782,24 @@ export class RoomRuntime implements AgentRoomPort {
         seg.history.set(r.item.id, r);
         seg.offered.set(r.item.id, r.item);
       }
+      // While the topic is being chosen, the picker's history list is refreshed so the
+      // suggestions show up for them right away (the candidates on screen stay as they are).
+      if (picker !== null) {
+        const bind = seg.state as { step?: number; round?: number };
+        const reload = seg.module.actionSchema.safeParse(
+          typeof bind.step === "number" ? { type: "history", step: bind.step } : { type: "history", round: bind.round },
+        );
+        if (reload.success) {
+          const again = this.makeContext(seg);
+          const result = seg.module.apply(
+            structuredClone(seg.state),
+            reload.data,
+            { kind: "player", playerId: picker, isHost: false },
+            again.ctx,
+          );
+          if (result.ok) await this.commit(seg, result, again);
+        }
+      }
       this.logEvent("content.offer", requester, { count: items.length, applied: false });
       return {
         ok: true,

@@ -230,7 +230,7 @@ export class AgentService {
       defineTool({
         name: "create_interaction",
         description:
-          "在主面板创建一个多人互动，用来向玩家收集信息或展示内容。三种：collect（每人提交一句短文字）、choose（从选项里选一个；多人回应就是投票，只让一个人回应就是让 TA 挑选）、show（只展示标题/说明/若干条目，不需要回应）。互动会在回合之间的间隙显示。调用后不要等待：玩家回应完后你会被再次唤醒并拿到结果。一次只创建一个互动。",
+          "在主面板创建一个多人互动，用来向玩家收集信息或展示内容。三种：collect（每人提交一句短文字）、choose（从选项里选一个；多人回应就是投票，只让一个人回应就是让 TA 挑选；anonymous=true 是匿名投票，只公布票数）、show（只展示标题/说明/若干条目，不需要回应）。互动会在回合之间的间隙显示。调用后不要等待：玩家回应完后你会被再次唤醒并拿到结果。一次只创建一个互动。",
         // Tool inputs must be a plain object at the top level, so the spec is nested.
         inputSchema: z.object({ interaction: agentInteractionSpec }),
         run: async ({ interaction }) => (await room.createInteraction(interaction)).message,

@@ -34,6 +34,8 @@ export const chooseSpec = z.object({
     )
     .min(2)
     .max(10),
+  /** Anonymous vote: everyone sees how many chose each option, nobody sees who. */
+  anonymous: z.boolean().default(false),
 });
 
 export const showSpec = z.object({
@@ -62,7 +64,13 @@ export type InteractionSpec =
 
 export type InteractionResult =
   | { kind: "collect"; entries: { playerId: PlayerId; text: string }[] }
-  | { kind: "choose"; tally: { id: string; label: string; voters: PlayerId[] }[]; winners: string[] }
+  | {
+      kind: "choose";
+      /** `voters` is empty for an anonymous vote; `count` is always the number of votes. */
+      tally: { id: string; label: string; voters: PlayerId[]; count: number }[];
+      winners: string[];
+      anonymous: boolean;
+    }
   | { kind: "confirm"; approved: boolean; outcome: string }
   | { kind: "show" };
 

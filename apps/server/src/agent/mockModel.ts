@@ -22,7 +22,7 @@ export class MockAgentModel implements AgentModel {
         ? '{"correct":false}'
         : input.system.includes("给玩家一条提示")
           ? '{"hint":"（模拟裁判）这是一条固定的假提示。"}'
-          : `{"verdict":"${input.prompt.includes("有关") ? "yes" : "no"}","facts":[]}`;
+          : `{"verdict":"${(input.prompt.split("【玩家输入】")[1] ?? "").includes("有关") ? "yes" : "no"}","facts":[]}`;
       return { text, ...usage };
     }
     if (input.system.includes("改编海龟汤")) return { text: '{"replacements":[]}', ...usage };
@@ -53,12 +53,13 @@ export class MockAgentModel implements AgentModel {
         interaction: {
           kind: "choose",
           title: "投票选主题",
+          anonymous: true,
           options: unique.map((label, i) => ({ id: `t${i}`, label })),
         },
       });
       return reply("主题收齐了，投个票吧。");
     }
-    if (request.includes("「投票选主题」结果")) {
+    if (request.includes("「投票选主题」") && request.includes("结果")) {
       const theme = /得票最高：([^、\n。]+)/.exec(request)?.[1]?.trim() ?? "生活";
       return this.writeCards(theme, tool, reply);
     }

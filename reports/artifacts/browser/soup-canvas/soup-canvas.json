@@ -1,0 +1,81 @@
+{
+  "name": "soup-canvas",
+  "base": "http://localhost:3100",
+  "roomId": "room_KQj-sGfVj0I_",
+  "at": "2026-11-15T10:39:45.570Z",
+  "results": [
+    {
+      "id": "AC-12",
+      "text": "玩家在左侧提问，AI 自动判定，所有人看到同一条记录（不用去右侧 @AI）",
+      "ok": true,
+      "evidence": "AC-12-1.png"
+    },
+    {
+      "id": "AC-13",
+      "text": "玩家标记「判错了」后所有人看到标记；只有房主有「让 AI 重判」",
+      "ok": true,
+      "evidence": "AC-13-1.png"
+    },
+    {
+      "id": "AC-13",
+      "text": "房主确认剧透后才看到汤底，并可手动更正；其他人看不到",
+      "ok": true,
+      "evidence": "AC-13-2.png"
+    },
+    {
+      "id": "AC-13",
+      "text": "人工更正保留原判并公开显示",
+      "ok": true,
+      "evidence": "AC-13-3.png"
+    },
+    {
+      "id": "AC-10",
+      "text": "发给非知情玩家的网络消息里没有汤底",
+      "ok": true,
+      "evidence": "AC-10-1.png"
+    },
+    {
+      "id": "AC-14",
+      "text": "玩家知情接管为汤主：只有 TA 多看到汤底，问答记录保留",
+      "ok": true,
+      "evidence": "AC-14-1.png"
+    },
+    {
+      "id": "AC-16",
+      "text": "AI 第一步：在主面板发起「每人填一个主题」的互动",
+      "ok": true,
+      "evidence": "AC-16-1.png"
+    },
+    {
+      "id": "AC-16",
+      "text": "AI 第二步：读取大家填的主题，发起投票（选项来自上一步的结果）",
+      "ok": true,
+      "evidence": "AC-16-2.png"
+    },
+    {
+      "id": "AC-16",
+      "text": "投票是匿名的：只显示票数，不显示谁投了什么",
+      "ok": true,
+      "evidence": "AC-16-3.png"
+    },
+    {
+      "id": "AC-16",
+      "text": "AI 第三步：按得票最高的主题写题卡，题主在左侧看到并可以选",
+      "ok": true,
+      "evidence": "AC-16-4.png"
+    },
+    {
+      "id": "AC-09",
+      "text": "题主选用 AI 出的题并确认，正式开始",
+      "ok": true,
+      "evidence": "AC-09-1.png"
+    },
+    {
+      "id": "AC-23",
+      "text": "单人一键创建多玩家房间，同一窗口切换视角，其他玩家可代走合法操作",
+      "ok": true,
+      "evidence": "AC-23-single-window.png"
+    }
+  ],
+  "problems": []
+}

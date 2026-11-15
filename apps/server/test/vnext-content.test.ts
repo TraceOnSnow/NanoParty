@@ -141,7 +141,7 @@ describe("AI-written candidates (AC-09)", () => {
     const asGuest = await runtime.offerContent(suggested, guest.playerId);
     expect(asGuest.message).toContain("历史候选");
     expect(current.game.pick.candidates).toEqual(before);
-    await current.act({ type: "history", step: current.game.step });
+    // The picker sees the suggestion at once, without having to reload anything.
     expect(current.game.pick.history.map((h: { label: string }) => h.label)).toContain("谁最可能在魂系游戏里迷路？");
 
     // Asked for by the picker: becomes the current candidates; the old ones stay in the history.

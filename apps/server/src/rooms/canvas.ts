@@ -52,18 +52,20 @@ export function computeResult(live: LiveInteraction, confirmOutcome = ""): Inter
         entries: Object.entries(responses).map(([playerId, text]) => ({ playerId, text: String(text) })),
       };
     case "choose": {
-      const tally = spec.options.map((o) => ({
-        id: o.id,
-        label: o.label,
-        voters: Object.entries(responses)
+      const tally = spec.options.map((o) => {
+        const voters = Object.entries(responses)
           .filter(([, v]) => v === o.id)
-          .map(([p]) => p),
-      }));
-      const top = Math.max(0, ...tally.map((t) => t.voters.length));
+          .map(([p]) => p);
+        // An anonymous vote keeps only the count: who voted for what is not stored in the result,
+        // so it cannot reach players, the chat or the AI host.
+        return { id: o.id, label: o.label, voters: spec.anonymous ? [] : voters, count: voters.length };
+      });
+      const top = Math.max(0, ...tally.map((t) => t.count));
       return {
         kind: "choose",
         tally,
-        winners: top > 0 ? tally.filter((t) => t.voters.length === top).map((t) => t.id) : [],
+        winners: top > 0 ? tally.filter((t) => t.count === top).map((t) => t.id) : [],
+        anonymous: spec.anonymous === true,
       };
     }
     case "confirm":
@@ -83,12 +85,13 @@ export function summarize(live: LiveInteraction, name: (id: PlayerId) => string,
       return `「${live.spec.title}」收到：${r.entries.map((e) => `${name(e.playerId)}：${e.text}`).join("；") || "没有人提交"}`;
     case "choose": {
       const lines = r.tally
-        .filter((t) => t.voters.length > 0)
+        .filter((t) => (t.count ?? t.voters.length) > 0)
         .map(
-          (t) => `${t.label}${withIds ? `（id=${t.id}）` : ""} ${t.voters.length} 票：${t.voters.map(name).join("、")}`,
+          (t) =>
+            `${t.label}${withIds ? `（id=${t.id}）` : ""} ${t.count ?? t.voters.length} 票${r.anonymous ? "" : `：${t.voters.map(name).join("、")}`}`,
         );
       const winners = r.tally.filter((t) => r.winners.includes(t.id)).map((t) => t.label);
-      return `「${live.spec.title}」结果：${lines.join("；") || "没有人选择"}${winners.length > 0 ? `。得票最高：${winners.join("、")}` : ""}`;
+      return `「${live.spec.title}」${r.anonymous ? "（匿名）" : ""}结果：${lines.join("；") || "没有人选择"}${winners.length > 0 ? `。得票最高：${winners.join("、")}` : ""}`;
     }
     case "confirm":
       return `「${live.spec.title}」${r.approved ? "已批准" : "未批准"}${r.outcome ? `：${r.outcome}` : ""}`;
