@@ -7,6 +7,7 @@ import type { Config } from "../config.ts";
 import type { Db } from "../db/client.ts";
 import { partySessions, players, rooms } from "../db/schema.ts";
 import type { RoomManager } from "../rooms/RoomManager.ts";
+import { buildRecap, listParties } from "../rooms/recap.ts";
 import { RateLimiter } from "../util/rateLimit.ts";
 import { newId, randomToken, safeEqual, sha256 } from "../util/tokens.ts";
 
@@ -62,7 +63,7 @@ export function mountRoutes(app: express.Application, { config, db, agent, manag
       await tx
         .insert(players)
         .values({ id: playerId, roomId, nickname: body.data.nickname, sessionTokenHash: sha256(sessionToken) });
-      await tx.insert(partySessions).values({ id: newId("ses"), roomId, status: "active" });
+      await tx.insert(partySessions).values({ id: newId("ses"), roomId, status: "active", scoring: "rank-v1" });
     });
     console.log(`[http] room created ${roomId}`);
     res.json({ roomId, playerId, sessionToken } satisfies JoinResponse);
@@ -104,6 +105,54 @@ export function mountRoutes(app: express.Application, { config, db, agent, manag
     });
     if (!joined) return res.status(409).json({ error: `房间已满（最多 ${MAX_ROOM_MEMBERS} 人）` });
     res.json({ roomId: room.id, playerId, sessionToken } satisfies JoinResponse);
+  });
+
+  /** Resolves `Authorization: Bearer <session token>` to a member of the room in the URL. */
+  const member = async (req: Request, res: Response): Promise<string | null> => {
+    const token = /^Bearer (.+)$/.exec(req.headers.authorization ?? "")?.[1];
+    const [player] = token
+      ? await db
+          .select({ id: players.id })
+          .from(players)
+          .where(
+            and(
+              eq(players.sessionTokenHash, sha256(token)),
+              eq(players.roomId, String(req.params.roomId)),
+              isNull(players.removedAt),
+            ),
+          )
+      : [];
+    if (!player) {
+      res.status(401).json({ error: "需要这个房间的有效身份" });
+      return null;
+    }
+    return player.id;
+  };
+
+  /** Parties of a room (members only). */
+  api.get("/rooms/:roomId/parties", async (req, res) => {
+    if (!(await member(req, res))) return;
+    res.json({ parties: await listParties(db, String(req.params.roomId)) });
+  });
+
+  /** Full recap of one party (members only). Built from records; available whether or not the AI summary exists. */
+  api.get("/rooms/:roomId/parties/:sessionId", async (req, res) => {
+    if (!(await member(req, res))) return;
+    const recap = await buildRecap(db, String(req.params.roomId), String(req.params.sessionId));
+    if (!recap) return res.status(404).json({ error: "没有这场派对" });
+    res.json(recap);
+  });
+
+  /** Instance admin: make a member the host when the host is gone for good. */
+  api.post("/rooms/:roomId/host", async (req, res) => {
+    if (limited(adminLimiter, req, res)) return;
+    if (!safeEqual(String(req.body?.adminPassword ?? ""), config.adminPassword)) {
+      return res.status(403).json({ error: "管理员密码不正确" });
+    }
+    const runtime = await manager.get(String(req.params.roomId));
+    if (!runtime) return res.status(404).json({ error: "房间不存在" });
+    const ack = await runtime.setHost(String(req.body?.playerId ?? ""));
+    res.status(ack.ok ? 200 : 400).json(ack);
   });
 
   if (config.testMode) mountTestRoutes(api, { db, manager });
@@ -158,7 +207,7 @@ function mountTestRoutes(api: express.Router, { db, manager }: { db: Db; manager
           createdAt: new Date(Date.now() + i),
         });
       }
-      await tx.insert(partySessions).values({ id: newId("ses"), roomId, status: "active" });
+      await tx.insert(partySessions).values({ id: newId("ses"), roomId, status: "active", scoring: "rank-v1" });
     });
     res.json({ roomId, seats });
   });

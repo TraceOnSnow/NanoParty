@@ -179,6 +179,11 @@ export interface GameModule<S = unknown, A = unknown, V = unknown, C = unknown> 
    */
   atSafePoint?(state: S): boolean;
   judge?: JudgeSupport<S>;
+  /**
+   * Who does not take part in the placement when the game is settled (e.g. a human puzzle host
+   * who never got to solve). Everyone else is ranked by their raw result.
+   */
+  settlement?(state: S): { exclude: PlayerId[] };
   /** Id of the content item currently on screen, for feedback. */
   currentContentId?(state: S): string | null;
   /** Public, secret-free description of the current situation, used as AI host context. */

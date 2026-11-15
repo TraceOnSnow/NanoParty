@@ -87,7 +87,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
       apiKey: e.AI_ENABLED === "true" ? apiKey : undefined,
       baseUrl: provider === "google" ? e.GOOGLE_BASE_URL : e.ANTHROPIC_BASE_URL,
       mock: e.AI_ENABLED === "true" && e.AI_MOCK === "true",
-      model: e.AI_MODEL ?? (provider === "google" ? "gemini-2.5-flash" : "claude-opus-5-5"),
+      model: e.AI_MODEL ?? (provider === "google" ? "gemini-3.8-flash" : "claude-opus-5-5"),
       effort: e.AI_EFFORT,
       refusalFallback: e.AI_REFUSAL_FALLBACK === "true",
       timeoutMs: e.AI_TIMEOUT_MS,

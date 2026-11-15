@@ -180,12 +180,19 @@ describe("end to end (HTTP + WebSocket, no AI)", () => {
     expect(await c.act({ type: "submit", round: 1, value: 65 })).toEqual({ ok: true });
     await waitFor(() => b2.game.phase === "reveal");
     expect(b2.game.reveal.results).toHaveLength(3);
-    expect(b2.view.scoreboard.reduce((sum, s) => sum + s.points, 0)).toBeGreaterThanOrEqual(2);
+    // Raw game points are shown with the game; the party scoreboard only moves at settlement.
+    expect(b2.view.segment?.rawScores.reduce((sum, s) => sum + s.points, 0)).toBeGreaterThanOrEqual(2);
+    expect(b2.view.scoreboard.every((s) => s.points === 0)).toBe(true);
 
     expect(await host.act({ type: "next", round: 1 })).toEqual({ ok: true });
-    await waitFor(() => c.view.segment === null);
+    await waitFor(() => c.view.segment === null && c.view.settlement !== null);
+    const segmentId = c.view.settlement?.segmentId ?? "";
+    expect(await b2.cmd({ type: "confirmSettlement", segmentId, adjustmentId: null })).toMatchObject({ ok: false });
+    expect(await host.cmd({ type: "confirmSettlement", segmentId, adjustmentId: null })).toEqual({ ok: true });
+    await waitFor(() => c.view.settlement === null);
     expect(c.view.lastSegment?.endedReason).toBe("finished");
     expect(c.view.scoreboard).toEqual(host.view.scoreboard);
+    expect(c.view.scoreboard.reduce((sum, s) => sum + s.points, 0)).toBe(15); // 10 + 5 + 0 for three players
   });
 
   it("caps a room at 8 members", async () => {

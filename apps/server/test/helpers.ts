@@ -39,7 +39,12 @@ export interface Seat {
 }
 
 /** Creates a room with a host and `n - 1` guests directly in the database. */
-export async function seedRoom(world: World, n: number): Promise<{ roomId: string; seats: Seat[] }> {
+/** `scoring` defaults to the legacy raw-v1 so older tests keep exercising parties created before VNext. */
+export async function seedRoom(
+  world: World,
+  n: number,
+  scoring: "raw-v1" | "rank-v1" = "raw-v1",
+): Promise<{ roomId: string; seats: Seat[] }> {
   const { db } = world.handle;
   const roomId = newId("room");
   const seats: Seat[] = Array.from({ length: n }, () => ({ playerId: newId("p"), token: randomToken() }));
@@ -56,7 +61,7 @@ export async function seedRoom(world: World, n: number): Promise<{ roomId: strin
       createdAt: new Date(Date.now() + i),
     });
   }
-  await db.insert(partySessions).values({ id: newId("ses"), roomId, status: "active" });
+  await db.insert(partySessions).values({ id: newId("ses"), roomId, status: "active", scoring });
   return { roomId, seats };
 }
 

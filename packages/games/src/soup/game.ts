@@ -132,6 +132,8 @@ export interface SoupState {
   log: SoupEntry[];
   nextId: number;
   solver: PlayerId | null;
+  /** Rounds each player spent as the human soup master (they could not solve in those). */
+  hosted?: Record<PlayerId, number>;
   /** Players who have seen the solution without being the master (host peek). They no longer solve. */
   spoiled: PlayerId[];
   /** Who first got a "yes" that established each key fact (index into puzzle.facts). */
@@ -198,6 +200,7 @@ function startPlay(state: SoupState, c: { contentId: string | null; data: SoupPu
   };
   state.phase = "play";
   state.step += 1;
+  if (state.master) state.hosted = { ...state.hosted, [state.master]: (state.hosted?.[state.master] ?? 0) + 1 };
   state.log = [];
   state.nextId = 1;
   state.solver = null;
@@ -504,6 +507,12 @@ export const soupGame = defineGame<SoupState, Action, SoupView, Config>({
     },
   },
 
+  // Someone who hosted every soup never had a chance to solve one: not part of the placement.
+  settlement: (state) => ({
+    exclude: Object.entries(state.hosted ?? {})
+      .filter(([, rounds]) => rounds >= state.round)
+      .map(([p]) => p),
+  }),
   skip: {
     key: (state) => (state.phase === "play" ? `r${state.round}` : null),
     voters: (state) => state.participants,

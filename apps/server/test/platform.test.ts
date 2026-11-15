@@ -86,7 +86,7 @@ describe("feedback, sessions, invites, members", () => {
     expect(await host.cmd({ type: "endSession" })).toEqual({ ok: true });
     expect(host.view.sessionId).not.toBe(firstSession);
     expect(host.view.scoreboard.every((s) => s.points === 0)).toBe(true);
-    expect(host.chat.at(-1)?.text).toContain("玩家2 2 分");
+    expect(host.chat.at(-1)?.text).toContain("玩家2 2");
     const sessions = await world.handle.db.select().from(partySessions).where(eq(partySessions.roomId, roomId));
     expect(sessions.map((s) => s.status).sort()).toEqual(["active", "ended"]);
     // A reload sees the new, empty session rather than the old totals.

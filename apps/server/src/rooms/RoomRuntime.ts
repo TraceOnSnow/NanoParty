@@ -12,6 +12,7 @@
 import { adaptPuzzle, botAction, contentTypes, games, soupContentSchema } from "@apr/games";
 import {
   type Ack,
+  type AdjustmentView,
   type AgentInteractionSpec,
   type AiStatus,
   type CandidateRecord,
@@ -20,6 +21,8 @@ import {
   type Command,
   type CommandEnvelope,
   type ContentItem,
+  DEFAULT_PREFS,
+  formatTenths,
   type GameContext,
   type GameModule,
   type GameResult,
@@ -27,10 +30,13 @@ import {
   type JudgeTask,
   type LastSegmentView,
   MSG,
+  type PartyPrefs,
   type PlayerId,
   type RoomView,
   type ScoreEntry,
   type SegmentView,
+  type Settlement,
+  toTenths,
 } from "@apr/shared";
 import { and, asc, desc, eq, inArray, isNull, sql } from "drizzle-orm";
 import type { AgentRoomContext, AgentRoomPort, AgentService } from "../agent/AgentService.ts";
@@ -38,6 +44,7 @@ import type { GameAiService } from "../agent/GameAi.ts";
 import type { ContentService } from "../content/ContentService.ts";
 import type { Db } from "../db/client.ts";
 import {
+  adjustments,
   chatMessages,
   events,
   feedback,
@@ -51,6 +58,20 @@ import {
 import { RateLimiter } from "../util/rateLimit.ts";
 import { newId, randomToken, sha256 } from "../util/tokens.ts";
 import { computeResult, type LiveInteraction, respondersOf, summarize, toView, validateResponse } from "./canvas.ts";
+import {
+  computeSettlement,
+  creditAdjustment,
+  creditSettlement,
+  normalisePrefs,
+  type PendingAdjustment,
+  partyNumbers,
+  partyTotals,
+  pendingAdjustments,
+  rawScores,
+  type Scoring,
+  toAdjustmentView,
+} from "./party.ts";
+import { buildRecap, recapAsText, SUMMARY_PROMPT } from "./recap.ts";
 
 export interface RuntimeDeps {
   db: Db;
@@ -127,13 +148,25 @@ export class RoomRuntime implements AgentRoomPort {
   private judging: string | null = null;
   /** Shown under the game while the Game AI is working on something for it. */
   private segmentNotice: string | null = null;
+  /** How this party's scoreboard is computed (legacy parties keep adding raw points). */
+  private scoring: Scoring = "rank-v1";
+  /** Party points in tenths (rank-v1 parties). */
+  private readonly tenths = new Map<PlayerId, number>();
+  /** Raw points of the running game, shown beside it; they are not party points. */
+  private segmentRaw = new Map<PlayerId, number>();
+  private prefs: PartyPrefs = { ...DEFAULT_PREFS };
+  private party = { number: 1, gamesPlayed: 0, lastEndedSessionId: null as string | null };
+  /** A finished game whose party points are waiting for the host's confirmation. */
+  private settlement: (Settlement & { segmentId: string; gameId: string; endedReason: "finished" | "ended" }) | null =
+    null;
+  private pending: PendingAdjustment[] = [];
 
   private constructor(
     private readonly deps: RuntimeDeps,
     readonly roomId: string,
     private readonly roomName: string,
     private inviteToken: string,
-    private readonly hostPlayerId: PlayerId,
+    private hostPlayerId: PlayerId,
     private sessionId: string,
   ) {
     this.aiStatus = deps.agent.initialStatus();
@@ -154,7 +187,13 @@ export class RoomRuntime implements AgentRoomPort {
     if (!session) {
       [session] = await db
         .insert(partySessions)
-        .values({ id: newId("ses"), roomId, status: "active" })
+        .values({
+          id: newId("ses"),
+          roomId,
+          status: "active",
+          scoring: "rank-v1",
+          prefs: { ...normalisePrefs(room.prefs), suggestions: [] },
+        })
         .returning();
     }
     if (!session) throw new Error("failed to open party session");
@@ -175,6 +214,7 @@ export class RoomRuntime implements AgentRoomPort {
       .where(eq(scoreEvents.sessionId, session.id))
       .groupBy(scoreEvents.playerId);
     for (const t of totals) rt.scores.set(t.playerId, t.points);
+    await rt.loadParty(session.scoring, session.prefs);
 
     const history = await db
       .select()
@@ -203,14 +243,29 @@ export class RoomRuntime implements AgentRoomPort {
           module,
           status: "paused",
           state: seg.state,
-          pool,
+          pool: rt.arrangePool(pool),
           offered: new Map(),
           history: await rt.loadHistory(module, session.id),
         };
+        rt.segmentRaw = new Map(Object.entries(await rawScores(db, seg.id)));
       } else {
         // The game module no longer exists in this build; close the segment, keep its scores.
         await db.update(segments).set({ status: "aborted", endedAt: new Date() }).where(eq(segments.id, seg.id));
       }
+    }
+    // A game that had ended but was not settled yet is still waiting for the host.
+    const [unsettled] = await db
+      .select()
+      .from(segments)
+      .where(and(eq(segments.sessionId, session.id), eq(segments.status, "settling")));
+    if (unsettled) {
+      const endedReason =
+        (unsettled.settlement as { endedReason?: "finished" | "ended" } | null)?.endedReason ?? "ended";
+      rt.settlement = {
+        ...(await computeSettlement(db, unsettled.id, endedReason)),
+        segmentId: unsettled.id,
+        endedReason,
+      };
     }
     rt.agentNote = room.agentNote;
     const pending = await db
@@ -231,6 +286,33 @@ export class RoomRuntime implements AgentRoomPort {
       else rt.canvasQueue.push({ ...live, status: "queued" });
     }
     return rt;
+  }
+
+  /** Loads everything about the current party that is not a game: scoring, totals, prefs, proposals. */
+  private async loadParty(scoring: Scoring, prefs: unknown) {
+    const { db } = this.deps;
+    this.scoring = scoring;
+    this.prefs = normalisePrefs(prefs);
+    this.tenths.clear();
+    for (const [p, t] of await partyTotals(db, this.sessionId)) this.tenths.set(p, t);
+    this.party = await partyNumbers(db, this.roomId, this.sessionId);
+    this.pending = await pendingAdjustments(db, this.sessionId);
+  }
+
+  /**
+   * Applies the party's preferences to a content pool: drops items matching what the group
+   * does not want to see, and moves items matching today's wishes to the front. Topics that
+   * are already confirmed are never touched — this only affects what is offered next.
+   */
+  private arrangePool(pool: ContentItem[]): ContentItem[] {
+    const words = (text: string) => text.split(/[\s,，、;；]+/).filter((w) => w.length > 0);
+    const avoid = words(this.prefs.avoid);
+    const want = [...words(this.prefs.want), ...words(this.prefs.familiar)];
+    const text = (item: ContentItem) => `${item.theme} ${JSON.stringify(item.payload)}`;
+    const kept = avoid.length > 0 ? pool.filter((item) => !avoid.some((w) => text(item).includes(w))) : pool;
+    if (want.length === 0) return kept;
+    const hit = (item: ContentItem) => want.some((w) => text(item).includes(w));
+    return [...kept.filter(hit), ...kept.filter((item) => !hit(item))];
   }
 
   private async loadHistory(module: AnyGame, sessionId: string): Promise<Map<string, CandidateRecord>> {
@@ -347,7 +429,7 @@ export class RoomRuntime implements AgentRoomPort {
         : row.senderKind === "agent"
           ? { kind: "agent" }
           : { kind: "system" };
-    return { id: row.id, sender, text: row.text, createdAt: row.createdAt.getTime() };
+    return { id: row.id, sender, text: row.text, createdAt: row.createdAt.getTime(), sessionId: row.sessionId };
   }
 
   // --------------------------------------------------------------- commands
@@ -416,12 +498,87 @@ export class RoomRuntime implements AgentRoomPort {
         if (!isHost) return { ok: false, error: "只有房主可以结束当前游戏" };
         const seg = this.segment;
         if (!seg || seg.id !== command.segmentId) return { ok: false, error: "这局游戏已经结束" };
+        // Legacy parties have no settlement step: ending early simply closes the game.
+        const settleNow = (command.mode ?? "settle") === "settle" && this.scoring === "rank-v1";
+        if (settleNow) {
+          await this.deps.db
+            .update(segments)
+            .set({ status: "settling", settlement: { endedReason: "ended" } })
+            .where(eq(segments.id, seg.id));
+          this.logEvent("game.end", playerId, { reason: "ended" });
+          await this.toSettling(seg, "ended");
+          return { ok: true };
+        }
         await this.deps.db
           .update(segments)
           .set({ status: "aborted", endedAt: new Date() })
           .where(eq(segments.id, seg.id));
         this.logEvent("game.end", playerId, { reason: "aborted" });
         await this.closeSegment(seg, "aborted");
+        return { ok: true };
+      }
+      case "confirmSettlement": {
+        if (!isHost) return { ok: false, error: "只有房主可以确认结算" };
+        return this.confirmSettlement(playerId, command.segmentId, command.adjustmentId);
+      }
+      case "proposeAdjustment": {
+        if (!isHost) return { ok: false, error: "只有房主可以手动调分；其他人可以在右侧找 AI 提方案" };
+        const made = await this.createAdjustment(command.items, command.reason, "host", command.segmentId);
+        return made.ok ? { ok: true } : { ok: false, error: made.message };
+      }
+      case "decideAdjustment": {
+        if (!isHost) return { ok: false, error: "只有房主可以确认或取消调分方案" };
+        const adj = this.pending.find((a) => a.id === command.adjustmentId);
+        if (!adj) return { ok: false, error: "这个方案已经处理过或已失效" };
+        if (!command.approve) {
+          await this.closeAdjustment(adj, "cancelled", playerId);
+          this.broadcast();
+          return { ok: true };
+        }
+        // A proposal about the game being settled is credited together with that settlement.
+        if (this.settlement && adj.segmentId === this.settlement.segmentId) {
+          return this.confirmSettlement(playerId, this.settlement.segmentId, adj.id);
+        }
+        await this.deps.db.transaction((tx) =>
+          creditAdjustment(tx, this.sessionId, adj, playerId, adj.segmentId ? "correction" : "adjust"),
+        );
+        this.pending = this.pending.filter((a) => a.id !== adj.id);
+        await this.refreshTotals();
+        this.logEvent("party.adjust", playerId, { adjustmentId: adj.id, items: adj.items, reason: adj.reason });
+        await this.appendChat(
+          { kind: "system" },
+          `房主批准了派对调整：${this.describeItems(adj.items)}（${adj.reason}）`,
+        );
+        this.broadcast();
+        return { ok: true };
+      }
+      case "setPrefs": {
+        if (!isHost) return { ok: false, error: "只有房主可以确认派对偏好；你可以提交建议" };
+        this.prefs = { ...this.prefs, ...command.prefs };
+        await this.savePrefs();
+        // Offers from now on follow the new preferences; what is already on screen stays.
+        if (this.segment) this.segment.pool = this.arrangePool(this.segment.pool);
+        this.logEvent("party.prefs", playerId, { hostMode: this.prefs.hostMode });
+        this.broadcast();
+        return { ok: true };
+      }
+      case "suggestPrefs": {
+        const rest = this.prefs.suggestions.filter((x) => x.playerId !== playerId);
+        this.prefs = {
+          ...this.prefs,
+          suggestions: command.text ? [...rest, { playerId, text: command.text }].slice(-16) : rest,
+        };
+        await this.savePrefs();
+        this.broadcast();
+        return { ok: true };
+      }
+      case "transferHost": {
+        if (!isHost) return { ok: false, error: "只有房主可以转交房主身份" };
+        return this.setHost(command.playerId);
+      }
+      case "retrySummary": {
+        if (!isHost) return { ok: false, error: "只有房主可以重新生成总结" };
+        void this.generateSummary(command.sessionId);
         return { ok: true };
       }
       case "resumeSegment": {
@@ -519,30 +676,16 @@ export class RoomRuntime implements AgentRoomPort {
         return { ok: true };
       }
       case "endSession": {
-        if (!isHost) return { ok: false, error: "只有房主可以结束本场聚会" };
-        if (this.segment) return { ok: false, error: "请先结束当前游戏" };
-        const summary = this.scoreboard()
-          .filter((s) => s.points > 0)
-          .map((s) => `${this.members.get(s.playerId)?.nickname ?? "?"} ${s.points} 分`)
-          .join("，");
-        const next = newId("ses");
-        await this.deps.db.transaction(async (tx) => {
-          await tx
-            .update(partySessions)
-            .set({ status: "ended", endedAt: new Date() })
-            .where(eq(partySessions.id, this.sessionId));
-          await tx.insert(partySessions).values({ id: next, roomId: this.roomId, status: "active" });
-        });
-        this.sessionId = next;
-        this.scores.clear();
-        this.lastSegment = null;
-        this.suggestion = null;
-        await this.appendChat(
-          { kind: "system" },
-          `本场聚会结束。最终成绩：${summary || "没有人得分"}。新的一场从零开始。`,
-        );
-        this.broadcast();
-        return { ok: true };
+        if (!isHost) return { ok: false, error: "只有房主可以结束本场派对" };
+        if (this.segment) return { ok: false, error: "还有游戏在进行：请先「结束并结算」或「放弃本场」" };
+        if (this.settlement) return { ok: false, error: "上一场游戏还没结算：请先在结算页确认" };
+        if (this.pending.length > 0 && !command.discardPending) {
+          return {
+            ok: false,
+            error: `还有 ${this.pending.length} 个调分方案没有处理：请先确认或取消，或者选择放弃它们再结束`,
+          };
+        }
+        return this.endParty(playerId);
       }
       case "rotateInvite": {
         if (!isHost) return { ok: false, error: "只有房主可以更换邀请链接" };
@@ -606,6 +749,7 @@ export class RoomRuntime implements AgentRoomPort {
 
   private async startGame(gameId: string, rawConfig: unknown): Promise<Ack> {
     if (this.segment) return { ok: false, error: "已有游戏在进行中" };
+    if (this.settlement) return { ok: false, error: "上一场游戏还没结算，请先在结算页确认" };
     const module = games[gameId];
     if (!module) return { ok: false, error: "未知的游戏" };
     const count = this.members.size;
@@ -619,7 +763,9 @@ export class RoomRuntime implements AgentRoomPort {
       return { ok: false, error: "这台服务器没有配置 AI 模型，不能用 AI 主持。请关掉「AI 主持」，改由真人主持。" };
     }
 
-    const pool = module.meta.contentType ? await this.deps.content.pool(module.meta.contentType, this.sessionId) : [];
+    const pool = this.arrangePool(
+      module.meta.contentType ? await this.deps.content.pool(module.meta.contentType, this.sessionId) : [],
+    );
     const seg: LiveSegment = {
       id: newId("seg"),
       gameId,
@@ -650,6 +796,7 @@ export class RoomRuntime implements AgentRoomPort {
     });
     for (const r of changed) seg.history.set(r.item.id, r);
     this.segment = seg;
+    this.segmentRaw = new Map();
     this.logEvent("game.start", this.hostPlayerId, { gameId, config: config.data });
     this.suggestion = null;
     this.lastSegment = null;
@@ -875,7 +1022,11 @@ export class RoomRuntime implements AgentRoomPort {
           .update(segments)
           .set({
             state: result.state,
-            ...(result.finished ? { status: "finished" as const, endedAt: new Date() } : {}),
+            ...(result.finished
+              ? this.scoring === "rank-v1"
+                ? { status: "settling" as const, settlement: { endedReason: "finished" } }
+                : { status: "finished" as const, endedAt: new Date() }
+              : {}),
           })
           .where(eq(segments.id, seg.id));
         await this.deps.content.recordUsage(tx, this.sessionId, seg.id, drawn);
@@ -912,10 +1063,14 @@ export class RoomRuntime implements AgentRoomPort {
     }
     seg.state = result.state;
     for (const r of changed) seg.history.set(r.item.id, r);
-    for (const a of awarded) this.scores.set(a.playerId, (this.scores.get(a.playerId) ?? 0) + a.points);
+    for (const a of awarded) {
+      this.scores.set(a.playerId, (this.scores.get(a.playerId) ?? 0) + a.points);
+      this.segmentRaw.set(a.playerId, (this.segmentRaw.get(a.playerId) ?? 0) + a.points);
+    }
     if (result.finished) {
       this.logEvent("game.end", null, { reason: "finished" });
-      await this.closeSegment(seg, "finished");
+      if (this.scoring === "rank-v1") await this.toSettling(seg, "finished");
+      else await this.closeSegment(seg, "finished");
     } else {
       this.scheduleDeadline();
       await this.pumpCanvas();
@@ -940,8 +1095,265 @@ export class RoomRuntime implements AgentRoomPort {
     };
     this.segment = null;
     this.segmentNotice = null;
+    this.segmentRaw = new Map();
     this.scheduleDeadline();
     await this.pumpCanvas();
+    this.broadcast();
+  }
+
+  // ------------------------------------------------------------------ party
+
+  /** The game is over; its placement is shown and waits for the host. Nothing is credited yet. */
+  private async toSettling(seg: LiveSegment, endedReason: "finished" | "ended") {
+    this.settlement = {
+      ...(await computeSettlement(this.deps.db, seg.id, endedReason)),
+      segmentId: seg.id,
+      endedReason,
+    };
+    this.segment = null;
+    this.segmentNotice = null;
+    this.segmentRaw = new Map();
+    this.skipVote = null;
+    this.scheduleDeadline();
+    this.broadcast();
+  }
+
+  /**
+   * Credits the settled game once: placement rewards, plus the chosen proposal if any.
+   * Other proposals about this game expire. Safe against double clicks and retries: the
+   * settlement is gone after the first success and every ledger row has a unique key.
+   */
+  private async confirmSettlement(hostId: PlayerId, segmentId: string, adjustmentId: string | null): Promise<Ack> {
+    const st = this.settlement;
+    if (!st || st.segmentId !== segmentId) return { ok: false, error: "这场游戏已经结算过了" };
+    const chosen = adjustmentId ? this.pending.find((a) => a.id === adjustmentId) : undefined;
+    if (adjustmentId && (!chosen || chosen.segmentId !== segmentId)) {
+      return { ok: false, error: "这个调分方案已经失效，请重新确认" };
+    }
+    const others = this.pending.filter((a) => a.segmentId === segmentId && a.id !== adjustmentId);
+    await this.deps.db.transaction(async (tx) => {
+      await creditSettlement(tx, this.sessionId, segmentId, st, st.endedReason, hostId, adjustmentId);
+      if (chosen) await creditAdjustment(tx, this.sessionId, chosen, hostId, "adjust");
+      for (const a of others) {
+        await tx
+          .update(adjustments)
+          .set({ status: "expired", decidedBy: hostId, decidedAt: new Date() })
+          .where(eq(adjustments.id, a.id));
+      }
+    });
+    this.pending = this.pending.filter((a) => a.segmentId !== segmentId);
+    this.settlement = null;
+    await this.refreshTotals();
+    this.party.gamesPlayed += 1;
+    const gameName = games[st.gameId]?.meta.name ?? st.gameId;
+    this.lastSegment = {
+      gameId: st.gameId,
+      gameName,
+      endedReason: "finished",
+      scores: st.rows.map((r) => ({ playerId: r.playerId, points: r.tenths / 10 })),
+    };
+    this.logEvent("party.settle", hostId, {
+      segmentId,
+      gameId: st.gameId,
+      rows: st.rows.map((r) => ({ playerId: r.playerId, rank: r.rank, tenths: r.tenths })),
+      ...(chosen ? { adjustmentId: chosen.id, items: chosen.items, reason: chosen.reason } : {}),
+    });
+    const rewards = st.rows.map((r) => `${this.nameOf(r.playerId)} +${formatTenths(r.tenths)}`).join("、");
+    await this.appendChat(
+      { kind: "system" },
+      `「${gameName}」结算：${rewards || "没有名次奖励"}${chosen ? `；房主批准的调整：${this.describeItems(chosen.items)}（${chosen.reason}）` : ""}`,
+    );
+    await this.pumpCanvas();
+    this.broadcast();
+    return { ok: true };
+  }
+
+  private nameOf(id: PlayerId): string {
+    return this.members.get(id)?.nickname ?? "?";
+  }
+
+  private describeItems(items: PendingAdjustment["items"]): string {
+    return items
+      .map((i) => `${this.nameOf(i.playerId)} ${i.tenths > 0 ? "+" : ""}${formatTenths(i.tenths)}`)
+      .join("、");
+  }
+
+  private async refreshTotals() {
+    this.tenths.clear();
+    for (const [p, t] of await partyTotals(this.deps.db, this.sessionId)) this.tenths.set(p, t);
+  }
+
+  private async closeAdjustment(
+    adj: PendingAdjustment,
+    status: "cancelled" | "replaced" | "expired",
+    by: string | null,
+  ) {
+    await this.deps.db
+      .update(adjustments)
+      .set({ status, decidedBy: by, decidedAt: new Date() })
+      .where(and(eq(adjustments.id, adj.id), eq(adjustments.status, "pending")));
+    this.pending = this.pending.filter((a) => a.id !== adj.id);
+    this.logEvent("party.adjust-closed", by, { adjustmentId: adj.id, status });
+  }
+
+  /**
+   * Records a proposal to change party points. It changes nothing until the host approves it.
+   * A new proposal for the same target replaces the pending one (which can then no longer be approved).
+   */
+  private async createAdjustment(
+    rawItems: { playerId: string; points: number }[],
+    reason: string,
+    proposedBy: string,
+    segmentId?: string,
+  ): Promise<{ ok: boolean; message: string }> {
+    if (this.scoring !== "rank-v1") {
+      return { ok: false, message: "这场派对用的是旧计分方式（原始分累加），不支持调分；结束后开的新派对可以。" };
+    }
+    const items: PendingAdjustment["items"] = [];
+    for (const item of rawItems) {
+      if (!this.members.has(item.playerId)) return { ok: false, message: `成员里没有 id 为 ${item.playerId} 的玩家` };
+      const tenths = toTenths(item.points);
+      if (tenths === null)
+        return { ok: false, message: "分值要是一个不为 0 的有限数字（可以是负数，最多一位小数，绝对值不超过 1000）" };
+      if (items.some((x) => x.playerId === item.playerId)) return { ok: false, message: "同一个人只能出现一次" };
+      items.push({ playerId: item.playerId, tenths });
+    }
+    let target: string | null = this.settlement?.segmentId ?? null;
+    if (segmentId && segmentId !== target) {
+      // A correction of an already settled game of this party.
+      const [seg] = await this.deps.db
+        .select({ id: segments.id })
+        .from(segments)
+        .where(
+          and(eq(segments.id, segmentId), eq(segments.sessionId, this.sessionId), eq(segments.status, "finished")),
+        );
+      if (!seg) return { ok: false, message: "只能更正本场派对里已经结算的游戏" };
+      target = seg.id;
+    }
+    for (const old of this.pending.filter((a) => a.segmentId === target))
+      await this.closeAdjustment(old, "replaced", null);
+    const adj: PendingAdjustment = {
+      id: newId("adj"),
+      segmentId: target,
+      items,
+      reason: reason.slice(0, 200),
+      proposedBy,
+    };
+    await this.deps.db.insert(adjustments).values({
+      id: adj.id,
+      roomId: this.roomId,
+      sessionId: this.sessionId,
+      segmentId: adj.segmentId,
+      status: "pending",
+      items: adj.items,
+      reason: adj.reason,
+      proposedBy,
+    });
+    this.pending.push(adj);
+    this.logEvent("party.adjust-proposed", proposedBy, { adjustmentId: adj.id, items: adj.items });
+    this.broadcast();
+    return { ok: true, message: `已在左侧提出方案（${this.describeItems(items)}），等待房主确认；确认前不会生效。` };
+  }
+
+  private async savePrefs() {
+    await this.deps.db.update(partySessions).set({ prefs: this.prefs }).where(eq(partySessions.id, this.sessionId));
+    // The room keeps the last confirmed preferences as the template for its next party.
+    await this.deps.db
+      .update(rooms)
+      .set({ prefs: { ...this.prefs, suggestions: [] } })
+      .where(eq(rooms.id, this.roomId));
+  }
+
+  /** Makes another member the host. Used by the host (transfer) and by the instance admin (recovery). */
+  async setHost(playerId: PlayerId): Promise<Ack> {
+    const target = this.members.get(playerId);
+    if (!target) return { ok: false, error: "该成员不在房间里" };
+    if (playerId === this.hostPlayerId) return { ok: true };
+    await this.deps.db.update(rooms).set({ hostPlayerId: playerId }).where(eq(rooms.id, this.roomId));
+    this.hostPlayerId = playerId;
+    this.logEvent("room.host", playerId);
+    await this.appendChat({ kind: "system" }, `${target.nickname} 现在是房主。`);
+    this.broadcast();
+    return { ok: true };
+  }
+
+  /** Freezes the party and opens the next one from zero. The recap never waits for the AI summary. */
+  private async endParty(hostId: PlayerId): Promise<Ack> {
+    const ended = this.sessionId;
+    const board = this.scoreboard()
+      .map((s) => `${this.nameOf(s.playerId)} ${s.points}`)
+      .join("，");
+    const next = newId("ses");
+    const dropped = [...this.pending];
+    await this.deps.db.transaction(async (tx) => {
+      for (const a of dropped) {
+        await tx
+          .update(adjustments)
+          .set({ status: "expired", decidedBy: hostId, decidedAt: new Date() })
+          .where(eq(adjustments.id, a.id));
+      }
+      // Interactions belong to the party they were created in.
+      await tx
+        .update(interactions)
+        .set({ status: "cancelled", closedAt: new Date() })
+        .where(and(eq(interactions.roomId, this.roomId), inArray(interactions.status, ["queued", "open"])));
+      await tx
+        .update(partySessions)
+        .set({
+          status: "ended",
+          endedAt: new Date(),
+          summaryStatus: this.deps.gameAi.enabled ? "pending" : "none",
+        })
+        .where(eq(partySessions.id, ended));
+      await tx.insert(partySessions).values({
+        id: next,
+        roomId: this.roomId,
+        status: "active",
+        scoring: "rank-v1",
+        prefs: { ...this.prefs, suggestions: [] },
+      });
+    });
+    this.logEvent("party.end", hostId);
+    this.sessionId = next;
+    this.scores.clear();
+    this.pending = [];
+    this.canvasQueue = [];
+    this.canvasCurrent = null;
+    this.lastSegment = null;
+    this.suggestion = null;
+    this.agentNote = null;
+    await this.deps.db.update(rooms).set({ agentNote: null }).where(eq(rooms.id, this.roomId));
+    await this.loadParty("rank-v1", { ...this.prefs, suggestions: [] });
+    await this.appendChat(
+      { kind: "system" },
+      `第 ${this.party.number - 1} 场派对结束。最终积分：${board || "没有人得分"}。完整回顾在大厅里；新的一场从零开始。`,
+    );
+    this.broadcast();
+    if (this.deps.gameAi.enabled) void this.generateSummary(ended);
+    return { ok: true };
+  }
+
+  /** Writes the AI recap text for an ended party in the background. Failure leaves the structured recap intact. */
+  private async generateSummary(sessionId: string) {
+    const { db } = this.deps;
+    const [session] = await db.select().from(partySessions).where(eq(partySessions.id, sessionId));
+    if (!session || session.roomId !== this.roomId || session.status !== "ended") return;
+    if (!this.deps.gameAi.enabled) return;
+    await db.update(partySessions).set({ summaryStatus: "pending" }).where(eq(partySessions.id, sessionId));
+    this.broadcast();
+    try {
+      const recap = await buildRecap(db, this.roomId, sessionId);
+      const result = recap
+        ? await this.deps.gameAi.write(this.roomId, sessionId, SUMMARY_PROMPT, recapAsText(recap))
+        : ({ ok: false } as const);
+      await db
+        .update(partySessions)
+        .set(result.ok ? { summary: result.output.slice(0, 1200), summaryStatus: "ok" } : { summaryStatus: "failed" })
+        .where(eq(partySessions.id, sessionId));
+    } catch (err) {
+      console.error(`[room ${this.roomId}] summary failed:`, err instanceof Error ? err.name : err);
+      await db.update(partySessions).set({ summaryStatus: "failed" }).where(eq(partySessions.id, sessionId));
+    }
     this.broadcast();
   }
 
@@ -1070,7 +1482,10 @@ export class RoomRuntime implements AgentRoomPort {
 
   private scoreboard(): ScoreEntry[] {
     return [...this.members.keys()]
-      .map((playerId) => ({ playerId, points: this.scores.get(playerId) ?? 0 }))
+      .map((playerId) => ({
+        playerId,
+        points: this.scoring === "rank-v1" ? (this.tenths.get(playerId) ?? 0) / 10 : (this.scores.get(playerId) ?? 0),
+      }))
       .sort((a, b) => b.points - a.points);
   }
 
@@ -1097,11 +1512,27 @@ export class RoomRuntime implements AgentRoomPort {
             status: seg.status,
             view: seg.module.view(seg.state, playerId),
             skip: this.skipViewFor(seg, playerId),
+            rawScores: [...this.segmentRaw.entries()]
+              .map(([p, points]) => ({ playerId: p, points }))
+              .sort((a, b) => b.points - a.points),
             contentId: seg.module.currentContentId?.(seg.state) ?? null,
             notice: this.segmentNotice,
           }
         : null,
       lastSegment: this.lastSegment,
+      party: { sessionId: this.sessionId, scoring: this.scoring, ...this.party },
+      prefs: this.prefs,
+      settlement: this.settlement
+        ? {
+            segmentId: this.settlement.segmentId,
+            gameId: this.settlement.gameId,
+            gameName: games[this.settlement.gameId]?.meta.name ?? this.settlement.gameId,
+            endedReason: this.settlement.endedReason,
+            rows: this.settlement.rows,
+            note: this.settlement.note,
+          }
+        : null,
+      adjustments: this.pending.map((a): AdjustmentView => toAdjustmentView(a, (id) => this.nameOf(id))),
       suggestion: this.suggestion,
       ai: this.aiStatus,
       canvas: {
@@ -1207,6 +1638,16 @@ export class RoomRuntime implements AgentRoomPort {
           .map((s) => `${name(s.playerId)} ${s.points}`)
           .join("，") || "暂无"
       }`,
+      `主持模式：${this.prefs.hostMode === "quirky" ? "搞怪" : "普通"}`,
+      this.prefsText(),
+      this.settlement
+        ? `正在结算「${games[this.settlement.gameId]?.meta.name ?? ""}」（等房主确认，尚未入账）：${this.settlement.rows
+            .map((r) => `${name(r.playerId)} 原始 ${r.raw} 分、第 ${r.rank} 名、预计 +${formatTenths(r.tenths)}`)
+            .join("；")}${this.settlement.note ? `。${this.settlement.note}` : ""}`
+        : "",
+      this.pending.length > 0
+        ? `待房主确认的调分方案：${this.pending.map((a) => `${this.describeItems(a.items)}（${a.reason}）`).join("；")}`
+        : "",
       this.segment
         ? `当前游戏${this.segment.status === "paused" ? "（已暂停，等待房主恢复）" : ""}：${this.segment.module.publicSummary(this.segment.state)}`
         : "当前在大厅，没有进行中的游戏。",
@@ -1239,11 +1680,16 @@ export class RoomRuntime implements AgentRoomPort {
           ? { gameAcceptsOffers: true, type: contentType, guide }
           : { gameAcceptsOffers: false }
         : null,
-      state: lines.join("\n"),
-      recentChat: this.chat.slice(-AGENT_CHAT_CONTEXT).map((m) => ({
-        speaker: m.sender.kind === "player" ? m.sender.nickname : m.sender.kind === "agent" ? "AI 主持" : "系统",
-        text: m.text,
-      })),
+      state: lines.filter(Boolean).join("\n"),
+      mode: this.prefs.hostMode,
+      // Only this party's chat: earlier parties are not the host's business.
+      recentChat: this.chat
+        .filter((m) => m.sessionId === this.sessionId)
+        .slice(-AGENT_CHAT_CONTEXT)
+        .map((m) => ({
+          speaker: m.sender.kind === "player" ? m.sender.nickname : m.sender.kind === "agent" ? "AI 主持" : "系统",
+          text: m.text,
+        })),
       games: Object.values(games).map((g) => g.meta),
     };
   }
@@ -1369,6 +1815,32 @@ export class RoomRuntime implements AgentRoomPort {
       );
       return { ok: true, message: "已向房主发出确认请求（尚未开始）。房主决定后你会收到结果。" };
     });
+  }
+
+  /** Agent tool: a proposal the host can approve. `requester` is recorded as who asked for it. */
+  proposeAdjustment(
+    items: { playerId: string; points: number }[],
+    reason: string,
+    requester: PlayerId | null = null,
+  ): Promise<{ ok: boolean; message: string }> {
+    return this.exclusive(async () => {
+      const made = await this.createAdjustment(items, reason, "agent");
+      if (made.ok && requester) this.logEvent("party.adjust-requested", requester);
+      return made.ok ? made : { ok: false, message: `失败：${made.message}` };
+    });
+  }
+
+  private prefsText(): string {
+    const p = this.prefs;
+    const parts = [
+      p.familiar && `大家熟悉：${p.familiar}`,
+      p.want && `今天想玩：${p.want}`,
+      p.avoid && `不要出现：${p.avoid}`,
+      p.difficulty !== "normal" && `难度：${p.difficulty === "easy" ? "轻松" : "有挑战"}`,
+      p.suggestions.length > 0 &&
+        `成员的建议：${p.suggestions.map((x) => `${this.nameOf(x.playerId)}「${x.text}」`).join("；")}`,
+    ].filter(Boolean);
+    return parts.length > 0 ? `本场偏好——${parts.join("；")}` : "本场偏好：还没有设置。";
   }
 
   async setNote(text: string): Promise<void> {

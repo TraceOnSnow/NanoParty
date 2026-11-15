@@ -16,7 +16,7 @@ import { aiCalls } from "../db/schema.ts";
 import { RateLimiter } from "../util/rateLimit.ts";
 import { newId } from "../util/tokens.ts";
 import { type AgentModel, type AgentTool, defineTool } from "./model.ts";
-import { buildPrompt, SYSTEM_PROMPT } from "./prompt.ts";
+import { buildPrompt, systemPrompt } from "./prompt.ts";
 
 export type AgentTrigger =
   | { kind: "mention"; playerId: string; nickname: string; text: string }
@@ -35,6 +35,8 @@ export interface AgentRoomContext {
   /** Whether the running game takes candidate content from outside, and in which format. */
   content: { gameAcceptsOffers: true; type: string; guide: string } | { gameAcceptsOffers: false } | null;
   recentChat: { speaker: string; text: string }[];
+  /** How bold the host's proposals may be. Never changes what it is allowed to do. */
+  mode: "normal" | "quirky";
   games: GameMeta[];
 }
 
@@ -56,6 +58,15 @@ export interface AgentRoomPort {
     gameId: string,
     config: Record<string, number>,
     reason: string,
+  ): Promise<{ ok: boolean; message: string }>;
+  /**
+   * Proposes a change to party points. Shown on the main panel; only the host's approval
+   * credits it. Points may be negative.
+   */
+  proposeAdjustment(
+    items: { playerId: string; points: number }[],
+    reason: string,
+    requester?: string | null,
   ): Promise<{ ok: boolean; message: string }>;
   setNote(text: string): Promise<void>;
   postChat(kind: "agent" | "system", text: string): Promise<void>;
@@ -187,10 +198,11 @@ export class AgentService {
   private async runOnce(room: AgentRoomPort, st: RoomAgentState, model: AgentModel, batch: AgentTrigger[]) {
     await this.acquire();
     room.setAiStatus({ enabled: true, state: "thinking" });
+    const context = room.agentContext();
     try {
       const result = await model.run({
-        system: SYSTEM_PROMPT,
-        prompt: buildPrompt(room.agentContext(), batch),
+        system: systemPrompt(context.mode),
+        prompt: buildPrompt(context, batch),
         tools: this.toolsFor(room, st.requester),
         signal: AbortSignal.timeout(this.limits.timeoutMs),
       });
@@ -256,6 +268,19 @@ export class AgentService {
           reason: z.string().max(200).describe("给房主看的说明"),
         }),
         run: async ({ gameId, config, reason }) => (await room.proposeStartGame(gameId, config, reason)).message,
+      }),
+      defineTool({
+        name: "propose_adjustment",
+        description:
+          "提出一个派对积分调整方案（加分、扣分、重分都行，可以是负数、可以离谱），显示在左侧主面板，由房主点确认后才入账。有人争分、讨价还价、要求补偿或惩罚时，别只在聊天里答应——用它把方案变成房主可以确认的真实操作。playerId 用成员列表里的 id。调用后要如实说「已提出，等房主确认」，不能说已经加了。新方案会替换之前没确认的方案。",
+        inputSchema: z.object({
+          items: z
+            .array(z.object({ playerId: z.string(), points: z.number().describe("加减的分数，可为负，最多一位小数") }))
+            .min(1)
+            .max(8),
+          reason: z.string().max(200).describe("给大家看的理由，可以玩梗，但不要编造没发生的事"),
+        }),
+        run: async ({ items, reason }) => (await room.proposeAdjustment(items, reason, requester)).message,
       }),
       defineTool({
         name: "note_plan",

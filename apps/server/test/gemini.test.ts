@@ -92,7 +92,7 @@ describe("AI provider config", () => {
   const base = { ADMIN_PASSWORD: "password-1234" };
   it("picks Google when only its key is set and Anthropic otherwise", () => {
     const google = loadConfig({ ...base, GOOGLE_API_KEY: "g" }).ai;
-    expect([google.provider, google.apiKey, google.model]).toEqual(["google", "g", "gemini-2.5-flash"]);
+    expect([google.provider, google.apiKey, google.model]).toEqual(["google", "g", "gemini-3.8-flash"]);
     expect(loadConfig({ ...base, GEMINI_API_KEY: "g2", AI_MODEL: "gemini-x" }).ai.model).toBe("gemini-x");
     const both = loadConfig({ ...base, GOOGLE_API_KEY: "g", ANTHROPIC_API_KEY: "a" }).ai;
     expect([both.provider, both.apiKey, both.model]).toEqual(["anthropic", "a", "claude-opus-5-5"]);
