@@ -1,0 +1,4369 @@
+{
+  "scenario": "picker-history",
+  "base": "http://localhost:3100",
+  "roomId": "room_Lsf6E6_M7RbY",
+  "failures": [],
+  "trace": [
+    {
+      "step": 1,
+      "label": "#1 guest cannot start a game",
+      "as": "p_q_blnNNFOh6N",
+      "outcome": "rejected as expected: 只有房主可以开始游戏",
+      "detail": {
+        "ok": false,
+        "error": "只有房主可以开始游戏"
+      }
+    },
+    {
+      "step": 2,
+      "label": "#2 host starts 谁最可能",
+      "as": "p_mQ5E605CtqS-",
+      "outcome": "ok",
+      "detail": {
+        "ok": true
+      }
+    },
+    {
+      "step": 3,
+      "label": "#3 wait",
+      "as": "p_mQ5E605CtqS-",
+      "outcome": "ok",
+      "detail": "pick"
+    },
+    {
+      "step": 4,
+      "label": "#4 picker refreshes (free)",
+      "as": "p_mQ5E605CtqS-",
+      "outcome": "ok",
+      "detail": {
+        "ok": true
+      }
+    },
+    {
+      "step": 5,
+      "label": "#5 picker chooses",
+      "as": "p_mQ5E605CtqS-",
+      "outcome": "ok",
+      "detail": {
+        "ok": true
+      }
+    },
+    {
+      "step": 6,
+      "label": "#6 everyone votes",
+      "as": "p_mQ5E605CtqS-",
+      "outcome": "moves 0:vote 1:vote 2:vote 3:vote",
+      "detail": [
+        "0:vote",
+        "1:vote",
+        "2:vote",
+        "3:vote"
+      ]
+    },
+    {
+      "step": 7,
+      "label": "#7 wait",
+      "as": "p_mQ5E605CtqS-",
+      "outcome": "ok",
+      "detail": "reveal"
+    },
+    {
+      "step": 8,
+      "label": "#8 duplicate vote is rejected",
+      "as": "p_GT5oMgJNTuK1",
+      "outcome": "rejected as expected: 现在不是投票阶段",
+      "detail": {
+        "ok": false,
+        "error": "现在不是投票阶段"
+      }
+    },
+    {
+      "step": 9,
+      "label": "#9 next round",
+      "as": "p_mQ5E605CtqS-",
+      "outcome": "ok",
+      "detail": {
+        "ok": true
+      }
+    },
+    {
+      "step": 10,
+      "label": "#10 wait",
+      "as": "p_mQ5E605CtqS-",
+      "outcome": "ok",
+      "detail": "pick"
+    },
+    {
+      "step": 11,
+      "label": "#11 history lists earlier candidates",
+      "as": "p_q_blnNNFOh6N",
+      "outcome": "ok",
+      "detail": [
+        {
+          "contentId": "who-005",
+          "label": "谁最可能在恐怖片里第一个领盒饭？",
+          "status": "shown",
+          "origin": "library"
+        },
+        {
+          "contentId": "who-003",
+          "label": "谁最可能出门忘带手机？",
+          "status": "shown",
+          "origin": "library"
+        },
+        {
+          "contentId": "who-004",
+          "label": "谁最可能半夜突然想吃火锅？",
+          "status": "used",
+          "origin": "library"
+        },
+        {
+          "contentId": "who-009",
+          "label": "谁最可能在 KTV 霸占麦克风？",
+          "status": "shown",
+          "origin": "library"
+        },
+        {
+          "contentId": "who-012",
+          "label": "谁最可能在重要场合笑场？",
+          "status": "shown",
+          "origin": "library"
+        },
+        {
+          "contentId": "who-014",
+          "label": "谁最可能突然宣布要去环游世界？",
+          "status": "shown",
+          "origin": "library"
+        }
+      ]
+    },
+    {
+      "step": 12,
+      "label": "#12 player 3 reconnects",
+      "as": "p_mQ5E605CtqS-",
+      "outcome": "ok"
+    },
+    {
+      "step": 13,
+      "label": "#13 state survives the reconnect",
+      "as": "p_GWswczd_bP1e",
+      "outcome": "ok",
+      "detail": "pick"
+    },
+    {
+      "step": 14,
+      "label": "#14 ask the AI through the second send button",
+      "as": "p_GT5oMgJNTuK1",
+      "outcome": "ok",
+      "detail": {
+        "ok": true
+      }
+    }
+  ],
+  "views": [
+    {
+      "playerId": "p_mQ5E605CtqS-",
+      "view": {
+        "room": {
+          "id": "room_Lsf6E6_M7RbY",
+          "name": "测试·picker-history"
+        },
+        "me": {
+          "playerId": "p_mQ5E605CtqS-",
+          "isHost": true
+        },
+        "members": [
+          {
+            "id": "p_mQ5E605CtqS-",
+            "nickname": "玩家1",
+            "isHost": true,
+            "connected": true
+          },
+          {
+            "id": "p_q_blnNNFOh6N",
+            "nickname": "玩家2",
+            "isHost": false,
+            "connected": true
+          },
+          {
+            "id": "p_GT5oMgJNTuK1",
+            "nickname": "玩家3",
+            "isHost": false,
+            "connected": true
+          },
+          {
+            "id": "p_GWswczd_bP1e",
+            "nickname": "玩家4",
+            "isHost": false,
+            "connected": true
+          }
+        ],
+        "sessionId": "ses_gGTceD4wYQC1",
+        "scoreboard": [
+          {
+            "playerId": "p_q_blnNNFOh6N",
+            "points": 1
+          },
+          {
+            "playerId": "p_GT5oMgJNTuK1",
+            "points": 1
+          },
+          {
+            "playerId": "p_GWswczd_bP1e",
+            "points": 1
+          },
+          {
+            "playerId": "p_mQ5E605CtqS-",
+            "points": 0
+          }
+        ],
+        "games": [
+          {
+            "id": "spectrum",
+            "name": "猜刻度",
+            "description": "一个人看到刻度上的秘密位置并给出一句提示，其他人猜它在哪。考验默契。",
+            "minPlayers": 2,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮有一条两端相反的刻度（例如 冷 ↔ 热）。轮到的提示者先选题：从候选刻度里挑一条、不限次数地换一批，或者自己出一条；确认后才正式开始。然后提示者会看到刻度上的秘密位置，并写一句提示（不能含数字）。其他人各自拖动滑块猜位置，互相看不到，全部提交后揭晓。提示者轮流担任；中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "猜测与目标相差 ≤5 得 4 分，≤12 得 3 分，≤22 得 2 分（刻度 0–100）。提示者得到猜测者得分的平均值（四舍五入）。被跳过的轮次不计分。",
+            "contentType": "spectrum",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 40,
+                "default": 6,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "clueSeconds",
+                "label": "写提示时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 120,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "guessSeconds",
+                "label": "猜测时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "undercover",
+            "name": "谁是卧底",
+            "description": "每人拿到一个词，卧底的词略有不同。各自写一句描述，语音讨论后投票找出卧底。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "系统给每人秘密发一个词：多数人（平民）相同，卧底拿到相近但不同的词，谁也不知道自己的身份（3–5 人 1 个卧底，6–8 人 2 个）。每轮所有存活玩家各写一句描述（不能直接写出自己的词），全部提交后统一公开；语音讨论后在网页上投票，得票最高者出局并公开身份，平票则无人出局。卧底全部出局则平民获胜；卧底人数不少于平民则卧底获胜。中途加入的玩家从下一局开始参与。",
+            "scoringSummary": "平民获胜：每位平民 +2 分（含已出局的）。卧底获胜：每位卧底 +4 分。换词跳过的一局不计分。",
+            "contentType": "word-pair",
+            "options": [
+              {
+                "key": "games",
+                "label": "局数",
+                "min": 0,
+                "max": 20,
+                "default": 3,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "describeSeconds",
+                "label": "描述时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 120,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "投票时限（秒）",
+                "min": 0,
+                "max": 900,
+                "default": 0,
+                "hint": "0 = 不限时，由房主收票"
+              }
+            ]
+          },
+          {
+            "id": "categories",
+            "name": "逛三园",
+            "description": "围绕一个类别轮流打词，不能重复、不能超时，撑到最后的人赢。",
+            "minPlayers": 2,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选类别里选一个（可以不限次数地换一批，也可以自己出一个类别）。每轮给出一个类别（例如「水果园」）。玩家按顺序轮流在限时内输入一个属于该类别的词。与已出现的词重复会被系统拒绝（可以马上换一个，时间不停）。超时或认输的人本轮出局。词是否属于该类别由大家口头把关：有争议时房主可判定最新的词无效，其作者出局。剩最后一人时本轮结束。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "每轮撑到最后的玩家 +2 分。被跳过的类别不计分。",
+            "contentType": "category",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 3,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每人每次限时（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 20,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "ranking",
+            "name": "排排座",
+            "description": "合作游戏：每人按自己的秘密数字（1–10）回答同一个情境，队长要把大家的回答从低到高排对。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由本轮队长从候选情境里选一个（可以不限次数地换一批，也可以自己出一个）。每轮一个情境和一条程度刻度（例如「形容一种食物：最难吃 → 最好吃」）。队长轮流担任。其他人各拿到一个互不相同的秘密数字（1–10），写一个程度与数字相符的回答，不能写出数字。写完后回答公开（数字仍保密），队长把它们从低到高排序，然后揭晓数字。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "团队计分：全部排对，本轮所有人 +3 分；只有一对顺序排反，所有人 +1 分；否则不得分。",
+            "contentType": "scale-scenario",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 4,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "writeSeconds",
+                "label": "作答时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 120,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "orderSeconds",
+                "label": "排序时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 120,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "bluff",
+            "name": "真假难辨",
+            "description": "给一条冷知识编个以假乱真的答案，混进真答案里，看谁能骗到人、谁能认出真的。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选题里选一道（只看得到题干，看不到答案；可以换一批，不能自己出题）。每轮一道有空缺的事实题。每人先编一个假答案（最多 30 字；碰巧写中真答案会被要求重写）。所有假答案和真答案乱序、匿名展示，每人选出自己认为真的那个（不能选自己写的）。然后公开真相、作者和每个人的选择。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "选中真答案 +2 分；你的假答案每骗到 1 人 +1 分（相同的假答案各自得分）。被跳过的题不计分。",
+            "contentType": "fact-blank",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 5,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "writeSeconds",
+                "label": "编答案时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "selectSeconds",
+                "label": "选择时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "wager",
+            "name": "估数下注",
+            "description": "先各自秘密估一个数，再看着所有人的估计下注：你觉得谁估得最准？",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选题里选一道（只看得到题干，看不到答案；可以换一批，不能自己出题）。每轮一道答案是数字的题。所有人各自秘密估一个数。全部提交后公开所有估计（从小到大），每人押一位玩家，赌 TA 的估计最接近答案（可以押自己）。然后公开答案。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "估得最接近的玩家 +2 分（并列都得），完全猜中再 +1 分；押中最接近者的玩家 +1 分。被跳过的题不计分。",
+            "contentType": "numeric-fact",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 5,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "answerSeconds",
+                "label": "估数时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "betSeconds",
+                "label": "下注时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "mostlikely",
+            "name": "谁最可能",
+            "description": "「谁最可能……」每人投给最符合情境的那位朋友，看看大家想的是不是一样。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选题里选一道（可以不限次数地换一批，也可以自己出题）。每轮出现一个「谁最可能……」的情境。每人秘密投票给在场的一位玩家（可以投自己），全部投完后公开谁投了谁。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "投给得票最多的人（并列都算）的玩家各 +1 分。被跳过的题不计分。",
+            "contentType": "who-prompt",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 8,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "投票时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "quip",
+            "name": "脑洞问答",
+            "description": "同一个脑洞问题，每人写一个回答，匿名展示后投票选出最喜欢的。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选题里选一道（可以不限次数地换一批，也可以自己出题）。每轮一个开放问题，所有人各写一个回答（最多 60 字），揭晓前互相看不到。写完后回答匿名、乱序展示，每人投一票（不能投自己），投完公开作者和票数。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "每得 1 票 +1 分；得票最多的回答再 +1 分（并列都加）。被跳过的题不计分。",
+            "contentType": "quip-prompt",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 5,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "writeSeconds",
+                "label": "作答时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "投票时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "oneclue",
+            "name": "不撞词",
+            "description": "合作猜词：每人给猜词者写一个词作线索，但和别人撞了的线索会被划掉。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由猜词者以外的一名玩家（轮流担任）从候选词里选一个（可以不限次数地换一批，也可以自己出一个）；猜词者看不到候选。猜词者轮流担任，看不到目标词。其他人各写一个线索词（最多 10 字，不能包含目标词），互相看不到。全部提交后，内容相同的线索全部作废；猜词者只能看到剩下的线索，只有一次机会猜词，也可以放弃。猜的词与目标词意思相同但写法不同时，房主可以判为正确。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "团队计分：猜中则本轮所有人 +1 分；猜错或放弃不得分。",
+            "contentType": "guess-word",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 6,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "clueSeconds",
+                "label": "写线索时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "guessSeconds",
+                "label": "猜词时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "rowcards",
+            "name": "别拿第六张",
+            "description": "纯规则卡牌：所有人同时出牌，按大小依次接到四行牌的末尾——谁放下某一行的第六张，谁就把那一行收走吃罚分。",
+            "minPlayers": 2,
+            "maxPlayers": 8,
+            "rulesSummary": "牌是 1–100 的数字，每人 10 张，桌上 4 行各 1 张起始牌。每墩所有人同时暗出一张，然后从小到大依次放置：放到「末尾牌比它小且最接近」的那一行；如果那一行已有 5 张，你收走这 5 张，你的牌成为该行新的第一张；如果你的牌比所有行的末尾都小，你收走罚分最少的一行。每张牌的罚分：11 的倍数 5 分，10 的倍数 3 分，5 的倍数 2 分，其余 1 分。10 墩打完一局。本游戏不使用题库，也不能投票跳过。",
+            "scoringSummary": "每局罚分最少的玩家 +3 分（并列都得）。罚分只在局内比较，不计入聚会积分。",
+            "options": [
+              {
+                "key": "hands",
+                "label": "局数",
+                "min": 1,
+                "max": 10,
+                "default": 1
+              },
+              {
+                "key": "chooseSeconds",
+                "label": "出牌时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "soup",
+            "name": "海龟汤",
+            "description": "汤主知道一个离奇故事的全部真相，大家只能问「是不是」，一步步还原它。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮由一名玩家（轮流）当汤主：先选一道汤（或自己出），只有汤主看得到汤底。其他人看汤面，在网页上提问，汤主逐条回答「是 / 不是 / 无关 / 部分正确」。每人同时只能有一条问题在等回答。觉得自己知道了，就提交完整推理，由汤主判对错。有人答对，或汤主放弃、时间到，公开汤底。中途加入的玩家下一轮参与。",
+            "scoringSummary": "喝出汤的人 +3 分，汤主 +1 分；没人喝出则都不得分。",
+            "contentType": "soup",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 10,
+                "default": 2,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "playSeconds",
+                "label": "每碗汤限时（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 600,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "split",
+            "name": "五五开",
+            "description": "补全一个两难情境，让朋友们刚好吵成两半——越接近五五开，分越高。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人选一个带空格的两难情境（可以换一批或自己出）。所有人各自填空，让这个情境变成一个「大家会意见不一」的选择；填好前互相看不到。然后公开所有版本，每人对别人的每个版本选「愿意 / 不愿意」，全部选完后公开。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "你的版本得分 = 回答人数 − |愿意人数 − 不愿意人数|。完美五五开得分最高，全员一边倒得 0 分。被跳过的轮次不计分。",
+            "contentType": "split-prompt",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 3,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "writeSeconds",
+                "label": "填空时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "表态时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "wordhunt",
+            "name": "问出秘密词",
+            "description": "限时用是非问题问出村长心里的词——但狼人也知道答案，在暗中带偏大家。",
+            "minPlayers": 4,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮一名玩家（轮流）当村长，秘密选一个词（别人看不到候选）。其他人里秘密抽出狼人（7 人以上 2 个）和预言家，其余是村民；狼人和预言家也知道这个词。大家在网页上提问，村长回答「是 / 不是 / 也许 / 很接近 / 差得远」，每人同时只能有一条问题在等回答；随时可以直接猜词。限时内猜出词：狼人有一次机会指认预言家，指认对了狼人赢，否则村民赢。时间到还没猜出：所有人投票找狼人，票数最多且唯一的人是狼人则村民赢，否则狼人赢。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "获胜阵营每人 +3 分（村长属于村民阵营）。",
+            "contentType": "guess-word",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 10,
+                "default": 3,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "askSeconds",
+                "label": "提问时限（秒）",
+                "min": 30,
+                "max": 900,
+                "default": 240
+              },
+              {
+                "key": "voteSeconds",
+                "label": "指认时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "crew",
+            "name": "合作吃墩",
+            "description": "所有人是一个团队：打牌赢墩，让每个任务都由指定的人拿下，谁拿错一墩大家一起失败。",
+            "minPlayers": 3,
+            "maxPlayers": 5,
+            "rulesSummary": "牌：红蓝绿黄 1–9 各一张，外加王牌 1–4，全部发完。拿到王牌 4 的人是队长。每次任务开始时翻出若干张任务牌，从队长起轮流认领。打牌：领出的花色必须跟，没有才可以出别的；有王牌时最大的王牌赢，否则领出花色中最大的赢，赢家领下一墩。某个任务的牌被它的认领人赢下，任务完成；被别人赢下，整个任务立即失败。每人每次任务可以在两墩之间公开一张彩色手牌，并由系统标明它是你这个颜色里「最大 / 最小 / 唯一」的一张（不满足就不能公开）。按规则，打牌时请不要在语音里透露手牌。",
+            "scoringSummary": "团队计分：任务全部完成，所有人 +3 分；失败不得分。每成功一次，下一次多一张任务牌。",
+            "options": [
+              {
+                "key": "missions",
+                "label": "任务次数",
+                "min": 1,
+                "max": 10,
+                "default": 3
+              },
+              {
+                "key": "tasks",
+                "label": "首次任务牌数",
+                "min": 1,
+                "max": 6,
+                "default": 2
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每次出牌时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "skull",
+            "name": "翻牌诈唬",
+            "description": "每人三朵花一个骷髅，暗着叠起来，然后喊价：你敢翻几张而不碰到骷髅？",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每人有 4 张圆牌：3 张花、1 张骷髅。每轮所有人先同时暗放一张。然后从起始玩家开始轮流：再暗放一张，或者喊价「我能翻开 N 张花」（N 不超过桌上总数）。一旦有人喊价，之后只能加价或放弃，直到只剩一人（或有人喊到上限）。喊价者先翻开自己的所有牌，再挑别人的牌堆从上往下翻，凑够 N 张花就成功；翻到骷髅就失败，随机失去自己的一张牌（牌是谁放的谁知道，别人只看得到张数）。成功两次的人获胜；失去所有牌的人出局，只剩一人时 TA 获胜。",
+            "scoringSummary": "获胜者 +3 分。",
+            "options": [
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "nothanks",
+            "name": "拒牌筹码",
+            "description": "每张牌都是负分。花一个筹码拒绝它，或者收下它连同上面的筹码——规则一句话，纠结一整局。",
+            "minPlayers": 3,
+            "maxPlayers": 7,
+            "rulesSummary": "牌是 3–35，洗好后随机拿走 9 张不用（谁也不知道是哪些）。每人有若干筹码（3–5 人 11 个，6 人 9 个，7 人 7 个），数量对别人保密。轮到你时，翻开的牌要么收下（连同牌上所有筹码），要么放一个筹码在牌上拒绝它，轮到下一个人；没有筹码只能收下。收下牌的人接着面对下一张。牌发完时结算：你的牌点数相加，但连号的一串只算最小的那张，再减去手里的筹码。",
+            "scoringSummary": "总分最低的玩家 +3 分（并列都得）。",
+            "options": [
+              {
+                "key": "games",
+                "label": "局数",
+                "min": 1,
+                "max": 5,
+                "default": 1
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "flush",
+            "name": "压牌出清",
+            "description": "把牌打到面前，比你小的牌全被压掉、主人要摸牌；撑过一整圈的牌就能扔掉。先出清的人赢。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "牌是 2–20，每种 3 张，每人 6 张。轮到你时：如果你面前还有牌（撑过了一圈），先把它扔掉；手里没牌了你就赢了。然后打一张牌到面前：桌上所有比它弱的牌被压掉，主人各摸一张。相同点数的牌会互相支援，强度 = 点数 × 桌上同点数的张数（同点数的牌不会互相压）。",
+            "scoringSummary": "最先出清的玩家 +3 分。",
+            "options": [
+              {
+                "key": "games",
+                "label": "局数",
+                "min": 1,
+                "max": 5,
+                "default": 1
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "duel",
+            "name": "暗牌对决",
+            "description": "手里只有一张牌。每回合摸一张、打一张，用它的效果把别人淘汰——一局只要几分钟。",
+            "minPlayers": 2,
+            "maxPlayers": 6,
+            "rulesSummary": "16 张牌，点数 1–8：1「侦察」×5：指定一名玩家并猜一个 2–8 的点数，猜中则 TA 出局；2「窥探」×2：偷看一名玩家的手牌；3「比拼」×2：和一名玩家私下比点数，小的出局；4「护盾」×2：直到你下个回合前，别人的牌对你无效；5「弃牌令」×2：让一名玩家（可以是自己）弃掉手牌重摸一张；6「交换」×1：和一名玩家交换手牌；7「顾问」×1：无效果；但手里同时有 5 或 6 时必须打出它；8「王牌」×1：打出或被弃掉就出局。开局拿掉一张暗牌不用，每人一张。轮到你时摸一张，再打出两张中的一张并执行效果。只剩一人时 TA 赢下这一轮；牌摸完时，手牌点数最大的赢（平局比弃牌点数和）。先赢下指定轮数的人赢得对决。",
+            "scoringSummary": "每赢一轮 +1 分，赢得对决再 +2 分。",
+            "options": [
+              {
+                "key": "tokens",
+                "label": "获胜所需轮数",
+                "min": 1,
+                "max": 7,
+                "default": 3
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "wordgrid",
+            "name": "暗号网格",
+            "description": "两队对抗。队长用一个词加一个数字暗示队友：25 个词里哪几个是自己人——千万别碰到陷阱词。",
+            "minPlayers": 4,
+            "maxPlayers": 8,
+            "rulesSummary": "按加入顺序交替分成红蓝两队，每队一名队长（每局轮换）。桌上 25 个词：先手队 9 个、后手队 8 个、路人 7 个、陷阱 1 个，只有两位队长看得到归属。轮到的队长给出「一个词 + 一个数字」作为提示（数字表示有几个词与提示有关），队友商量后逐个点词，最多可以点「数字 + 1」个：点中自己队的词可以继续，点中路人或对方的词则回合结束，点中陷阱词立即判负。先找齐自己全部词的队伍获胜。提示词不能是桌上的词；队长除了提示不要在语音里透露任何信息（系统无法监听）。",
+            "scoringSummary": "获胜队伍每人 +3 分。",
+            "options": [
+              {
+                "key": "games",
+                "label": "局数",
+                "min": 1,
+                "max": 5,
+                "default": 1
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "codebreak",
+            "name": "密码传递",
+            "description": "每队四个秘密关键词。用提示把三位密码传给队友——但对手也在听，提示太直白就会被破译。",
+            "minPlayers": 4,
+            "maxPlayers": 8,
+            "rulesSummary": "按加入顺序交替分成红蓝两队，每队有 4 个只有自己人看得到的关键词（编号 1–4）。每轮两队各有一名传令员（轮流）拿到一组三位密码（如 3-1-4），为每一位写一条提示，暗示对应编号的关键词。提示公开后，各队由传令员以外的队友提交对本队密码的解读；从第 2 轮起，每队还要尝试破译对方的密码（全队可提交）。队内商量后任何一名有资格的队员提交即算全队答案。本队解错记 1 次「失误」，破译对方成功记 1 次「拦截」。任一队累计 2 次拦截或 2 次失误（或打满 8 轮）时结束，按「拦截 − 失误」多者胜。传令员除提示外不要透露任何信息（系统无法监听语音）。",
+            "scoringSummary": "获胜队伍每人 +3 分；平局不得分。",
+            "options": [
+              {
+                "key": "clueSeconds",
+                "label": "写提示时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "guessSeconds",
+                "label": "解读时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "taboo",
+            "name": "禁词描述",
+            "description": "在语音里描述一个词，但有几个最顺口的词不许说。其他人在网页上抢答，裁判盯着你有没有犯规。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每回合一名描述者（轮流）和一名裁判（下一位玩家）能看到词卡：目标词和几个禁词。描述者在语音里描述目标词，不能说出目标词、禁词或它们的一部分，也不能用谐音和外语；其他人在网页上输入猜测，猜中自动换下一张。描述者可以跳过当前词；裁判听到禁词就按「犯规」，这张作废换下一张。限时结束后轮到下一位。裁判不能猜。",
+            "scoringSummary": "每猜中一个词：猜中的人 +1，描述者 +1。跳过和犯规不扣分。",
+            "contentType": "taboo-card",
+            "options": [
+              {
+                "key": "laps",
+                "label": "每人描述次数",
+                "min": 1,
+                "max": 5,
+                "default": 1
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每回合时限（秒）",
+                "min": 20,
+                "max": 300,
+                "default": 75
+              }
+            ]
+          },
+          {
+            "id": "blather",
+            "name": "词块描述",
+            "description": "描述者不能自由说话，只能用几个固定句式和一小撮词拼句子。「它是一种东西」「它会发光」——猜猜是什么？",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮一名描述者（轮流）秘密选一个词（别人看不到候选）。描述者只能从固定句式里选词拼出句子，例如「它是一种____」「它常出现在____」，每句都会显示给所有人；不能在语音里补充。其他人随时在网页上输入猜测，描述者可以给猜错的答案标「接近」或「不对」。有人猜中或时间到，本轮结束。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "猜中的人 +2，描述者 +1；没人猜中都不得分。",
+            "contentType": "guess-word",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 6,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "roundSeconds",
+                "label": "每轮时限（秒）",
+                "min": 30,
+                "max": 600,
+                "default": 150
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "clover",
+            "name": "四叶联想",
+            "description": "合作游戏。给相邻的两个词各写一条提示，然后大家只凭提示把彼此的卡片摆回原位——还混进了一张干扰卡。",
+            "minPlayers": 3,
+            "maxPlayers": 6,
+            "rulesSummary": "全员合作。每人拿到围成一圈的 4 张卡，每张卡有两个词；相邻两张卡挨着的两个词组成一对，共 4 对。每人为每一对写一条提示（一个词，不能包含自己卡上的词）。全部写完后，依次还原每个人的四叶：这 4 张卡加 1 张干扰卡被打乱（方向也可能被调转），作者以外的人商量着把卡放回 4 个位置并调好方向，作者不能出声提示。第一次提交全对得 6 分；否则放对的保留、放错的退回，再试一次，最后每放对一张得 1 分。",
+            "scoringSummary": "团队得分：每还原一份四叶，所有人获得同样的分数。",
+            "options": [
+              {
+                "key": "writeSeconds",
+                "label": "写提示时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "pollmine",
+            "name": "猜大家选",
+            "description": "先各自秘密回答一道选择题，再分两队轮流猜「哪些选项有人选了」。猜到没人选的就踩雷。",
+            "minPlayers": 4,
+            "maxPlayers": 8,
+            "rulesSummary": "按加入顺序交替分成红蓝两队。每轮由轮流担任的出题人从候选题里选一道（可以换一批）。所有人先秘密选出自己的答案；然后两队轮流翻开一个选项：有人选过，本队得到「选它的人数」分；没人选过，本队失去一条命（每轮 2 条），命用完就不能再翻。有人选的选项全部翻出、或两队都没命时本轮结束。结算只公开每个选项的人数，不公开谁选了什么。数据只来自本房间玩家的回答。",
+            "scoringSummary": "每轮分数高的队伍每人 +2；打平每人 +1。",
+            "contentType": "poll",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 4,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "作答时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "percent",
+            "name": "百分比竞猜",
+            "description": "「在场有百分之多少的人……？」大家先秘密作答，一个人猜比例，其他人押更高还是更低。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮一名竞猜者（轮流）从候选题里选一道关于「你」的是非题（可以换一批或自己出题）。所有人（包括竞猜者）先秘密回答「是 / 否」；然后竞猜者猜有几个人答了「是」（同时显示成百分比），其他人押实际人数比这个猜测「更高」还是「更低」。揭晓时只公开总人数和比例，不公开任何人的个人回答。所有数字都来自本房间玩家的真实作答，不使用任何外部统计。",
+            "scoringSummary": "竞猜者：完全猜中 +3，只差 1 人 +1。其他人：押对方向 +1（竞猜者猜中时没人得押注分）。",
+            "contentType": "yesno-prompt",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 6,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "answerSeconds",
+                "label": "作答时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 30,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "betSeconds",
+                "label": "竞猜/押注时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "estimate",
+            "name": "估数字",
+            "description": "每轮一道数字题，所有人同时秘密作答，最接近的人得分。（架构验证用示例玩法）",
+            "minPlayers": 2,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮展示一道答案是数字的题目。所有人各自提交一个数字，提交后不可修改，揭晓前互相看不到。全部提交、超时或房主提前揭晓后公布答案。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "最接近答案的玩家得 2 分（并列都得分），完全猜中再加 1 分；被跳过的题不计分。",
+            "contentType": "numeric-fact",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 5,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "answerSeconds",
+                "label": "答题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          }
+        ],
+        "segment": {
+          "id": "seg_Clnp5--8FYvP",
+          "gameId": "mostlikely",
+          "status": "active",
+          "view": {
+            "round": 2,
+            "totalRounds": 0,
+            "step": 4,
+            "phase": "pick",
+            "pick": {
+              "picker": "p_q_blnNNFOh6N",
+              "candidates": [
+                "谁最可能收藏一堆从来不用的东西？",
+                "谁最可能养一只很奇怪的宠物？",
+                "谁最可能中了彩票却忘了兑奖？"
+              ],
+              "allowCustom": true,
+              "history": [
+                {
+                  "contentId": "who-005",
+                  "label": "谁最可能在恐怖片里第一个领盒饭？",
+                  "status": "shown",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-003",
+                  "label": "谁最可能出门忘带手机？",
+                  "status": "shown",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-004",
+                  "label": "谁最可能半夜突然想吃火锅？",
+                  "status": "used",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-009",
+                  "label": "谁最可能在 KTV 霸占麦克风？",
+                  "status": "shown",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-012",
+                  "label": "谁最可能在重要场合笑场？",
+                  "status": "shown",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-014",
+                  "label": "谁最可能突然宣布要去环游世界？",
+                  "status": "shown",
+                  "origin": "library"
+                }
+              ]
+            },
+            "participants": [
+              "p_mQ5E605CtqS-",
+              "p_q_blnNNFOh6N",
+              "p_GT5oMgJNTuK1",
+              "p_GWswczd_bP1e"
+            ],
+            "prompt": "谁最可能半夜突然想吃火锅？",
+            "submitted": [
+              "p_mQ5E605CtqS-",
+              "p_q_blnNNFOh6N",
+              "p_GT5oMgJNTuK1",
+              "p_GWswczd_bP1e"
+            ],
+            "myVote": "p_q_blnNNFOh6N",
+            "deadlineAt": null,
+            "reveal": {
+              "votes": {
+                "p_mQ5E605CtqS-": "p_q_blnNNFOh6N",
+                "p_q_blnNNFOh6N": "p_mQ5E605CtqS-",
+                "p_GT5oMgJNTuK1": "p_mQ5E605CtqS-",
+                "p_GWswczd_bP1e": "p_mQ5E605CtqS-"
+              },
+              "top": [
+                "p_mQ5E605CtqS-"
+              ]
+            }
+          },
+          "skip": null,
+          "contentId": null
+        },
+        "lastSegment": null,
+        "suggestion": null,
+        "ai": {
+          "enabled": true,
+          "state": "thinking"
+        },
+        "canvas": {
+          "current": null,
+          "queued": 0
+        }
+      },
+      "chat": [
+        "下一题想要游戏相关的"
+      ]
+    },
+    {
+      "playerId": "p_q_blnNNFOh6N",
+      "view": {
+        "room": {
+          "id": "room_Lsf6E6_M7RbY",
+          "name": "测试·picker-history"
+        },
+        "me": {
+          "playerId": "p_q_blnNNFOh6N",
+          "isHost": false
+        },
+        "members": [
+          {
+            "id": "p_mQ5E605CtqS-",
+            "nickname": "玩家1",
+            "isHost": true,
+            "connected": true
+          },
+          {
+            "id": "p_q_blnNNFOh6N",
+            "nickname": "玩家2",
+            "isHost": false,
+            "connected": true
+          },
+          {
+            "id": "p_GT5oMgJNTuK1",
+            "nickname": "玩家3",
+            "isHost": false,
+            "connected": true
+          },
+          {
+            "id": "p_GWswczd_bP1e",
+            "nickname": "玩家4",
+            "isHost": false,
+            "connected": true
+          }
+        ],
+        "sessionId": "ses_gGTceD4wYQC1",
+        "scoreboard": [
+          {
+            "playerId": "p_q_blnNNFOh6N",
+            "points": 1
+          },
+          {
+            "playerId": "p_GT5oMgJNTuK1",
+            "points": 1
+          },
+          {
+            "playerId": "p_GWswczd_bP1e",
+            "points": 1
+          },
+          {
+            "playerId": "p_mQ5E605CtqS-",
+            "points": 0
+          }
+        ],
+        "games": [
+          {
+            "id": "spectrum",
+            "name": "猜刻度",
+            "description": "一个人看到刻度上的秘密位置并给出一句提示，其他人猜它在哪。考验默契。",
+            "minPlayers": 2,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮有一条两端相反的刻度（例如 冷 ↔ 热）。轮到的提示者先选题：从候选刻度里挑一条、不限次数地换一批，或者自己出一条；确认后才正式开始。然后提示者会看到刻度上的秘密位置，并写一句提示（不能含数字）。其他人各自拖动滑块猜位置，互相看不到，全部提交后揭晓。提示者轮流担任；中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "猜测与目标相差 ≤5 得 4 分，≤12 得 3 分，≤22 得 2 分（刻度 0–100）。提示者得到猜测者得分的平均值（四舍五入）。被跳过的轮次不计分。",
+            "contentType": "spectrum",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 40,
+                "default": 6,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "clueSeconds",
+                "label": "写提示时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 120,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "guessSeconds",
+                "label": "猜测时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "undercover",
+            "name": "谁是卧底",
+            "description": "每人拿到一个词，卧底的词略有不同。各自写一句描述，语音讨论后投票找出卧底。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "系统给每人秘密发一个词：多数人（平民）相同，卧底拿到相近但不同的词，谁也不知道自己的身份（3–5 人 1 个卧底，6–8 人 2 个）。每轮所有存活玩家各写一句描述（不能直接写出自己的词），全部提交后统一公开；语音讨论后在网页上投票，得票最高者出局并公开身份，平票则无人出局。卧底全部出局则平民获胜；卧底人数不少于平民则卧底获胜。中途加入的玩家从下一局开始参与。",
+            "scoringSummary": "平民获胜：每位平民 +2 分（含已出局的）。卧底获胜：每位卧底 +4 分。换词跳过的一局不计分。",
+            "contentType": "word-pair",
+            "options": [
+              {
+                "key": "games",
+                "label": "局数",
+                "min": 0,
+                "max": 20,
+                "default": 3,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "describeSeconds",
+                "label": "描述时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 120,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "投票时限（秒）",
+                "min": 0,
+                "max": 900,
+                "default": 0,
+                "hint": "0 = 不限时，由房主收票"
+              }
+            ]
+          },
+          {
+            "id": "categories",
+            "name": "逛三园",
+            "description": "围绕一个类别轮流打词，不能重复、不能超时，撑到最后的人赢。",
+            "minPlayers": 2,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选类别里选一个（可以不限次数地换一批，也可以自己出一个类别）。每轮给出一个类别（例如「水果园」）。玩家按顺序轮流在限时内输入一个属于该类别的词。与已出现的词重复会被系统拒绝（可以马上换一个，时间不停）。超时或认输的人本轮出局。词是否属于该类别由大家口头把关：有争议时房主可判定最新的词无效，其作者出局。剩最后一人时本轮结束。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "每轮撑到最后的玩家 +2 分。被跳过的类别不计分。",
+            "contentType": "category",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 3,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每人每次限时（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 20,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "ranking",
+            "name": "排排座",
+            "description": "合作游戏：每人按自己的秘密数字（1–10）回答同一个情境，队长要把大家的回答从低到高排对。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由本轮队长从候选情境里选一个（可以不限次数地换一批，也可以自己出一个）。每轮一个情境和一条程度刻度（例如「形容一种食物：最难吃 → 最好吃」）。队长轮流担任。其他人各拿到一个互不相同的秘密数字（1–10），写一个程度与数字相符的回答，不能写出数字。写完后回答公开（数字仍保密），队长把它们从低到高排序，然后揭晓数字。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "团队计分：全部排对，本轮所有人 +3 分；只有一对顺序排反，所有人 +1 分；否则不得分。",
+            "contentType": "scale-scenario",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 4,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "writeSeconds",
+                "label": "作答时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 120,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "orderSeconds",
+                "label": "排序时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 120,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "bluff",
+            "name": "真假难辨",
+            "description": "给一条冷知识编个以假乱真的答案，混进真答案里，看谁能骗到人、谁能认出真的。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选题里选一道（只看得到题干，看不到答案；可以换一批，不能自己出题）。每轮一道有空缺的事实题。每人先编一个假答案（最多 30 字；碰巧写中真答案会被要求重写）。所有假答案和真答案乱序、匿名展示，每人选出自己认为真的那个（不能选自己写的）。然后公开真相、作者和每个人的选择。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "选中真答案 +2 分；你的假答案每骗到 1 人 +1 分（相同的假答案各自得分）。被跳过的题不计分。",
+            "contentType": "fact-blank",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 5,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "writeSeconds",
+                "label": "编答案时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "selectSeconds",
+                "label": "选择时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "wager",
+            "name": "估数下注",
+            "description": "先各自秘密估一个数，再看着所有人的估计下注：你觉得谁估得最准？",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选题里选一道（只看得到题干，看不到答案；可以换一批，不能自己出题）。每轮一道答案是数字的题。所有人各自秘密估一个数。全部提交后公开所有估计（从小到大），每人押一位玩家，赌 TA 的估计最接近答案（可以押自己）。然后公开答案。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "估得最接近的玩家 +2 分（并列都得），完全猜中再 +1 分；押中最接近者的玩家 +1 分。被跳过的题不计分。",
+            "contentType": "numeric-fact",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 5,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "answerSeconds",
+                "label": "估数时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "betSeconds",
+                "label": "下注时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "mostlikely",
+            "name": "谁最可能",
+            "description": "「谁最可能……」每人投给最符合情境的那位朋友，看看大家想的是不是一样。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选题里选一道（可以不限次数地换一批，也可以自己出题）。每轮出现一个「谁最可能……」的情境。每人秘密投票给在场的一位玩家（可以投自己），全部投完后公开谁投了谁。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "投给得票最多的人（并列都算）的玩家各 +1 分。被跳过的题不计分。",
+            "contentType": "who-prompt",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 8,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "投票时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "quip",
+            "name": "脑洞问答",
+            "description": "同一个脑洞问题，每人写一个回答，匿名展示后投票选出最喜欢的。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选题里选一道（可以不限次数地换一批，也可以自己出题）。每轮一个开放问题，所有人各写一个回答（最多 60 字），揭晓前互相看不到。写完后回答匿名、乱序展示，每人投一票（不能投自己），投完公开作者和票数。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "每得 1 票 +1 分；得票最多的回答再 +1 分（并列都加）。被跳过的题不计分。",
+            "contentType": "quip-prompt",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 5,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "writeSeconds",
+                "label": "作答时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "投票时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "oneclue",
+            "name": "不撞词",
+            "description": "合作猜词：每人给猜词者写一个词作线索，但和别人撞了的线索会被划掉。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由猜词者以外的一名玩家（轮流担任）从候选词里选一个（可以不限次数地换一批，也可以自己出一个）；猜词者看不到候选。猜词者轮流担任，看不到目标词。其他人各写一个线索词（最多 10 字，不能包含目标词），互相看不到。全部提交后，内容相同的线索全部作废；猜词者只能看到剩下的线索，只有一次机会猜词，也可以放弃。猜的词与目标词意思相同但写法不同时，房主可以判为正确。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "团队计分：猜中则本轮所有人 +1 分；猜错或放弃不得分。",
+            "contentType": "guess-word",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 6,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "clueSeconds",
+                "label": "写线索时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "guessSeconds",
+                "label": "猜词时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "rowcards",
+            "name": "别拿第六张",
+            "description": "纯规则卡牌：所有人同时出牌，按大小依次接到四行牌的末尾——谁放下某一行的第六张，谁就把那一行收走吃罚分。",
+            "minPlayers": 2,
+            "maxPlayers": 8,
+            "rulesSummary": "牌是 1–100 的数字，每人 10 张，桌上 4 行各 1 张起始牌。每墩所有人同时暗出一张，然后从小到大依次放置：放到「末尾牌比它小且最接近」的那一行；如果那一行已有 5 张，你收走这 5 张，你的牌成为该行新的第一张；如果你的牌比所有行的末尾都小，你收走罚分最少的一行。每张牌的罚分：11 的倍数 5 分，10 的倍数 3 分，5 的倍数 2 分，其余 1 分。10 墩打完一局。本游戏不使用题库，也不能投票跳过。",
+            "scoringSummary": "每局罚分最少的玩家 +3 分（并列都得）。罚分只在局内比较，不计入聚会积分。",
+            "options": [
+              {
+                "key": "hands",
+                "label": "局数",
+                "min": 1,
+                "max": 10,
+                "default": 1
+              },
+              {
+                "key": "chooseSeconds",
+                "label": "出牌时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "soup",
+            "name": "海龟汤",
+            "description": "汤主知道一个离奇故事的全部真相，大家只能问「是不是」，一步步还原它。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮由一名玩家（轮流）当汤主：先选一道汤（或自己出），只有汤主看得到汤底。其他人看汤面，在网页上提问，汤主逐条回答「是 / 不是 / 无关 / 部分正确」。每人同时只能有一条问题在等回答。觉得自己知道了，就提交完整推理，由汤主判对错。有人答对，或汤主放弃、时间到，公开汤底。中途加入的玩家下一轮参与。",
+            "scoringSummary": "喝出汤的人 +3 分，汤主 +1 分；没人喝出则都不得分。",
+            "contentType": "soup",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 10,
+                "default": 2,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "playSeconds",
+                "label": "每碗汤限时（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 600,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "split",
+            "name": "五五开",
+            "description": "补全一个两难情境，让朋友们刚好吵成两半——越接近五五开，分越高。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人选一个带空格的两难情境（可以换一批或自己出）。所有人各自填空，让这个情境变成一个「大家会意见不一」的选择；填好前互相看不到。然后公开所有版本，每人对别人的每个版本选「愿意 / 不愿意」，全部选完后公开。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "你的版本得分 = 回答人数 − |愿意人数 − 不愿意人数|。完美五五开得分最高，全员一边倒得 0 分。被跳过的轮次不计分。",
+            "contentType": "split-prompt",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 3,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "writeSeconds",
+                "label": "填空时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "表态时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "wordhunt",
+            "name": "问出秘密词",
+            "description": "限时用是非问题问出村长心里的词——但狼人也知道答案，在暗中带偏大家。",
+            "minPlayers": 4,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮一名玩家（轮流）当村长，秘密选一个词（别人看不到候选）。其他人里秘密抽出狼人（7 人以上 2 个）和预言家，其余是村民；狼人和预言家也知道这个词。大家在网页上提问，村长回答「是 / 不是 / 也许 / 很接近 / 差得远」，每人同时只能有一条问题在等回答；随时可以直接猜词。限时内猜出词：狼人有一次机会指认预言家，指认对了狼人赢，否则村民赢。时间到还没猜出：所有人投票找狼人，票数最多且唯一的人是狼人则村民赢，否则狼人赢。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "获胜阵营每人 +3 分（村长属于村民阵营）。",
+            "contentType": "guess-word",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 10,
+                "default": 3,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "askSeconds",
+                "label": "提问时限（秒）",
+                "min": 30,
+                "max": 900,
+                "default": 240
+              },
+              {
+                "key": "voteSeconds",
+                "label": "指认时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "crew",
+            "name": "合作吃墩",
+            "description": "所有人是一个团队：打牌赢墩，让每个任务都由指定的人拿下，谁拿错一墩大家一起失败。",
+            "minPlayers": 3,
+            "maxPlayers": 5,
+            "rulesSummary": "牌：红蓝绿黄 1–9 各一张，外加王牌 1–4，全部发完。拿到王牌 4 的人是队长。每次任务开始时翻出若干张任务牌，从队长起轮流认领。打牌：领出的花色必须跟，没有才可以出别的；有王牌时最大的王牌赢，否则领出花色中最大的赢，赢家领下一墩。某个任务的牌被它的认领人赢下，任务完成；被别人赢下，整个任务立即失败。每人每次任务可以在两墩之间公开一张彩色手牌，并由系统标明它是你这个颜色里「最大 / 最小 / 唯一」的一张（不满足就不能公开）。按规则，打牌时请不要在语音里透露手牌。",
+            "scoringSummary": "团队计分：任务全部完成，所有人 +3 分；失败不得分。每成功一次，下一次多一张任务牌。",
+            "options": [
+              {
+                "key": "missions",
+                "label": "任务次数",
+                "min": 1,
+                "max": 10,
+                "default": 3
+              },
+              {
+                "key": "tasks",
+                "label": "首次任务牌数",
+                "min": 1,
+                "max": 6,
+                "default": 2
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每次出牌时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "skull",
+            "name": "翻牌诈唬",
+            "description": "每人三朵花一个骷髅，暗着叠起来，然后喊价：你敢翻几张而不碰到骷髅？",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每人有 4 张圆牌：3 张花、1 张骷髅。每轮所有人先同时暗放一张。然后从起始玩家开始轮流：再暗放一张，或者喊价「我能翻开 N 张花」（N 不超过桌上总数）。一旦有人喊价，之后只能加价或放弃，直到只剩一人（或有人喊到上限）。喊价者先翻开自己的所有牌，再挑别人的牌堆从上往下翻，凑够 N 张花就成功；翻到骷髅就失败，随机失去自己的一张牌（牌是谁放的谁知道，别人只看得到张数）。成功两次的人获胜；失去所有牌的人出局，只剩一人时 TA 获胜。",
+            "scoringSummary": "获胜者 +3 分。",
+            "options": [
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "nothanks",
+            "name": "拒牌筹码",
+            "description": "每张牌都是负分。花一个筹码拒绝它，或者收下它连同上面的筹码——规则一句话，纠结一整局。",
+            "minPlayers": 3,
+            "maxPlayers": 7,
+            "rulesSummary": "牌是 3–35，洗好后随机拿走 9 张不用（谁也不知道是哪些）。每人有若干筹码（3–5 人 11 个，6 人 9 个，7 人 7 个），数量对别人保密。轮到你时，翻开的牌要么收下（连同牌上所有筹码），要么放一个筹码在牌上拒绝它，轮到下一个人；没有筹码只能收下。收下牌的人接着面对下一张。牌发完时结算：你的牌点数相加，但连号的一串只算最小的那张，再减去手里的筹码。",
+            "scoringSummary": "总分最低的玩家 +3 分（并列都得）。",
+            "options": [
+              {
+                "key": "games",
+                "label": "局数",
+                "min": 1,
+                "max": 5,
+                "default": 1
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "flush",
+            "name": "压牌出清",
+            "description": "把牌打到面前，比你小的牌全被压掉、主人要摸牌；撑过一整圈的牌就能扔掉。先出清的人赢。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "牌是 2–20，每种 3 张，每人 6 张。轮到你时：如果你面前还有牌（撑过了一圈），先把它扔掉；手里没牌了你就赢了。然后打一张牌到面前：桌上所有比它弱的牌被压掉，主人各摸一张。相同点数的牌会互相支援，强度 = 点数 × 桌上同点数的张数（同点数的牌不会互相压）。",
+            "scoringSummary": "最先出清的玩家 +3 分。",
+            "options": [
+              {
+                "key": "games",
+                "label": "局数",
+                "min": 1,
+                "max": 5,
+                "default": 1
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "duel",
+            "name": "暗牌对决",
+            "description": "手里只有一张牌。每回合摸一张、打一张，用它的效果把别人淘汰——一局只要几分钟。",
+            "minPlayers": 2,
+            "maxPlayers": 6,
+            "rulesSummary": "16 张牌，点数 1–8：1「侦察」×5：指定一名玩家并猜一个 2–8 的点数，猜中则 TA 出局；2「窥探」×2：偷看一名玩家的手牌；3「比拼」×2：和一名玩家私下比点数，小的出局；4「护盾」×2：直到你下个回合前，别人的牌对你无效；5「弃牌令」×2：让一名玩家（可以是自己）弃掉手牌重摸一张；6「交换」×1：和一名玩家交换手牌；7「顾问」×1：无效果；但手里同时有 5 或 6 时必须打出它；8「王牌」×1：打出或被弃掉就出局。开局拿掉一张暗牌不用，每人一张。轮到你时摸一张，再打出两张中的一张并执行效果。只剩一人时 TA 赢下这一轮；牌摸完时，手牌点数最大的赢（平局比弃牌点数和）。先赢下指定轮数的人赢得对决。",
+            "scoringSummary": "每赢一轮 +1 分，赢得对决再 +2 分。",
+            "options": [
+              {
+                "key": "tokens",
+                "label": "获胜所需轮数",
+                "min": 1,
+                "max": 7,
+                "default": 3
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "wordgrid",
+            "name": "暗号网格",
+            "description": "两队对抗。队长用一个词加一个数字暗示队友：25 个词里哪几个是自己人——千万别碰到陷阱词。",
+            "minPlayers": 4,
+            "maxPlayers": 8,
+            "rulesSummary": "按加入顺序交替分成红蓝两队，每队一名队长（每局轮换）。桌上 25 个词：先手队 9 个、后手队 8 个、路人 7 个、陷阱 1 个，只有两位队长看得到归属。轮到的队长给出「一个词 + 一个数字」作为提示（数字表示有几个词与提示有关），队友商量后逐个点词，最多可以点「数字 + 1」个：点中自己队的词可以继续，点中路人或对方的词则回合结束，点中陷阱词立即判负。先找齐自己全部词的队伍获胜。提示词不能是桌上的词；队长除了提示不要在语音里透露任何信息（系统无法监听）。",
+            "scoringSummary": "获胜队伍每人 +3 分。",
+            "options": [
+              {
+                "key": "games",
+                "label": "局数",
+                "min": 1,
+                "max": 5,
+                "default": 1
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "codebreak",
+            "name": "密码传递",
+            "description": "每队四个秘密关键词。用提示把三位密码传给队友——但对手也在听，提示太直白就会被破译。",
+            "minPlayers": 4,
+            "maxPlayers": 8,
+            "rulesSummary": "按加入顺序交替分成红蓝两队，每队有 4 个只有自己人看得到的关键词（编号 1–4）。每轮两队各有一名传令员（轮流）拿到一组三位密码（如 3-1-4），为每一位写一条提示，暗示对应编号的关键词。提示公开后，各队由传令员以外的队友提交对本队密码的解读；从第 2 轮起，每队还要尝试破译对方的密码（全队可提交）。队内商量后任何一名有资格的队员提交即算全队答案。本队解错记 1 次「失误」，破译对方成功记 1 次「拦截」。任一队累计 2 次拦截或 2 次失误（或打满 8 轮）时结束，按「拦截 − 失误」多者胜。传令员除提示外不要透露任何信息（系统无法监听语音）。",
+            "scoringSummary": "获胜队伍每人 +3 分；平局不得分。",
+            "options": [
+              {
+                "key": "clueSeconds",
+                "label": "写提示时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "guessSeconds",
+                "label": "解读时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "taboo",
+            "name": "禁词描述",
+            "description": "在语音里描述一个词，但有几个最顺口的词不许说。其他人在网页上抢答，裁判盯着你有没有犯规。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每回合一名描述者（轮流）和一名裁判（下一位玩家）能看到词卡：目标词和几个禁词。描述者在语音里描述目标词，不能说出目标词、禁词或它们的一部分，也不能用谐音和外语；其他人在网页上输入猜测，猜中自动换下一张。描述者可以跳过当前词；裁判听到禁词就按「犯规」，这张作废换下一张。限时结束后轮到下一位。裁判不能猜。",
+            "scoringSummary": "每猜中一个词：猜中的人 +1，描述者 +1。跳过和犯规不扣分。",
+            "contentType": "taboo-card",
+            "options": [
+              {
+                "key": "laps",
+                "label": "每人描述次数",
+                "min": 1,
+                "max": 5,
+                "default": 1
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每回合时限（秒）",
+                "min": 20,
+                "max": 300,
+                "default": 75
+              }
+            ]
+          },
+          {
+            "id": "blather",
+            "name": "词块描述",
+            "description": "描述者不能自由说话，只能用几个固定句式和一小撮词拼句子。「它是一种东西」「它会发光」——猜猜是什么？",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮一名描述者（轮流）秘密选一个词（别人看不到候选）。描述者只能从固定句式里选词拼出句子，例如「它是一种____」「它常出现在____」，每句都会显示给所有人；不能在语音里补充。其他人随时在网页上输入猜测，描述者可以给猜错的答案标「接近」或「不对」。有人猜中或时间到，本轮结束。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "猜中的人 +2，描述者 +1；没人猜中都不得分。",
+            "contentType": "guess-word",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 6,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "roundSeconds",
+                "label": "每轮时限（秒）",
+                "min": 30,
+                "max": 600,
+                "default": 150
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "clover",
+            "name": "四叶联想",
+            "description": "合作游戏。给相邻的两个词各写一条提示，然后大家只凭提示把彼此的卡片摆回原位——还混进了一张干扰卡。",
+            "minPlayers": 3,
+            "maxPlayers": 6,
+            "rulesSummary": "全员合作。每人拿到围成一圈的 4 张卡，每张卡有两个词；相邻两张卡挨着的两个词组成一对，共 4 对。每人为每一对写一条提示（一个词，不能包含自己卡上的词）。全部写完后，依次还原每个人的四叶：这 4 张卡加 1 张干扰卡被打乱（方向也可能被调转），作者以外的人商量着把卡放回 4 个位置并调好方向，作者不能出声提示。第一次提交全对得 6 分；否则放对的保留、放错的退回，再试一次，最后每放对一张得 1 分。",
+            "scoringSummary": "团队得分：每还原一份四叶，所有人获得同样的分数。",
+            "options": [
+              {
+                "key": "writeSeconds",
+                "label": "写提示时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "pollmine",
+            "name": "猜大家选",
+            "description": "先各自秘密回答一道选择题，再分两队轮流猜「哪些选项有人选了」。猜到没人选的就踩雷。",
+            "minPlayers": 4,
+            "maxPlayers": 8,
+            "rulesSummary": "按加入顺序交替分成红蓝两队。每轮由轮流担任的出题人从候选题里选一道（可以换一批）。所有人先秘密选出自己的答案；然后两队轮流翻开一个选项：有人选过，本队得到「选它的人数」分；没人选过，本队失去一条命（每轮 2 条），命用完就不能再翻。有人选的选项全部翻出、或两队都没命时本轮结束。结算只公开每个选项的人数，不公开谁选了什么。数据只来自本房间玩家的回答。",
+            "scoringSummary": "每轮分数高的队伍每人 +2；打平每人 +1。",
+            "contentType": "poll",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 4,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "作答时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "percent",
+            "name": "百分比竞猜",
+            "description": "「在场有百分之多少的人……？」大家先秘密作答，一个人猜比例，其他人押更高还是更低。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮一名竞猜者（轮流）从候选题里选一道关于「你」的是非题（可以换一批或自己出题）。所有人（包括竞猜者）先秘密回答「是 / 否」；然后竞猜者猜有几个人答了「是」（同时显示成百分比），其他人押实际人数比这个猜测「更高」还是「更低」。揭晓时只公开总人数和比例，不公开任何人的个人回答。所有数字都来自本房间玩家的真实作答，不使用任何外部统计。",
+            "scoringSummary": "竞猜者：完全猜中 +3，只差 1 人 +1。其他人：押对方向 +1（竞猜者猜中时没人得押注分）。",
+            "contentType": "yesno-prompt",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 6,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "answerSeconds",
+                "label": "作答时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 30,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "betSeconds",
+                "label": "竞猜/押注时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "estimate",
+            "name": "估数字",
+            "description": "每轮一道数字题，所有人同时秘密作答，最接近的人得分。（架构验证用示例玩法）",
+            "minPlayers": 2,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮展示一道答案是数字的题目。所有人各自提交一个数字，提交后不可修改，揭晓前互相看不到。全部提交、超时或房主提前揭晓后公布答案。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "最接近答案的玩家得 2 分（并列都得分），完全猜中再加 1 分；被跳过的题不计分。",
+            "contentType": "numeric-fact",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 5,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "answerSeconds",
+                "label": "答题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          }
+        ],
+        "segment": {
+          "id": "seg_Clnp5--8FYvP",
+          "gameId": "mostlikely",
+          "status": "active",
+          "view": {
+            "round": 2,
+            "totalRounds": 0,
+            "step": 4,
+            "phase": "pick",
+            "pick": {
+              "picker": "p_q_blnNNFOh6N",
+              "candidates": [
+                "谁最可能收藏一堆从来不用的东西？",
+                "谁最可能养一只很奇怪的宠物？",
+                "谁最可能中了彩票却忘了兑奖？"
+              ],
+              "allowCustom": true,
+              "history": [
+                {
+                  "contentId": "who-005",
+                  "label": "谁最可能在恐怖片里第一个领盒饭？",
+                  "status": "shown",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-003",
+                  "label": "谁最可能出门忘带手机？",
+                  "status": "shown",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-004",
+                  "label": "谁最可能半夜突然想吃火锅？",
+                  "status": "used",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-009",
+                  "label": "谁最可能在 KTV 霸占麦克风？",
+                  "status": "shown",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-012",
+                  "label": "谁最可能在重要场合笑场？",
+                  "status": "shown",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-014",
+                  "label": "谁最可能突然宣布要去环游世界？",
+                  "status": "shown",
+                  "origin": "library"
+                }
+              ]
+            },
+            "participants": [
+              "p_mQ5E605CtqS-",
+              "p_q_blnNNFOh6N",
+              "p_GT5oMgJNTuK1",
+              "p_GWswczd_bP1e"
+            ],
+            "prompt": "谁最可能半夜突然想吃火锅？",
+            "submitted": [
+              "p_mQ5E605CtqS-",
+              "p_q_blnNNFOh6N",
+              "p_GT5oMgJNTuK1",
+              "p_GWswczd_bP1e"
+            ],
+            "myVote": "p_mQ5E605CtqS-",
+            "deadlineAt": null,
+            "reveal": {
+              "votes": {
+                "p_mQ5E605CtqS-": "p_q_blnNNFOh6N",
+                "p_q_blnNNFOh6N": "p_mQ5E605CtqS-",
+                "p_GT5oMgJNTuK1": "p_mQ5E605CtqS-",
+                "p_GWswczd_bP1e": "p_mQ5E605CtqS-"
+              },
+              "top": [
+                "p_mQ5E605CtqS-"
+              ]
+            }
+          },
+          "skip": null,
+          "contentId": null
+        },
+        "lastSegment": null,
+        "suggestion": null,
+        "ai": {
+          "enabled": true,
+          "state": "thinking"
+        },
+        "canvas": {
+          "current": null,
+          "queued": 0
+        }
+      },
+      "chat": [
+        "下一题想要游戏相关的"
+      ]
+    },
+    {
+      "playerId": "p_GT5oMgJNTuK1",
+      "view": {
+        "room": {
+          "id": "room_Lsf6E6_M7RbY",
+          "name": "测试·picker-history"
+        },
+        "me": {
+          "playerId": "p_GT5oMgJNTuK1",
+          "isHost": false
+        },
+        "members": [
+          {
+            "id": "p_mQ5E605CtqS-",
+            "nickname": "玩家1",
+            "isHost": true,
+            "connected": true
+          },
+          {
+            "id": "p_q_blnNNFOh6N",
+            "nickname": "玩家2",
+            "isHost": false,
+            "connected": true
+          },
+          {
+            "id": "p_GT5oMgJNTuK1",
+            "nickname": "玩家3",
+            "isHost": false,
+            "connected": true
+          },
+          {
+            "id": "p_GWswczd_bP1e",
+            "nickname": "玩家4",
+            "isHost": false,
+            "connected": true
+          }
+        ],
+        "sessionId": "ses_gGTceD4wYQC1",
+        "scoreboard": [
+          {
+            "playerId": "p_q_blnNNFOh6N",
+            "points": 1
+          },
+          {
+            "playerId": "p_GT5oMgJNTuK1",
+            "points": 1
+          },
+          {
+            "playerId": "p_GWswczd_bP1e",
+            "points": 1
+          },
+          {
+            "playerId": "p_mQ5E605CtqS-",
+            "points": 0
+          }
+        ],
+        "games": [
+          {
+            "id": "spectrum",
+            "name": "猜刻度",
+            "description": "一个人看到刻度上的秘密位置并给出一句提示，其他人猜它在哪。考验默契。",
+            "minPlayers": 2,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮有一条两端相反的刻度（例如 冷 ↔ 热）。轮到的提示者先选题：从候选刻度里挑一条、不限次数地换一批，或者自己出一条；确认后才正式开始。然后提示者会看到刻度上的秘密位置，并写一句提示（不能含数字）。其他人各自拖动滑块猜位置，互相看不到，全部提交后揭晓。提示者轮流担任；中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "猜测与目标相差 ≤5 得 4 分，≤12 得 3 分，≤22 得 2 分（刻度 0–100）。提示者得到猜测者得分的平均值（四舍五入）。被跳过的轮次不计分。",
+            "contentType": "spectrum",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 40,
+                "default": 6,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "clueSeconds",
+                "label": "写提示时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 120,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "guessSeconds",
+                "label": "猜测时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "undercover",
+            "name": "谁是卧底",
+            "description": "每人拿到一个词，卧底的词略有不同。各自写一句描述，语音讨论后投票找出卧底。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "系统给每人秘密发一个词：多数人（平民）相同，卧底拿到相近但不同的词，谁也不知道自己的身份（3–5 人 1 个卧底，6–8 人 2 个）。每轮所有存活玩家各写一句描述（不能直接写出自己的词），全部提交后统一公开；语音讨论后在网页上投票，得票最高者出局并公开身份，平票则无人出局。卧底全部出局则平民获胜；卧底人数不少于平民则卧底获胜。中途加入的玩家从下一局开始参与。",
+            "scoringSummary": "平民获胜：每位平民 +2 分（含已出局的）。卧底获胜：每位卧底 +4 分。换词跳过的一局不计分。",
+            "contentType": "word-pair",
+            "options": [
+              {
+                "key": "games",
+                "label": "局数",
+                "min": 0,
+                "max": 20,
+                "default": 3,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "describeSeconds",
+                "label": "描述时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 120,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "投票时限（秒）",
+                "min": 0,
+                "max": 900,
+                "default": 0,
+                "hint": "0 = 不限时，由房主收票"
+              }
+            ]
+          },
+          {
+            "id": "categories",
+            "name": "逛三园",
+            "description": "围绕一个类别轮流打词，不能重复、不能超时，撑到最后的人赢。",
+            "minPlayers": 2,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选类别里选一个（可以不限次数地换一批，也可以自己出一个类别）。每轮给出一个类别（例如「水果园」）。玩家按顺序轮流在限时内输入一个属于该类别的词。与已出现的词重复会被系统拒绝（可以马上换一个，时间不停）。超时或认输的人本轮出局。词是否属于该类别由大家口头把关：有争议时房主可判定最新的词无效，其作者出局。剩最后一人时本轮结束。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "每轮撑到最后的玩家 +2 分。被跳过的类别不计分。",
+            "contentType": "category",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 3,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每人每次限时（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 20,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "ranking",
+            "name": "排排座",
+            "description": "合作游戏：每人按自己的秘密数字（1–10）回答同一个情境，队长要把大家的回答从低到高排对。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由本轮队长从候选情境里选一个（可以不限次数地换一批，也可以自己出一个）。每轮一个情境和一条程度刻度（例如「形容一种食物：最难吃 → 最好吃」）。队长轮流担任。其他人各拿到一个互不相同的秘密数字（1–10），写一个程度与数字相符的回答，不能写出数字。写完后回答公开（数字仍保密），队长把它们从低到高排序，然后揭晓数字。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "团队计分：全部排对，本轮所有人 +3 分；只有一对顺序排反，所有人 +1 分；否则不得分。",
+            "contentType": "scale-scenario",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 4,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "writeSeconds",
+                "label": "作答时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 120,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "orderSeconds",
+                "label": "排序时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 120,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "bluff",
+            "name": "真假难辨",
+            "description": "给一条冷知识编个以假乱真的答案，混进真答案里，看谁能骗到人、谁能认出真的。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选题里选一道（只看得到题干，看不到答案；可以换一批，不能自己出题）。每轮一道有空缺的事实题。每人先编一个假答案（最多 30 字；碰巧写中真答案会被要求重写）。所有假答案和真答案乱序、匿名展示，每人选出自己认为真的那个（不能选自己写的）。然后公开真相、作者和每个人的选择。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "选中真答案 +2 分；你的假答案每骗到 1 人 +1 分（相同的假答案各自得分）。被跳过的题不计分。",
+            "contentType": "fact-blank",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 5,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "writeSeconds",
+                "label": "编答案时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "selectSeconds",
+                "label": "选择时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "wager",
+            "name": "估数下注",
+            "description": "先各自秘密估一个数，再看着所有人的估计下注：你觉得谁估得最准？",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选题里选一道（只看得到题干，看不到答案；可以换一批，不能自己出题）。每轮一道答案是数字的题。所有人各自秘密估一个数。全部提交后公开所有估计（从小到大），每人押一位玩家，赌 TA 的估计最接近答案（可以押自己）。然后公开答案。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "估得最接近的玩家 +2 分（并列都得），完全猜中再 +1 分；押中最接近者的玩家 +1 分。被跳过的题不计分。",
+            "contentType": "numeric-fact",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 5,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "answerSeconds",
+                "label": "估数时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "betSeconds",
+                "label": "下注时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "mostlikely",
+            "name": "谁最可能",
+            "description": "「谁最可能……」每人投给最符合情境的那位朋友，看看大家想的是不是一样。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选题里选一道（可以不限次数地换一批，也可以自己出题）。每轮出现一个「谁最可能……」的情境。每人秘密投票给在场的一位玩家（可以投自己），全部投完后公开谁投了谁。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "投给得票最多的人（并列都算）的玩家各 +1 分。被跳过的题不计分。",
+            "contentType": "who-prompt",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 8,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "投票时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "quip",
+            "name": "脑洞问答",
+            "description": "同一个脑洞问题，每人写一个回答，匿名展示后投票选出最喜欢的。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选题里选一道（可以不限次数地换一批，也可以自己出题）。每轮一个开放问题，所有人各写一个回答（最多 60 字），揭晓前互相看不到。写完后回答匿名、乱序展示，每人投一票（不能投自己），投完公开作者和票数。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "每得 1 票 +1 分；得票最多的回答再 +1 分（并列都加）。被跳过的题不计分。",
+            "contentType": "quip-prompt",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 5,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "writeSeconds",
+                "label": "作答时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "投票时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "oneclue",
+            "name": "不撞词",
+            "description": "合作猜词：每人给猜词者写一个词作线索，但和别人撞了的线索会被划掉。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由猜词者以外的一名玩家（轮流担任）从候选词里选一个（可以不限次数地换一批，也可以自己出一个）；猜词者看不到候选。猜词者轮流担任，看不到目标词。其他人各写一个线索词（最多 10 字，不能包含目标词），互相看不到。全部提交后，内容相同的线索全部作废；猜词者只能看到剩下的线索，只有一次机会猜词，也可以放弃。猜的词与目标词意思相同但写法不同时，房主可以判为正确。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "团队计分：猜中则本轮所有人 +1 分；猜错或放弃不得分。",
+            "contentType": "guess-word",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 6,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "clueSeconds",
+                "label": "写线索时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "guessSeconds",
+                "label": "猜词时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "rowcards",
+            "name": "别拿第六张",
+            "description": "纯规则卡牌：所有人同时出牌，按大小依次接到四行牌的末尾——谁放下某一行的第六张，谁就把那一行收走吃罚分。",
+            "minPlayers": 2,
+            "maxPlayers": 8,
+            "rulesSummary": "牌是 1–100 的数字，每人 10 张，桌上 4 行各 1 张起始牌。每墩所有人同时暗出一张，然后从小到大依次放置：放到「末尾牌比它小且最接近」的那一行；如果那一行已有 5 张，你收走这 5 张，你的牌成为该行新的第一张；如果你的牌比所有行的末尾都小，你收走罚分最少的一行。每张牌的罚分：11 的倍数 5 分，10 的倍数 3 分，5 的倍数 2 分，其余 1 分。10 墩打完一局。本游戏不使用题库，也不能投票跳过。",
+            "scoringSummary": "每局罚分最少的玩家 +3 分（并列都得）。罚分只在局内比较，不计入聚会积分。",
+            "options": [
+              {
+                "key": "hands",
+                "label": "局数",
+                "min": 1,
+                "max": 10,
+                "default": 1
+              },
+              {
+                "key": "chooseSeconds",
+                "label": "出牌时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "soup",
+            "name": "海龟汤",
+            "description": "汤主知道一个离奇故事的全部真相，大家只能问「是不是」，一步步还原它。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮由一名玩家（轮流）当汤主：先选一道汤（或自己出），只有汤主看得到汤底。其他人看汤面，在网页上提问，汤主逐条回答「是 / 不是 / 无关 / 部分正确」。每人同时只能有一条问题在等回答。觉得自己知道了，就提交完整推理，由汤主判对错。有人答对，或汤主放弃、时间到，公开汤底。中途加入的玩家下一轮参与。",
+            "scoringSummary": "喝出汤的人 +3 分，汤主 +1 分；没人喝出则都不得分。",
+            "contentType": "soup",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 10,
+                "default": 2,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "playSeconds",
+                "label": "每碗汤限时（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 600,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "split",
+            "name": "五五开",
+            "description": "补全一个两难情境，让朋友们刚好吵成两半——越接近五五开，分越高。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人选一个带空格的两难情境（可以换一批或自己出）。所有人各自填空，让这个情境变成一个「大家会意见不一」的选择；填好前互相看不到。然后公开所有版本，每人对别人的每个版本选「愿意 / 不愿意」，全部选完后公开。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "你的版本得分 = 回答人数 − |愿意人数 − 不愿意人数|。完美五五开得分最高，全员一边倒得 0 分。被跳过的轮次不计分。",
+            "contentType": "split-prompt",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 3,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "writeSeconds",
+                "label": "填空时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "表态时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "wordhunt",
+            "name": "问出秘密词",
+            "description": "限时用是非问题问出村长心里的词——但狼人也知道答案，在暗中带偏大家。",
+            "minPlayers": 4,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮一名玩家（轮流）当村长，秘密选一个词（别人看不到候选）。其他人里秘密抽出狼人（7 人以上 2 个）和预言家，其余是村民；狼人和预言家也知道这个词。大家在网页上提问，村长回答「是 / 不是 / 也许 / 很接近 / 差得远」，每人同时只能有一条问题在等回答；随时可以直接猜词。限时内猜出词：狼人有一次机会指认预言家，指认对了狼人赢，否则村民赢。时间到还没猜出：所有人投票找狼人，票数最多且唯一的人是狼人则村民赢，否则狼人赢。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "获胜阵营每人 +3 分（村长属于村民阵营）。",
+            "contentType": "guess-word",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 10,
+                "default": 3,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "askSeconds",
+                "label": "提问时限（秒）",
+                "min": 30,
+                "max": 900,
+                "default": 240
+              },
+              {
+                "key": "voteSeconds",
+                "label": "指认时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "crew",
+            "name": "合作吃墩",
+            "description": "所有人是一个团队：打牌赢墩，让每个任务都由指定的人拿下，谁拿错一墩大家一起失败。",
+            "minPlayers": 3,
+            "maxPlayers": 5,
+            "rulesSummary": "牌：红蓝绿黄 1–9 各一张，外加王牌 1–4，全部发完。拿到王牌 4 的人是队长。每次任务开始时翻出若干张任务牌，从队长起轮流认领。打牌：领出的花色必须跟，没有才可以出别的；有王牌时最大的王牌赢，否则领出花色中最大的赢，赢家领下一墩。某个任务的牌被它的认领人赢下，任务完成；被别人赢下，整个任务立即失败。每人每次任务可以在两墩之间公开一张彩色手牌，并由系统标明它是你这个颜色里「最大 / 最小 / 唯一」的一张（不满足就不能公开）。按规则，打牌时请不要在语音里透露手牌。",
+            "scoringSummary": "团队计分：任务全部完成，所有人 +3 分；失败不得分。每成功一次，下一次多一张任务牌。",
+            "options": [
+              {
+                "key": "missions",
+                "label": "任务次数",
+                "min": 1,
+                "max": 10,
+                "default": 3
+              },
+              {
+                "key": "tasks",
+                "label": "首次任务牌数",
+                "min": 1,
+                "max": 6,
+                "default": 2
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每次出牌时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "skull",
+            "name": "翻牌诈唬",
+            "description": "每人三朵花一个骷髅，暗着叠起来，然后喊价：你敢翻几张而不碰到骷髅？",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每人有 4 张圆牌：3 张花、1 张骷髅。每轮所有人先同时暗放一张。然后从起始玩家开始轮流：再暗放一张，或者喊价「我能翻开 N 张花」（N 不超过桌上总数）。一旦有人喊价，之后只能加价或放弃，直到只剩一人（或有人喊到上限）。喊价者先翻开自己的所有牌，再挑别人的牌堆从上往下翻，凑够 N 张花就成功；翻到骷髅就失败，随机失去自己的一张牌（牌是谁放的谁知道，别人只看得到张数）。成功两次的人获胜；失去所有牌的人出局，只剩一人时 TA 获胜。",
+            "scoringSummary": "获胜者 +3 分。",
+            "options": [
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "nothanks",
+            "name": "拒牌筹码",
+            "description": "每张牌都是负分。花一个筹码拒绝它，或者收下它连同上面的筹码——规则一句话，纠结一整局。",
+            "minPlayers": 3,
+            "maxPlayers": 7,
+            "rulesSummary": "牌是 3–35，洗好后随机拿走 9 张不用（谁也不知道是哪些）。每人有若干筹码（3–5 人 11 个，6 人 9 个，7 人 7 个），数量对别人保密。轮到你时，翻开的牌要么收下（连同牌上所有筹码），要么放一个筹码在牌上拒绝它，轮到下一个人；没有筹码只能收下。收下牌的人接着面对下一张。牌发完时结算：你的牌点数相加，但连号的一串只算最小的那张，再减去手里的筹码。",
+            "scoringSummary": "总分最低的玩家 +3 分（并列都得）。",
+            "options": [
+              {
+                "key": "games",
+                "label": "局数",
+                "min": 1,
+                "max": 5,
+                "default": 1
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "flush",
+            "name": "压牌出清",
+            "description": "把牌打到面前，比你小的牌全被压掉、主人要摸牌；撑过一整圈的牌就能扔掉。先出清的人赢。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "牌是 2–20，每种 3 张，每人 6 张。轮到你时：如果你面前还有牌（撑过了一圈），先把它扔掉；手里没牌了你就赢了。然后打一张牌到面前：桌上所有比它弱的牌被压掉，主人各摸一张。相同点数的牌会互相支援，强度 = 点数 × 桌上同点数的张数（同点数的牌不会互相压）。",
+            "scoringSummary": "最先出清的玩家 +3 分。",
+            "options": [
+              {
+                "key": "games",
+                "label": "局数",
+                "min": 1,
+                "max": 5,
+                "default": 1
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "duel",
+            "name": "暗牌对决",
+            "description": "手里只有一张牌。每回合摸一张、打一张，用它的效果把别人淘汰——一局只要几分钟。",
+            "minPlayers": 2,
+            "maxPlayers": 6,
+            "rulesSummary": "16 张牌，点数 1–8：1「侦察」×5：指定一名玩家并猜一个 2–8 的点数，猜中则 TA 出局；2「窥探」×2：偷看一名玩家的手牌；3「比拼」×2：和一名玩家私下比点数，小的出局；4「护盾」×2：直到你下个回合前，别人的牌对你无效；5「弃牌令」×2：让一名玩家（可以是自己）弃掉手牌重摸一张；6「交换」×1：和一名玩家交换手牌；7「顾问」×1：无效果；但手里同时有 5 或 6 时必须打出它；8「王牌」×1：打出或被弃掉就出局。开局拿掉一张暗牌不用，每人一张。轮到你时摸一张，再打出两张中的一张并执行效果。只剩一人时 TA 赢下这一轮；牌摸完时，手牌点数最大的赢（平局比弃牌点数和）。先赢下指定轮数的人赢得对决。",
+            "scoringSummary": "每赢一轮 +1 分，赢得对决再 +2 分。",
+            "options": [
+              {
+                "key": "tokens",
+                "label": "获胜所需轮数",
+                "min": 1,
+                "max": 7,
+                "default": 3
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "wordgrid",
+            "name": "暗号网格",
+            "description": "两队对抗。队长用一个词加一个数字暗示队友：25 个词里哪几个是自己人——千万别碰到陷阱词。",
+            "minPlayers": 4,
+            "maxPlayers": 8,
+            "rulesSummary": "按加入顺序交替分成红蓝两队，每队一名队长（每局轮换）。桌上 25 个词：先手队 9 个、后手队 8 个、路人 7 个、陷阱 1 个，只有两位队长看得到归属。轮到的队长给出「一个词 + 一个数字」作为提示（数字表示有几个词与提示有关），队友商量后逐个点词，最多可以点「数字 + 1」个：点中自己队的词可以继续，点中路人或对方的词则回合结束，点中陷阱词立即判负。先找齐自己全部词的队伍获胜。提示词不能是桌上的词；队长除了提示不要在语音里透露任何信息（系统无法监听）。",
+            "scoringSummary": "获胜队伍每人 +3 分。",
+            "options": [
+              {
+                "key": "games",
+                "label": "局数",
+                "min": 1,
+                "max": 5,
+                "default": 1
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "codebreak",
+            "name": "密码传递",
+            "description": "每队四个秘密关键词。用提示把三位密码传给队友——但对手也在听，提示太直白就会被破译。",
+            "minPlayers": 4,
+            "maxPlayers": 8,
+            "rulesSummary": "按加入顺序交替分成红蓝两队，每队有 4 个只有自己人看得到的关键词（编号 1–4）。每轮两队各有一名传令员（轮流）拿到一组三位密码（如 3-1-4），为每一位写一条提示，暗示对应编号的关键词。提示公开后，各队由传令员以外的队友提交对本队密码的解读；从第 2 轮起，每队还要尝试破译对方的密码（全队可提交）。队内商量后任何一名有资格的队员提交即算全队答案。本队解错记 1 次「失误」，破译对方成功记 1 次「拦截」。任一队累计 2 次拦截或 2 次失误（或打满 8 轮）时结束，按「拦截 − 失误」多者胜。传令员除提示外不要透露任何信息（系统无法监听语音）。",
+            "scoringSummary": "获胜队伍每人 +3 分；平局不得分。",
+            "options": [
+              {
+                "key": "clueSeconds",
+                "label": "写提示时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "guessSeconds",
+                "label": "解读时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "taboo",
+            "name": "禁词描述",
+            "description": "在语音里描述一个词，但有几个最顺口的词不许说。其他人在网页上抢答，裁判盯着你有没有犯规。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每回合一名描述者（轮流）和一名裁判（下一位玩家）能看到词卡：目标词和几个禁词。描述者在语音里描述目标词，不能说出目标词、禁词或它们的一部分，也不能用谐音和外语；其他人在网页上输入猜测，猜中自动换下一张。描述者可以跳过当前词；裁判听到禁词就按「犯规」，这张作废换下一张。限时结束后轮到下一位。裁判不能猜。",
+            "scoringSummary": "每猜中一个词：猜中的人 +1，描述者 +1。跳过和犯规不扣分。",
+            "contentType": "taboo-card",
+            "options": [
+              {
+                "key": "laps",
+                "label": "每人描述次数",
+                "min": 1,
+                "max": 5,
+                "default": 1
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每回合时限（秒）",
+                "min": 20,
+                "max": 300,
+                "default": 75
+              }
+            ]
+          },
+          {
+            "id": "blather",
+            "name": "词块描述",
+            "description": "描述者不能自由说话，只能用几个固定句式和一小撮词拼句子。「它是一种东西」「它会发光」——猜猜是什么？",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮一名描述者（轮流）秘密选一个词（别人看不到候选）。描述者只能从固定句式里选词拼出句子，例如「它是一种____」「它常出现在____」，每句都会显示给所有人；不能在语音里补充。其他人随时在网页上输入猜测，描述者可以给猜错的答案标「接近」或「不对」。有人猜中或时间到，本轮结束。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "猜中的人 +2，描述者 +1；没人猜中都不得分。",
+            "contentType": "guess-word",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 6,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "roundSeconds",
+                "label": "每轮时限（秒）",
+                "min": 30,
+                "max": 600,
+                "default": 150
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "clover",
+            "name": "四叶联想",
+            "description": "合作游戏。给相邻的两个词各写一条提示，然后大家只凭提示把彼此的卡片摆回原位——还混进了一张干扰卡。",
+            "minPlayers": 3,
+            "maxPlayers": 6,
+            "rulesSummary": "全员合作。每人拿到围成一圈的 4 张卡，每张卡有两个词；相邻两张卡挨着的两个词组成一对，共 4 对。每人为每一对写一条提示（一个词，不能包含自己卡上的词）。全部写完后，依次还原每个人的四叶：这 4 张卡加 1 张干扰卡被打乱（方向也可能被调转），作者以外的人商量着把卡放回 4 个位置并调好方向，作者不能出声提示。第一次提交全对得 6 分；否则放对的保留、放错的退回，再试一次，最后每放对一张得 1 分。",
+            "scoringSummary": "团队得分：每还原一份四叶，所有人获得同样的分数。",
+            "options": [
+              {
+                "key": "writeSeconds",
+                "label": "写提示时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "pollmine",
+            "name": "猜大家选",
+            "description": "先各自秘密回答一道选择题，再分两队轮流猜「哪些选项有人选了」。猜到没人选的就踩雷。",
+            "minPlayers": 4,
+            "maxPlayers": 8,
+            "rulesSummary": "按加入顺序交替分成红蓝两队。每轮由轮流担任的出题人从候选题里选一道（可以换一批）。所有人先秘密选出自己的答案；然后两队轮流翻开一个选项：有人选过，本队得到「选它的人数」分；没人选过，本队失去一条命（每轮 2 条），命用完就不能再翻。有人选的选项全部翻出、或两队都没命时本轮结束。结算只公开每个选项的人数，不公开谁选了什么。数据只来自本房间玩家的回答。",
+            "scoringSummary": "每轮分数高的队伍每人 +2；打平每人 +1。",
+            "contentType": "poll",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 4,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "作答时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "percent",
+            "name": "百分比竞猜",
+            "description": "「在场有百分之多少的人……？」大家先秘密作答，一个人猜比例，其他人押更高还是更低。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮一名竞猜者（轮流）从候选题里选一道关于「你」的是非题（可以换一批或自己出题）。所有人（包括竞猜者）先秘密回答「是 / 否」；然后竞猜者猜有几个人答了「是」（同时显示成百分比），其他人押实际人数比这个猜测「更高」还是「更低」。揭晓时只公开总人数和比例，不公开任何人的个人回答。所有数字都来自本房间玩家的真实作答，不使用任何外部统计。",
+            "scoringSummary": "竞猜者：完全猜中 +3，只差 1 人 +1。其他人：押对方向 +1（竞猜者猜中时没人得押注分）。",
+            "contentType": "yesno-prompt",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 6,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "answerSeconds",
+                "label": "作答时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 30,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "betSeconds",
+                "label": "竞猜/押注时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "estimate",
+            "name": "估数字",
+            "description": "每轮一道数字题，所有人同时秘密作答，最接近的人得分。（架构验证用示例玩法）",
+            "minPlayers": 2,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮展示一道答案是数字的题目。所有人各自提交一个数字，提交后不可修改，揭晓前互相看不到。全部提交、超时或房主提前揭晓后公布答案。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "最接近答案的玩家得 2 分（并列都得分），完全猜中再加 1 分；被跳过的题不计分。",
+            "contentType": "numeric-fact",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 5,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "answerSeconds",
+                "label": "答题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          }
+        ],
+        "segment": {
+          "id": "seg_Clnp5--8FYvP",
+          "gameId": "mostlikely",
+          "status": "active",
+          "view": {
+            "round": 2,
+            "totalRounds": 0,
+            "step": 4,
+            "phase": "pick",
+            "pick": {
+              "picker": "p_q_blnNNFOh6N",
+              "candidates": [
+                "谁最可能收藏一堆从来不用的东西？",
+                "谁最可能养一只很奇怪的宠物？",
+                "谁最可能中了彩票却忘了兑奖？"
+              ],
+              "allowCustom": true,
+              "history": [
+                {
+                  "contentId": "who-005",
+                  "label": "谁最可能在恐怖片里第一个领盒饭？",
+                  "status": "shown",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-003",
+                  "label": "谁最可能出门忘带手机？",
+                  "status": "shown",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-004",
+                  "label": "谁最可能半夜突然想吃火锅？",
+                  "status": "used",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-009",
+                  "label": "谁最可能在 KTV 霸占麦克风？",
+                  "status": "shown",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-012",
+                  "label": "谁最可能在重要场合笑场？",
+                  "status": "shown",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-014",
+                  "label": "谁最可能突然宣布要去环游世界？",
+                  "status": "shown",
+                  "origin": "library"
+                }
+              ]
+            },
+            "participants": [
+              "p_mQ5E605CtqS-",
+              "p_q_blnNNFOh6N",
+              "p_GT5oMgJNTuK1",
+              "p_GWswczd_bP1e"
+            ],
+            "prompt": "谁最可能半夜突然想吃火锅？",
+            "submitted": [
+              "p_mQ5E605CtqS-",
+              "p_q_blnNNFOh6N",
+              "p_GT5oMgJNTuK1",
+              "p_GWswczd_bP1e"
+            ],
+            "myVote": "p_mQ5E605CtqS-",
+            "deadlineAt": null,
+            "reveal": {
+              "votes": {
+                "p_mQ5E605CtqS-": "p_q_blnNNFOh6N",
+                "p_q_blnNNFOh6N": "p_mQ5E605CtqS-",
+                "p_GT5oMgJNTuK1": "p_mQ5E605CtqS-",
+                "p_GWswczd_bP1e": "p_mQ5E605CtqS-"
+              },
+              "top": [
+                "p_mQ5E605CtqS-"
+              ]
+            }
+          },
+          "skip": null,
+          "contentId": null
+        },
+        "lastSegment": null,
+        "suggestion": null,
+        "ai": {
+          "enabled": true,
+          "state": "thinking"
+        },
+        "canvas": {
+          "current": null,
+          "queued": 0
+        }
+      },
+      "chat": [
+        "下一题想要游戏相关的"
+      ]
+    },
+    {
+      "playerId": "p_GWswczd_bP1e",
+      "view": {
+        "room": {
+          "id": "room_Lsf6E6_M7RbY",
+          "name": "测试·picker-history"
+        },
+        "me": {
+          "playerId": "p_GWswczd_bP1e",
+          "isHost": false
+        },
+        "members": [
+          {
+            "id": "p_mQ5E605CtqS-",
+            "nickname": "玩家1",
+            "isHost": true,
+            "connected": true
+          },
+          {
+            "id": "p_q_blnNNFOh6N",
+            "nickname": "玩家2",
+            "isHost": false,
+            "connected": true
+          },
+          {
+            "id": "p_GT5oMgJNTuK1",
+            "nickname": "玩家3",
+            "isHost": false,
+            "connected": true
+          },
+          {
+            "id": "p_GWswczd_bP1e",
+            "nickname": "玩家4",
+            "isHost": false,
+            "connected": true
+          }
+        ],
+        "sessionId": "ses_gGTceD4wYQC1",
+        "scoreboard": [
+          {
+            "playerId": "p_q_blnNNFOh6N",
+            "points": 1
+          },
+          {
+            "playerId": "p_GT5oMgJNTuK1",
+            "points": 1
+          },
+          {
+            "playerId": "p_GWswczd_bP1e",
+            "points": 1
+          },
+          {
+            "playerId": "p_mQ5E605CtqS-",
+            "points": 0
+          }
+        ],
+        "games": [
+          {
+            "id": "spectrum",
+            "name": "猜刻度",
+            "description": "一个人看到刻度上的秘密位置并给出一句提示，其他人猜它在哪。考验默契。",
+            "minPlayers": 2,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮有一条两端相反的刻度（例如 冷 ↔ 热）。轮到的提示者先选题：从候选刻度里挑一条、不限次数地换一批，或者自己出一条；确认后才正式开始。然后提示者会看到刻度上的秘密位置，并写一句提示（不能含数字）。其他人各自拖动滑块猜位置，互相看不到，全部提交后揭晓。提示者轮流担任；中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "猜测与目标相差 ≤5 得 4 分，≤12 得 3 分，≤22 得 2 分（刻度 0–100）。提示者得到猜测者得分的平均值（四舍五入）。被跳过的轮次不计分。",
+            "contentType": "spectrum",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 40,
+                "default": 6,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "clueSeconds",
+                "label": "写提示时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 120,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "guessSeconds",
+                "label": "猜测时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "undercover",
+            "name": "谁是卧底",
+            "description": "每人拿到一个词，卧底的词略有不同。各自写一句描述，语音讨论后投票找出卧底。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "系统给每人秘密发一个词：多数人（平民）相同，卧底拿到相近但不同的词，谁也不知道自己的身份（3–5 人 1 个卧底，6–8 人 2 个）。每轮所有存活玩家各写一句描述（不能直接写出自己的词），全部提交后统一公开；语音讨论后在网页上投票，得票最高者出局并公开身份，平票则无人出局。卧底全部出局则平民获胜；卧底人数不少于平民则卧底获胜。中途加入的玩家从下一局开始参与。",
+            "scoringSummary": "平民获胜：每位平民 +2 分（含已出局的）。卧底获胜：每位卧底 +4 分。换词跳过的一局不计分。",
+            "contentType": "word-pair",
+            "options": [
+              {
+                "key": "games",
+                "label": "局数",
+                "min": 0,
+                "max": 20,
+                "default": 3,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "describeSeconds",
+                "label": "描述时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 120,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "投票时限（秒）",
+                "min": 0,
+                "max": 900,
+                "default": 0,
+                "hint": "0 = 不限时，由房主收票"
+              }
+            ]
+          },
+          {
+            "id": "categories",
+            "name": "逛三园",
+            "description": "围绕一个类别轮流打词，不能重复、不能超时，撑到最后的人赢。",
+            "minPlayers": 2,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选类别里选一个（可以不限次数地换一批，也可以自己出一个类别）。每轮给出一个类别（例如「水果园」）。玩家按顺序轮流在限时内输入一个属于该类别的词。与已出现的词重复会被系统拒绝（可以马上换一个，时间不停）。超时或认输的人本轮出局。词是否属于该类别由大家口头把关：有争议时房主可判定最新的词无效，其作者出局。剩最后一人时本轮结束。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "每轮撑到最后的玩家 +2 分。被跳过的类别不计分。",
+            "contentType": "category",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 3,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每人每次限时（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 20,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "ranking",
+            "name": "排排座",
+            "description": "合作游戏：每人按自己的秘密数字（1–10）回答同一个情境，队长要把大家的回答从低到高排对。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由本轮队长从候选情境里选一个（可以不限次数地换一批，也可以自己出一个）。每轮一个情境和一条程度刻度（例如「形容一种食物：最难吃 → 最好吃」）。队长轮流担任。其他人各拿到一个互不相同的秘密数字（1–10），写一个程度与数字相符的回答，不能写出数字。写完后回答公开（数字仍保密），队长把它们从低到高排序，然后揭晓数字。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "团队计分：全部排对，本轮所有人 +3 分；只有一对顺序排反，所有人 +1 分；否则不得分。",
+            "contentType": "scale-scenario",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 4,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "writeSeconds",
+                "label": "作答时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 120,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "orderSeconds",
+                "label": "排序时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 120,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "bluff",
+            "name": "真假难辨",
+            "description": "给一条冷知识编个以假乱真的答案，混进真答案里，看谁能骗到人、谁能认出真的。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选题里选一道（只看得到题干，看不到答案；可以换一批，不能自己出题）。每轮一道有空缺的事实题。每人先编一个假答案（最多 30 字；碰巧写中真答案会被要求重写）。所有假答案和真答案乱序、匿名展示，每人选出自己认为真的那个（不能选自己写的）。然后公开真相、作者和每个人的选择。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "选中真答案 +2 分；你的假答案每骗到 1 人 +1 分（相同的假答案各自得分）。被跳过的题不计分。",
+            "contentType": "fact-blank",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 5,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "writeSeconds",
+                "label": "编答案时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "selectSeconds",
+                "label": "选择时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "wager",
+            "name": "估数下注",
+            "description": "先各自秘密估一个数，再看着所有人的估计下注：你觉得谁估得最准？",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选题里选一道（只看得到题干，看不到答案；可以换一批，不能自己出题）。每轮一道答案是数字的题。所有人各自秘密估一个数。全部提交后公开所有估计（从小到大），每人押一位玩家，赌 TA 的估计最接近答案（可以押自己）。然后公开答案。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "估得最接近的玩家 +2 分（并列都得），完全猜中再 +1 分；押中最接近者的玩家 +1 分。被跳过的题不计分。",
+            "contentType": "numeric-fact",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 5,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "answerSeconds",
+                "label": "估数时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "betSeconds",
+                "label": "下注时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "mostlikely",
+            "name": "谁最可能",
+            "description": "「谁最可能……」每人投给最符合情境的那位朋友，看看大家想的是不是一样。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选题里选一道（可以不限次数地换一批，也可以自己出题）。每轮出现一个「谁最可能……」的情境。每人秘密投票给在场的一位玩家（可以投自己），全部投完后公开谁投了谁。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "投给得票最多的人（并列都算）的玩家各 +1 分。被跳过的题不计分。",
+            "contentType": "who-prompt",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 8,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "投票时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "quip",
+            "name": "脑洞问答",
+            "description": "同一个脑洞问题，每人写一个回答，匿名展示后投票选出最喜欢的。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人从候选题里选一道（可以不限次数地换一批，也可以自己出题）。每轮一个开放问题，所有人各写一个回答（最多 60 字），揭晓前互相看不到。写完后回答匿名、乱序展示，每人投一票（不能投自己），投完公开作者和票数。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "每得 1 票 +1 分；得票最多的回答再 +1 分（并列都加）。被跳过的题不计分。",
+            "contentType": "quip-prompt",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 5,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "writeSeconds",
+                "label": "作答时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "投票时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "oneclue",
+            "name": "不撞词",
+            "description": "合作猜词：每人给猜词者写一个词作线索，但和别人撞了的线索会被划掉。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由猜词者以外的一名玩家（轮流担任）从候选词里选一个（可以不限次数地换一批，也可以自己出一个）；猜词者看不到候选。猜词者轮流担任，看不到目标词。其他人各写一个线索词（最多 10 字，不能包含目标词），互相看不到。全部提交后，内容相同的线索全部作废；猜词者只能看到剩下的线索，只有一次机会猜词，也可以放弃。猜的词与目标词意思相同但写法不同时，房主可以判为正确。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "团队计分：猜中则本轮所有人 +1 分；猜错或放弃不得分。",
+            "contentType": "guess-word",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 6,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "clueSeconds",
+                "label": "写线索时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "guessSeconds",
+                "label": "猜词时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "rowcards",
+            "name": "别拿第六张",
+            "description": "纯规则卡牌：所有人同时出牌，按大小依次接到四行牌的末尾——谁放下某一行的第六张，谁就把那一行收走吃罚分。",
+            "minPlayers": 2,
+            "maxPlayers": 8,
+            "rulesSummary": "牌是 1–100 的数字，每人 10 张，桌上 4 行各 1 张起始牌。每墩所有人同时暗出一张，然后从小到大依次放置：放到「末尾牌比它小且最接近」的那一行；如果那一行已有 5 张，你收走这 5 张，你的牌成为该行新的第一张；如果你的牌比所有行的末尾都小，你收走罚分最少的一行。每张牌的罚分：11 的倍数 5 分，10 的倍数 3 分，5 的倍数 2 分，其余 1 分。10 墩打完一局。本游戏不使用题库，也不能投票跳过。",
+            "scoringSummary": "每局罚分最少的玩家 +3 分（并列都得）。罚分只在局内比较，不计入聚会积分。",
+            "options": [
+              {
+                "key": "hands",
+                "label": "局数",
+                "min": 1,
+                "max": 10,
+                "default": 1
+              },
+              {
+                "key": "chooseSeconds",
+                "label": "出牌时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "soup",
+            "name": "海龟汤",
+            "description": "汤主知道一个离奇故事的全部真相，大家只能问「是不是」，一步步还原它。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮由一名玩家（轮流）当汤主：先选一道汤（或自己出），只有汤主看得到汤底。其他人看汤面，在网页上提问，汤主逐条回答「是 / 不是 / 无关 / 部分正确」。每人同时只能有一条问题在等回答。觉得自己知道了，就提交完整推理，由汤主判对错。有人答对，或汤主放弃、时间到，公开汤底。中途加入的玩家下一轮参与。",
+            "scoringSummary": "喝出汤的人 +3 分，汤主 +1 分；没人喝出则都不得分。",
+            "contentType": "soup",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 10,
+                "default": 2,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "playSeconds",
+                "label": "每碗汤限时（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 600,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "split",
+            "name": "五五开",
+            "description": "补全一个两难情境，让朋友们刚好吵成两半——越接近五五开，分越高。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮开始前，由轮流担任的出题人选一个带空格的两难情境（可以换一批或自己出）。所有人各自填空，让这个情境变成一个「大家会意见不一」的选择；填好前互相看不到。然后公开所有版本，每人对别人的每个版本选「愿意 / 不愿意」，全部选完后公开。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "你的版本得分 = 回答人数 − |愿意人数 − 不愿意人数|。完美五五开得分最高，全员一边倒得 0 分。被跳过的轮次不计分。",
+            "contentType": "split-prompt",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 3,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "writeSeconds",
+                "label": "填空时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "表态时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "wordhunt",
+            "name": "问出秘密词",
+            "description": "限时用是非问题问出村长心里的词——但狼人也知道答案，在暗中带偏大家。",
+            "minPlayers": 4,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮一名玩家（轮流）当村长，秘密选一个词（别人看不到候选）。其他人里秘密抽出狼人（7 人以上 2 个）和预言家，其余是村民；狼人和预言家也知道这个词。大家在网页上提问，村长回答「是 / 不是 / 也许 / 很接近 / 差得远」，每人同时只能有一条问题在等回答；随时可以直接猜词。限时内猜出词：狼人有一次机会指认预言家，指认对了狼人赢，否则村民赢。时间到还没猜出：所有人投票找狼人，票数最多且唯一的人是狼人则村民赢，否则狼人赢。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "获胜阵营每人 +3 分（村长属于村民阵营）。",
+            "contentType": "guess-word",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 10,
+                "default": 3,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "askSeconds",
+                "label": "提问时限（秒）",
+                "min": 30,
+                "max": 900,
+                "default": 240
+              },
+              {
+                "key": "voteSeconds",
+                "label": "指认时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 90,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "crew",
+            "name": "合作吃墩",
+            "description": "所有人是一个团队：打牌赢墩，让每个任务都由指定的人拿下，谁拿错一墩大家一起失败。",
+            "minPlayers": 3,
+            "maxPlayers": 5,
+            "rulesSummary": "牌：红蓝绿黄 1–9 各一张，外加王牌 1–4，全部发完。拿到王牌 4 的人是队长。每次任务开始时翻出若干张任务牌，从队长起轮流认领。打牌：领出的花色必须跟，没有才可以出别的；有王牌时最大的王牌赢，否则领出花色中最大的赢，赢家领下一墩。某个任务的牌被它的认领人赢下，任务完成；被别人赢下，整个任务立即失败。每人每次任务可以在两墩之间公开一张彩色手牌，并由系统标明它是你这个颜色里「最大 / 最小 / 唯一」的一张（不满足就不能公开）。按规则，打牌时请不要在语音里透露手牌。",
+            "scoringSummary": "团队计分：任务全部完成，所有人 +3 分；失败不得分。每成功一次，下一次多一张任务牌。",
+            "options": [
+              {
+                "key": "missions",
+                "label": "任务次数",
+                "min": 1,
+                "max": 10,
+                "default": 3
+              },
+              {
+                "key": "tasks",
+                "label": "首次任务牌数",
+                "min": 1,
+                "max": 6,
+                "default": 2
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每次出牌时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "skull",
+            "name": "翻牌诈唬",
+            "description": "每人三朵花一个骷髅，暗着叠起来，然后喊价：你敢翻几张而不碰到骷髅？",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每人有 4 张圆牌：3 张花、1 张骷髅。每轮所有人先同时暗放一张。然后从起始玩家开始轮流：再暗放一张，或者喊价「我能翻开 N 张花」（N 不超过桌上总数）。一旦有人喊价，之后只能加价或放弃，直到只剩一人（或有人喊到上限）。喊价者先翻开自己的所有牌，再挑别人的牌堆从上往下翻，凑够 N 张花就成功；翻到骷髅就失败，随机失去自己的一张牌（牌是谁放的谁知道，别人只看得到张数）。成功两次的人获胜；失去所有牌的人出局，只剩一人时 TA 获胜。",
+            "scoringSummary": "获胜者 +3 分。",
+            "options": [
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "nothanks",
+            "name": "拒牌筹码",
+            "description": "每张牌都是负分。花一个筹码拒绝它，或者收下它连同上面的筹码——规则一句话，纠结一整局。",
+            "minPlayers": 3,
+            "maxPlayers": 7,
+            "rulesSummary": "牌是 3–35，洗好后随机拿走 9 张不用（谁也不知道是哪些）。每人有若干筹码（3–5 人 11 个，6 人 9 个，7 人 7 个），数量对别人保密。轮到你时，翻开的牌要么收下（连同牌上所有筹码），要么放一个筹码在牌上拒绝它，轮到下一个人；没有筹码只能收下。收下牌的人接着面对下一张。牌发完时结算：你的牌点数相加，但连号的一串只算最小的那张，再减去手里的筹码。",
+            "scoringSummary": "总分最低的玩家 +3 分（并列都得）。",
+            "options": [
+              {
+                "key": "games",
+                "label": "局数",
+                "min": 1,
+                "max": 5,
+                "default": 1
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "flush",
+            "name": "压牌出清",
+            "description": "把牌打到面前，比你小的牌全被压掉、主人要摸牌；撑过一整圈的牌就能扔掉。先出清的人赢。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "牌是 2–20，每种 3 张，每人 6 张。轮到你时：如果你面前还有牌（撑过了一圈），先把它扔掉；手里没牌了你就赢了。然后打一张牌到面前：桌上所有比它弱的牌被压掉，主人各摸一张。相同点数的牌会互相支援，强度 = 点数 × 桌上同点数的张数（同点数的牌不会互相压）。",
+            "scoringSummary": "最先出清的玩家 +3 分。",
+            "options": [
+              {
+                "key": "games",
+                "label": "局数",
+                "min": 1,
+                "max": 5,
+                "default": 1
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "duel",
+            "name": "暗牌对决",
+            "description": "手里只有一张牌。每回合摸一张、打一张，用它的效果把别人淘汰——一局只要几分钟。",
+            "minPlayers": 2,
+            "maxPlayers": 6,
+            "rulesSummary": "16 张牌，点数 1–8：1「侦察」×5：指定一名玩家并猜一个 2–8 的点数，猜中则 TA 出局；2「窥探」×2：偷看一名玩家的手牌；3「比拼」×2：和一名玩家私下比点数，小的出局；4「护盾」×2：直到你下个回合前，别人的牌对你无效；5「弃牌令」×2：让一名玩家（可以是自己）弃掉手牌重摸一张；6「交换」×1：和一名玩家交换手牌；7「顾问」×1：无效果；但手里同时有 5 或 6 时必须打出它；8「王牌」×1：打出或被弃掉就出局。开局拿掉一张暗牌不用，每人一张。轮到你时摸一张，再打出两张中的一张并执行效果。只剩一人时 TA 赢下这一轮；牌摸完时，手牌点数最大的赢（平局比弃牌点数和）。先赢下指定轮数的人赢得对决。",
+            "scoringSummary": "每赢一轮 +1 分，赢得对决再 +2 分。",
+            "options": [
+              {
+                "key": "tokens",
+                "label": "获胜所需轮数",
+                "min": 1,
+                "max": 7,
+                "default": 3
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "wordgrid",
+            "name": "暗号网格",
+            "description": "两队对抗。队长用一个词加一个数字暗示队友：25 个词里哪几个是自己人——千万别碰到陷阱词。",
+            "minPlayers": 4,
+            "maxPlayers": 8,
+            "rulesSummary": "按加入顺序交替分成红蓝两队，每队一名队长（每局轮换）。桌上 25 个词：先手队 9 个、后手队 8 个、路人 7 个、陷阱 1 个，只有两位队长看得到归属。轮到的队长给出「一个词 + 一个数字」作为提示（数字表示有几个词与提示有关），队友商量后逐个点词，最多可以点「数字 + 1」个：点中自己队的词可以继续，点中路人或对方的词则回合结束，点中陷阱词立即判负。先找齐自己全部词的队伍获胜。提示词不能是桌上的词；队长除了提示不要在语音里透露任何信息（系统无法监听）。",
+            "scoringSummary": "获胜队伍每人 +3 分。",
+            "options": [
+              {
+                "key": "games",
+                "label": "局数",
+                "min": 1,
+                "max": 5,
+                "default": 1
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每步时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "codebreak",
+            "name": "密码传递",
+            "description": "每队四个秘密关键词。用提示把三位密码传给队友——但对手也在听，提示太直白就会被破译。",
+            "minPlayers": 4,
+            "maxPlayers": 8,
+            "rulesSummary": "按加入顺序交替分成红蓝两队，每队有 4 个只有自己人看得到的关键词（编号 1–4）。每轮两队各有一名传令员（轮流）拿到一组三位密码（如 3-1-4），为每一位写一条提示，暗示对应编号的关键词。提示公开后，各队由传令员以外的队友提交对本队密码的解读；从第 2 轮起，每队还要尝试破译对方的密码（全队可提交）。队内商量后任何一名有资格的队员提交即算全队答案。本队解错记 1 次「失误」，破译对方成功记 1 次「拦截」。任一队累计 2 次拦截或 2 次失误（或打满 8 轮）时结束，按「拦截 − 失误」多者胜。传令员除提示外不要透露任何信息（系统无法监听语音）。",
+            "scoringSummary": "获胜队伍每人 +3 分；平局不得分。",
+            "options": [
+              {
+                "key": "clueSeconds",
+                "label": "写提示时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "guessSeconds",
+                "label": "解读时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "taboo",
+            "name": "禁词描述",
+            "description": "在语音里描述一个词，但有几个最顺口的词不许说。其他人在网页上抢答，裁判盯着你有没有犯规。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每回合一名描述者（轮流）和一名裁判（下一位玩家）能看到词卡：目标词和几个禁词。描述者在语音里描述目标词，不能说出目标词、禁词或它们的一部分，也不能用谐音和外语；其他人在网页上输入猜测，猜中自动换下一张。描述者可以跳过当前词；裁判听到禁词就按「犯规」，这张作废换下一张。限时结束后轮到下一位。裁判不能猜。",
+            "scoringSummary": "每猜中一个词：猜中的人 +1，描述者 +1。跳过和犯规不扣分。",
+            "contentType": "taboo-card",
+            "options": [
+              {
+                "key": "laps",
+                "label": "每人描述次数",
+                "min": 1,
+                "max": 5,
+                "default": 1
+              },
+              {
+                "key": "turnSeconds",
+                "label": "每回合时限（秒）",
+                "min": 20,
+                "max": 300,
+                "default": 75
+              }
+            ]
+          },
+          {
+            "id": "blather",
+            "name": "词块描述",
+            "description": "描述者不能自由说话，只能用几个固定句式和一小撮词拼句子。「它是一种东西」「它会发光」——猜猜是什么？",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮一名描述者（轮流）秘密选一个词（别人看不到候选）。描述者只能从固定句式里选词拼出句子，例如「它是一种____」「它常出现在____」，每句都会显示给所有人；不能在语音里补充。其他人随时在网页上输入猜测，描述者可以给猜错的答案标「接近」或「不对」。有人猜中或时间到，本轮结束。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "猜中的人 +2，描述者 +1；没人猜中都不得分。",
+            "contentType": "guess-word",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 6,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "roundSeconds",
+                "label": "每轮时限（秒）",
+                "min": 30,
+                "max": 600,
+                "default": 150
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "clover",
+            "name": "四叶联想",
+            "description": "合作游戏。给相邻的两个词各写一条提示，然后大家只凭提示把彼此的卡片摆回原位——还混进了一张干扰卡。",
+            "minPlayers": 3,
+            "maxPlayers": 6,
+            "rulesSummary": "全员合作。每人拿到围成一圈的 4 张卡，每张卡有两个词；相邻两张卡挨着的两个词组成一对，共 4 对。每人为每一对写一条提示（一个词，不能包含自己卡上的词）。全部写完后，依次还原每个人的四叶：这 4 张卡加 1 张干扰卡被打乱（方向也可能被调转），作者以外的人商量着把卡放回 4 个位置并调好方向，作者不能出声提示。第一次提交全对得 6 分；否则放对的保留、放错的退回，再试一次，最后每放对一张得 1 分。",
+            "scoringSummary": "团队得分：每还原一份四叶，所有人获得同样的分数。",
+            "options": [
+              {
+                "key": "writeSeconds",
+                "label": "写提示时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 0,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "pollmine",
+            "name": "猜大家选",
+            "description": "先各自秘密回答一道选择题，再分两队轮流猜「哪些选项有人选了」。猜到没人选的就踩雷。",
+            "minPlayers": 4,
+            "maxPlayers": 8,
+            "rulesSummary": "按加入顺序交替分成红蓝两队。每轮由轮流担任的出题人从候选题里选一道（可以换一批）。所有人先秘密选出自己的答案；然后两队轮流翻开一个选项：有人选过，本队得到「选它的人数」分；没人选过，本队失去一条命（每轮 2 条），命用完就不能再翻。有人选的选项全部翻出、或两队都没命时本轮结束。结算只公开每个选项的人数，不公开谁选了什么。数据只来自本房间玩家的回答。",
+            "scoringSummary": "每轮分数高的队伍每人 +2；打平每人 +1。",
+            "contentType": "poll",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 4,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "voteSeconds",
+                "label": "作答时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "percent",
+            "name": "百分比竞猜",
+            "description": "「在场有百分之多少的人……？」大家先秘密作答，一个人猜比例，其他人押更高还是更低。",
+            "minPlayers": 3,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮一名竞猜者（轮流）从候选题里选一道关于「你」的是非题（可以换一批或自己出题）。所有人（包括竞猜者）先秘密回答「是 / 否」；然后竞猜者猜有几个人答了「是」（同时显示成百分比），其他人押实际人数比这个猜测「更高」还是「更低」。揭晓时只公开总人数和比例，不公开任何人的个人回答。所有数字都来自本房间玩家的真实作答，不使用任何外部统计。",
+            "scoringSummary": "竞猜者：完全猜中 +3，只差 1 人 +1。其他人：押对方向 +1（竞猜者猜中时没人得押注分）。",
+            "contentType": "yesno-prompt",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 6,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "answerSeconds",
+                "label": "作答时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 30,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "betSeconds",
+                "label": "竞猜/押注时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 45,
+                "hint": "0 = 不限时"
+              },
+              {
+                "key": "pickSeconds",
+                "label": "选题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          },
+          {
+            "id": "estimate",
+            "name": "估数字",
+            "description": "每轮一道数字题，所有人同时秘密作答，最接近的人得分。（架构验证用示例玩法）",
+            "minPlayers": 2,
+            "maxPlayers": 8,
+            "rulesSummary": "每轮展示一道答案是数字的题目。所有人各自提交一个数字，提交后不可修改，揭晓前互相看不到。全部提交、超时或房主提前揭晓后公布答案。中途加入的玩家从下一轮开始参与。",
+            "scoringSummary": "最接近答案的玩家得 2 分（并列都得分），完全猜中再加 1 分；被跳过的题不计分。",
+            "contentType": "numeric-fact",
+            "options": [
+              {
+                "key": "rounds",
+                "label": "轮数",
+                "min": 0,
+                "max": 30,
+                "default": 5,
+                "hint": "0 = 不限"
+              },
+              {
+                "key": "answerSeconds",
+                "label": "答题时限（秒）",
+                "min": 0,
+                "max": 600,
+                "default": 60,
+                "hint": "0 = 不限时"
+              }
+            ]
+          }
+        ],
+        "segment": {
+          "id": "seg_Clnp5--8FYvP",
+          "gameId": "mostlikely",
+          "status": "active",
+          "view": {
+            "round": 2,
+            "totalRounds": 0,
+            "step": 4,
+            "phase": "pick",
+            "pick": {
+              "picker": "p_q_blnNNFOh6N",
+              "candidates": [
+                "谁最可能收藏一堆从来不用的东西？",
+                "谁最可能养一只很奇怪的宠物？",
+                "谁最可能中了彩票却忘了兑奖？"
+              ],
+              "allowCustom": true,
+              "history": [
+                {
+                  "contentId": "who-005",
+                  "label": "谁最可能在恐怖片里第一个领盒饭？",
+                  "status": "shown",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-003",
+                  "label": "谁最可能出门忘带手机？",
+                  "status": "shown",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-004",
+                  "label": "谁最可能半夜突然想吃火锅？",
+                  "status": "used",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-009",
+                  "label": "谁最可能在 KTV 霸占麦克风？",
+                  "status": "shown",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-012",
+                  "label": "谁最可能在重要场合笑场？",
+                  "status": "shown",
+                  "origin": "library"
+                },
+                {
+                  "contentId": "who-014",
+                  "label": "谁最可能突然宣布要去环游世界？",
+                  "status": "shown",
+                  "origin": "library"
+                }
+              ]
+            },
+            "participants": [
+              "p_mQ5E605CtqS-",
+              "p_q_blnNNFOh6N",
+              "p_GT5oMgJNTuK1",
+              "p_GWswczd_bP1e"
+            ],
+            "prompt": "谁最可能半夜突然想吃火锅？",
+            "submitted": [
+              "p_mQ5E605CtqS-",
+              "p_q_blnNNFOh6N",
+              "p_GT5oMgJNTuK1",
+              "p_GWswczd_bP1e"
+            ],
+            "myVote": "p_mQ5E605CtqS-",
+            "deadlineAt": null,
+            "reveal": {
+              "votes": {
+                "p_mQ5E605CtqS-": "p_q_blnNNFOh6N",
+                "p_q_blnNNFOh6N": "p_mQ5E605CtqS-",
+                "p_GT5oMgJNTuK1": "p_mQ5E605CtqS-",
+                "p_GWswczd_bP1e": "p_mQ5E605CtqS-"
+              },
+              "top": [
+                "p_mQ5E605CtqS-"
+              ]
+            }
+          },
+          "skip": null,
+          "contentId": null
+        },
+        "lastSegment": null,
+        "suggestion": null,
+        "ai": {
+          "enabled": true,
+          "state": "thinking"
+        },
+        "canvas": {
+          "current": null,
+          "queued": 0
+        }
+      },
+      "chat": [
+        "下一题想要游戏相关的"
+      ]
+    }
+  ]
+}

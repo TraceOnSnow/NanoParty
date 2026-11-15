@@ -1,0 +1,36 @@
+{
+  "name": "picker-history",
+  "players": 4,
+  "steps": [
+    {
+      "note": "guest cannot start a game",
+      "as": 1,
+      "cmd": { "type": "startGame", "gameId": "mostlikely" },
+      "fails": true
+    },
+    {
+      "note": "host starts 谁最可能",
+      "cmd": {
+        "type": "startGame",
+        "gameId": "mostlikely",
+        "config": { "rounds": 0, "pickSeconds": 0, "voteSeconds": 0 }
+      }
+    },
+    { "wait": { "path": "segment.view.phase", "equals": "pick" } },
+    { "note": "picker refreshes (free)", "as": "picker", "act": { "type": "refresh" } },
+    { "note": "picker chooses", "as": "picker", "act": { "type": "choose", "index": 0 } },
+    { "note": "everyone votes", "bots": {} },
+    { "wait": { "path": "segment.view.phase", "equals": "reveal" } },
+    { "note": "duplicate vote is rejected", "as": 2, "act": { "type": "vote", "target": "x" }, "fails": true },
+    { "note": "next round", "act": { "type": "next" } },
+    { "wait": { "path": "segment.view.phase", "equals": "pick" } },
+    {
+      "note": "history lists earlier candidates",
+      "as": "picker",
+      "expect": { "path": "segment.view.pick.history", "contains": "\"status\":\"shown\"" }
+    },
+    { "note": "player 3 reconnects", "reconnect": 3 },
+    { "note": "state survives the reconnect", "as": 3, "expect": { "path": "segment.view.phase", "equals": "pick" } },
+    { "note": "ask the AI through the second send button", "as": 2, "say": "下一题想要游戏相关的", "askAi": true }
+  ]
+}
