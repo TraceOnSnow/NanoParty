@@ -6,6 +6,7 @@ import { ChatPanel } from "../components/ChatPanel.tsx";
 import { GameToolbar } from "../components/GameToolbar.tsx";
 import { Lobby } from "../components/Lobby.tsx";
 import { Scoreboard } from "../components/Scoreboard.tsx";
+import { TestBar } from "../components/TestBar.tsx";
 import { PickPanel, pickOf } from "../games/PickPanel.tsx";
 import { customTopicFields, gameComponents } from "../games/registry.tsx";
 import { navigate } from "../router.ts";
@@ -49,6 +50,7 @@ export function RoomPage({ roomId }: { roomId: string }) {
 
   return (
     <div className="room">
+      <TestBar roomId={roomId} me={view.me.playerId} />
       <header className="room-bar">
         <strong>{view.room.name}</strong>
         {gameMeta && <span className="tag">{gameMeta.name}</span>}

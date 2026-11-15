@@ -51,7 +51,22 @@ export const MSG = {
   chatMessage: "chat:message",
 } as const;
 
-export const chatRequest = z.object({ text: z.string().trim().min(1).max(CHAT_MAX) });
+export const chatRequest = z.object({
+  text: z.string().trim().min(1).max(CHAT_MAX),
+  /** "Send and ask the AI": posts the message and triggers the host agent once. */
+  askAi: z.boolean().optional(),
+});
+
+/** In-place feedback about what is on screen. */
+export const playFeedbackKind = z.enum([
+  "unclear",
+  "wrong-answer",
+  "not-interested",
+  "too-hard",
+  "ai-judgement",
+  "ui-flow",
+]);
+export type PlayFeedbackKind = z.infer<typeof playFeedbackKind>;
 
 export const feedbackKind = z.enum(["not-interested", "too-hard", "unclear", "wrong-answer"]);
 export type FeedbackKind = z.infer<typeof feedbackKind>;
@@ -67,6 +82,13 @@ export const commandSchema = z.discriminatedUnion("type", [
   /** `key` binds the vote to the item on screen; a vote for an earlier item is rejected. */
   z.object({ type: z.literal("voteSkip"), segmentId: z.string(), key: z.string() }),
   z.object({ type: z.literal("contentFeedback"), segmentId: z.string(), contentId: z.string(), kind: feedbackKind }),
+  /** `entryId` points at one item of the game's log (e.g. a judged question). */
+  z.object({
+    type: z.literal("feedback"),
+    kind: playFeedbackKind,
+    note: z.string().trim().max(300).optional(),
+    entryId: z.number().int().optional(),
+  }),
   z.object({ type: z.literal("endSession") }),
   z.object({ type: z.literal("rotateInvite") }),
   z.object({ type: z.literal("removeMember"), playerId: z.string() }),

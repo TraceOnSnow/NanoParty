@@ -148,18 +148,25 @@ describe("dynamic canvas", () => {
     await respond(b, "o0");
     await respond(c, "o1");
 
-    // Step 3: generated content reaches the game and waits for the next pick.
+    // Step 3: the round is already under way, so nothing on screen is replaced; the generated
+    // content is kept in the party's candidate history for the next clue giver.
     await waitFor(() => model.calls.length === 3 && host.chat.at(-1)?.sender.kind === "agent");
     expect(model.toolResults.find((r) => r.includes("已保存 2 条"))).toContain("第 3 条格式不对");
-    expect(model.toolResults.find((r) => r.includes("下一轮选题时展示"))).toBeTruthy();
+    expect(model.toolResults.find((r) => r.includes("未应用"))).toContain("历史候选");
+    expect(host.game.phase).toBe("reveal");
     await host.act({ type: "next", round: 1 });
     expect(b.game.phase).toBe("pick");
-    expect(b.game.candidates).toEqual([
-      { left: "英雄联盟里最弱", right: "英雄联盟里最强" },
-      { left: "脆皮", right: "坦克" },
+    const suggested = (b.game.history as { contentId: string; label: string; status: string; origin: string }[]).filter(
+      (h) => h.origin === "ai",
+    );
+    expect(suggested.map((h) => [h.label, h.status])).toEqual([
+      ["脆皮 ↔ 坦克", "shown"],
+      ["英雄联盟里最弱 ↔ 英雄联盟里最强", "shown"],
     ]);
+    const mine = suggested.find((h) => h.label.startsWith("英雄联盟")) as { contentId: string };
     // The player, not the agent, makes the final choice; the usage is recorded against the AI-written item.
-    expect(await b.act({ type: "choose", round: 2, index: 0 })).toEqual({ ok: true });
+    expect(await host.act({ type: "chooseHistory", round: 2, contentId: mine.contentId })).toMatchObject({ ok: false });
+    expect(await b.act({ type: "chooseHistory", round: 2, contentId: mine.contentId })).toEqual({ ok: true });
     expect(host.game.scale.left).toBe("英雄联盟里最弱");
     const rows = await world.handle.db.select().from(contentItems).where(eq(contentItems.theme, "英雄联盟"));
     expect(rows).toHaveLength(2);

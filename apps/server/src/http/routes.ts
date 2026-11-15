@@ -1,11 +1,12 @@
 import { existsSync } from "node:fs";
-import { createRoomRequest, type InviteInfo, type JoinResponse, joinRoomRequest } from "@apr/shared";
+import { commandEnvelope, createRoomRequest, type InviteInfo, type JoinResponse, joinRoomRequest } from "@apr/shared";
 import { and, eq, isNull, sql } from "drizzle-orm";
 import express, { type Request, type Response } from "express";
 import type { AgentService } from "../agent/AgentService.ts";
 import type { Config } from "../config.ts";
 import type { Db } from "../db/client.ts";
 import { partySessions, players, rooms } from "../db/schema.ts";
+import type { RoomManager } from "../rooms/RoomManager.ts";
 import { RateLimiter } from "../util/rateLimit.ts";
 import { newId, randomToken, safeEqual, sha256 } from "../util/tokens.ts";
 
@@ -15,9 +16,10 @@ export interface HttpDeps {
   config: Config;
   db: Db;
   agent: AgentService;
+  manager: RoomManager;
 }
 
-export function mountRoutes(app: express.Application, { config, db, agent }: HttpDeps) {
+export function mountRoutes(app: express.Application, { config, db, agent, manager }: HttpDeps) {
   if (config.trustProxy) app.set("trust proxy", 1);
   app.disable("x-powered-by");
 
@@ -36,7 +38,7 @@ export function mountRoutes(app: express.Application, { config, db, agent }: Htt
   api.get("/health", async (_req, res) => {
     try {
       await db.execute(sql`select 1`);
-      res.json({ ok: true, ai: agent.enabled });
+      res.json({ ok: true, ai: agent.enabled, testMode: config.testMode });
     } catch {
       res.status(503).json({ ok: false });
     }
@@ -104,6 +106,8 @@ export function mountRoutes(app: express.Application, { config, db, agent }: Htt
     res.json({ roomId: room.id, playerId, sessionToken } satisfies JoinResponse);
   });
 
+  if (config.testMode) mountTestRoutes(api, { db, manager });
+
   api.use((_req, res) => res.status(404).json({ error: "not found" }));
   app.use("/api", api);
 
@@ -117,4 +121,85 @@ export function mountRoutes(app: express.Application, { config, db, agent }: Htt
     console.error("[http] unhandled error:", err instanceof Error ? err.message : err);
     res.status(500).json({ error: "服务器内部错误" });
   });
+}
+
+/**
+ * Test-only endpoints (TEST_MODE=true): build a room full of test players in one call, act as
+ * any of them, let them make plain legal moves, and read the full server state for assertions.
+ * They are not mounted at all on a normal instance, so there is nothing to probe in production.
+ * Acting still goes through RoomRuntime.handleCommand, i.e. the same permission checks as a client.
+ */
+function mountTestRoutes(api: express.Router, { db, manager }: { db: Db; manager: RoomManager }) {
+  const test = express.Router();
+
+  test.post("/rooms", async (req, res) => {
+    const count = Math.min(MAX_ROOM_MEMBERS, Math.max(1, Number(req.body?.players) || 4));
+    const names: string[] = Array.isArray(req.body?.names) ? req.body.names : [];
+    const roomId = newId("room");
+    const seats = Array.from({ length: count }, (_, i) => ({
+      playerId: newId("p"),
+      nickname: String(names[i] ?? `测试${i + 1}`).slice(0, 20),
+      sessionToken: randomToken(),
+    }));
+    await db.transaction(async (tx) => {
+      await tx.insert(rooms).values({
+        id: roomId,
+        name: String(req.body?.roomName ?? "测试房间").slice(0, 40),
+        inviteToken: randomToken(),
+        hostPlayerId: (seats[0] as (typeof seats)[0]).playerId,
+      });
+      for (const [i, s] of seats.entries()) {
+        await tx.insert(players).values({
+          id: s.playerId,
+          roomId,
+          nickname: s.nickname,
+          sessionTokenHash: sha256(s.sessionToken),
+          // Distinct timestamps keep the join order stable.
+          createdAt: new Date(Date.now() + i),
+        });
+      }
+      await tx.insert(partySessions).values({ id: newId("ses"), roomId, status: "active" });
+    });
+    res.json({ roomId, seats });
+  });
+
+  const withRoom = async (req: Request, res: Response) => {
+    const runtime = await manager.get(String(req.params.roomId));
+    if (!runtime) res.status(404).json({ error: "room not found" });
+    return runtime;
+  };
+
+  test.get("/rooms/:roomId/state", async (req, res) => {
+    const runtime = await withRoom(req, res);
+    if (runtime) res.json(runtime.debugState());
+  });
+
+  test.get("/rooms/:roomId/view/:playerId", async (req, res) => {
+    const runtime = await withRoom(req, res);
+    if (!runtime) return;
+    const view = runtime.viewOf(String(req.params.playerId));
+    if (!view) return res.status(404).json({ error: "player not found" });
+    res.json(view);
+  });
+
+  /** Sends a command as the given player. */
+  test.post("/rooms/:roomId/act", async (req, res) => {
+    const runtime = await withRoom(req, res);
+    if (!runtime) return;
+    const envelope = commandEnvelope.safeParse({ cmdId: newId("test"), command: req.body?.command });
+    if (!envelope.success) return res.status(400).json({ error: "invalid command" });
+    res.json(await runtime.handleCommand(String(req.body?.playerId), envelope.data));
+  });
+
+  /** One plain legal move for each listed player (default: everyone). */
+  test.post("/rooms/:roomId/autoplay", async (req, res) => {
+    const runtime = await withRoom(req, res);
+    if (!runtime) return;
+    const all = runtime.debugState().members.map((m) => m.id);
+    const except: string[] = Array.isArray(req.body?.except) ? req.body.except : [];
+    const ids: string[] = Array.isArray(req.body?.players) ? req.body.players : all;
+    res.json({ moves: await runtime.autoplay(ids.filter((id) => !except.includes(id))) });
+  });
+
+  api.use("/test", test);
 }

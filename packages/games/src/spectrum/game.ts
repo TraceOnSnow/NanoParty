@@ -6,6 +6,8 @@
  * target is revealed. Full rule spec: docs/games/spectrum.md
  */
 import {
+  type CandidateRecord,
+  type CandidateStatus,
   type ContentItem,
   defineGame,
   type GameContext,
@@ -45,6 +47,9 @@ const actionSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("choose"), round: z.number().int(), index: z.number().int().min(0) }),
   /** ...ask for other candidates (no limit; this is not a skip)... */
   z.object({ type: z.literal("refresh"), round: z.number().int() }),
+  /** ...take a scale shown earlier in this party (also how an AI suggestion is accepted)... */
+  z.object({ type: z.literal("chooseHistory"), round: z.number().int(), contentId: z.string() }),
+  z.object({ type: z.literal("history"), round: z.number().int() }),
   /** ...or write their own scale. */
   z.object({ type: z.literal("custom"), round: z.number().int(), left: pole, right: pole }),
   z.object({ type: z.literal("clue"), round: z.number().int(), text: z.string().trim().min(1).max(CLUE_MAX) }),
@@ -84,8 +89,10 @@ export interface SpectrumState {
   turns: Record<PlayerId, number>;
   /** Scales the clue giver is choosing from (pick phase). */
   candidates: Scale[];
-  /** Scales offered from outside while a round was running; shown at the next pick. */
+  /** Legacy field of states saved before candidate history existed; no longer filled. */
   queued: Scale[];
+  /** Scales shown earlier in this party that the clue giver may still take. */
+  history?: (Scale & { contentId: string; status: CandidateStatus; origin: CandidateRecord["origin"] })[];
   scale: Scale;
   target: number;
   clue: string | null;
@@ -104,6 +111,7 @@ export interface SpectrumView {
   giver: PlayerId;
   /** Public: everyone may watch (and lobby) while the clue giver chooses. */
   candidates: { left: string; right: string }[];
+  history: { contentId: string; label: string; status: CandidateStatus; origin: CandidateRecord["origin"] }[];
   scale: { left: string; right: string };
   /** Only for the clue giver before the reveal; for everyone afterwards. */
   target: number | null;
@@ -126,6 +134,17 @@ const peekCandidates = (ctx: GameContext): Scale[] =>
     .map(toScale)
     .filter((sc): sc is Scale => sc !== null);
 
+/** Scales are public, so every past candidate of the party qualifies. */
+function loadHistory(state: SpectrumState, ctx: GameContext) {
+  state.history = ctx.history
+    .flatMap((r) => {
+      const scale = toScale(r.item);
+      return scale ? [{ ...scale, contentId: r.item.id, status: r.status, origin: r.origin }] : [];
+    })
+    .filter((h) => !state.candidates.some((c) => c.contentId === h.contentId))
+    .slice(0, 40);
+}
+
 const timer = (seconds: number, ctx: GameContext) => (seconds > 0 ? ctx.now + seconds * 1000 : null);
 
 /** Opens a round with the topic choice. The round only formally starts once a scale is confirmed. */
@@ -138,8 +157,9 @@ function startRound(state: SpectrumState, ctx: GameContext) {
   state.giver = giver;
   // Avoid the extreme ends so a clue always has room on both sides.
   state.target = 5 + Math.floor(ctx.random() * 91);
-  state.candidates = state.queued.length > 0 ? state.queued : peekCandidates(ctx);
+  state.candidates = peekCandidates(ctx);
   state.queued = [];
+  loadHistory(state, ctx);
   state.scale = { contentId: null, left: "", right: "" };
   state.clue = null;
   state.guesses = {};
@@ -153,6 +173,7 @@ function beginClue(state: SpectrumState, scale: Scale, ctx: GameContext) {
   if (scale.contentId) ctx.consumeContent(scale.contentId);
   state.scale = scale;
   state.candidates = [];
+  state.history = [];
   state.phase = "clue";
   state.deadlineAt = timer(state.config.clueSeconds, ctx);
 }
@@ -259,13 +280,27 @@ export const spectrumGame = defineGame<SpectrumState, SpectrumAction, SpectrumVi
     switch (action.type) {
       case "choose":
       case "refresh":
+      case "chooseHistory":
+      case "history":
       case "custom": {
         if (state.phase !== "pick") return { ok: false, error: "这一轮的题目已经确定了" };
         if (actor.playerId !== state.giver) return { ok: false, error: "这一轮由提示者选题" };
+        if (action.type === "history") {
+          loadHistory(state, ctx);
+          return { ok: true, state };
+        }
+        if (action.type === "chooseHistory") {
+          loadHistory(state, ctx);
+          const entry = state.history?.find((h) => h.contentId === action.contentId);
+          if (!entry) return { ok: false, error: "历史里没有这条刻度" };
+          beginClue(state, { contentId: entry.contentId, left: entry.left, right: entry.right }, ctx);
+          return { ok: true, state };
+        }
         if (action.type === "refresh") {
           const fresh = peekCandidates(ctx);
           if (fresh.length === 0) return { ok: false, error: "题库里没有更多候选了，可以自己出一条" };
           state.candidates = fresh;
+          loadHistory(state, ctx);
           return { ok: true, state };
         }
         if (action.type === "choose") {
@@ -341,12 +376,10 @@ export const spectrumGame = defineGame<SpectrumState, SpectrumAction, SpectrumVi
       .filter((sc): sc is Scale => sc !== null)
       .slice(0, MAX_OFFERED);
     if (scales.length === 0) return { ok: false, error: "这些内容不是「猜刻度」能用的刻度" };
-    if (state.phase === "pick") {
-      state.candidates = scales;
-      return { ok: true, state, message: `已作为候选题展示给本轮提示者（${scales.length} 条），由 TA 决定用哪条` };
-    }
-    state.queued = scales;
-    return { ok: true, state, message: `本轮已经开始，这 ${scales.length} 条将在下一轮选题时展示给提示者` };
+    // The runtime only hands candidates over while the choice is open; anything else goes to the history.
+    if (state.phase !== "pick") return { ok: false, error: "这一轮的题目已经确定，不能再替换" };
+    state.candidates = scales;
+    return { ok: true, state, message: `已作为候选题展示给本轮提示者（${scales.length} 条），由 TA 决定用哪条` };
   },
 
   deadline: (state) =>
@@ -382,6 +415,15 @@ export const spectrumGame = defineGame<SpectrumState, SpectrumAction, SpectrumVi
       participants: state.participants,
       giver: state.giver,
       candidates: state.candidates.map((c) => ({ left: c.left, right: c.right })),
+      history:
+        state.phase === "pick"
+          ? (state.history ?? []).map((h) => ({
+              contentId: h.contentId,
+              label: `${h.left} ↔ ${h.right}`,
+              status: h.status,
+              origin: h.origin,
+            }))
+          : [],
       scale: { left: state.scale.left, right: state.scale.right },
       target: revealed || viewer === state.giver ? state.target : null,
       clue: state.clue,

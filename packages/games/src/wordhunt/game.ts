@@ -112,7 +112,7 @@ function openRound(state: WordHuntState, ctx: GameContext): GameResult<WordHuntS
   state.step += 1;
   state.participants = [...ctx.players];
   state.mayor = rotatePicker(state.pick, state.participants);
-  openPick(state.pick, state.mayor, payload, ctx);
+  openPick(state.pick, state.mayor, payload, ctx, [state.mayor]);
   state.deadlineAt = timer(state.config.pickSeconds, ctx);
   return { ok: true, state };
 }

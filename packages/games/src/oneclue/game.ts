@@ -157,6 +157,8 @@ function openRound(state: OneClueState, ctx: GameContext): GameResult<OneClueSta
     ),
     payload,
     ctx,
+    // The guesser must never see the candidate words.
+    state.participants.filter((p) => p !== state.guesser),
   );
   state.deadlineAt = timer(state.config.pickSeconds, ctx);
   return { ok: true, state };

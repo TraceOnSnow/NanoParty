@@ -155,7 +155,7 @@ function openRound(state: BlatherState, ctx: GameContext): GameResult<BlatherSta
   state.step += 1;
   state.participants = [...ctx.players];
   state.describer = rotatePicker(state.pick, state.participants);
-  openPick(state.pick, state.describer, payload, ctx);
+  openPick(state.pick, state.describer, payload, ctx, [state.describer]);
   state.deadlineAt = timer(state.config.pickSeconds, ctx);
   return { ok: true, state };
 }

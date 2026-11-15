@@ -11,7 +11,8 @@ export interface RoomConnection {
   chat: ChatMessageView[];
   /** Sends a formal operation. The server acknowledges every command. */
   command(command: Command): Promise<Ack>;
-  say(text: string): Promise<Ack>;
+  /** `askAi` posts the message and asks the AI host to act on it. */
+  say(text: string, askAi?: boolean): Promise<Ack>;
 }
 
 const OFFLINE: Ack = { ok: false, error: "连接已断开，正在重连…" };
@@ -87,7 +88,10 @@ export function useRoom(roomId: string, sessionToken: string | null): RoomConnec
     (cmd: Command) => request(MSG.command, { cmdId: crypto.randomUUID(), command: cmd }),
     [request],
   );
-  const say = useCallback((text: string) => request(MSG.chat, { text }), [request]);
+  const say = useCallback(
+    (text: string, askAi = false) => request(MSG.chat, askAi ? { text, askAi: true } : { text }),
+    [request],
+  );
 
   return { status, view, chat, command, say };
 }

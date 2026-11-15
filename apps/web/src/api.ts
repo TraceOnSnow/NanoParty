@@ -40,8 +40,44 @@ export function saveSession(seat: JoinResponse) {
 }
 
 export function loadSession(roomId: string): string | null {
+  // Test rooms: `?seat=N` picks one of the test players created for this browser.
+  const seat = new URLSearchParams(location.search).get("seat");
+  const seats = loadTestSeats(roomId);
+  if (seat !== null && seats[Number(seat)]) return (seats[Number(seat)] as TestSeat).sessionToken;
   return localStorage.getItem(key(roomId));
 }
+
+// --- Test rooms (only usable when the server runs with TEST_MODE=true) ------
+
+export interface TestSeat {
+  playerId: string;
+  nickname: string;
+  sessionToken: string;
+}
+
+const seatsKey = (roomId: string) => `apr:test-seats:${roomId}`;
+
+export function loadTestSeats(roomId: string): TestSeat[] {
+  try {
+    return JSON.parse(localStorage.getItem(seatsKey(roomId)) ?? "[]") as TestSeat[];
+  } catch {
+    return [];
+  }
+}
+
+export const testApi = {
+  health: () => request<{ ok: boolean; ai: boolean; testMode?: boolean }>("/health"),
+  async createRoom(players: number): Promise<string> {
+    const { roomId, seats } = await post<{ roomId: string; seats: TestSeat[] }>("/test/rooms", { players });
+    localStorage.setItem(seatsKey(roomId), JSON.stringify(seats));
+    return roomId;
+  },
+  autoplay: (roomId: string, except: string[]) =>
+    post<{ moves: { playerId: string; action: string; ok: boolean; error?: string }[] }>(
+      `/test/rooms/${roomId}/autoplay`,
+      { except },
+    ),
+};
 
 export function clearSession(roomId: string) {
   localStorage.removeItem(key(roomId));

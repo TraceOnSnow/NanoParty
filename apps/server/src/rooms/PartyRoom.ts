@@ -33,7 +33,7 @@ export function createPartyRoomClass(manager: RoomManager) {
       this.onMessage(MSG.chat, async (client: Client, payload: unknown): Promise<Ack> => {
         const parsed = chatRequest.safeParse(payload);
         if (!parsed.success) return { ok: false, error: "消息无效" };
-        return runtime.handleChat((client.auth as PartyAuth).playerId, parsed.data.text);
+        return runtime.handleChat((client.auth as PartyAuth).playerId, parsed.data.text, parsed.data.askAi === true);
       });
 
       this.onMessage(MSG.command, async (client: Client, payload: unknown): Promise<Ack> => {

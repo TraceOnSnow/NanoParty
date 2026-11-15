@@ -14,6 +14,11 @@ const envSchema = z.object({
   WEB_DIST: optionalString,
   /** Set to "1" when running behind a reverse proxy so client IPs are read from X-Forwarded-For. */
   TRUST_PROXY: optionalString,
+  /**
+   * Local / dedicated test environments only: enables /api/test (multi-player test rooms,
+   * acting as any player, reading full game state). Never set this on a public instance.
+   */
+  TEST_MODE: z.preprocess(emptyToUndefined, z.enum(["true", "false"]).default("false")),
 
   // --- AI host (all optional; leave ANTHROPIC_API_KEY empty to run without AI) ---
   ANTHROPIC_API_KEY: optionalString,
@@ -43,6 +48,7 @@ export interface Config {
   pgliteDir?: string;
   webDist: string;
   trustProxy: boolean;
+  testMode: boolean;
   ai: {
     provider: "anthropic" | "google";
     apiKey?: string;
@@ -75,6 +81,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
     pgliteDir: e.DATABASE_URL ? undefined : (e.PGLITE_DIR ?? `${DEFAULT_DATA_DIR}/pglite`),
     webDist: e.WEB_DIST ?? DEFAULT_WEB_DIST,
     trustProxy: e.TRUST_PROXY === "1" || e.TRUST_PROXY === "true",
+    testMode: e.TEST_MODE === "true",
     ai: {
       provider,
       apiKey: e.AI_ENABLED === "true" ? apiKey : undefined,

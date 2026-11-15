@@ -42,6 +42,7 @@ import { wordHuntGame } from "./wordhunt/game.ts";
 
 export * from "./blather/game.ts";
 export * from "./bluff/game.ts";
+export * from "./bots.ts";
 export * from "./categories/game.ts";
 export * from "./clover/game.ts";
 export * from "./codebreak/game.ts";

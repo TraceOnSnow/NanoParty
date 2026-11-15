@@ -56,7 +56,7 @@ export async function startApp(config: Config, overrides: AppOverrides = {}): Pr
     transport: new WebSocketTransport(),
     greet: false,
     gracefullyShutdown: false,
-    express: (app) => mountRoutes(app, { config, db, agent }),
+    express: (app) => mountRoutes(app, { config, db, agent, manager }),
   });
   server.define(PARTY_ROOM_NAME, createPartyRoomClass(manager)).filterBy([PARTY_ID_OPTION]);
   await server.listen(config.port);

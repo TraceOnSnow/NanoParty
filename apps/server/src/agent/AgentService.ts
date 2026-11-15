@@ -19,8 +19,8 @@ import { type AgentModel, type AgentTool, defineTool } from "./model.ts";
 import { buildPrompt, SYSTEM_PROMPT } from "./prompt.ts";
 
 export type AgentTrigger =
-  | { kind: "mention"; nickname: string; text: string }
-  | { kind: "recommend"; nickname: string }
+  | { kind: "mention"; playerId: string; nickname: string; text: string }
+  | { kind: "recommend"; playerId: string; nickname: string }
   /** An interaction the agent created has finished; `result` is its structured outcome as text. */
   | { kind: "interaction"; title: string; result: string };
 
@@ -49,7 +49,8 @@ export interface AgentRoomPort {
   /** Validates and stores new content in the library, labelled as AI-generated. */
   saveContent(type: string, theme: string, payloads: unknown[]): Promise<{ ok: boolean; message: string }>;
   /** Hands stored content to the running game as candidates; the game decides how to use it. */
-  offerContent(ids: string[]): Promise<{ ok: boolean; message: string }>;
+  /** `requester` = the player whose request this serves (null = a flow the room is running). */
+  offerContent(ids: string[], requester?: string | null): Promise<{ ok: boolean; message: string }>;
   /** Asks the host to approve starting a game with given settings. Executed by the program on approval. */
   proposeStartGame(
     gameId: string,
@@ -74,6 +75,8 @@ interface RoomAgentState {
   lastNoticeAt: number;
   /** Consecutive runs started only by the agent's own interactions finishing. */
   autoSteps: number;
+  /** The player whose request the current flow serves; kept across the agent's own steps. */
+  requester: string | null;
 }
 
 /**
@@ -134,7 +137,7 @@ export class AgentService {
   private stateFor(roomId: string): RoomAgentState {
     let st = this.rooms.get(roomId);
     if (!st) {
-      st = { pending: [], running: false, lastNoticeAt: 0, autoSteps: 0 };
+      st = { pending: [], running: false, lastNoticeAt: 0, autoSteps: 0, requester: null };
       this.rooms.set(roomId, st);
     }
     return st;
@@ -154,8 +157,12 @@ export class AgentService {
       while (st.pending.length > 0) {
         // Everything that arrived so far is answered by one model call.
         const batch = st.pending.splice(0);
-        if (batch.some((t) => t.kind !== "interaction")) {
+        const asker = batch.findLast(
+          (t): t is Exclude<AgentTrigger, { kind: "interaction" }> => t.kind !== "interaction",
+        );
+        if (asker) {
           st.autoSteps = 0;
+          st.requester = asker.playerId;
         } else if (++st.autoSteps > MAX_AUTO_STEPS) {
           st.lastNoticeAt = 0;
           this.notice(room, st, `AI 主持已经连续自动进行了 ${MAX_AUTO_STEPS} 步，先停一下。需要继续的话请 @AI。`);
@@ -184,7 +191,7 @@ export class AgentService {
       const result = await model.run({
         system: SYSTEM_PROMPT,
         prompt: buildPrompt(room.agentContext(), batch),
-        tools: this.toolsFor(room),
+        tools: this.toolsFor(room, st.requester),
         signal: AbortSignal.timeout(this.limits.timeoutMs),
       });
       await this.record(room.roomId, "ok", result.inputTokens, result.outputTokens);
@@ -201,7 +208,7 @@ export class AgentService {
   }
 
   /** The complete set of things the model can do. Each tool re-checks state and permissions itself. */
-  private toolsFor(room: AgentRoomPort): AgentTool[] {
+  private toolsFor(room: AgentRoomPort, requester: string | null): AgentTool[] {
     return [
       defineTool({
         name: "create_interaction",
@@ -225,9 +232,9 @@ export class AgentService {
       defineTool({
         name: "offer_content",
         description:
-          "把题库里的内容（用 id）作为候选交给正在进行的游戏。由游戏决定怎么用：例如猜刻度会把它们展示给提示者挑选（正在选题就立刻展示，否则留到下一轮）。最终用哪条由玩家决定，不是你。",
+          "把题库里的内容（用 id）作为候选交给正在进行的游戏。只有在选题阶段、且请求来自本轮题主（或房主）时，它们才会成为当前候选；否则会进入左侧的「历史候选」，由题主自己决定要不要用；已经确定的题目不会被替换。以工具返回的结果为准告诉玩家，最终用哪条由玩家决定，不是你。",
         inputSchema: z.object({ contentIds: z.array(z.string()).min(1).max(8) }),
-        run: async ({ contentIds }) => (await room.offerContent(contentIds)).message,
+        run: async ({ contentIds }) => (await room.offerContent(contentIds, requester)).message,
       }),
       defineTool({
         name: "suggest_game",

@@ -32,10 +32,29 @@ export interface GameContext {
   /**
    * Looks at up to `count` unused items WITHOUT using them (for "pick one of these" screens).
    * Calling it again returns different items while the pool lasts, so players can keep refreshing.
+   * `viewers` says who gets to see these candidates when their content is a secret
+   * (omit or null when everyone may see them); the runtime records it in the candidate history.
    */
-  peekContent: (count: number) => ContentItem[];
+  peekContent: (count: number, viewers?: PlayerId[] | null) => ContentItem[];
+  /**
+   * Candidates already shown in this party for the game's content type (newest first), with what
+   * became of them. `seenBy` lists the players who saw an item whose content is a secret
+   * (null = it was shown to everyone and holds no secret).
+   */
+  history: CandidateRecord[];
   /** Marks a previously peeked or offered item as used by this segment. */
   consumeContent: (id: string) => void;
+}
+
+export type CandidateStatus = "shown" | "used" | "skipped";
+
+/** One entry of a party's candidate history. */
+export interface CandidateRecord {
+  item: ContentItem;
+  status: CandidateStatus;
+  seenBy: PlayerId[] | null;
+  /** library = bundled/imported, ai = written by the AI host, player = written by a player. */
+  origin: "library" | "ai" | "player";
 }
 
 /** Content written by a player during play; the runtime stores it in the library with its origin. */

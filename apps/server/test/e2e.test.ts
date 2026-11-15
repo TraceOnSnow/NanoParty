@@ -36,6 +36,7 @@ function config(port: number, pgliteDir?: string): Config {
     pgliteDir,
     webDist: "/nonexistent",
     trustProxy: false,
+    testMode: false,
     ai: {
       provider: "anthropic",
       mock: false,
@@ -123,7 +124,7 @@ describe("end to end (HTTP + WebSocket, no AI)", () => {
     const port = await freePort();
     const base = `http://localhost:${port}`;
     app = await startApp(config(port));
-    expect(await (await fetch(`${base}/api/health`)).json()).toEqual({ ok: true, ai: false });
+    expect(await (await fetch(`${base}/api/health`)).json()).toEqual({ ok: true, ai: false, testMode: false });
 
     // Access control on the REST surface.
     expect((await post(base, "/rooms", { adminPassword: "nope-nope", roomName: "x", nickname: "x" })).status).toBe(403);

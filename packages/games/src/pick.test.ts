@@ -118,7 +118,7 @@ describe.each(cases)("topic pick: $game.meta.name", (c) => {
     }
   });
 
-  it("takes outside offers now while picking, otherwise at the next pick; times out to the first candidate", () => {
+  it("takes outside offers only while picking; times out to the first candidate", () => {
     const t = table(c);
     const offered: ContentItem[] = [
       { id: "ai1", version: 1, type: "x", theme: "主题", payload: c.item(91) },
@@ -133,16 +133,34 @@ describe.each(cases)("topic pick: $game.meta.name", (c) => {
 
     t.timeout();
     expect((t.state as unknown as { phase: string }).phase).not.toBe("pick");
-    const later = t.game.offer?.(t.state, offered, t.ctx);
-    if (!later?.ok) throw new Error("offer failed");
-    expect(later.message).toContain("下一轮");
-    t.state = later.state;
+    // A confirmed topic is never replaced by a late offer (the runtime keeps it in the history).
+    expect(t.game.offer?.(structuredClone(t.state), offered, t.ctx).ok).toBe(false);
+  });
 
-    const skipped = t.game.skip?.apply(structuredClone(t.state), t.ctx);
-    if (!skipped?.ok) throw new Error("skip failed");
-    t.state = skipped.state;
-    expect((t.state as unknown as { phase: string }).phase).toBe("pick");
-    expect(pickView(t, pickerOf(t)).candidates).toHaveLength(1);
+  it("lets a later picker take an earlier candidate from the party history", () => {
+    const t = table(c);
+    const record = (id: string, status: "shown" | "used" = "shown") => ({
+      item: { id, version: 1, type: "x", theme: "主题", payload: c.item(id === "h1" ? 95 : 96) },
+      status,
+      // Written by the AI and not yet seen by anyone: usable even where candidates are a secret.
+      seenBy: [] as string[],
+      origin: "ai" as const,
+    });
+    t.ctx.history.push(record("h1"), record("h2", "used"));
+    const picker = pickerOf(t);
+    const other = ["a", "b", "c", "d"].find((p) => p !== picker) as string;
+    t.do(as(picker), { type: "history" });
+    const history = pickView(t, picker).history ?? [];
+    expect(
+      history.map((h: { contentId: string; status: string; origin: string }) => [h.contentId, h.status, h.origin]),
+    ).toEqual([
+      ["h1", "shown", "ai"],
+      ["h2", "used", "ai"],
+    ]);
+    expect(t.rejects(as(other), { type: "chooseHistory", contentId: "h1" })).toBe(true);
+    expect(t.rejects(as(picker), { type: "chooseHistory", contentId: "nope" })).toBe(true);
+    t.do(as(picker), { type: "chooseHistory", contentId: "h1" });
+    expect((t.state as unknown as { phase: string }).phase).not.toBe("pick");
   });
 
   it("hands the pick to someone else next round", () => {

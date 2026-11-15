@@ -1,4 +1,5 @@
 import { type FormEvent, useEffect, useState } from "react";
+import { Candidates, type HistoryItem } from "../Candidates.tsx";
 import type { GameProps } from "../registry.tsx";
 import { useAct, useCountdown } from "../shared.ts";
 
@@ -10,6 +11,7 @@ interface SpectrumView {
   participants: string[];
   giver: string;
   candidates: { left: string; right: string }[];
+  history: HistoryItem[];
   scale: { left: string; right: string };
   target: number | null;
   clue: string | null;
@@ -50,51 +52,38 @@ function Scale({ left, right, markers }: { left: string; right: string; markers:
 function TopicPicker(props: {
   v: SpectrumView;
   isGiver: boolean;
+  isHost: boolean;
   giverName: string;
   paused: boolean;
   send(action: object): Promise<boolean>;
 }) {
-  const { v, isGiver, paused, send } = props;
+  const { v, paused, send } = props;
   const [left, setLeft] = useState("");
   const [right, setRight] = useState("");
-  const [own, setOwn] = useState(false);
   return (
-    <div className="topic-picker">
-      <p className="notice">
-        {isGiver
-          ? "你是本轮提示者，先选一条刻度。不满意可以一直换，也可以自己出一条，或者在群聊里 @AI 要某个主题的题。"
-          : `${props.giverName} 正在选这一轮的刻度…（想要特定主题可以在群聊里 @AI）`}
-      </p>
-      <div className="pick-grid">
-        {v.candidates.map((c, i) => (
-          <button
-            key={`${c.left}-${c.right}`}
-            type="button"
-            className="pick scale-card"
-            disabled={!isGiver || paused}
-            onClick={() => send({ type: "choose", index: i })}
-          >
-            {c.left} <span className="muted">↔</span> {c.right}
-          </button>
-        ))}
-        {v.candidates.length === 0 && <p className="muted">题库里暂时没有候选，自己出一条吧。</p>}
-      </div>
-      {isGiver && (
-        <div className="host-row">
-          <button type="button" disabled={paused} onClick={() => send({ type: "refresh" })}>
-            换一批
-          </button>
-          <button type="button" disabled={paused} onClick={() => setOwn((o) => !o)}>
-            {own ? "收起" : "自己出题"}
-          </button>
-        </div>
-      )}
-      {isGiver && own && (
+    <Candidates
+      candidates={v.candidates.map((c) => (
+        <>
+          {c.left} <span className="muted">↔</span> {c.right}
+        </>
+      ))}
+      history={v.history}
+      pickerName={props.giverName}
+      isPicker={props.isGiver}
+      isHost={props.isHost}
+      paused={paused}
+      allowCustom
+      aiDraft="给「猜刻度」出三条关于____的刻度"
+      resetKey={v.round}
+      send={send}
+      custom={(extra) => (
         <form
           className="answer-row"
           onSubmit={(e) => {
             e.preventDefault();
-            if (left.trim() && right.trim()) void send({ type: "custom", left: left.trim(), right: right.trim() });
+            if (left.trim() && right.trim()) {
+              void send({ type: "custom", left: left.trim(), right: right.trim(), ...extra });
+            }
           }}
         >
           <input value={left} onChange={(e) => setLeft(e.target.value)} maxLength={12} placeholder="一端，如 冷" />
@@ -104,7 +93,7 @@ function TopicPicker(props: {
           </button>
         </form>
       )}
-    </div>
+    />
   );
 }
 
@@ -154,7 +143,14 @@ export function SpectrumGame({ view, room, paused, act }: GameProps) {
       </div>
 
       {v.phase === "pick" ? (
-        <TopicPicker v={v} isGiver={isGiver} giverName={name(v.giver)} paused={paused} send={withRound} />
+        <TopicPicker
+          v={v}
+          isGiver={isGiver}
+          isHost={room.me.isHost}
+          giverName={name(v.giver)}
+          paused={paused}
+          send={withRound}
+        />
       ) : (
         <Scale left={v.scale.left} right={v.scale.right} markers={markers} />
       )}

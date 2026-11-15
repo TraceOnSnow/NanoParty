@@ -182,7 +182,7 @@ describe("spectrum game", () => {
     expect(game.currentContentId?.(r.state)).toBeNull();
   });
 
-  it("takes outside offers: now if still picking, otherwise at the next pick; picks time out to the first candidate", () => {
+  it("takes outside offers only while picking; later givers reuse candidates from the history", () => {
     const ctx = makeCtx(["a", "b"], 5);
     const offered = [
       { id: "gen1", version: 1, type: "spectrum", theme: "英雄联盟", payload: { left: "脆皮", right: "坦克" } },
@@ -197,16 +197,21 @@ describe("spectrum game", () => {
     const timedOut = game.onTimeout?.(structuredClone(s), ctx);
     expect(timedOut?.ok && [timedOut.state.phase, timedOut.state.scale.left]).toEqual(["clue", "脆皮"]);
 
-    // Offered mid-round: kept for the next clue giver.
+    // Offered mid-round: the confirmed scale is never replaced; the runtime keeps the offer in the history.
     s = pick(s, ctx);
-    const later = game.offer?.(s, offered, ctx);
-    expect(later?.ok && [later.state.candidates, later.state.queued.length, later.message]).toEqual([
-      [],
-      1,
-      expect.stringContaining("下一轮"),
-    ]);
-    s = (later?.ok ? later.state : s) as SpectrumState;
+    expect(game.offer?.(structuredClone(s), offered, ctx).ok).toBe(false);
+
+    // The next clue giver finds an earlier candidate in the party history and takes it.
+    ctx.history.push({ item: offered[0] as (typeof offered)[0], status: "shown", seenBy: null, origin: "ai" });
     s = must(game.apply(s, { type: "skip", round: 1 }, host, ctx)).state;
-    expect([s.round, s.phase, s.candidates.map((c) => c.left)]).toEqual([2, "pick", ["脆皮"]]);
+    expect(game.view(s, s.giver).history).toEqual([
+      { contentId: "gen1", label: "脆皮 ↔ 坦克", status: "shown", origin: "ai" },
+    ]);
+    const other = s.giver === "a" ? "b" : "a";
+    expect(
+      game.apply(structuredClone(s), { type: "chooseHistory", round: 2, contentId: "gen1" }, as(other), ctx).ok,
+    ).toBe(false);
+    s = must(game.apply(s, { type: "chooseHistory", round: 2, contentId: "gen1" }, as(s.giver), ctx)).state;
+    expect([s.phase, s.scale.left]).toEqual(["clue", "脆皮"]);
   });
 });

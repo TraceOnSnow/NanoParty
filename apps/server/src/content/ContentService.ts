@@ -7,10 +7,10 @@
  * Game modules never see this service; the runtime hands them a synchronous `drawContent`.
  */
 import { type BundledContent, contentTypes } from "@apr/games";
-import type { ContentItem, FeedbackKind } from "@apr/shared";
+import type { CandidateRecord, ContentItem, FeedbackKind } from "@apr/shared";
 import { and, eq, inArray, sql } from "drizzle-orm";
 import type { Db, Tx } from "../db/client.ts";
-import { contentFeedback, contentItems, contentUsage } from "../db/schema.ts";
+import { candidateHistory, contentFeedback, contentItems, contentUsage } from "../db/schema.ts";
 import { newId } from "../util/tokens.ts";
 
 export class ContentService {
@@ -144,5 +144,30 @@ export class ContentService {
       .insert(contentUsage)
       .values(items.map((i) => ({ sessionId, segmentId, contentId: i.id, contentVersion: i.version })))
       .onConflictDoNothing();
+  }
+
+  /** A party's candidate history for one content type, newest first. */
+  async history(sessionId: string, type: string): Promise<CandidateRecord[]> {
+    const rows = await this.db
+      .select()
+      .from(candidateHistory)
+      .where(and(eq(candidateHistory.sessionId, sessionId), eq(candidateHistory.contentType, type)))
+      .orderBy(sql`${candidateHistory.updatedAt} desc`);
+    const items = new Map((await this.getByIds(rows.map((r) => r.contentId))).map((i) => [i.id, i]));
+    return rows.flatMap((r) => {
+      const item = items.get(r.contentId);
+      return item ? [{ item, status: r.status, seenBy: r.seenBy as string[] | null, origin: r.origin }] : [];
+    });
+  }
+
+  /** Writes the given history records (insert or replace), inside the caller's transaction. */
+  async recordCandidates(exec: Db | Tx, sessionId: string, records: CandidateRecord[]): Promise<void> {
+    for (const r of records) {
+      const values = { status: r.status, seenBy: r.seenBy, origin: r.origin, updatedAt: new Date() };
+      await exec
+        .insert(candidateHistory)
+        .values({ sessionId, contentType: r.item.type, contentId: r.item.id, ...values })
+        .onConflictDoUpdate({ target: [candidateHistory.sessionId, candidateHistory.contentId], set: values });
+    }
   }
 }

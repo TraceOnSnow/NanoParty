@@ -20,6 +20,7 @@ export function poolCtx(
     now,
     random,
     players,
+    history: [],
     drawContent: () => pool.shift() ?? null,
     peekContent: (count) => {
       const items = pool.splice(0, count);
