@@ -119,6 +119,34 @@ tools/pull-report.sh local . --party <派对 id>                                
 - 聊天原文和游戏秘密（如汤底）默认不包含；确实需要时加 `--with-chat` / `--with-state`，索引文件会标明。
 - 游戏内的「反馈问题」会带上当时的游戏、阶段和题目，报告里能直接定位。
 
+### 使用 DeepSeek 官方接口
+
+现有 Anthropic 适配器也支持 DeepSeek 官方兼容接口。在 `.env` 配置：
+
+```dotenv
+ANTHROPIC_API_KEY=你的DeepSeek密钥
+ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic
+AI_PROVIDER=anthropic
+AI_MODEL=deepseek-v4-flash
+AI_REFUSAL_FALLBACK=false
+```
+
+兼容接口发送完整工具对话历史，并在服务端验证工具参数和权限。模型 ID 以 DeepSeek 官方当前支持列表为准；旧模型名可能由提供方映射到新版。
+
+### 本服务器的公网部署
+
+`compose.production.yaml` 复用现有 Nginx 的 `homepage-web_default` 网络，应用别名为 `nanoparty-app`，宿主端口仅绑定 `127.0.0.1:3100`。数据库使用独立的 `nanoparty_pgdata` 卷。
+
+```bash
+docker compose -f docker-compose.yml -f compose.production.yaml up -d --build
+docker compose -f docker-compose.yml -f compose.production.yaml ps
+docker compose -f docker-compose.yml -f compose.production.yaml logs --tail=50 app
+```
+
+HTTPS、WebSocket 反代与证书续期沿用服务器现有入口。仅管理员密码持有者能创建房间；房主能获取和更换邀请链接，朋友凭邀请链接加入，无需管理员密码。当前没有独立的管理员账号登录系统。邀请链接属于凭证，反代不记录此站访问日志，并设置 `Referrer-Policy: no-referrer`。
+
+停止时使用同一组 Compose 文件执行 `down`；保留数据库卷，勿添加 `--volumes`。开发模式仍使用内嵌 PGlite，与正式数据库分开。
+
 ## 本地开发与测试
 
 需要 Node.js ≥ 22（推荐 24）和 pnpm 11。**不需要 Docker 或本机 PostgreSQL**：未设置 `DATABASE_URL` 时使用内嵌的 PGlite，数据在 `./data/pglite`。

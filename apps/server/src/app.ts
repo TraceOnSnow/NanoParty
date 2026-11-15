@@ -68,7 +68,7 @@ export async function startApp(config: Config, overrides: AppOverrides = {}): Pr
     express: (app) => mountRoutes(app, { config, db, agent, manager }),
   });
   server.define(PARTY_ROOM_NAME, createPartyRoomClass(manager)).filterBy([PARTY_ID_OPTION]);
-  await server.listen(config.port);
+  await server.listen(config.port, config.host);
 
   return {
     port: config.port,

@@ -7,6 +7,7 @@ const int = (def: number) => z.preprocess(emptyToUndefined, z.coerce.number().in
 
 const envSchema = z.object({
   PORT: int(3000),
+  HOST: optionalString,
   /** Required to create rooms. The instance admin's credential; never an invite code. */
   ADMIN_PASSWORD: z.string({ error: "必须设置（至少 8 个字符）" }).min(8, "至少 8 个字符"),
   DATABASE_URL: optionalString,
@@ -45,6 +46,7 @@ const envSchema = z.object({
 
 export interface Config {
   port: number;
+  host?: string;
   adminPassword: string;
   databaseUrl?: string;
   pgliteDir?: string;
@@ -80,6 +82,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
   const apiKey = provider === "google" ? googleKey : e.ANTHROPIC_API_KEY;
   return {
     port: e.PORT,
+    host: e.HOST,
     adminPassword: e.ADMIN_PASSWORD,
     databaseUrl: e.DATABASE_URL,
     pgliteDir: e.DATABASE_URL ? undefined : (e.PGLITE_DIR ?? `${DEFAULT_DATA_DIR}/pglite`),

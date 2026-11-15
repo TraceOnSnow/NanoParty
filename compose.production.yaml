@@ -1,0 +1,30 @@
+# docker compose -f docker-compose.yml -f compose.production.yaml up -d --build
+name: nanoparty
+services:
+  app:
+    ports: !override
+      - "127.0.0.1:3100:3000"
+    environment:
+      TRUST_PROXY: "1"
+      NODE_OPTIONS: --max-old-space-size=384
+    networks:
+      default:
+      web:
+        aliases: [nanoparty-app]
+    mem_limit: 512m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+  db:
+    mem_limit: 256m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+networks:
+  web:
+    external: true
+    name: homepage-web_default
