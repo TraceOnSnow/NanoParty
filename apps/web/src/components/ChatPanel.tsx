@@ -60,6 +60,7 @@ export function ChatPanel({ view, chat, say }: Props) {
     <div className="chat">
       <div className={`ai-status ${view.ai.state}`}>
         {aiOn ? (view.ai.note ?? AI_LABEL[view.ai.state]) : "AI 主持未启用 · 游戏功能照常可用"}
+        {aiOn && view.ai.mock && " · 模拟模型（固定话术，仅供开发试用）"}
       </div>
       <div
         className="chat-list"
@@ -69,8 +70,12 @@ export function ChatPanel({ view, chat, say }: Props) {
           pinned.current = el.scrollHeight - el.scrollTop - el.clientHeight < 40;
         }}
       >
-        {chat.map((m) => (
+        {chat.map((m, i) => (
           <div key={m.id} className={`msg ${m.sender.kind}`}>
+            {/* A new party starts here: the chat is kept, the AI host only reads the current party. */}
+            {i > 0 && m.sessionId !== chat[i - 1]?.sessionId && (
+              <span className="chat-divider">—— 新的一场派对 ——</span>
+            )}
             {m.sender.kind !== "system" && (
               <span className="who">{m.sender.kind === "player" ? m.sender.nickname : "AI 主持"}</span>
             )}

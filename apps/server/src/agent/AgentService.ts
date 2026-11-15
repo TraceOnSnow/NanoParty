@@ -118,6 +118,11 @@ export class AgentService {
     return this.model !== null;
   }
 
+  /** Marks every status as coming from the development stand-in, so it is never taken for a real model. */
+  private get mockFlag(): { mock?: true } {
+    return this.label === "模拟" ? { mock: true } : {};
+  }
+
   /** Recorded as the origin of content the agent writes. */
   get modelLabel(): string {
     return this.label;
@@ -125,7 +130,7 @@ export class AgentService {
 
   initialStatus(): AiStatus {
     return this.enabled
-      ? { enabled: true, state: "idle" }
+      ? { enabled: true, state: "idle", ...this.mockFlag }
       : { enabled: false, state: "unavailable", note: "未配置 AI" };
   }
 
@@ -197,7 +202,7 @@ export class AgentService {
 
   private async runOnce(room: AgentRoomPort, st: RoomAgentState, model: AgentModel, batch: AgentTrigger[]) {
     await this.acquire();
-    room.setAiStatus({ enabled: true, state: "thinking" });
+    room.setAiStatus({ enabled: true, state: "thinking", ...this.mockFlag });
     const context = room.agentContext();
     try {
       const result = await model.run({
@@ -208,7 +213,7 @@ export class AgentService {
       });
       await this.record(room.roomId, "ok", result.inputTokens, result.outputTokens);
       if (result.text) await room.postChat("agent", result.text);
-      room.setAiStatus({ enabled: true, state: "idle" });
+      room.setAiStatus({ enabled: true, state: "idle", ...this.mockFlag });
     } catch (err) {
       console.warn(`[agent] room=${room.roomId} call failed: ${err instanceof Error ? err.message : String(err)}`);
       await this.record(room.roomId, "error", 0, 0).catch(() => {});

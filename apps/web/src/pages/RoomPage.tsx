@@ -6,6 +6,7 @@ import { ChatPanel } from "../components/ChatPanel.tsx";
 import { GameToolbar } from "../components/GameToolbar.tsx";
 import { Lobby } from "../components/Lobby.tsx";
 import { Scoreboard } from "../components/Scoreboard.tsx";
+import { SettlementPanel } from "../components/Settlement.tsx";
 import { TestBar } from "../components/TestBar.tsx";
 import { ThemeAdapt } from "../components/ThemeAdapt.tsx";
 import { PickPanel, pickOf } from "../games/PickPanel.tsx";
@@ -58,9 +59,28 @@ export function RoomPage({ roomId }: { roomId: string }) {
         <span className="spacer" />
         {conn.status !== "connected" && <span className="tag warn">连接中断，正在重连…</span>}
         {segment && view.me.isHost && (
-          <button type="button" onClick={() => run(conn.command({ type: "endSegment", segmentId: segment.id }))}>
-            结束本游戏，回到大厅
-          </button>
+          <>
+            <button
+              type="button"
+              title="用已经完成的回合结算派对积分"
+              onClick={() =>
+                confirm("结束这场游戏并结算？正在进行、还没打完的这一回合会作废，之前完成的回合照常计入。") &&
+                run(conn.command({ type: "endSegment", segmentId: segment.id, mode: "settle" }))
+              }
+            >
+              结束并结算
+            </button>
+            <button
+              type="button"
+              title="不发派对积分"
+              onClick={() =>
+                confirm("放弃这场游戏？这一场不会有任何派对积分。") &&
+                run(conn.command({ type: "endSegment", segmentId: segment.id, mode: "abandon" }))
+              }
+            >
+              放弃本场
+            </button>
+          </>
         )}
       </header>
 
@@ -115,11 +135,21 @@ export function RoomPage({ roomId }: { roomId: string }) {
                   act={(action) => conn.command({ type: "gameAction", segmentId: segment.id, action })}
                 />
               )}
+              {segment.rawScores.length > 0 && (
+                <p className="muted small raw-scores">
+                  本局游戏内得分（结算后按名次换成派对积分）：
+                  {segment.rawScores
+                    .map((s) => `${view.members.find((m) => m.id === s.playerId)?.nickname ?? "?"} ${s.points}`)
+                    .join("　")}
+                </p>
+              )}
               <GameToolbar segment={segment} command={(c) => run(conn.command(c))} />
             </>
           ) : (
             <p className="muted">这个版本的页面还不支持该游戏。</p>
           )
+        ) : view.settlement ? (
+          <SettlementPanel view={view} command={(c) => run(conn.command(c))} />
         ) : (
           <Lobby view={view} command={(c) => run(conn.command(c))} />
         )}

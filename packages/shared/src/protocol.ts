@@ -250,6 +250,8 @@ export interface AiStatus {
   enabled: boolean;
   state: "idle" | "thinking" | "unavailable";
   note?: string;
+  /** True when a canned development stand-in answers instead of a real model. */
+  mock?: boolean;
 }
 
 /** Full per-player snapshot. Sent on join and after every state change; it is the recovery path too. */

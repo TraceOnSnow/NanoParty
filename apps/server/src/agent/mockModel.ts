@@ -15,6 +15,19 @@ export class MockAgentModel implements AgentModel {
   async run(input: AgentRunInput): Promise<AgentRunResult> {
     await new Promise((resolve) => setTimeout(resolve, 600));
     const usage = { inputTokens: 0, outputTokens: 0 };
+    // Stand-in for the game referee and the recap writer, so those screens can be tried without a key.
+    // The answers are canned and have nothing to do with the actual puzzle.
+    if (input.system.includes("海龟汤游戏的裁判")) {
+      const text = input.system.includes("完整推理")
+        ? '{"correct":false}'
+        : input.system.includes("给玩家一条提示")
+          ? '{"hint":"（模拟裁判）这是一条固定的假提示。"}'
+          : `{"verdict":"${input.prompt.includes("有关") ? "yes" : "no"}","facts":[]}`;
+      return { text, ...usage };
+    }
+    if (input.system.includes("改编海龟汤")) return { text: '{"replacements":[]}', ...usage };
+    if (input.system.includes("写一段回顾"))
+      return { text: "（模拟 AI）这是一段固定的假总结，配置真实模型后才会根据记录来写。", ...usage };
     const request = input.prompt.split("## 本次需要你处理的事")[1] ?? "";
     const tool = (name: string, args: unknown) => {
       const t = input.tools.find((x) => x.name === name);

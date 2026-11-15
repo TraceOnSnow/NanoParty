@@ -47,6 +47,56 @@ export function loadSession(roomId: string): string | null {
   return localStorage.getItem(key(roomId));
 }
 
+// --- Parties and recaps (members only; authenticated with the room's session token) ----------
+
+export interface PartyListItem {
+  sessionId: string;
+  number: number;
+  status: "active" | "ended";
+  startedAt: number;
+  endedAt: number | null;
+  games: number;
+}
+
+/** Mirrors Recap in apps/server/src/rooms/recap.ts. */
+export interface Recap {
+  sessionId: string;
+  number: number;
+  status: "active" | "ended";
+  scoring: "raw-v1" | "rank-v1";
+  startedAt: number;
+  endedAt: number | null;
+  names: Record<string, string>;
+  ranking: { playerId: string; tenths: number; rank: number }[];
+  games: {
+    segmentId: string;
+    gameName: string;
+    status: "finished" | "aborted";
+    raw: { playerId: string; points: number }[];
+    rewards: { playerId: string; rank: number; tied: boolean; tenths: number }[];
+    note: string | null;
+  }[];
+  adjustments: {
+    segmentId: string | null;
+    kind: "adjust" | "correction";
+    items: { playerId: string; tenths: number }[];
+    reason: string;
+    proposedBy: string;
+    approvedBy: string;
+  }[];
+  timeline: { at: number; label: string; totals: Record<string, number> }[];
+  events: { at: number; text: string }[];
+  summary: { status: "none" | "pending" | "ok" | "failed"; text: string | null };
+}
+
+const authed = <T>(roomId: string, path: string) =>
+  request<T>(`/rooms/${roomId}${path}`, { headers: { authorization: `Bearer ${loadSession(roomId) ?? ""}` } });
+
+export const partyApi = {
+  list: (roomId: string) => authed<{ parties: PartyListItem[] }>(roomId, "/parties"),
+  recap: (roomId: string, sessionId: string) => authed<Recap>(roomId, `/parties/${sessionId}`),
+};
+
 // --- Test rooms (only usable when the server runs with TEST_MODE=true) ------
 
 export interface TestSeat {

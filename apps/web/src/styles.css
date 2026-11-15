@@ -1145,3 +1145,116 @@ button.ask-ai:disabled {
 .error.small {
   font-size: 12px;
 }
+
+/* --- VNext: party, settlement, recap, covers --- */
+.party-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-color: var(--accent);
+}
+.party-card p {
+  margin: 2px 0 0;
+}
+.party-card summary,
+.manual-adjust summary {
+  cursor: pointer;
+  color: var(--muted);
+}
+.options.wide input,
+.options.wide select {
+  width: min(360px, 60%);
+}
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.history-list li {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+.adjustment {
+  border-color: var(--ai);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.adjustment p {
+  margin: 0;
+}
+.recap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.recap h3 {
+  margin: 8px 0 0;
+}
+.standings {
+  margin: 8px 0 0;
+  padding-left: 28px;
+  font-size: 17px;
+}
+.standings li {
+  padding: 2px 0;
+}
+.standings li > span {
+  display: inline-block;
+  min-width: 8em;
+}
+.cover {
+  --hue: 30;
+  height: 84px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, hsl(var(--hue) 55% 34%), hsl(calc(var(--hue) + 40) 50% 20%));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  overflow: hidden;
+}
+.cover-glyph {
+  font-size: 46px;
+  font-weight: 800;
+  color: rgb(255 255 255 / 0.28);
+  line-height: 1;
+}
+.cover-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+.raw-scores {
+  margin: 0;
+}
+.chat-divider {
+  display: block;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  margin: 8px 0;
+}
+.results td,
+.results th {
+  padding: 6px 10px;
+  text-align: left;
+}
+
+.topic-picker label.muted,
+.host-row label.muted {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.topic-picker label.muted input,
+.host-row label.muted input {
+  width: auto;
+}
+p button.link {
+  color: var(--ai);
+}

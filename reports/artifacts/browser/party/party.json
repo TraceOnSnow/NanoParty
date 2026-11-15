@@ -1,0 +1,123 @@
+{
+  "name": "party",
+  "base": "http://localhost:3100",
+  "roomId": "room_zLkUYMQs-Vqu",
+  "at": "2026-11-15T10:35:00.540Z",
+  "results": [
+    {
+      "id": "AC-26",
+      "text": "大厅显示派对状态、偏好入口和带封面的游戏卡",
+      "ok": true,
+      "evidence": "AC-26-1.png"
+    },
+    {
+      "id": "AC-03",
+      "text": "成员提建议、房主保存偏好；不需要先设偏好也能开玩",
+      "ok": true,
+      "evidence": "AC-03-1.png"
+    },
+    {
+      "id": "AC-07",
+      "text": "非题主看得到候选但不能选或确认",
+      "ok": true,
+      "evidence": "AC-07-1.png"
+    },
+    {
+      "id": "AC-08",
+      "text": "换一批后，上一批没选的题出现在「历史候选」里",
+      "ok": true,
+      "evidence": "AC-08-1.png"
+    },
+    {
+      "id": "AC-07",
+      "text": "题主点卡片只是选中，还没有消耗题目",
+      "ok": true,
+      "evidence": "AC-07-2.png"
+    },
+    {
+      "id": "AC-07",
+      "text": "非房主题主独立完成选题并确认",
+      "ok": true,
+      "evidence": "AC-07-3.png"
+    },
+    {
+      "id": "AC-04",
+      "text": "普通发送不触发 AI；「发送并找 AI」触发一次并公开消息",
+      "ok": true,
+      "evidence": "AC-04-1.png"
+    },
+    {
+      "id": "AC-17",
+      "text": "游戏内得分显示在左侧，右侧派对积分还是 0",
+      "ok": true,
+      "evidence": "AC-17-1.png"
+    },
+    {
+      "id": "AC-18",
+      "text": "无限轮玩法「结束并结算」：出现结算页，预计派对积分按名次给出",
+      "ok": true,
+      "evidence": "AC-18-1.png"
+    },
+    {
+      "id": "AC-17",
+      "text": "非房主只能等待，看不到确认按钮",
+      "ok": true,
+      "evidence": "AC-17-2.png"
+    },
+    {
+      "id": "AC-19",
+      "text": "调分方案对所有人可见、标明未生效；右侧积分没有变化",
+      "ok": true,
+      "evidence": "AC-19-1.png"
+    },
+    {
+      "id": "AC-19",
+      "text": "非房主没有批准按钮",
+      "ok": true,
+      "evidence": "AC-19-2.png"
+    },
+    {
+      "id": "AC-19",
+      "text": "房主批准后一次入账：名次奖励 + 调整，可出现负分",
+      "ok": true,
+      "evidence": "AC-19-3.png"
+    },
+    {
+      "id": "AC-18",
+      "text": "「放弃本场」不发派对积分",
+      "ok": true,
+      "evidence": "AC-18-2.png"
+    },
+    {
+      "id": "AC-02",
+      "text": "刷新页面后恢复同一身份和派对积分",
+      "ok": true,
+      "evidence": "AC-02-1.png"
+    },
+    {
+      "id": "AC-01",
+      "text": "结束派对后新的一场从零开始，成员保留",
+      "ok": true,
+      "evidence": "AC-01-1.png"
+    },
+    {
+      "id": "AC-21",
+      "text": "回顾包含最终排名、逐场战绩、批准的调整、积分变化和经过",
+      "ok": true,
+      "evidence": "AC-21-1.png"
+    },
+    {
+      "id": "AC-21",
+      "text": "AI 总结异步生成（这里是模拟模型，已标注），不阻塞回顾和新派对",
+      "ok": true,
+      "evidence": "AC-21-2.png"
+    },
+    {
+      "id": "AC-01",
+      "text": "历史派对列表里能找到第 1 场",
+      "ok": true,
+      "evidence": "AC-01-2.png"
+    }
+  ],
+  "problems": []
+}

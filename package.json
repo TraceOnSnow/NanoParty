@@ -17,10 +17,12 @@
     "db:generate": "pnpm --filter @apr/server db:generate",
     "check": "pnpm lint && pnpm typecheck && pnpm test",
     "tester": "pnpm --filter @apr/server exec tsx --env-file-if-exists=../../.env tools/tester.ts",
-    "model-eval": "pnpm --filter @apr/server exec tsx --env-file-if-exists=../../.env tools/model-eval.ts"
+    "model-eval": "pnpm --filter @apr/server exec tsx --env-file-if-exists=../../.env tools/model-eval.ts",
+    "dev:test": "pnpm --filter @apr/web build && cd apps/server && PORT=${PORT:-3100} TEST_MODE=true DATABASE_URL= PGLITE_DIR=${PGLITE_DIR:-../../data/test-pglite} tsx --env-file-if-exists=../../.env src/index.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.6.7",
+    "playwright": "^1.65.1",
     "typescript": "^7.0.2",
     "vitest": "^5.1.0"
   }
