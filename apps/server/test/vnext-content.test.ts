@@ -226,6 +226,7 @@ const config = (port: number, testMode: boolean): Config => ({
     provider: "anthropic",
     mock: false,
     model: "none",
+    judgeModel: "none",
     effort: "low",
     refusalFallback: false,
     timeoutMs: 1000,

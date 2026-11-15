@@ -38,7 +38,17 @@
 
 各游戏完整规则见 [docs/games/](docs/games/)。这些游戏只借鉴常见的聚会游戏机制，名称、内容与分值均为本项目自定。
 
-平台已有：邀请加入、房主权限、群聊、累计积分、投票跳题（严格多数）、题目反馈、开局设置、结束聚会并清零、更换邀请链接、移除成员、断线重连、重启恢复。
+平台能力：
+
+- **长期房间、独立派对**：同一个邀请房间可以开很多场派对，每场从零计分，结束后存档，大厅里能看任何一场的完整回顾。
+- **两本账**：游戏内成绩只是原始记录；每场游戏结束后按名次换成派对积分（并列平分），由房主确认一次入账。可以「结束并结算」或「放弃本场」。
+- **协商调分**：谁都可以在右侧找 AI 提加分 / 扣分方案，方案显示在左侧，房主批准才生效（房主也可以手动提）。可以是负分。
+- **选题**：轮到的题主自己选题、换一批、回看本场出现过的候选、自己出题，或让 AI 按主题出题；房主可以显式代选。
+- **AI 主持**：右侧聊天有「发送」和「发送并找 AI」两个按钮。主持有普通 / 搞怪两种模式。海龟汤可以由独立的 AI 裁判主持，判错可以标记、重判、更正，AI 不可用时可以由玩家知情接管。
+- **派对偏好**：熟悉什么、今天想玩什么、不要出现什么，大家提建议、房主确认，随时可改，不影响积分和已确定的题。
+- 其它：邀请加入、群聊、投票跳题、原地反馈、更换邀请链接、移除成员、房主转交、断线重连、重启恢复。
+
+没有配置模型时，所有固定规则游戏和题库玩法照常可用；海龟汤改由真人当汤主。
 
 ## 用 Docker Compose 部署
 
@@ -53,7 +63,8 @@ docker compose up -d --build
 打开 `http://<服务器地址>:3000`，用管理员密码创建房间，在大厅复制邀请链接发给朋友。
 
 - **健康检查**：`GET /api/health`；`docker compose ps` 可看到容器健康状态。日志：`docker compose logs -f app`。
-- **升级**：`git pull && docker compose up -d --build`。数据库迁移在启动时自动执行，数据保存在 `pgdata` 卷中，重建容器不会丢失。
+- **升级**：先备份（见下），再 `git pull && GIT_SHA=$(git rev-parse --short HEAD) docker compose up -d --build`。数据库迁移在启动时自动执行，都是追加式的（只加表、加列），数据保存在 `pgdata` 卷中，重建容器不会丢失。`GIT_SHA` 可省略，它只是写进试玩报告方便对应代码版本。
+- **从旧版本升级到 VNext**：旧房间、玩家、聊天和成绩都保留。升级时还在进行的派对沿用旧计分方式（游戏内得分直接累加），界面上标「旧计分」；房主「结束本场派对」后，新开的派对才使用名次奖励。旧成绩不会被换算。
 - **备份**：`docker compose exec db pg_dump -U apr apr > backup.sql`
 - **恢复**：`docker compose exec -T db psql -U apr apr < backup.sql`（恢复到空库）
 - **HTTPS**：本项目不自带证书。公网使用请放在反向代理（Caddy / Nginx 等）之后启用 HTTPS，代理需支持 WebSocket 升级，并设置 `TRUST_PROXY=1`。Caddy 示例：
@@ -66,24 +77,49 @@ docker compose up -d --build
 
 - **安全提示**：邀请链接是随机令牌，拿到链接的人都能加入，请只发给朋友；管理员密码不是邀请码。模型密钥只在服务端使用，不会发送到浏览器。
 
-## 启用 AI 主持（可选）
+## 启用 AI（可选）
 
-在 `.env` 中填写 `ANTHROPIC_API_KEY` 后重启。玩家在群聊里 `@AI`，或在大厅点「让 AI 推荐」时才会调用模型；普通聊天不会触发调用。
+在 `.env` 里填一个模型密钥后 `docker compose up -d`：
+
+- `GOOGLE_API_KEY`：Google AI Studio 的密钥，默认模型 `gemini-3.8-flash`；
+- 或 `ANTHROPIC_API_KEY`，默认模型 `claude-opus-5-5`。
+
+两个都填时默认用 Anthropic，可用 `AI_PROVIDER=google|anthropic` 指定。普通聊天不会调用模型；只有「发送并找 AI」、正文里的 `@AI`、大厅的「让 AI 推荐」、AI 主持的海龟汤、按主题改编和派对总结才会。
+
+> AI Studio 免费层的额度很小（实测为每个模型每天 20 次请求），不够玩一场。实际使用请给密钥所在的项目开通计费，或换一个额度够的模型。
 
 | 变量 | 默认 | 说明 |
 | --- | --- | --- |
-| `AI_MODEL` | `claude-opus-5-5` | 想降低成本可改为 `claude-sonnet-5-5` / `claude-haiku-5-5` |
-| `AI_EFFORT` | `low` | 思考力度 |
-| `AI_ROOM_CALLS_PER_MINUTE` | `6` | 每房间限速 |
+| `AI_MODEL` | 按提供方 | 主持用的模型 ID |
+| `AI_JUDGE_MODEL` | 同 `AI_MODEL` | 游戏裁判（海龟汤判定、改编、派对总结）单独用的模型 |
+| `AI_MOCK` | `false` | 开发用：`true` 时用内置的固定话术代替模型（界面会标明「模拟模型」） |
+| `AI_EFFORT` | `low` | 思考力度（仅 Anthropic） |
+| `AI_ROOM_CALLS_PER_MINUTE` | `6` | 每房间主持调用限速 |
 | `AI_DAILY_CALL_LIMIT` | `300` | 全实例每日调用上限；用完后停止调用，游戏照常 |
 | `AI_MAX_CONCURRENCY` / `AI_TIMEOUT_MS` | `2` / `45000` | 并发与超时 |
-| `AI_REFUSAL_FALLBACK` | `true` | 模型拒答时由 API 自动切换备用模型；网关不支持时设为 `false` |
+| `AI_REFUSAL_FALLBACK` | `true` | 模型拒答时由 API 自动切换备用模型（仅 Anthropic） |
 
-没有密钥时想体验 AI 相关界面，可设置 `AI_MOCK=true`：使用内置的模拟主持人（按固定脚本行动，不调用任何模型，仅供开发）。在猜刻度里说「@AI 按主题出题」可以看到收集主题 → 投票 → 生成题卡的完整流程。
+主持（Room AI）和裁判（Game AI）是两套提示词和上下文：主持只看得到公开信息，看不到谜底、秘密词和手牌；裁判拿得到汤底，但只返回「是 / 否 / 无关…」这样的受控结果。
 
-调用记录保存在 `ai_calls` 表（时间、房间、状态、token 数），可直接用 SQL 查看用量。
+## 试玩报告（给开发者）
 
-## 本地开发
+想知道某一场出了什么问题时，从服务器按需拉一份只读、脱敏的报告：
+
+```bash
+tools/pull-report.sh user@server /path/to/NanoParty --list
+tools/pull-report.sh user@server /path/to/NanoParty --party <派对 id>
+tools/pull-report.sh user@server /path/to/NanoParty --since 2026-11-14 --issues   # 只要有反馈或被拒绝操作的
+tools/pull-report.sh local . --party <派对 id>                                    # 本机的 Compose
+```
+
+报告落在 `reports/pulled/<时间>/`（不进 git）。先读 `summary.md`，再按 `index.json` 找细节：排名与逐场战绩、事件顺序、被拒绝的操作、玩家反馈、模型调用的耗时和用量。
+
+- 脚本只在应用容器里运行 `node dist/report.js`：数据库会话是只读的，不执行迁移、不重启、不开端口。
+- 玩家以 P1、P2… 出现；昵称、邀请令牌、会话凭据、密钥都不会导出。
+- 聊天原文和游戏秘密（如汤底）默认不包含；确实需要时加 `--with-chat` / `--with-state`，索引文件会标明。
+- 游戏内的「反馈问题」会带上当时的游戏、阶段和题目，报告里能直接定位。
+
+## 本地开发与测试
 
 需要 Node.js ≥ 22（推荐 24）和 pnpm 11。**不需要 Docker 或本机 PostgreSQL**：未设置 `DATABASE_URL` 时使用内嵌的 PGlite，数据在 `./data/pglite`。
 
@@ -105,6 +141,20 @@ pnpm dev                  # 服务端 :3000 + 网页 :5173（热更新）
 | `pnpm db:generate` | 修改 `apps/server/src/db/schema.ts` 后生成迁移 |
 
 在真实 PostgreSQL 上跑端到端测试：`TEST_DATABASE_URL=postgres://... pnpm vitest run apps/server/test/e2e.test.ts`
+
+### 多人测试
+
+```bash
+pnpm dev:test                                  # 独立测试实例：:3100，自己的数据目录，开启 TEST_MODE
+AI_MOCK=true pnpm dev:test                     # 同上，用模拟模型
+```
+
+- **一个人开多人房间**：打开 `http://localhost:3100/test`，一键创建带 2–8 名测试玩家的房间，在同一个窗口里切换视角，「其他人各走一步」让其余玩家做最朴素的合法操作。
+- **场景驱动（真实 HTTP + WebSocket）**：`PORT=3100 pnpm tester tools/scenarios/picker-history.json --out reports/artifacts/x.json`。每个测试玩家有自己的会话和连接，动作和真人一样经过服务端校验；输出是一行一步的摘要，完整轨迹写到 `--out`。
+- **多浏览器验收**：`node tools/browser/party.mjs`、`node tools/browser/soup-canvas.mjs`（四个互相隔离的浏览器会话，截图在 `reports/artifacts/browser/`）。
+- **真实模型评测**：`pnpm model-eval soup`、`pnpm model-eval host`（用 `.env` 里的密钥；`AI_MODEL=` 换模型，`EVAL_ONLY=1,3` 只跑部分场景），结果写到 `reports/artifacts/model-*.md`，与 Mock 测试分开。
+
+`TEST_MODE=true` 会开放 `/api/test/*`（以任意玩家身份操作、读取完整游戏状态），**只用于本机或专用测试环境**；不设置时这些路由根本不存在。
 
 ## 仓库结构
 

@@ -41,6 +41,7 @@ function config(port: number, pgliteDir?: string): Config {
       provider: "anthropic",
       mock: false,
       model: "none",
+      judgeModel: "none",
       effort: "low",
       refusalFallback: false,
       timeoutMs: 1000,

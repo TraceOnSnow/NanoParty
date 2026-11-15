@@ -96,6 +96,20 @@
 
 见 [ADR 0005](adr/0005-dynamic-canvas.md)。代码：`packages/shared/src/canvas.ts`（原语规格）、`apps/server/src/rooms/canvas.ts`（结果计算与视图）、`RoomRuntime` 的 canvas 部分（排队、回应、效果）、`AgentService` 的工具、`apps/web/src/components/CanvasPanel.tsx`。
 
+## VNext：派对、结算与两种 AI
+
+需求见 `NanoParty_VNext_PRD_v1.1.md`，验收见 `../reports/vnext-acceptance.md`。
+
+**派对与计分。** `party_sessions.scoring` 区分 `raw-v1`（VNext 之前建的派对，原始分直接累加）和 `rank-v1`。`rank-v1` 下游戏结束（或房主「结束并结算」）后 segment 进入 `settling`：`rooms/party.ts` 用 `packages/shared/src/scoring.ts` 的名次表算出预计奖励，房主确认后在一个事务里写 `party_points`（`seg:<id>:rank:<player>`）并把快照存进 `segments.settlement`。调分方案存在 `adjustments`（pending / approved / cancelled / replaced / expired），批准时写 `adj:<id>:<player>`；对已结算游戏的调整记为 `correction`。结束派对把当前会话标为 ended 并开一条新的 `rank-v1` 会话；回顾（`rooms/recap.ts`）只读流水、结算快照和事件日志，AI 总结是会话上单独的一段文本，后台生成、可重试。
+
+**候选历史。** `candidate_history` 按（派对, 内容）记录出现过的候选及其状态（shown / used / skipped）、来源和「谁看过」。运行时在 `ctx.peekContent(count, viewers)` 和 `ctx.consumeContent` 时记录，并通过 `ctx.history` 交给游戏；`pick.ts` 据此提供「历史候选」。AI 写的题只有在选题中且请求来自题主（或房主、或大家一起走的流程）时才替换当前候选，否则进历史。
+
+**两种 AI。** Room AI（`agent/AgentService.ts`，带工具，人格与普通 / 搞怪模式在 `agent/prompt.ts`）和 Game AI（`agent/GameAi.ts`，无工具，只回 JSON）。游戏通过 `GameModule.judge` 声明待判任务；`RoomRuntime.pumpJudge` 在房间队列之外调用模型，回来后只在同一 segment 仍在进行、且游戏认这个任务 id 时应用结果，否则丢弃。海龟汤改编由 `packages/games/src/soup/adapt.ts` 校验并执行，模型只提替换词。
+
+**事件与报告。** `events` 是只追加的公开事实日志（操作类型与结果，不含操作内容和秘密）；`feedback` 是玩家的原地反馈。`src/reportExport.ts` 据此生成脱敏报告，`src/report.ts` 是只读 CLI，`tools/pull-report.sh` 经 SSH 拉取。
+
+**测试支撑。** `TEST_MODE` 下的 `/api/test/*`、`/test` 页面、`packages/games/src/bots.ts`（只看自己视图的朴素合法操作）、`apps/server/tools/tester.ts`（真实协议场景）、`tools/browser/*.mjs`（多隔离浏览器）、`apps/server/tools/model-eval.ts`（真实模型）。
+
 ## 已知的未实现项
 
 主要包括：真实模型联调（Canvas 编排目前只用脚本化模型验证过）、题库导入与主题选择、偏好记录、题目生成后台任务、成绩修正/已结算题作废流程、房主离线时的控制权恢复、真实模型联调、管理端。

@@ -33,27 +33,31 @@ export async function startApp(config: Config, overrides: AppOverrides = {}): Pr
   const content = new ContentService(db);
   await content.seed(bundledContent);
 
-  const model =
-    overrides.agentModel !== undefined
-      ? overrides.agentModel
-      : config.ai.mock
-        ? new MockAgentModel()
-        : config.ai.apiKey && config.ai.provider === "google"
-          ? new GeminiAgentModel({ apiKey: config.ai.apiKey, baseUrl: config.ai.baseUrl, model: config.ai.model })
-          : config.ai.apiKey
-            ? new AnthropicAgentModel({
-                apiKey: config.ai.apiKey,
-                baseUrl: config.ai.baseUrl,
-                model: config.ai.model,
-                effort: config.ai.effort,
-                refusalFallback: config.ai.refusalFallback,
-              })
-            : null;
+  const build = (name: string): AgentModel | null =>
+    config.ai.mock
+      ? new MockAgentModel()
+      : !config.ai.apiKey
+        ? null
+        : config.ai.provider === "google"
+          ? new GeminiAgentModel({ apiKey: config.ai.apiKey, baseUrl: config.ai.baseUrl, model: name })
+          : new AnthropicAgentModel({
+              apiKey: config.ai.apiKey,
+              baseUrl: config.ai.baseUrl,
+              model: name,
+              effort: config.ai.effort,
+              refusalFallback: config.ai.refusalFallback,
+            });
+  const model = overrides.agentModel !== undefined ? overrides.agentModel : build(config.ai.model);
+  // The referee may use its own model (AI_JUDGE_MODEL); by default it shares the host's.
+  const judgeModel =
+    overrides.agentModel !== undefined || config.ai.judgeModel === config.ai.model
+      ? model
+      : build(config.ai.judgeModel);
   const agent = new AgentService(model, db, config.ai, config.ai.mock ? "模拟" : config.ai.model);
 
   const label = config.ai.mock ? "模拟" : config.ai.model;
   // Same model service, separate role: the referee gets game secrets, the host agent never does.
-  const gameAi = new GameAiService(model, db, config.ai, label);
+  const gameAi = new GameAiService(judgeModel, db, config.ai, config.ai.mock ? "模拟" : config.ai.judgeModel);
 
   const manager = new RoomManager({ db, content, agent, gameAi });
 

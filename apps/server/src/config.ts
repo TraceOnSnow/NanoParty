@@ -33,6 +33,8 @@ const envSchema = z.object({
   /** Development only: use a canned fake model instead of calling an API. */
   AI_MOCK: z.preprocess(emptyToUndefined, z.enum(["true", "false"]).default("false")),
   AI_MODEL: optionalString,
+  /** Optional separate model for the game referee, adaptation and recap (defaults to AI_MODEL). */
+  AI_JUDGE_MODEL: optionalString,
   AI_EFFORT: z.preprocess(emptyToUndefined, z.enum(["low", "medium", "high"]).default("low")),
   AI_REFUSAL_FALLBACK: z.preprocess(emptyToUndefined, z.enum(["true", "false"]).default("true")),
   AI_TIMEOUT_MS: int(45_000),
@@ -55,6 +57,7 @@ export interface Config {
     baseUrl?: string;
     mock: boolean;
     model: string;
+    judgeModel: string;
     effort: "low" | "medium" | "high";
     refusalFallback: boolean;
     timeoutMs: number;
@@ -73,6 +76,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
   const e = parsed.data;
   const googleKey = e.GOOGLE_API_KEY ?? e.GEMINI_API_KEY;
   const provider = e.AI_PROVIDER ?? (!e.ANTHROPIC_API_KEY && googleKey ? "google" : "anthropic");
+  const defaultModel = provider === "google" ? "gemini-3.8-flash" : "claude-opus-5-5";
   const apiKey = provider === "google" ? googleKey : e.ANTHROPIC_API_KEY;
   return {
     port: e.PORT,
@@ -87,7 +91,8 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
       apiKey: e.AI_ENABLED === "true" ? apiKey : undefined,
       baseUrl: provider === "google" ? e.GOOGLE_BASE_URL : e.ANTHROPIC_BASE_URL,
       mock: e.AI_ENABLED === "true" && e.AI_MOCK === "true",
-      model: e.AI_MODEL ?? (provider === "google" ? "gemini-3.8-flash" : "claude-opus-5-5"),
+      model: e.AI_MODEL ?? defaultModel,
+      judgeModel: e.AI_JUDGE_MODEL ?? e.AI_MODEL ?? defaultModel,
       effort: e.AI_EFFORT,
       refusalFallback: e.AI_REFUSAL_FALLBACK === "true",
       timeoutMs: e.AI_TIMEOUT_MS,

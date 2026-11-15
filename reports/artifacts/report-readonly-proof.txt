@@ -1,0 +1,1 @@
+write refused: cannot execute INSERT in a read-only transaction

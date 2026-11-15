@@ -29,6 +29,7 @@ services:
       AI_ENABLED: ${AI_ENABLED:-true}
       AI_MOCK: ${AI_MOCK:-}
       AI_MODEL: ${AI_MODEL:-}
+      AI_JUDGE_MODEL: ${AI_JUDGE_MODEL:-}
       AI_EFFORT: ${AI_EFFORT:-}
       AI_REFUSAL_FALLBACK: ${AI_REFUSAL_FALLBACK:-}
       AI_TIMEOUT_MS: ${AI_TIMEOUT_MS:-}

@@ -1,6 +1,6 @@
 # AGENTS.md
 
-给在本仓库工作的 Coding Agent 与贡献者。产品需求以 `AI_Party_Room_PRD_v1.0.md` 为准；技术决策见 `docs/adr/`，整体结构见 `docs/architecture.md`。
+给在本仓库工作的 Coding Agent 与贡献者。产品需求以 `AI_Party_Room_PRD_v1.0.md` 和它的增量 `docs/NanoParty_VNext_PRD_v1.1.md` 为准（冲突处以后者为准）；技术决策见 `docs/adr/`，整体结构见 `docs/architecture.md`。
 
 ## 常用命令
 
@@ -9,6 +9,10 @@ pnpm install
 pnpm dev          # server :3000 + web :5173，无需 Docker/Postgres（内嵌 PGlite）
 pnpm check        # lint + typecheck + test，提交前必须通过
 pnpm db:generate  # 改了 apps/server/src/db/schema.ts 之后
+pnpm dev:test     # 独立测试实例 :3100（TEST_MODE，自己的数据目录）；AI_MOCK=true 用模拟模型
+PORT=3100 pnpm tester tools/scenarios/<name>.json   # 真实 HTTP+WS 的多玩家场景
+node tools/browser/party.mjs                        # 多隔离浏览器验收（另有 soup-canvas.mjs）
+pnpm model-eval soup|host                           # 真实模型评测，结果在 reports/artifacts/
 ```
 
 ## 不可违反的规则
@@ -22,6 +26,11 @@ pnpm db:generate  # 改了 apps/server/src/db/schema.ts 之后
 7. **操作要绑定上下文。** 游戏动作带 `segmentId` 和回合号，过期请求必须被拒绝；客户端命令带 `cmdId`，重发不重复执行。
 8. **无 AI 可用。** 任何功能都必须有不依赖模型的入口；模型调用不得阻塞游戏流程。
 9. 令牌、邀请链接、密钥不得写入日志或仓库。
+10. **两本账。** 游戏的 `scores` 只是原始成绩（`score_events`）。派对积分（`party_points`）只在房主确认结算或批准调分方案时入账，每行有唯一 `award_key`；更正 = 追加流水。新增入账路径必须同样幂等、同样需要房主的显式操作，不得让模型或普通玩家直接入账。
+11. **Room AI 与 Game AI 分开。** 主持（`agent/AgentService.ts`）只能拿到 `publicSummary` 和公开信息；需要游戏秘密的模型工作（裁判、改编）走 `agent/GameAi.ts`，输出必须是由游戏模块用 schema 校验的小结构，原始回复不展示、不入日志。给游戏加 AI 判定用 `GameModule.judge`（参照 `soup/game.ts`），不要在规则里调用模型。
+12. **候选展示不等于使用。** 选题游戏用 `pick.ts`；秘密候选要在 `openPick` 传入能看到它的人。外部内容能否成为当前候选由 `RoomRuntime.offerContent` 判定，不要在游戏里绕过。
+13. **测试接口只在 `TEST_MODE`。** `/api/test/*` 不得在正式配置下可达，也不得绕过 `handleCommand`。
+14. **Mock 不是真模型。** 自动化回归用假模型；涉及模型表现的结论必须来自 `pnpm model-eval`（或真实朋友局），并写明模型名。没跑就写没跑。
 
 ## 如何新增一款游戏
 
