@@ -69,26 +69,20 @@
 
 验证：`pnpm check` 205 个测试通过（含 `apps/server/test/vnext-content.test.ts`、`vnext-soup.test.ts`）；`pnpm tester tools/scenarios/picker-history.json` 14/14。
 
-## 当前工作（2026-11-15 因用量上限中断于此）
+## 当前状态（2026-11-15）
 
-第三批刚开始：
-- 已提交：`packages/shared/src/scoring.ts`（名次奖励表、并列平分、调分数值校验）及测试。
-- 未应用的草稿：`reports/artifacts/wip-batch3-protocol.patch`（协议扩展：`endSegment` 的 settle/abandon、`confirmSettlement`、`proposeAdjustment`、`decideAdjustment`、`setPrefs`、`suggestPrefs`、`transferHost`、`retrySummary`、`PartyPrefs`、`SettlementView`、`AdjustmentView`、`PartyInfo`）。它需要和运行时改动一起落地才能通过类型检查，所以没有提交。用 `git apply reports/artifacts/wip-batch3-protocol.patch` 取回。
+三批开发和验收都已完成，结果见 `reports/vnext-acceptance.md`。完整提交列表：`git log --oneline bb8cc9b..vnext`。
 
-第三批剩余（均未开始）：
-1. `RoomRuntime`：rank-v1 派对的结算态（segment `settling`）、`party_points` 入账、调分方案（待确认 / 批准 / 取消 / 替换 / 过期）、更正流水、偏好与主持模式、房主转交、聊天按派对分段、结束派对并归档。数据表已在迁移 0003 中建好。
-2. `rooms/recap.ts` + HTTP：派对列表与完整回顾；AI 总结异步生成、可重试。
-3. Agent：`propose_adjustment` 工具；普通 / 搞怪两种模式的提示词。
-4. 前端：结算页、大厅派对状态与偏好、历史与回顾页、「结束并结算 / 放弃本场」、封面与状态文案。
-5. 测试：结算幂等、并列、负分、过期方案、新旧计分不混用、回顾内容。
+- 自动化：`pnpm check` 221 个测试通过。
+- 多浏览器：`tools/browser/party.mjs` 19/19、`tools/browser/soup-canvas.mjs` 12/12（模拟模型，已标注）。
+- 真实模型：`reports/artifacts/model-*.md`（按模型分文件）。
+- Docker：在本机已有数据上完成升级验证；升级前的备份在 `data/backup/`（不进 git）。
 
-之后：真实模型验收（海龟汤问答集、搞怪主持、Canvas 多步、改编）、多浏览器回归、报告导出 / 拉取脚本、Docker 迁移验证、`reports/vnext-acceptance.md`。
+## 未完成 / 阻塞
 
-## 阻塞
-
-- AC-22 的「从服务器拉取」：没有生产 SSH 条件，且本次不允许连接生产；只能在本机 Docker 上验证导出与拉取脚本。
-- 14.5 真实朋友局：需要真人，无法由我执行。
-- 真实模型额度很小（见决策记录），部分真实模型用例可能只能跑一遍或标 NOT RUN。
+- AC-11（事实题出处与口径、当事人预答的自定义题）没有做完。
+- AC-22 的生产 SSH 拉取、AC-24 的「真实试玩问题转回归」、14.5 朋友局：需要生产环境和真人。
+- 真实模型：密钥在免费层（每模型每天 20 次），默认模型 `gemini-3.8-flash` 本身没有评测；裁判在 `gemini-3.5-flash` 上约 20 秒一题，有超时。
 
 ## 恢复入口
 

@@ -1,13 +1,13 @@
 {
   "scenario": "picker-history",
   "base": "http://localhost:3100",
-  "roomId": "room_Lsf6E6_M7RbY",
+  "roomId": "room_j8C9M5OgENlf",
   "failures": [],
   "trace": [
     {
       "step": 1,
       "label": "#1 guest cannot start a game",
-      "as": "p_q_blnNNFOh6N",
+      "as": "p_BgyyMjJh9eTx",
       "outcome": "rejected as expected: 只有房主可以开始游戏",
       "detail": {
         "ok": false,
@@ -17,7 +17,7 @@
     {
       "step": 2,
       "label": "#2 host starts 谁最可能",
-      "as": "p_mQ5E605CtqS-",
+      "as": "p_6UEZaIYL_vC6",
       "outcome": "ok",
       "detail": {
         "ok": true
@@ -26,14 +26,14 @@
     {
       "step": 3,
       "label": "#3 wait",
-      "as": "p_mQ5E605CtqS-",
+      "as": "p_6UEZaIYL_vC6",
       "outcome": "ok",
       "detail": "pick"
     },
     {
       "step": 4,
       "label": "#4 picker refreshes (free)",
-      "as": "p_mQ5E605CtqS-",
+      "as": "p_6UEZaIYL_vC6",
       "outcome": "ok",
       "detail": {
         "ok": true
@@ -42,7 +42,7 @@
     {
       "step": 5,
       "label": "#5 picker chooses",
-      "as": "p_mQ5E605CtqS-",
+      "as": "p_6UEZaIYL_vC6",
       "outcome": "ok",
       "detail": {
         "ok": true
@@ -51,21 +51,21 @@
     {
       "step": 6,
       "label": "#6 everyone votes",
-      "as": "p_mQ5E605CtqS-",
+      "as": "p_6UEZaIYL_vC6",
       "outcome": "moves 0:vote 1:vote 2:vote 3:vote",
       "detail": ["0:vote", "1:vote", "2:vote", "3:vote"]
     },
     {
       "step": 7,
       "label": "#7 wait",
-      "as": "p_mQ5E605CtqS-",
+      "as": "p_6UEZaIYL_vC6",
       "outcome": "ok",
       "detail": "reveal"
     },
     {
       "step": 8,
       "label": "#8 duplicate vote is rejected",
-      "as": "p_GT5oMgJNTuK1",
+      "as": "p_Ir9RxO4yliTs",
       "outcome": "rejected as expected: 现在不是投票阶段",
       "detail": {
         "ok": false,
@@ -75,7 +75,7 @@
     {
       "step": 9,
       "label": "#9 next round",
-      "as": "p_mQ5E605CtqS-",
+      "as": "p_6UEZaIYL_vC6",
       "outcome": "ok",
       "detail": {
         "ok": true
@@ -84,43 +84,37 @@
     {
       "step": 10,
       "label": "#10 wait",
-      "as": "p_mQ5E605CtqS-",
+      "as": "p_6UEZaIYL_vC6",
       "outcome": "ok",
       "detail": "pick"
     },
     {
       "step": 11,
       "label": "#11 history lists earlier candidates",
-      "as": "p_q_blnNNFOh6N",
+      "as": "p_BgyyMjJh9eTx",
       "outcome": "ok",
       "detail": [
         {
-          "contentId": "who-005",
-          "label": "谁最可能在恐怖片里第一个领盒饭？",
+          "contentId": "who-001",
+          "label": "谁最可能在聚会上第一个睡着？",
           "status": "shown",
           "origin": "library"
         },
         {
-          "contentId": "who-003",
-          "label": "谁最可能出门忘带手机？",
+          "contentId": "who-011",
+          "label": "谁最可能养一只很奇怪的宠物？",
           "status": "shown",
           "origin": "library"
         },
         {
-          "contentId": "who-004",
-          "label": "谁最可能半夜突然想吃火锅？",
+          "contentId": "who-010",
+          "label": "谁最可能迷路了还坚持说「我认识路」？",
           "status": "used",
           "origin": "library"
         },
         {
-          "contentId": "who-009",
-          "label": "谁最可能在 KTV 霸占麦克风？",
-          "status": "shown",
-          "origin": "library"
-        },
-        {
-          "contentId": "who-012",
-          "label": "谁最可能在重要场合笑场？",
+          "contentId": "who-002",
+          "label": "谁最可能把同一个笑话讲三遍？",
           "status": "shown",
           "origin": "library"
         },
@@ -129,26 +123,32 @@
           "label": "谁最可能突然宣布要去环游世界？",
           "status": "shown",
           "origin": "library"
+        },
+        {
+          "contentId": "who-006",
+          "label": "谁最可能中了彩票却忘了兑奖？",
+          "status": "shown",
+          "origin": "library"
         }
       ]
     },
     {
       "step": 12,
       "label": "#12 player 3 reconnects",
-      "as": "p_mQ5E605CtqS-",
+      "as": "p_6UEZaIYL_vC6",
       "outcome": "ok"
     },
     {
       "step": 13,
       "label": "#13 state survives the reconnect",
-      "as": "p_GWswczd_bP1e",
+      "as": "p_EUqnrsOdyxlh",
       "outcome": "ok",
       "detail": "pick"
     },
     {
       "step": 14,
       "label": "#14 ask the AI through the second send button",
-      "as": "p_GT5oMgJNTuK1",
+      "as": "p_Ir9RxO4yliTs",
       "outcome": "ok",
       "detail": {
         "ok": true
@@ -157,58 +157,58 @@
   ],
   "views": [
     {
-      "playerId": "p_mQ5E605CtqS-",
+      "playerId": "p_6UEZaIYL_vC6",
       "view": {
         "room": {
-          "id": "room_Lsf6E6_M7RbY",
+          "id": "room_j8C9M5OgENlf",
           "name": "测试·picker-history"
         },
         "me": {
-          "playerId": "p_mQ5E605CtqS-",
+          "playerId": "p_6UEZaIYL_vC6",
           "isHost": true
         },
         "members": [
           {
-            "id": "p_mQ5E605CtqS-",
+            "id": "p_6UEZaIYL_vC6",
             "nickname": "玩家1",
             "isHost": true,
             "connected": true
           },
           {
-            "id": "p_q_blnNNFOh6N",
+            "id": "p_BgyyMjJh9eTx",
             "nickname": "玩家2",
             "isHost": false,
             "connected": true
           },
           {
-            "id": "p_GT5oMgJNTuK1",
+            "id": "p_Ir9RxO4yliTs",
             "nickname": "玩家3",
             "isHost": false,
             "connected": true
           },
           {
-            "id": "p_GWswczd_bP1e",
+            "id": "p_EUqnrsOdyxlh",
             "nickname": "玩家4",
             "isHost": false,
             "connected": true
           }
         ],
-        "sessionId": "ses_gGTceD4wYQC1",
+        "sessionId": "ses_keDWt-ky32Tu",
         "scoreboard": [
           {
-            "playerId": "p_q_blnNNFOh6N",
-            "points": 1
+            "playerId": "p_6UEZaIYL_vC6",
+            "points": 0
           },
           {
-            "playerId": "p_GT5oMgJNTuK1",
-            "points": 1
+            "playerId": "p_BgyyMjJh9eTx",
+            "points": 0
           },
           {
-            "playerId": "p_GWswczd_bP1e",
-            "points": 1
+            "playerId": "p_Ir9RxO4yliTs",
+            "points": 0
           },
           {
-            "playerId": "p_mQ5E605CtqS-",
+            "playerId": "p_EUqnrsOdyxlh",
             "points": 0
           }
         ],
@@ -614,13 +614,22 @@
           {
             "id": "soup",
             "name": "海龟汤",
-            "description": "汤主知道一个离奇故事的全部真相，大家只能问「是不是」，一步步还原它。",
-            "minPlayers": 3,
+            "description": "一个离奇故事只露出一角，大家只能问「是不是」，一步步还原真相。可以由 AI 主持，所有人一起猜。",
+            "minPlayers": 2,
             "maxPlayers": 8,
-            "rulesSummary": "每轮由一名玩家（轮流）当汤主：先选一道汤（或自己出），只有汤主看得到汤底。其他人看汤面，在网页上提问，汤主逐条回答「是 / 不是 / 无关 / 部分正确」。每人同时只能有一条问题在等回答。觉得自己知道了，就提交完整推理，由汤主判对错。有人答对，或汤主放弃、时间到，公开汤底。中途加入的玩家下一轮参与。",
-            "scoringSummary": "喝出汤的人 +3 分，汤主 +1 分；没人喝出则都不得分。",
+            "rulesSummary": "看汤面，在左侧提问，每个问题会得到「是 / 不是 / 无关 / 部分正确 / 故事没说 / 问得不清楚」之一；每人同时只能有一条在等回答。觉得知道了，就提交完整推理。有人答对、主持放弃或时间到，公开汤底。真人主持：每轮一名玩家（轮流）当汤主，选汤（或自己出）并回答。AI 主持：没有人知道汤底，轮流的选题人只看汤面选汤，问题由独立的 AI 裁判按固定汤底判定；觉得判错了可以标记，房主可以让它重判；AI 不可用时可以重试，或由一名玩家知情接管当汤主。中途加入的玩家下一轮参与。",
+            "scoringSummary": "喝出汤的人 +3 分；真人主持时汤主 +1 分。没人喝出则都不得分。",
             "contentType": "soup",
+            "aiOption": "aiJudge",
             "options": [
+              {
+                "key": "aiJudge",
+                "label": "AI 主持",
+                "min": 0,
+                "max": 1,
+                "default": 0,
+                "hint": "1 = AI 裁判，0 = 真人汤主"
+              },
               {
                 "key": "rounds",
                 "label": "轮数",
@@ -1107,7 +1116,7 @@
           }
         ],
         "segment": {
-          "id": "seg_Clnp5--8FYvP",
+          "id": "seg_0EkbbM1greo-",
           "gameId": "mostlikely",
           "status": "active",
           "view": {
@@ -1116,41 +1125,35 @@
             "step": 4,
             "phase": "pick",
             "pick": {
-              "picker": "p_q_blnNNFOh6N",
+              "picker": "p_BgyyMjJh9eTx",
               "candidates": [
-                "谁最可能收藏一堆从来不用的东西？",
-                "谁最可能养一只很奇怪的宠物？",
-                "谁最可能中了彩票却忘了兑奖？"
+                "谁最可能在 KTV 霸占麦克风？",
+                "谁最可能在恐怖片里第一个领盒饭？",
+                "谁最可能把闹钟按掉继续睡？"
               ],
               "allowCustom": true,
               "history": [
                 {
-                  "contentId": "who-005",
-                  "label": "谁最可能在恐怖片里第一个领盒饭？",
+                  "contentId": "who-001",
+                  "label": "谁最可能在聚会上第一个睡着？",
                   "status": "shown",
                   "origin": "library"
                 },
                 {
-                  "contentId": "who-003",
-                  "label": "谁最可能出门忘带手机？",
+                  "contentId": "who-011",
+                  "label": "谁最可能养一只很奇怪的宠物？",
                   "status": "shown",
                   "origin": "library"
                 },
                 {
-                  "contentId": "who-004",
-                  "label": "谁最可能半夜突然想吃火锅？",
+                  "contentId": "who-010",
+                  "label": "谁最可能迷路了还坚持说「我认识路」？",
                   "status": "used",
                   "origin": "library"
                 },
                 {
-                  "contentId": "who-009",
-                  "label": "谁最可能在 KTV 霸占麦克风？",
-                  "status": "shown",
-                  "origin": "library"
-                },
-                {
-                  "contentId": "who-012",
-                  "label": "谁最可能在重要场合笑场？",
+                  "contentId": "who-002",
+                  "label": "谁最可能把同一个笑话讲三遍？",
                   "status": "shown",
                   "origin": "library"
                 },
@@ -1159,32 +1162,71 @@
                   "label": "谁最可能突然宣布要去环游世界？",
                   "status": "shown",
                   "origin": "library"
+                },
+                {
+                  "contentId": "who-006",
+                  "label": "谁最可能中了彩票却忘了兑奖？",
+                  "status": "shown",
+                  "origin": "library"
                 }
               ]
             },
-            "participants": ["p_mQ5E605CtqS-", "p_q_blnNNFOh6N", "p_GT5oMgJNTuK1", "p_GWswczd_bP1e"],
-            "prompt": "谁最可能半夜突然想吃火锅？",
-            "submitted": ["p_mQ5E605CtqS-", "p_q_blnNNFOh6N", "p_GT5oMgJNTuK1", "p_GWswczd_bP1e"],
-            "myVote": "p_q_blnNNFOh6N",
+            "participants": ["p_6UEZaIYL_vC6", "p_BgyyMjJh9eTx", "p_Ir9RxO4yliTs", "p_EUqnrsOdyxlh"],
+            "prompt": "谁最可能迷路了还坚持说「我认识路」？",
+            "submitted": ["p_6UEZaIYL_vC6", "p_BgyyMjJh9eTx", "p_Ir9RxO4yliTs", "p_EUqnrsOdyxlh"],
+            "myVote": "p_BgyyMjJh9eTx",
             "deadlineAt": null,
             "reveal": {
               "votes": {
-                "p_mQ5E605CtqS-": "p_q_blnNNFOh6N",
-                "p_q_blnNNFOh6N": "p_mQ5E605CtqS-",
-                "p_GT5oMgJNTuK1": "p_mQ5E605CtqS-",
-                "p_GWswczd_bP1e": "p_mQ5E605CtqS-"
+                "p_6UEZaIYL_vC6": "p_BgyyMjJh9eTx",
+                "p_BgyyMjJh9eTx": "p_6UEZaIYL_vC6",
+                "p_Ir9RxO4yliTs": "p_6UEZaIYL_vC6",
+                "p_EUqnrsOdyxlh": "p_6UEZaIYL_vC6"
               },
-              "top": ["p_mQ5E605CtqS-"]
+              "top": ["p_6UEZaIYL_vC6"]
             }
           },
           "skip": null,
-          "contentId": null
+          "rawScores": [
+            {
+              "playerId": "p_BgyyMjJh9eTx",
+              "points": 1
+            },
+            {
+              "playerId": "p_Ir9RxO4yliTs",
+              "points": 1
+            },
+            {
+              "playerId": "p_EUqnrsOdyxlh",
+              "points": 1
+            }
+          ],
+          "contentId": null,
+          "notice": null
         },
         "lastSegment": null,
+        "party": {
+          "sessionId": "ses_keDWt-ky32Tu",
+          "scoring": "rank-v1",
+          "number": 1,
+          "gamesPlayed": 0,
+          "lastEndedSessionId": null
+        },
+        "prefs": {
+          "hostMode": "quirky",
+          "familiar": "",
+          "want": "",
+          "avoid": "",
+          "difficulty": "normal",
+          "suggestions": []
+        },
+        "settlement": null,
+        "adjustments": [],
         "suggestion": null,
         "ai": {
           "enabled": true,
-          "state": "thinking"
+          "state": "thinking",
+          "mock": true
         },
         "canvas": {
           "current": null,
@@ -1194,58 +1236,58 @@
       "chat": ["下一题想要游戏相关的"]
     },
     {
-      "playerId": "p_q_blnNNFOh6N",
+      "playerId": "p_BgyyMjJh9eTx",
       "view": {
         "room": {
-          "id": "room_Lsf6E6_M7RbY",
+          "id": "room_j8C9M5OgENlf",
           "name": "测试·picker-history"
         },
         "me": {
-          "playerId": "p_q_blnNNFOh6N",
+          "playerId": "p_BgyyMjJh9eTx",
           "isHost": false
         },
         "members": [
           {
-            "id": "p_mQ5E605CtqS-",
+            "id": "p_6UEZaIYL_vC6",
             "nickname": "玩家1",
             "isHost": true,
             "connected": true
           },
           {
-            "id": "p_q_blnNNFOh6N",
+            "id": "p_BgyyMjJh9eTx",
             "nickname": "玩家2",
             "isHost": false,
             "connected": true
           },
           {
-            "id": "p_GT5oMgJNTuK1",
+            "id": "p_Ir9RxO4yliTs",
             "nickname": "玩家3",
             "isHost": false,
             "connected": true
           },
           {
-            "id": "p_GWswczd_bP1e",
+            "id": "p_EUqnrsOdyxlh",
             "nickname": "玩家4",
             "isHost": false,
             "connected": true
           }
         ],
-        "sessionId": "ses_gGTceD4wYQC1",
+        "sessionId": "ses_keDWt-ky32Tu",
         "scoreboard": [
           {
-            "playerId": "p_q_blnNNFOh6N",
-            "points": 1
+            "playerId": "p_6UEZaIYL_vC6",
+            "points": 0
           },
           {
-            "playerId": "p_GT5oMgJNTuK1",
-            "points": 1
+            "playerId": "p_BgyyMjJh9eTx",
+            "points": 0
           },
           {
-            "playerId": "p_GWswczd_bP1e",
-            "points": 1
+            "playerId": "p_Ir9RxO4yliTs",
+            "points": 0
           },
           {
-            "playerId": "p_mQ5E605CtqS-",
+            "playerId": "p_EUqnrsOdyxlh",
             "points": 0
           }
         ],
@@ -1651,13 +1693,22 @@
           {
             "id": "soup",
             "name": "海龟汤",
-            "description": "汤主知道一个离奇故事的全部真相，大家只能问「是不是」，一步步还原它。",
-            "minPlayers": 3,
+            "description": "一个离奇故事只露出一角，大家只能问「是不是」，一步步还原真相。可以由 AI 主持，所有人一起猜。",
+            "minPlayers": 2,
             "maxPlayers": 8,
-            "rulesSummary": "每轮由一名玩家（轮流）当汤主：先选一道汤（或自己出），只有汤主看得到汤底。其他人看汤面，在网页上提问，汤主逐条回答「是 / 不是 / 无关 / 部分正确」。每人同时只能有一条问题在等回答。觉得自己知道了，就提交完整推理，由汤主判对错。有人答对，或汤主放弃、时间到，公开汤底。中途加入的玩家下一轮参与。",
-            "scoringSummary": "喝出汤的人 +3 分，汤主 +1 分；没人喝出则都不得分。",
+            "rulesSummary": "看汤面，在左侧提问，每个问题会得到「是 / 不是 / 无关 / 部分正确 / 故事没说 / 问得不清楚」之一；每人同时只能有一条在等回答。觉得知道了，就提交完整推理。有人答对、主持放弃或时间到，公开汤底。真人主持：每轮一名玩家（轮流）当汤主，选汤（或自己出）并回答。AI 主持：没有人知道汤底，轮流的选题人只看汤面选汤，问题由独立的 AI 裁判按固定汤底判定；觉得判错了可以标记，房主可以让它重判；AI 不可用时可以重试，或由一名玩家知情接管当汤主。中途加入的玩家下一轮参与。",
+            "scoringSummary": "喝出汤的人 +3 分；真人主持时汤主 +1 分。没人喝出则都不得分。",
             "contentType": "soup",
+            "aiOption": "aiJudge",
             "options": [
+              {
+                "key": "aiJudge",
+                "label": "AI 主持",
+                "min": 0,
+                "max": 1,
+                "default": 0,
+                "hint": "1 = AI 裁判，0 = 真人汤主"
+              },
               {
                 "key": "rounds",
                 "label": "轮数",
@@ -2144,7 +2195,7 @@
           }
         ],
         "segment": {
-          "id": "seg_Clnp5--8FYvP",
+          "id": "seg_0EkbbM1greo-",
           "gameId": "mostlikely",
           "status": "active",
           "view": {
@@ -2153,41 +2204,35 @@
             "step": 4,
             "phase": "pick",
             "pick": {
-              "picker": "p_q_blnNNFOh6N",
+              "picker": "p_BgyyMjJh9eTx",
               "candidates": [
-                "谁最可能收藏一堆从来不用的东西？",
-                "谁最可能养一只很奇怪的宠物？",
-                "谁最可能中了彩票却忘了兑奖？"
+                "谁最可能在 KTV 霸占麦克风？",
+                "谁最可能在恐怖片里第一个领盒饭？",
+                "谁最可能把闹钟按掉继续睡？"
               ],
               "allowCustom": true,
               "history": [
                 {
-                  "contentId": "who-005",
-                  "label": "谁最可能在恐怖片里第一个领盒饭？",
+                  "contentId": "who-001",
+                  "label": "谁最可能在聚会上第一个睡着？",
                   "status": "shown",
                   "origin": "library"
                 },
                 {
-                  "contentId": "who-003",
-                  "label": "谁最可能出门忘带手机？",
+                  "contentId": "who-011",
+                  "label": "谁最可能养一只很奇怪的宠物？",
                   "status": "shown",
                   "origin": "library"
                 },
                 {
-                  "contentId": "who-004",
-                  "label": "谁最可能半夜突然想吃火锅？",
+                  "contentId": "who-010",
+                  "label": "谁最可能迷路了还坚持说「我认识路」？",
                   "status": "used",
                   "origin": "library"
                 },
                 {
-                  "contentId": "who-009",
-                  "label": "谁最可能在 KTV 霸占麦克风？",
-                  "status": "shown",
-                  "origin": "library"
-                },
-                {
-                  "contentId": "who-012",
-                  "label": "谁最可能在重要场合笑场？",
+                  "contentId": "who-002",
+                  "label": "谁最可能把同一个笑话讲三遍？",
                   "status": "shown",
                   "origin": "library"
                 },
@@ -2196,32 +2241,71 @@
                   "label": "谁最可能突然宣布要去环游世界？",
                   "status": "shown",
                   "origin": "library"
+                },
+                {
+                  "contentId": "who-006",
+                  "label": "谁最可能中了彩票却忘了兑奖？",
+                  "status": "shown",
+                  "origin": "library"
                 }
               ]
             },
-            "participants": ["p_mQ5E605CtqS-", "p_q_blnNNFOh6N", "p_GT5oMgJNTuK1", "p_GWswczd_bP1e"],
-            "prompt": "谁最可能半夜突然想吃火锅？",
-            "submitted": ["p_mQ5E605CtqS-", "p_q_blnNNFOh6N", "p_GT5oMgJNTuK1", "p_GWswczd_bP1e"],
-            "myVote": "p_mQ5E605CtqS-",
+            "participants": ["p_6UEZaIYL_vC6", "p_BgyyMjJh9eTx", "p_Ir9RxO4yliTs", "p_EUqnrsOdyxlh"],
+            "prompt": "谁最可能迷路了还坚持说「我认识路」？",
+            "submitted": ["p_6UEZaIYL_vC6", "p_BgyyMjJh9eTx", "p_Ir9RxO4yliTs", "p_EUqnrsOdyxlh"],
+            "myVote": "p_6UEZaIYL_vC6",
             "deadlineAt": null,
             "reveal": {
               "votes": {
-                "p_mQ5E605CtqS-": "p_q_blnNNFOh6N",
-                "p_q_blnNNFOh6N": "p_mQ5E605CtqS-",
-                "p_GT5oMgJNTuK1": "p_mQ5E605CtqS-",
-                "p_GWswczd_bP1e": "p_mQ5E605CtqS-"
+                "p_6UEZaIYL_vC6": "p_BgyyMjJh9eTx",
+                "p_BgyyMjJh9eTx": "p_6UEZaIYL_vC6",
+                "p_Ir9RxO4yliTs": "p_6UEZaIYL_vC6",
+                "p_EUqnrsOdyxlh": "p_6UEZaIYL_vC6"
               },
-              "top": ["p_mQ5E605CtqS-"]
+              "top": ["p_6UEZaIYL_vC6"]
             }
           },
           "skip": null,
-          "contentId": null
+          "rawScores": [
+            {
+              "playerId": "p_BgyyMjJh9eTx",
+              "points": 1
+            },
+            {
+              "playerId": "p_Ir9RxO4yliTs",
+              "points": 1
+            },
+            {
+              "playerId": "p_EUqnrsOdyxlh",
+              "points": 1
+            }
+          ],
+          "contentId": null,
+          "notice": null
         },
         "lastSegment": null,
+        "party": {
+          "sessionId": "ses_keDWt-ky32Tu",
+          "scoring": "rank-v1",
+          "number": 1,
+          "gamesPlayed": 0,
+          "lastEndedSessionId": null
+        },
+        "prefs": {
+          "hostMode": "quirky",
+          "familiar": "",
+          "want": "",
+          "avoid": "",
+          "difficulty": "normal",
+          "suggestions": []
+        },
+        "settlement": null,
+        "adjustments": [],
         "suggestion": null,
         "ai": {
           "enabled": true,
-          "state": "thinking"
+          "state": "thinking",
+          "mock": true
         },
         "canvas": {
           "current": null,
@@ -2231,58 +2315,58 @@
       "chat": ["下一题想要游戏相关的"]
     },
     {
-      "playerId": "p_GT5oMgJNTuK1",
+      "playerId": "p_Ir9RxO4yliTs",
       "view": {
         "room": {
-          "id": "room_Lsf6E6_M7RbY",
+          "id": "room_j8C9M5OgENlf",
           "name": "测试·picker-history"
         },
         "me": {
-          "playerId": "p_GT5oMgJNTuK1",
+          "playerId": "p_Ir9RxO4yliTs",
           "isHost": false
         },
         "members": [
           {
-            "id": "p_mQ5E605CtqS-",
+            "id": "p_6UEZaIYL_vC6",
             "nickname": "玩家1",
             "isHost": true,
             "connected": true
           },
           {
-            "id": "p_q_blnNNFOh6N",
+            "id": "p_BgyyMjJh9eTx",
             "nickname": "玩家2",
             "isHost": false,
             "connected": true
           },
           {
-            "id": "p_GT5oMgJNTuK1",
+            "id": "p_Ir9RxO4yliTs",
             "nickname": "玩家3",
             "isHost": false,
             "connected": true
           },
           {
-            "id": "p_GWswczd_bP1e",
+            "id": "p_EUqnrsOdyxlh",
             "nickname": "玩家4",
             "isHost": false,
             "connected": true
           }
         ],
-        "sessionId": "ses_gGTceD4wYQC1",
+        "sessionId": "ses_keDWt-ky32Tu",
         "scoreboard": [
           {
-            "playerId": "p_q_blnNNFOh6N",
-            "points": 1
+            "playerId": "p_6UEZaIYL_vC6",
+            "points": 0
           },
           {
-            "playerId": "p_GT5oMgJNTuK1",
-            "points": 1
+            "playerId": "p_BgyyMjJh9eTx",
+            "points": 0
           },
           {
-            "playerId": "p_GWswczd_bP1e",
-            "points": 1
+            "playerId": "p_Ir9RxO4yliTs",
+            "points": 0
           },
           {
-            "playerId": "p_mQ5E605CtqS-",
+            "playerId": "p_EUqnrsOdyxlh",
             "points": 0
           }
         ],
@@ -2688,13 +2772,22 @@
           {
             "id": "soup",
             "name": "海龟汤",
-            "description": "汤主知道一个离奇故事的全部真相，大家只能问「是不是」，一步步还原它。",
-            "minPlayers": 3,
+            "description": "一个离奇故事只露出一角，大家只能问「是不是」，一步步还原真相。可以由 AI 主持，所有人一起猜。",
+            "minPlayers": 2,
             "maxPlayers": 8,
-            "rulesSummary": "每轮由一名玩家（轮流）当汤主：先选一道汤（或自己出），只有汤主看得到汤底。其他人看汤面，在网页上提问，汤主逐条回答「是 / 不是 / 无关 / 部分正确」。每人同时只能有一条问题在等回答。觉得自己知道了，就提交完整推理，由汤主判对错。有人答对，或汤主放弃、时间到，公开汤底。中途加入的玩家下一轮参与。",
-            "scoringSummary": "喝出汤的人 +3 分，汤主 +1 分；没人喝出则都不得分。",
+            "rulesSummary": "看汤面，在左侧提问，每个问题会得到「是 / 不是 / 无关 / 部分正确 / 故事没说 / 问得不清楚」之一；每人同时只能有一条在等回答。觉得知道了，就提交完整推理。有人答对、主持放弃或时间到，公开汤底。真人主持：每轮一名玩家（轮流）当汤主，选汤（或自己出）并回答。AI 主持：没有人知道汤底，轮流的选题人只看汤面选汤，问题由独立的 AI 裁判按固定汤底判定；觉得判错了可以标记，房主可以让它重判；AI 不可用时可以重试，或由一名玩家知情接管当汤主。中途加入的玩家下一轮参与。",
+            "scoringSummary": "喝出汤的人 +3 分；真人主持时汤主 +1 分。没人喝出则都不得分。",
             "contentType": "soup",
+            "aiOption": "aiJudge",
             "options": [
+              {
+                "key": "aiJudge",
+                "label": "AI 主持",
+                "min": 0,
+                "max": 1,
+                "default": 0,
+                "hint": "1 = AI 裁判，0 = 真人汤主"
+              },
               {
                 "key": "rounds",
                 "label": "轮数",
@@ -3181,7 +3274,7 @@
           }
         ],
         "segment": {
-          "id": "seg_Clnp5--8FYvP",
+          "id": "seg_0EkbbM1greo-",
           "gameId": "mostlikely",
           "status": "active",
           "view": {
@@ -3190,41 +3283,35 @@
             "step": 4,
             "phase": "pick",
             "pick": {
-              "picker": "p_q_blnNNFOh6N",
+              "picker": "p_BgyyMjJh9eTx",
               "candidates": [
-                "谁最可能收藏一堆从来不用的东西？",
-                "谁最可能养一只很奇怪的宠物？",
-                "谁最可能中了彩票却忘了兑奖？"
+                "谁最可能在 KTV 霸占麦克风？",
+                "谁最可能在恐怖片里第一个领盒饭？",
+                "谁最可能把闹钟按掉继续睡？"
               ],
               "allowCustom": true,
               "history": [
                 {
-                  "contentId": "who-005",
-                  "label": "谁最可能在恐怖片里第一个领盒饭？",
+                  "contentId": "who-001",
+                  "label": "谁最可能在聚会上第一个睡着？",
                   "status": "shown",
                   "origin": "library"
                 },
                 {
-                  "contentId": "who-003",
-                  "label": "谁最可能出门忘带手机？",
+                  "contentId": "who-011",
+                  "label": "谁最可能养一只很奇怪的宠物？",
                   "status": "shown",
                   "origin": "library"
                 },
                 {
-                  "contentId": "who-004",
-                  "label": "谁最可能半夜突然想吃火锅？",
+                  "contentId": "who-010",
+                  "label": "谁最可能迷路了还坚持说「我认识路」？",
                   "status": "used",
                   "origin": "library"
                 },
                 {
-                  "contentId": "who-009",
-                  "label": "谁最可能在 KTV 霸占麦克风？",
-                  "status": "shown",
-                  "origin": "library"
-                },
-                {
-                  "contentId": "who-012",
-                  "label": "谁最可能在重要场合笑场？",
+                  "contentId": "who-002",
+                  "label": "谁最可能把同一个笑话讲三遍？",
                   "status": "shown",
                   "origin": "library"
                 },
@@ -3233,32 +3320,71 @@
                   "label": "谁最可能突然宣布要去环游世界？",
                   "status": "shown",
                   "origin": "library"
+                },
+                {
+                  "contentId": "who-006",
+                  "label": "谁最可能中了彩票却忘了兑奖？",
+                  "status": "shown",
+                  "origin": "library"
                 }
               ]
             },
-            "participants": ["p_mQ5E605CtqS-", "p_q_blnNNFOh6N", "p_GT5oMgJNTuK1", "p_GWswczd_bP1e"],
-            "prompt": "谁最可能半夜突然想吃火锅？",
-            "submitted": ["p_mQ5E605CtqS-", "p_q_blnNNFOh6N", "p_GT5oMgJNTuK1", "p_GWswczd_bP1e"],
-            "myVote": "p_mQ5E605CtqS-",
+            "participants": ["p_6UEZaIYL_vC6", "p_BgyyMjJh9eTx", "p_Ir9RxO4yliTs", "p_EUqnrsOdyxlh"],
+            "prompt": "谁最可能迷路了还坚持说「我认识路」？",
+            "submitted": ["p_6UEZaIYL_vC6", "p_BgyyMjJh9eTx", "p_Ir9RxO4yliTs", "p_EUqnrsOdyxlh"],
+            "myVote": "p_6UEZaIYL_vC6",
             "deadlineAt": null,
             "reveal": {
               "votes": {
-                "p_mQ5E605CtqS-": "p_q_blnNNFOh6N",
-                "p_q_blnNNFOh6N": "p_mQ5E605CtqS-",
-                "p_GT5oMgJNTuK1": "p_mQ5E605CtqS-",
-                "p_GWswczd_bP1e": "p_mQ5E605CtqS-"
+                "p_6UEZaIYL_vC6": "p_BgyyMjJh9eTx",
+                "p_BgyyMjJh9eTx": "p_6UEZaIYL_vC6",
+                "p_Ir9RxO4yliTs": "p_6UEZaIYL_vC6",
+                "p_EUqnrsOdyxlh": "p_6UEZaIYL_vC6"
               },
-              "top": ["p_mQ5E605CtqS-"]
+              "top": ["p_6UEZaIYL_vC6"]
             }
           },
           "skip": null,
-          "contentId": null
+          "rawScores": [
+            {
+              "playerId": "p_BgyyMjJh9eTx",
+              "points": 1
+            },
+            {
+              "playerId": "p_Ir9RxO4yliTs",
+              "points": 1
+            },
+            {
+              "playerId": "p_EUqnrsOdyxlh",
+              "points": 1
+            }
+          ],
+          "contentId": null,
+          "notice": null
         },
         "lastSegment": null,
+        "party": {
+          "sessionId": "ses_keDWt-ky32Tu",
+          "scoring": "rank-v1",
+          "number": 1,
+          "gamesPlayed": 0,
+          "lastEndedSessionId": null
+        },
+        "prefs": {
+          "hostMode": "quirky",
+          "familiar": "",
+          "want": "",
+          "avoid": "",
+          "difficulty": "normal",
+          "suggestions": []
+        },
+        "settlement": null,
+        "adjustments": [],
         "suggestion": null,
         "ai": {
           "enabled": true,
-          "state": "thinking"
+          "state": "thinking",
+          "mock": true
         },
         "canvas": {
           "current": null,
@@ -3268,58 +3394,58 @@
       "chat": ["下一题想要游戏相关的"]
     },
     {
-      "playerId": "p_GWswczd_bP1e",
+      "playerId": "p_EUqnrsOdyxlh",
       "view": {
         "room": {
-          "id": "room_Lsf6E6_M7RbY",
+          "id": "room_j8C9M5OgENlf",
           "name": "测试·picker-history"
         },
         "me": {
-          "playerId": "p_GWswczd_bP1e",
+          "playerId": "p_EUqnrsOdyxlh",
           "isHost": false
         },
         "members": [
           {
-            "id": "p_mQ5E605CtqS-",
+            "id": "p_6UEZaIYL_vC6",
             "nickname": "玩家1",
             "isHost": true,
             "connected": true
           },
           {
-            "id": "p_q_blnNNFOh6N",
+            "id": "p_BgyyMjJh9eTx",
             "nickname": "玩家2",
             "isHost": false,
             "connected": true
           },
           {
-            "id": "p_GT5oMgJNTuK1",
+            "id": "p_Ir9RxO4yliTs",
             "nickname": "玩家3",
             "isHost": false,
             "connected": true
           },
           {
-            "id": "p_GWswczd_bP1e",
+            "id": "p_EUqnrsOdyxlh",
             "nickname": "玩家4",
             "isHost": false,
             "connected": true
           }
         ],
-        "sessionId": "ses_gGTceD4wYQC1",
+        "sessionId": "ses_keDWt-ky32Tu",
         "scoreboard": [
           {
-            "playerId": "p_q_blnNNFOh6N",
-            "points": 1
+            "playerId": "p_6UEZaIYL_vC6",
+            "points": 0
           },
           {
-            "playerId": "p_GT5oMgJNTuK1",
-            "points": 1
+            "playerId": "p_BgyyMjJh9eTx",
+            "points": 0
           },
           {
-            "playerId": "p_GWswczd_bP1e",
-            "points": 1
+            "playerId": "p_Ir9RxO4yliTs",
+            "points": 0
           },
           {
-            "playerId": "p_mQ5E605CtqS-",
+            "playerId": "p_EUqnrsOdyxlh",
             "points": 0
           }
         ],
@@ -3725,13 +3851,22 @@
           {
             "id": "soup",
             "name": "海龟汤",
-            "description": "汤主知道一个离奇故事的全部真相，大家只能问「是不是」，一步步还原它。",
-            "minPlayers": 3,
+            "description": "一个离奇故事只露出一角，大家只能问「是不是」，一步步还原真相。可以由 AI 主持，所有人一起猜。",
+            "minPlayers": 2,
             "maxPlayers": 8,
-            "rulesSummary": "每轮由一名玩家（轮流）当汤主：先选一道汤（或自己出），只有汤主看得到汤底。其他人看汤面，在网页上提问，汤主逐条回答「是 / 不是 / 无关 / 部分正确」。每人同时只能有一条问题在等回答。觉得自己知道了，就提交完整推理，由汤主判对错。有人答对，或汤主放弃、时间到，公开汤底。中途加入的玩家下一轮参与。",
-            "scoringSummary": "喝出汤的人 +3 分，汤主 +1 分；没人喝出则都不得分。",
+            "rulesSummary": "看汤面，在左侧提问，每个问题会得到「是 / 不是 / 无关 / 部分正确 / 故事没说 / 问得不清楚」之一；每人同时只能有一条在等回答。觉得知道了，就提交完整推理。有人答对、主持放弃或时间到，公开汤底。真人主持：每轮一名玩家（轮流）当汤主，选汤（或自己出）并回答。AI 主持：没有人知道汤底，轮流的选题人只看汤面选汤，问题由独立的 AI 裁判按固定汤底判定；觉得判错了可以标记，房主可以让它重判；AI 不可用时可以重试，或由一名玩家知情接管当汤主。中途加入的玩家下一轮参与。",
+            "scoringSummary": "喝出汤的人 +3 分；真人主持时汤主 +1 分。没人喝出则都不得分。",
             "contentType": "soup",
+            "aiOption": "aiJudge",
             "options": [
+              {
+                "key": "aiJudge",
+                "label": "AI 主持",
+                "min": 0,
+                "max": 1,
+                "default": 0,
+                "hint": "1 = AI 裁判，0 = 真人汤主"
+              },
               {
                 "key": "rounds",
                 "label": "轮数",
@@ -4218,7 +4353,7 @@
           }
         ],
         "segment": {
-          "id": "seg_Clnp5--8FYvP",
+          "id": "seg_0EkbbM1greo-",
           "gameId": "mostlikely",
           "status": "active",
           "view": {
@@ -4227,41 +4362,35 @@
             "step": 4,
             "phase": "pick",
             "pick": {
-              "picker": "p_q_blnNNFOh6N",
+              "picker": "p_BgyyMjJh9eTx",
               "candidates": [
-                "谁最可能收藏一堆从来不用的东西？",
-                "谁最可能养一只很奇怪的宠物？",
-                "谁最可能中了彩票却忘了兑奖？"
+                "谁最可能在 KTV 霸占麦克风？",
+                "谁最可能在恐怖片里第一个领盒饭？",
+                "谁最可能把闹钟按掉继续睡？"
               ],
               "allowCustom": true,
               "history": [
                 {
-                  "contentId": "who-005",
-                  "label": "谁最可能在恐怖片里第一个领盒饭？",
+                  "contentId": "who-001",
+                  "label": "谁最可能在聚会上第一个睡着？",
                   "status": "shown",
                   "origin": "library"
                 },
                 {
-                  "contentId": "who-003",
-                  "label": "谁最可能出门忘带手机？",
+                  "contentId": "who-011",
+                  "label": "谁最可能养一只很奇怪的宠物？",
                   "status": "shown",
                   "origin": "library"
                 },
                 {
-                  "contentId": "who-004",
-                  "label": "谁最可能半夜突然想吃火锅？",
+                  "contentId": "who-010",
+                  "label": "谁最可能迷路了还坚持说「我认识路」？",
                   "status": "used",
                   "origin": "library"
                 },
                 {
-                  "contentId": "who-009",
-                  "label": "谁最可能在 KTV 霸占麦克风？",
-                  "status": "shown",
-                  "origin": "library"
-                },
-                {
-                  "contentId": "who-012",
-                  "label": "谁最可能在重要场合笑场？",
+                  "contentId": "who-002",
+                  "label": "谁最可能把同一个笑话讲三遍？",
                   "status": "shown",
                   "origin": "library"
                 },
@@ -4270,32 +4399,71 @@
                   "label": "谁最可能突然宣布要去环游世界？",
                   "status": "shown",
                   "origin": "library"
+                },
+                {
+                  "contentId": "who-006",
+                  "label": "谁最可能中了彩票却忘了兑奖？",
+                  "status": "shown",
+                  "origin": "library"
                 }
               ]
             },
-            "participants": ["p_mQ5E605CtqS-", "p_q_blnNNFOh6N", "p_GT5oMgJNTuK1", "p_GWswczd_bP1e"],
-            "prompt": "谁最可能半夜突然想吃火锅？",
-            "submitted": ["p_mQ5E605CtqS-", "p_q_blnNNFOh6N", "p_GT5oMgJNTuK1", "p_GWswczd_bP1e"],
-            "myVote": "p_mQ5E605CtqS-",
+            "participants": ["p_6UEZaIYL_vC6", "p_BgyyMjJh9eTx", "p_Ir9RxO4yliTs", "p_EUqnrsOdyxlh"],
+            "prompt": "谁最可能迷路了还坚持说「我认识路」？",
+            "submitted": ["p_6UEZaIYL_vC6", "p_BgyyMjJh9eTx", "p_Ir9RxO4yliTs", "p_EUqnrsOdyxlh"],
+            "myVote": "p_6UEZaIYL_vC6",
             "deadlineAt": null,
             "reveal": {
               "votes": {
-                "p_mQ5E605CtqS-": "p_q_blnNNFOh6N",
-                "p_q_blnNNFOh6N": "p_mQ5E605CtqS-",
-                "p_GT5oMgJNTuK1": "p_mQ5E605CtqS-",
-                "p_GWswczd_bP1e": "p_mQ5E605CtqS-"
+                "p_6UEZaIYL_vC6": "p_BgyyMjJh9eTx",
+                "p_BgyyMjJh9eTx": "p_6UEZaIYL_vC6",
+                "p_Ir9RxO4yliTs": "p_6UEZaIYL_vC6",
+                "p_EUqnrsOdyxlh": "p_6UEZaIYL_vC6"
               },
-              "top": ["p_mQ5E605CtqS-"]
+              "top": ["p_6UEZaIYL_vC6"]
             }
           },
           "skip": null,
-          "contentId": null
+          "rawScores": [
+            {
+              "playerId": "p_BgyyMjJh9eTx",
+              "points": 1
+            },
+            {
+              "playerId": "p_Ir9RxO4yliTs",
+              "points": 1
+            },
+            {
+              "playerId": "p_EUqnrsOdyxlh",
+              "points": 1
+            }
+          ],
+          "contentId": null,
+          "notice": null
         },
         "lastSegment": null,
+        "party": {
+          "sessionId": "ses_keDWt-ky32Tu",
+          "scoring": "rank-v1",
+          "number": 1,
+          "gamesPlayed": 0,
+          "lastEndedSessionId": null
+        },
+        "prefs": {
+          "hostMode": "quirky",
+          "familiar": "",
+          "want": "",
+          "avoid": "",
+          "difficulty": "normal",
+          "suggestions": []
+        },
+        "settlement": null,
+        "adjustments": [],
         "suggestion": null,
         "ai": {
           "enabled": true,
-          "state": "thinking"
+          "state": "thinking",
+          "mock": true
         },
         "canvas": {
           "current": null,
