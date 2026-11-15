@@ -3,7 +3,11 @@
 #   docker compose up -d --build
 services:
   app:
-    build: .
+    build:
+      context: .
+      args:
+        # Optional: GIT_SHA=$(git rev-parse --short HEAD) docker compose up -d --build
+        GIT_SHA: ${GIT_SHA:-unknown}
     restart: unless-stopped
     depends_on:
       db:

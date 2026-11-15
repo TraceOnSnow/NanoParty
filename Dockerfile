@@ -26,6 +26,9 @@ COPY --from=build /out/package.json ./package.json
 COPY --from=build /app/apps/server/dist ./dist
 COPY --from=build /app/apps/server/drizzle ./drizzle
 COPY --from=build /app/apps/web/dist /app/apps/web/dist
+# Shown in play reports so a problem can be tied to the code that was running.
+ARG GIT_SHA=unknown
+ENV BUILD_VERSION=$GIT_SHA
 USER node
 EXPOSE 3000
 HEALTHCHECK --interval=15s --timeout=3s --start-period=20s --retries=5 \
