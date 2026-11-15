@@ -69,10 +69,20 @@
 
 验证：`pnpm check` 205 个测试通过（含 `apps/server/test/vnext-content.test.ts`、`vnext-soup.test.ts`）；`pnpm tester tools/scenarios/picker-history.json` 14/14。
 
-## 当前工作
+## 当前工作（2026-11-15 因用量上限中断于此）
 
-第三批：派对积分（名次奖励、两本账）、结算页、协商调分、派对生命周期与回顾、偏好与主持模式（普通 / 搞怪）。
-之后：真实模型验收（海龟汤问答集、搞怪主持、Canvas 多步、改编）、多浏览器回归、报告导出、Docker 迁移验证、验收文档。
+第三批刚开始：
+- 已提交：`packages/shared/src/scoring.ts`（名次奖励表、并列平分、调分数值校验）及测试。
+- 未应用的草稿：`reports/artifacts/wip-batch3-protocol.patch`（协议扩展：`endSegment` 的 settle/abandon、`confirmSettlement`、`proposeAdjustment`、`decideAdjustment`、`setPrefs`、`suggestPrefs`、`transferHost`、`retrySummary`、`PartyPrefs`、`SettlementView`、`AdjustmentView`、`PartyInfo`）。它需要和运行时改动一起落地才能通过类型检查，所以没有提交。用 `git apply reports/artifacts/wip-batch3-protocol.patch` 取回。
+
+第三批剩余（均未开始）：
+1. `RoomRuntime`：rank-v1 派对的结算态（segment `settling`）、`party_points` 入账、调分方案（待确认 / 批准 / 取消 / 替换 / 过期）、更正流水、偏好与主持模式、房主转交、聊天按派对分段、结束派对并归档。数据表已在迁移 0003 中建好。
+2. `rooms/recap.ts` + HTTP：派对列表与完整回顾；AI 总结异步生成、可重试。
+3. Agent：`propose_adjustment` 工具；普通 / 搞怪两种模式的提示词。
+4. 前端：结算页、大厅派对状态与偏好、历史与回顾页、「结束并结算 / 放弃本场」、封面与状态文案。
+5. 测试：结算幂等、并列、负分、过期方案、新旧计分不混用、回顾内容。
+
+之后：真实模型验收（海龟汤问答集、搞怪主持、Canvas 多步、改编）、多浏览器回归、报告导出 / 拉取脚本、Docker 迁移验证、`reports/vnext-acceptance.md`。
 
 ## 阻塞
 
