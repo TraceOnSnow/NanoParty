@@ -6,7 +6,7 @@ import { ChatPanel } from "../components/ChatPanel.tsx";
 import { GameToolbar } from "../components/GameToolbar.tsx";
 import { Lobby } from "../components/Lobby.tsx";
 import { Scoreboard } from "../components/Scoreboard.tsx";
-import { SettlementPanel } from "../components/Settlement.tsx";
+import { AdjustmentCard, SettlementPanel } from "../components/Settlement.tsx";
 import { TestBar } from "../components/TestBar.tsx";
 import { ThemeAdapt } from "../components/ThemeAdapt.tsx";
 import { PickPanel, pickOf } from "../games/PickPanel.tsx";
@@ -107,6 +107,19 @@ export function RoomPage({ roomId }: { roomId: string }) {
           </div>
         )}
         <CanvasPanel view={view} command={(c) => run(conn.command(c))} />
+        {/* Proposals made mid-game are party-level: the lobby lists them, so show them here while it is hidden. */}
+        {(segment || view.settlement) &&
+          view.adjustments
+            .filter((a) => a.segmentId !== view.settlement?.segmentId)
+            .map((adj) => (
+              <AdjustmentCard
+                key={adj.id}
+                adj={adj}
+                view={view}
+                command={(c) => run(conn.command(c))}
+                inSettlement={false}
+              />
+            ))}
         {segment ? (
           Game ? (
             <>

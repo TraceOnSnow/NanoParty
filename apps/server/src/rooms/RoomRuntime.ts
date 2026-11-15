@@ -1733,7 +1733,9 @@ export class RoomRuntime implements AgentRoomPort {
       `AI 生成（${this.deps.agent.modelLabel}）`,
     );
     const parts = [
-      saved.length > 0 ? `已保存 ${saved.length} 条，id：${saved.map((i) => i.id).join(", ")}` : "没有保存任何内容",
+      saved.length > 0
+        ? `已保存 ${saved.length} 条，id：${saved.map((i) => i.id).join(", ")}。在群聊里只说主题和道数，不要透露任何答案或数值。`
+        : "没有保存任何内容",
       ...rejected,
     ];
     return { ok: saved.length > 0, message: parts.join("。") };
