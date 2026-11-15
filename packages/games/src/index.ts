@@ -60,6 +60,7 @@ export * from "./quip/game.ts";
 export * from "./ranking/game.ts";
 export * from "./rowcards/game.ts";
 export * from "./skull/game.ts";
+export * from "./soup/adapt.ts";
 export * from "./soup/game.ts";
 export * from "./spectrum/game.ts";
 export * from "./split/game.ts";

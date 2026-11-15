@@ -7,6 +7,7 @@ import { GameToolbar } from "../components/GameToolbar.tsx";
 import { Lobby } from "../components/Lobby.tsx";
 import { Scoreboard } from "../components/Scoreboard.tsx";
 import { TestBar } from "../components/TestBar.tsx";
+import { ThemeAdapt } from "../components/ThemeAdapt.tsx";
 import { PickPanel, pickOf } from "../games/PickPanel.tsx";
 import { customTopicFields, gameComponents } from "../games/registry.tsx";
 import { navigate } from "../router.ts";
@@ -89,6 +90,7 @@ export function RoomPage({ roomId }: { roomId: string }) {
         {segment ? (
           Game ? (
             <>
+              {segment.notice && <p className="notice ai-working">{segment.notice}</p>}
               {pickOf(segment.view) ? (
                 <PickPanel
                   view={segment.view}
@@ -97,7 +99,15 @@ export function RoomPage({ roomId }: { roomId: string }) {
                   act={(action) => conn.command({ type: "gameAction", segmentId: segment.id, action })}
                   fields={customTopicFields[segment.gameId] ?? []}
                 />
-              ) : (
+              ) : null}
+              {pickOf(segment.view) && segment.gameId === "soup" && (
+                <ThemeAdapt
+                  segmentId={segment.id}
+                  disabled={segment.notice !== null}
+                  command={(c) => run(conn.command(c))}
+                />
+              )}
+              {pickOf(segment.view) ? null : (
                 <Game
                   view={segment.view}
                   room={view}

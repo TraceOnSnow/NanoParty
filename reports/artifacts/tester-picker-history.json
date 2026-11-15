@@ -53,12 +53,7 @@
       "label": "#6 everyone votes",
       "as": "p_mQ5E605CtqS-",
       "outcome": "moves 0:vote 1:vote 2:vote 3:vote",
-      "detail": [
-        "0:vote",
-        "1:vote",
-        "2:vote",
-        "3:vote"
-      ]
+      "detail": ["0:vote", "1:vote", "2:vote", "3:vote"]
     },
     {
       "step": 7,
@@ -1167,19 +1162,9 @@
                 }
               ]
             },
-            "participants": [
-              "p_mQ5E605CtqS-",
-              "p_q_blnNNFOh6N",
-              "p_GT5oMgJNTuK1",
-              "p_GWswczd_bP1e"
-            ],
+            "participants": ["p_mQ5E605CtqS-", "p_q_blnNNFOh6N", "p_GT5oMgJNTuK1", "p_GWswczd_bP1e"],
             "prompt": "谁最可能半夜突然想吃火锅？",
-            "submitted": [
-              "p_mQ5E605CtqS-",
-              "p_q_blnNNFOh6N",
-              "p_GT5oMgJNTuK1",
-              "p_GWswczd_bP1e"
-            ],
+            "submitted": ["p_mQ5E605CtqS-", "p_q_blnNNFOh6N", "p_GT5oMgJNTuK1", "p_GWswczd_bP1e"],
             "myVote": "p_q_blnNNFOh6N",
             "deadlineAt": null,
             "reveal": {
@@ -1189,9 +1174,7 @@
                 "p_GT5oMgJNTuK1": "p_mQ5E605CtqS-",
                 "p_GWswczd_bP1e": "p_mQ5E605CtqS-"
               },
-              "top": [
-                "p_mQ5E605CtqS-"
-              ]
+              "top": ["p_mQ5E605CtqS-"]
             }
           },
           "skip": null,
@@ -1208,9 +1191,7 @@
           "queued": 0
         }
       },
-      "chat": [
-        "下一题想要游戏相关的"
-      ]
+      "chat": ["下一题想要游戏相关的"]
     },
     {
       "playerId": "p_q_blnNNFOh6N",
@@ -2218,19 +2199,9 @@
                 }
               ]
             },
-            "participants": [
-              "p_mQ5E605CtqS-",
-              "p_q_blnNNFOh6N",
-              "p_GT5oMgJNTuK1",
-              "p_GWswczd_bP1e"
-            ],
+            "participants": ["p_mQ5E605CtqS-", "p_q_blnNNFOh6N", "p_GT5oMgJNTuK1", "p_GWswczd_bP1e"],
             "prompt": "谁最可能半夜突然想吃火锅？",
-            "submitted": [
-              "p_mQ5E605CtqS-",
-              "p_q_blnNNFOh6N",
-              "p_GT5oMgJNTuK1",
-              "p_GWswczd_bP1e"
-            ],
+            "submitted": ["p_mQ5E605CtqS-", "p_q_blnNNFOh6N", "p_GT5oMgJNTuK1", "p_GWswczd_bP1e"],
             "myVote": "p_mQ5E605CtqS-",
             "deadlineAt": null,
             "reveal": {
@@ -2240,9 +2211,7 @@
                 "p_GT5oMgJNTuK1": "p_mQ5E605CtqS-",
                 "p_GWswczd_bP1e": "p_mQ5E605CtqS-"
               },
-              "top": [
-                "p_mQ5E605CtqS-"
-              ]
+              "top": ["p_mQ5E605CtqS-"]
             }
           },
           "skip": null,
@@ -2259,9 +2228,7 @@
           "queued": 0
         }
       },
-      "chat": [
-        "下一题想要游戏相关的"
-      ]
+      "chat": ["下一题想要游戏相关的"]
     },
     {
       "playerId": "p_GT5oMgJNTuK1",
@@ -3269,19 +3236,9 @@
                 }
               ]
             },
-            "participants": [
-              "p_mQ5E605CtqS-",
-              "p_q_blnNNFOh6N",
-              "p_GT5oMgJNTuK1",
-              "p_GWswczd_bP1e"
-            ],
+            "participants": ["p_mQ5E605CtqS-", "p_q_blnNNFOh6N", "p_GT5oMgJNTuK1", "p_GWswczd_bP1e"],
             "prompt": "谁最可能半夜突然想吃火锅？",
-            "submitted": [
-              "p_mQ5E605CtqS-",
-              "p_q_blnNNFOh6N",
-              "p_GT5oMgJNTuK1",
-              "p_GWswczd_bP1e"
-            ],
+            "submitted": ["p_mQ5E605CtqS-", "p_q_blnNNFOh6N", "p_GT5oMgJNTuK1", "p_GWswczd_bP1e"],
             "myVote": "p_mQ5E605CtqS-",
             "deadlineAt": null,
             "reveal": {
@@ -3291,9 +3248,7 @@
                 "p_GT5oMgJNTuK1": "p_mQ5E605CtqS-",
                 "p_GWswczd_bP1e": "p_mQ5E605CtqS-"
               },
-              "top": [
-                "p_mQ5E605CtqS-"
-              ]
+              "top": ["p_mQ5E605CtqS-"]
             }
           },
           "skip": null,
@@ -3310,9 +3265,7 @@
           "queued": 0
         }
       },
-      "chat": [
-        "下一题想要游戏相关的"
-      ]
+      "chat": ["下一题想要游戏相关的"]
     },
     {
       "playerId": "p_GWswczd_bP1e",
@@ -4320,19 +4273,9 @@
                 }
               ]
             },
-            "participants": [
-              "p_mQ5E605CtqS-",
-              "p_q_blnNNFOh6N",
-              "p_GT5oMgJNTuK1",
-              "p_GWswczd_bP1e"
-            ],
+            "participants": ["p_mQ5E605CtqS-", "p_q_blnNNFOh6N", "p_GT5oMgJNTuK1", "p_GWswczd_bP1e"],
             "prompt": "谁最可能半夜突然想吃火锅？",
-            "submitted": [
-              "p_mQ5E605CtqS-",
-              "p_q_blnNNFOh6N",
-              "p_GT5oMgJNTuK1",
-              "p_GWswczd_bP1e"
-            ],
+            "submitted": ["p_mQ5E605CtqS-", "p_q_blnNNFOh6N", "p_GT5oMgJNTuK1", "p_GWswczd_bP1e"],
             "myVote": "p_mQ5E605CtqS-",
             "deadlineAt": null,
             "reveal": {
@@ -4342,9 +4285,7 @@
                 "p_GT5oMgJNTuK1": "p_mQ5E605CtqS-",
                 "p_GWswczd_bP1e": "p_mQ5E605CtqS-"
               },
-              "top": [
-                "p_mQ5E605CtqS-"
-              ]
+              "top": ["p_mQ5E605CtqS-"]
             }
           },
           "skip": null,
@@ -4361,9 +4302,7 @@
           "queued": 0
         }
       },
-      "chat": [
-        "下一题想要游戏相关的"
-      ]
+      "chat": ["下一题想要游戏相关的"]
     }
   ]
 }

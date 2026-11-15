@@ -9,7 +9,7 @@
  *   so anything a client has seen survives a restart.
  * - Clients only ever receive `view(state, player)`; raw game state never leaves this class.
  */
-import { botAction, contentTypes, games } from "@apr/games";
+import { adaptPuzzle, botAction, contentTypes, games, soupContentSchema } from "@apr/games";
 import {
   type Ack,
   type AgentInteractionSpec,
@@ -24,6 +24,7 @@ import {
   type GameModule,
   type GameResult,
   type InteractionSpec,
+  type JudgeTask,
   type LastSegmentView,
   MSG,
   type PlayerId,
@@ -33,6 +34,7 @@ import {
 } from "@apr/shared";
 import { and, asc, desc, eq, inArray, isNull, sql } from "drizzle-orm";
 import type { AgentRoomContext, AgentRoomPort, AgentService } from "../agent/AgentService.ts";
+import type { GameAiService } from "../agent/GameAi.ts";
 import type { ContentService } from "../content/ContentService.ts";
 import type { Db } from "../db/client.ts";
 import {
@@ -54,6 +56,8 @@ export interface RuntimeDeps {
   db: Db;
   content: ContentService;
   agent: AgentService;
+  /** Referee and other per-game model work; kept apart from the host agent. */
+  gameAi: GameAiService;
   now?: () => number;
   random?: () => number;
 }
@@ -119,6 +123,10 @@ export class RoomRuntime implements AgentRoomPort {
   private canvasCurrent: LiveInteraction | null = null;
   private agentNote: string | null = null;
   private skipVote: { key: string; voters: PlayerId[]; votes: Set<PlayerId> } | null = null;
+  /** The referee task in flight (`segmentId:taskId`); judgements run one at a time. */
+  private judging: string | null = null;
+  /** Shown under the game while the Game AI is working on something for it. */
+  private segmentNotice: string | null = null;
 
   private constructor(
     private readonly deps: RuntimeDeps,
@@ -429,6 +437,7 @@ export class RoomRuntime implements AgentRoomPort {
         this.scheduleDeadline();
         await this.pumpCanvas();
         this.broadcast();
+        this.pumpJudge();
         return { ok: true };
       }
       case "askAgent": {
@@ -479,6 +488,9 @@ export class RoomRuntime implements AgentRoomPort {
         }
         await this.deps.content.recordFeedback(this.sessionId, command.contentId, playerId, command.kind);
         return { ok: true };
+      }
+      case "adaptContent": {
+        return this.adaptCandidates(playerId, command.segmentId, command.theme);
       }
       case "feedback": {
         const seg = this.segment;
@@ -602,6 +614,10 @@ export class RoomRuntime implements AgentRoomPort {
     }
     const config = module.configSchema.safeParse(rawConfig ?? {});
     if (!config.success) return { ok: false, error: "游戏设置无效" };
+    const aiOption = module.meta.aiOption;
+    if (aiOption && (config.data as Record<string, unknown>)[aiOption] === 1 && !this.deps.gameAi.enabled) {
+      return { ok: false, error: "这台服务器没有配置 AI 模型，不能用 AI 主持。请关掉「AI 主持」，改由真人主持。" };
+    }
 
     const pool = module.meta.contentType ? await this.deps.content.pool(module.meta.contentType, this.sessionId) : [];
     const seg: LiveSegment = {
@@ -640,6 +656,137 @@ export class RoomRuntime implements AgentRoomPort {
     this.scheduleDeadline();
     await this.pumpCanvas();
     this.broadcast();
+    this.pumpJudge();
+    return { ok: true };
+  }
+
+  // ---------------------------------------------------------------- referee
+
+  /**
+   * Starts the next referee task if the game has one waiting. The model call happens outside
+   * the room's queue, so play is never blocked; the answer is applied only if the same segment
+   * is still running and the game still wants it (the game checks the task id).
+   */
+  private pumpJudge() {
+    const seg = this.segment;
+    if (this.disposed || this.judging || !seg?.module.judge || seg.status !== "active") return;
+    const task = seg.module.judge.next(seg.state);
+    if (!task) return;
+    this.judging = `${seg.id}:${task.id}`;
+    this.runJudge(seg.id, task)
+      .catch((err) =>
+        console.error(`[room ${this.roomId}] referee step failed:`, err instanceof Error ? err.message : err),
+      )
+      .finally(() => {
+        this.judging = null;
+        this.exclusive(async () => this.pumpJudge()).catch(() => {});
+      });
+  }
+
+  private async runJudge(segmentId: string, task: JudgeTask) {
+    const current = () => {
+      const seg = this.segment;
+      return seg && seg.id === segmentId && seg.status === "active" && seg.module.judge ? seg : null;
+    };
+    await this.exclusive(async () => {
+      const seg = current();
+      if (!seg?.module.judge?.begin) return;
+      const state = seg.module.judge.begin(structuredClone(seg.state), task.id);
+      await this.deps.db.update(segments).set({ state }).where(eq(segments.id, seg.id));
+      seg.state = state;
+      this.broadcast();
+    });
+    const started = this.now();
+    const outcome = await this.deps.gameAi.judge(this.roomId, this.sessionId, task);
+    await this.exclusive(async () => {
+      const seg = current();
+      // The game moved on (ended, switched, paused): the late answer is dropped, never applied elsewhere.
+      if (!seg?.module.judge) return;
+      const made = this.makeContext(seg);
+      let result = outcome.ok
+        ? seg.module.judge.resolve(structuredClone(seg.state), task.id, outcome.output, made.ctx)
+        : seg.module.judge.fail(structuredClone(seg.state), task.id, made.ctx);
+      // Output the rules do not accept counts as a failed judgement, not as a verdict.
+      const accepted = outcome.ok && result.ok;
+      if (outcome.ok && !result.ok) result = seg.module.judge.fail(structuredClone(seg.state), task.id, made.ctx);
+      this.logEvent("judge", null, {
+        kind: task.kind,
+        ok: accepted,
+        ms: this.now() - started,
+        ...(outcome.ok ? {} : { reason: outcome.reason }),
+      });
+      if (result.ok) await this.commit(seg, result, made);
+    });
+  }
+
+  /**
+   * Themed adaptation of the soups on offer (picker or host, while choosing). The model only
+   * proposes word swaps; `adaptPuzzle` decides. Accepted versions become the candidates,
+   * rejected ones are reported and the originals stay.
+   */
+  private async adaptCandidates(playerId: PlayerId, segmentId: string, theme: string): Promise<Ack> {
+    const seg = this.segment;
+    if (!seg || seg.id !== segmentId || seg.status !== "active") return { ok: false, error: "这局游戏已经结束" };
+    if (seg.module.meta.contentType !== "soup") return { ok: false, error: "这个游戏不支持按主题改编" };
+    const picker = pickerOf(seg.state);
+    if (picker === null) return { ok: false, error: "这一轮的汤已经选好了" };
+    if (playerId !== picker && playerId !== this.hostPlayerId) return { ok: false, error: "只有选题人或房主可以改编" };
+    if (!this.deps.gameAi.enabled) return { ok: false, error: "没有配置 AI 模型，无法改编；可以直接用原题" };
+    if (this.segmentNotice) return { ok: false, error: "上一次改编还在进行" };
+    const candidates = ((seg.state as { pick?: { candidates?: { contentId: string | null; data: unknown }[] } }).pick
+      ?.candidates ?? []) as { contentId: string | null; data: unknown }[];
+    this.segmentNotice = `AI 正在按「${theme}」改编候选汤…（可以继续选原题）`;
+    this.broadcast();
+    void (async () => {
+      const made: { payload: unknown; from: string }[] = [];
+      const notes: string[] = [];
+      for (const c of candidates) {
+        const puzzle = soupContentSchema.safeParse(c.data);
+        if (!puzzle.success || !puzzle.data.adaptable?.length) continue;
+        const proposal = await this.deps.gameAi.proposeAdaptation(
+          this.roomId,
+          this.sessionId,
+          { surface: puzzle.data.surface, solution: puzzle.data.solution, adaptable: puzzle.data.adaptable },
+          theme,
+        );
+        if (!proposal.ok) {
+          notes.push("AI 暂时不可用");
+          break;
+        }
+        const swaps = (proposal.output as { replacements?: unknown }).replacements;
+        const list = Array.isArray(swaps)
+          ? swaps.filter(
+              (r): r is { from: string; to: string } => typeof r?.from === "string" && typeof r?.to === "string",
+            )
+          : [];
+        const adapted = adaptPuzzle(puzzle.data, list, c.contentId ?? undefined);
+        this.logEvent("soup.adapt", playerId, { ok: adapted.ok, ...(adapted.ok ? {} : { reason: adapted.reason }) });
+        if (adapted.ok) made.push({ payload: adapted.puzzle, from: c.contentId ?? "自拟题" });
+        else notes.push(adapted.reason);
+      }
+      let message = `没有改编出可用的版本${notes.length ? `（${[...new Set(notes)].join("；")}）` : "（这几道没有可替换的词）"}，保留原题。`;
+      if (made.length > 0) {
+        const { saved } = await this.deps.content.save(
+          this.deps.db,
+          made.map((m) => ({ type: "soup", theme, payload: m.payload })),
+          `改编（${this.deps.gameAi.modelLabel}，母题 ${made.map((m) => m.from).join("、")}）`,
+        );
+        const offered = await this.offerContent(
+          saved.map((i) => i.id),
+          playerId,
+        );
+        message = offered.ok
+          ? `按「${theme}」改编出 ${saved.length} 道，已放进候选${notes.length ? "；其余没通过检查，保留原题" : ""}。`
+          : `改编好了，但没能放进候选：${offered.message}`;
+      }
+      this.segmentNotice = null;
+      await this.appendChat({ kind: "system" }, message);
+      this.broadcast();
+    })().catch((err) => {
+      this.segmentNotice = null;
+      this.broadcast();
+      console.error(`[room ${this.roomId}] adaptation failed:`, err instanceof Error ? err.message : err);
+    });
     return { ok: true };
   }
 
@@ -773,6 +920,7 @@ export class RoomRuntime implements AgentRoomPort {
       this.scheduleDeadline();
       await this.pumpCanvas();
       this.broadcast();
+      this.pumpJudge();
     }
     return { ok: true };
   }
@@ -791,6 +939,7 @@ export class RoomRuntime implements AgentRoomPort {
       scores: rows.sort((a, b) => b.points - a.points),
     };
     this.segment = null;
+    this.segmentNotice = null;
     this.scheduleDeadline();
     await this.pumpCanvas();
     this.broadcast();
@@ -949,6 +1098,7 @@ export class RoomRuntime implements AgentRoomPort {
             view: seg.module.view(seg.state, playerId),
             skip: this.skipViewFor(seg, playerId),
             contentId: seg.module.currentContentId?.(seg.state) ?? null,
+            notice: this.segmentNotice,
           }
         : null,
       lastSegment: this.lastSegment,

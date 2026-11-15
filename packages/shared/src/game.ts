@@ -96,6 +96,8 @@ export interface GameMeta {
   contentType?: string;
   /** Numeric settings the host may change before starting. Keys match the config schema. */
   options?: GameOption[];
+  /** Config key (0/1) that turns on a mode needing the referee AI; rejected when no model is configured. */
+  aiOption?: string;
 }
 
 export interface GameOption {
@@ -117,6 +119,32 @@ export interface SkipSupport<S> {
   voters(state: S): PlayerId[];
   /** Skips the current item without awarding anything. */
   apply(state: S, ctx: GameContext): GameResult<S>;
+}
+
+/**
+ * Work a game hands to its own referee AI (separate from the room's host agent).
+ * `input` may contain the game's secrets: it is given to the referee only and is never shown
+ * to players, the host agent or the logs.
+ */
+export interface JudgeTask {
+  id: string;
+  kind: string;
+  input: unknown;
+}
+
+/**
+ * Referee hooks. The rules stay deterministic: the game says what needs judging, the runtime
+ * gets an answer from the model outside the rules, and the game validates and applies it.
+ */
+export interface JudgeSupport<S> {
+  /** The next task to judge (tasks are judged one at a time, in order), or null. */
+  next(state: S): JudgeTask | null;
+  /** Marks the task as being judged, so players see the difference between queued and in progress. */
+  begin?(state: S, taskId: string): S;
+  /** Applies the referee's output. Must reject output it does not understand. */
+  resolve(state: S, taskId: string, output: unknown, ctx: GameContext): GameResult<S>;
+  /** The referee could not answer (model down, timeout, bad output). Never invents a verdict. */
+  fail(state: S, taskId: string, ctx: GameContext): GameResult<S>;
 }
 
 export interface GameModule<S = unknown, A = unknown, V = unknown, C = unknown> {
@@ -150,6 +178,7 @@ export interface GameModule<S = unknown, A = unknown, V = unknown, C = unknown> 
    * Platform interactions only open at such points. Defaults to false.
    */
   atSafePoint?(state: S): boolean;
+  judge?: JudgeSupport<S>;
   /** Id of the content item currently on screen, for feedback. */
   currentContentId?(state: S): string | null;
   /** Public, secret-free description of the current situation, used as AI host context. */

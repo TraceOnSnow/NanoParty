@@ -3,6 +3,7 @@ import type { Ack, ChatMessageView, Command, RoomView } from "@apr/shared";
 import { MSG } from "@apr/shared";
 import { eq } from "drizzle-orm";
 import { AgentService } from "../src/agent/AgentService.ts";
+import { GameAiService } from "../src/agent/GameAi.ts";
 import type { AgentModel } from "../src/agent/model.ts";
 import { ContentService } from "../src/content/ContentService.ts";
 import { type DbHandle, openDb } from "../src/db/client.ts";
@@ -18,12 +19,18 @@ export interface World {
   agent: AgentService;
 }
 
-export async function makeWorld(model: AgentModel | null = null, limits = LIMITS): Promise<World> {
+/** `judge` = the model behind the Game AI (referee); defaults to none. */
+export async function makeWorld(
+  model: AgentModel | null = null,
+  limits = LIMITS,
+  judge: AgentModel | null = null,
+): Promise<World> {
   const handle = await openDb({});
   const content = new ContentService(handle.db);
   await content.seed(bundledContent);
   const agent = new AgentService(model, handle.db, limits);
-  return { handle, agent, deps: { db: handle.db, content, agent } };
+  const gameAi = new GameAiService(judge, handle.db, limits);
+  return { handle, agent, deps: { db: handle.db, content, agent, gameAi } };
 }
 
 export interface Seat {

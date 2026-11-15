@@ -89,6 +89,8 @@ export const commandSchema = z.discriminatedUnion("type", [
     note: z.string().trim().max(300).optional(),
     entryId: z.number().int().optional(),
   }),
+  /** Picker or host, while a soup is being chosen: adapt the candidates to a theme. */
+  z.object({ type: z.literal("adaptContent"), segmentId: z.string(), theme: z.string().trim().min(1).max(40) }),
   z.object({ type: z.literal("endSession") }),
   z.object({ type: z.literal("rotateInvite") }),
   z.object({ type: z.literal("removeMember"), playerId: z.string() }),
@@ -134,6 +136,8 @@ export interface SegmentView {
   skip: { key: string; votes: number; needed: number; canVote: boolean; voted: boolean } | null;
   /** Content item on screen that feedback can be given on. */
   contentId: string | null;
+  /** Something the Game AI is doing for this game right now (not a wait on other players). */
+  notice: string | null;
 }
 
 export interface LastSegmentView {

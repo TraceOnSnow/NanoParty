@@ -2,6 +2,7 @@ import { bundledContent } from "@apr/games";
 import { Server } from "@colyseus/core";
 import { WebSocketTransport } from "@colyseus/ws-transport";
 import { AgentService } from "./agent/AgentService.ts";
+import { GameAiService } from "./agent/GameAi.ts";
 import { GeminiAgentModel } from "./agent/geminiModel.ts";
 import { MockAgentModel } from "./agent/mockModel.ts";
 import { type AgentModel, AnthropicAgentModel } from "./agent/model.ts";
@@ -50,7 +51,11 @@ export async function startApp(config: Config, overrides: AppOverrides = {}): Pr
             : null;
   const agent = new AgentService(model, db, config.ai, config.ai.mock ? "模拟" : config.ai.model);
 
-  const manager = new RoomManager({ db, content, agent });
+  const label = config.ai.mock ? "模拟" : config.ai.model;
+  // Same model service, separate role: the referee gets game secrets, the host agent never does.
+  const gameAi = new GameAiService(model, db, config.ai, label);
+
+  const manager = new RoomManager({ db, content, agent, gameAi });
 
   const server = new Server({
     transport: new WebSocketTransport(),
