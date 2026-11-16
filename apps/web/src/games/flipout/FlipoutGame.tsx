@@ -202,7 +202,6 @@ export function FlipoutGame({ view, room, paused, act }: GameProps) {
       <Seats
         room={room}
         ids={v.players}
-        wide
         current={v.phase === "turn" ? v.current : (v.pending?.by ?? null)}
         out={v.players.filter((p) => v.status[p] === "bust")}
         win={v.winners.length ? v.winners : v.flip7 ? [v.flip7] : []}
