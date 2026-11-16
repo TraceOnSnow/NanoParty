@@ -48,6 +48,7 @@ import { soupGame } from "./soup/game.ts";
 import spectrumContent from "./spectrum/content.json" with { type: "json" };
 import spectrumNet from "./spectrum/content.net.json" with { type: "json" };
 import { spectrumGame } from "./spectrum/game.ts";
+import { spellGame } from "./spell/game.ts";
 import splitContent from "./split/content.json" with { type: "json" };
 import splitNet from "./split/content.net.json" with { type: "json" };
 import { splitGame } from "./split/game.ts";
@@ -89,6 +90,7 @@ export * from "./skull/game.ts";
 export * from "./soup/adapt.ts";
 export * from "./soup/game.ts";
 export * from "./spectrum/game.ts";
+export * from "./spell/game.ts";
 export * from "./split/game.ts";
 export * from "./taboo/game.ts";
 export * from "./undercover/game.ts";
@@ -139,6 +141,7 @@ export const games: Record<string, GameModule<any, any, any, any>> = {
   [sevenGame.meta.id]: sevenGame,
   [climbGame.meta.id]: climbGame,
   [flipoutGame.meta.id]: flipoutGame,
+  [spellGame.meta.id]: spellGame,
 };
 
 export const bundledContent: BundledContent[] = [

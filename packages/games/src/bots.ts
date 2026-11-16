@@ -19,6 +19,16 @@ const pick: Bot = (v, me) =>
 const other = (ids: PlayerId[], me: PlayerId) => ids.find((p) => p !== me) ?? me;
 
 const bots: Record<string, Bot> = {
+  spell(v, me) {
+    if (v.phase !== "play" || v.current !== me) return null;
+    if (v.casts > 0) return { type: "end" };
+    // Call the number with the most stones the bot cannot account for.
+    const seen = (n: number) =>
+      (v.board[n] ?? 0) +
+      (Object.values(v.hands) as number[][]).reduce((sum, hand) => sum + hand.filter((x) => x === n).length, 0);
+    const best = [8, 7, 6, 5, 4, 3, 2].sort((a, b) => b - seen(b) - (a - seen(a)))[0];
+    return { type: "cast", number: best };
+  },
   flipout(v, me) {
     const live = (v.players as PlayerId[]).filter((p) => v.status[p] !== "bust");
     if (v.phase === "turn" && v.current === me) {

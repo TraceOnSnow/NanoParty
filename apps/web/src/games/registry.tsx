@@ -25,6 +25,7 @@ import { SevenGame } from "./seven/SevenGame.tsx";
 import { SkullGame } from "./skull/SkullGame.tsx";
 import { SoupGame } from "./soup/SoupGame.tsx";
 import { SpectrumGame } from "./spectrum/SpectrumGame.tsx";
+import { SpellGame } from "./spell/SpellGame.tsx";
 import { SplitGame } from "./split/SplitGame.tsx";
 import { TabooGame } from "./taboo/TabooGame.tsx";
 import { UndercoverGame } from "./undercover/UndercoverGame.tsx";
@@ -63,6 +64,7 @@ export const gameComponents: Record<string, ComponentType<GameProps>> = {
   seven: SevenGame,
   climb: ClimbGame,
   flipout: FlipoutGame,
+  spell: SpellGame,
   flush: FlushGame,
   duel: DuelGame,
   wordgrid: WordGridGame,
