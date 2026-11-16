@@ -1,0 +1,27 @@
+{
+  "name": "luck-flipout",
+  "base": "http://localhost:3100",
+  "roomId": "room_z6K-nJ4QLdPG",
+  "at": "2026-11-16T11:17:06.492Z",
+  "results": [
+    {
+      "id": "LK-05",
+      "text": "别翻重：发牌后每人面前的牌公开，牌堆不发给客户端",
+      "ok": true,
+      "evidence": "LK-05-1.png"
+    },
+    {
+      "id": "LK-06",
+      "text": "轮流翻牌或停：有人停下或爆掉，座位上显示状态",
+      "ok": true,
+      "evidence": "LK-06-1.png"
+    },
+    {
+      "id": "LK-07",
+      "text": "没有页面报错",
+      "ok": true,
+      "evidence": "LK-07-1.png"
+    }
+  ],
+  "problems": []
+}

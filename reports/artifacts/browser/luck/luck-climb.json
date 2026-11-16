@@ -1,0 +1,39 @@
+{
+  "name": "luck-climb",
+  "base": "http://localhost:3100",
+  "roomId": "room_Usd9Mu_JM4Re",
+  "at": "2026-11-16T11:16:46.264Z",
+  "results": [
+    {
+      "id": "LK-01",
+      "text": "贪心登顶：十一列棋盘，中间最长",
+      "ok": true,
+      "evidence": "LK-01-1.png"
+    },
+    {
+      "id": "LK-02",
+      "text": "没轮到的人没有掷骰子的按钮",
+      "ok": true,
+      "evidence": "LK-02-1.png"
+    },
+    {
+      "id": "LK-03",
+      "text": "掷骰、分骰子、前进、见好就收：进度存下并轮到下一个人",
+      "ok": true,
+      "evidence": "LK-03-1.png"
+    },
+    {
+      "id": "LK-04",
+      "text": "棋盘上出现存下的进度圆点",
+      "ok": true,
+      "evidence": "LK-04-1.png"
+    },
+    {
+      "id": "LK-07",
+      "text": "没有页面报错",
+      "ok": true,
+      "evidence": "LK-07-1.png"
+    }
+  ],
+  "problems": []
+}

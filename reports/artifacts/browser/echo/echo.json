@@ -1,0 +1,51 @@
+{
+  "name": "echo",
+  "base": "http://localhost:3100",
+  "roomId": "room_zmHC_STPBvBN",
+  "at": "2026-11-16T11:25:31.288Z",
+  "results": [
+    {
+      "id": "EC-01",
+      "text": "选题后进入写答案：六个输入框",
+      "ok": true,
+      "evidence": "EC-01-1.png"
+    },
+    {
+      "id": "EC-02",
+      "text": "都交了就开始；别人还盖着的答案没有发给任何客户端",
+      "ok": true,
+      "evidence": "EC-02-1.png"
+    },
+    {
+      "id": "EC-03",
+      "text": "亮出「苹果」：写了一样的人自动亮出，轮到下一个人",
+      "ok": true,
+      "evidence": "EC-03-1.png"
+    },
+    {
+      "id": "EC-04",
+      "text": "写法不同但意思一样：持有者点「也算」认领，房主看到否决按钮",
+      "ok": true,
+      "evidence": "EC-04-1.png"
+    },
+    {
+      "id": "EC-05",
+      "text": "押注：交 10，押注公开显示在数字上",
+      "ok": true,
+      "evidence": "EC-05-1.png"
+    },
+    {
+      "id": "EC-06",
+      "text": "有人亮完后结算：撞出 3 组，结果公布，所有答案公开",
+      "ok": true,
+      "evidence": "EC-06-1.png"
+    },
+    {
+      "id": "EC-07",
+      "text": "没有页面报错",
+      "ok": true,
+      "evidence": "EC-07-1.png"
+    }
+  ],
+  "problems": []
+}

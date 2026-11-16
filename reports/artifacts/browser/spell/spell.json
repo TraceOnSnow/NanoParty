@@ -1,0 +1,51 @@
+{
+  "name": "spell",
+  "base": "http://localhost:3100",
+  "roomId": "room_iKBTZ0enXDeA",
+  "at": "2026-11-16T11:20:10.287Z",
+  "results": [
+    {
+      "id": "SP-01",
+      "text": "开局：八条咒语，自己面前是五块盖着的石头，别人的石头看得到",
+      "ok": true,
+      "evidence": "SP-01-1.png"
+    },
+    {
+      "id": "SP-02",
+      "text": "自己的石头、牌堆和秘密石没有发给本人",
+      "ok": true,
+      "evidence": "SP-02-1.png"
+    },
+    {
+      "id": "SP-03",
+      "text": "没轮到的人不能念咒",
+      "ok": true,
+      "evidence": "SP-03-1.png"
+    },
+    {
+      "id": "SP-04",
+      "text": "喊中（3）：石头移到桌面，可以收手或继续喊更大的",
+      "ok": true,
+      "evidence": "SP-04-1.png"
+    },
+    {
+      "id": "SP-05",
+      "text": "喊中之后比它小的咒语不能再喊",
+      "ok": true,
+      "evidence": "SP-05-1.png"
+    },
+    {
+      "id": "SP-06",
+      "text": "收手后补满五块，轮到下一个人",
+      "ok": true,
+      "evidence": "SP-06-1.png"
+    },
+    {
+      "id": "SP-07",
+      "text": "没有页面报错",
+      "ok": true,
+      "evidence": "SP-07-1.png"
+    }
+  ],
+  "problems": []
+}
