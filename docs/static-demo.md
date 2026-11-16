@@ -35,12 +35,24 @@ node tools/browser/contrast.mjs   # 文字对比度测量
 ## 部署
 
 - **任何静态托管 / 自己的服务器**：把 `apps/web/dist-demo` 整个目录交给 nginx、Caddy 之类的静态服务即可，不需要改写规则。
-- **Vercel**：仓库根目录的 `vercel.json` 已写好构建命令和输出目录，导入仓库即可。Vercel 只能放这个静态版；正式版需要常驻进程、WebSocket 和数据库，放不上去。
+- **Vercel**：仓库根目录的 `vercel.json` 已写好安装命令、构建命令和输出目录，导入仓库即可（Framework Preset 选 Other，Root Directory 留仓库根目录）。Vercel 只能放这个静态版；正式版需要常驻进程、WebSocket 和数据库，放不上去。
+
+### 本项目的线上部署
+
+- 地址：<https://party.traceonsnow.com>（同一个站也能从 `nano-party.vercel.app` 访问）。
+- Vercel 项目连着本仓库：推送到 `main` 自动构建并更新正式站；其他分支和 PR 各得到一个预览地址，不影响正式站。回滚在 Vercel 后台把上一次部署 Promote 回来。
+- 域名在 DNS 里是一条指向 Vercel 的 CNAME，不经过 CDN 代理，证书由 Vercel 签发。
+- 上线后可以对着公网地址跑一遍验收：`BASE=https://party.traceonsnow.com/ node tools/browser/static.mjs`。
+
+导入时要注意两点：
+
+- `vercel.json` 必须已经在被导入的分支上（默认是 `main`）。否则 Vercel 会根据根目录的 `Dockerfile` 和 `apps/web` 猜成「多服务」项目并给出一份 `services` 配置建议——不要采用，那会把正式版服务端当容器部署。
+- 仓库在 `package.json` 里锁定了 pnpm 版本，Vercel 会按它安装，不需要额外的环境变量。
 
 ## 里面有什么、没有什么
 
 - 只打包仓库里公开的内置题库（`bundledContent`），每条都带出处，首页「题库来源」里列出。`private-content/` 是服务端运行时才读的目录，不会进入这个构建。
-- 没有密钥、邀请链接、聊天记录；页面不请求自己以外的任何地址（验收脚本 ST-08 检查这一点）。
+- 没有密钥、邀请链接、聊天记录；页面不请求自己以外的任何地址（验收脚本 ST-09 检查这一点）。
 - 事实类题目没有逐条核查，页面上写明了「仅供娱乐」。
 
 ## 和正式版不一样的地方
