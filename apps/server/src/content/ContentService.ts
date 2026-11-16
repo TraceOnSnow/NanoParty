@@ -19,6 +19,12 @@ export class ContentService {
     private readonly random: () => number = Math.random,
   ) {}
 
+  /** Withdrawn bundled items stop being drawn; rows and past usage stay, so history still reads. */
+  async retire(ids: string[]): Promise<void> {
+    if (ids.length === 0) return;
+    await this.db.update(contentItems).set({ status: "retired" }).where(inArray(contentItems.id, ids));
+  }
+
   /** Idempotent: existing (id, version) rows are left untouched, so shown content never changes. */
   async seed(items: BundledContent[]): Promise<void> {
     if (items.length === 0) return;

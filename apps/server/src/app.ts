@@ -1,4 +1,4 @@
-import { bundledContent } from "@apr/games";
+import { bundledContent, retiredContentIds } from "@apr/games";
 import { Server } from "@colyseus/core";
 import { WebSocketTransport } from "@colyseus/ws-transport";
 import { AgentService } from "./agent/AgentService.ts";
@@ -33,6 +33,7 @@ export async function startApp(config: Config, overrides: AppOverrides = {}): Pr
 
   const content = new ContentService(db);
   await content.seed(bundledContent);
+  await content.retire(retiredContentIds);
   await content.seed(loadPrivatePacks(config.contentDir));
 
   const build = (name: string): AgentModel | null =>

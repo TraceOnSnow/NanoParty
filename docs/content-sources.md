@@ -29,3 +29,9 @@ node tools/content/import-external.mjs <目录>
 Steam 创意工坊里的词库需要通过 Steam 客户端订阅下载，这里没有拿到文件。如果要用，把导出的词表
 放进一个目录，再给 `tools/content/import-external.mjs` 加一段解析即可；群内梗和真人名字仍然只放
 `private-content/`。
+
+## 撤下一条内置内容
+
+只从 JSON 里删掉是不够的：已经启动过的数据库里还留着那一行。把它的 id 同时加进 `packages/games/src/retired.ts`，服务端启动时会把这些 id 标为 `retired`，不再被抽到，用过它的历史回合照常可读。
+
+出题时的底线（估数、冷知识类）：答案不能写在题面里，也不能是在座的人都确切知道的数；要让一桌人报出不一样的答案。

@@ -1,8 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { contentTypes } from "./contentTypes.ts";
-import { bundledContent } from "./index.ts";
+import { bundledContent, retiredContentIds } from "./index.ts";
 
 describe("bundled content", () => {
+  it("does not ship an item that was withdrawn", () => {
+    const shipped = new Set(bundledContent.map((c) => c.id));
+    expect(retiredContentIds.filter((id) => shipped.has(id))).toEqual([]);
+  });
+
   it("has unique ids", () => {
     const seen = new Set<string>();
     const twice = bundledContent.filter((item) => seen.size === seen.add(item.id).size).map((item) => item.id);

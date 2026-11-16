@@ -98,20 +98,6 @@
     }
   },
   {
-    "id": "estimate-net-008",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "算笔账",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "从 1 一直加到 100，等于多少？",
-      "unit": "",
-      "answer": 5050,
-      "note": "高斯求和"
-    }
-  },
-  {
     "id": "estimate-net-009",
     "version": 1,
     "type": "numeric-fact",
@@ -238,46 +224,6 @@
     }
   },
   {
-    "id": "estimate-net-018",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "名著",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "《西游记》里，孙悟空被压在五行山下多少年？",
-      "unit": "年",
-      "answer": 500
-    }
-  },
-  {
-    "id": "estimate-net-019",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "名著",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "《西游记》里，师徒四人取经一共要经历多少难？",
-      "unit": "难",
-      "answer": 81,
-      "note": "九九八十一难"
-    }
-  },
-  {
-    "id": "estimate-net-020",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "名著",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "《水浒传》里梁山一共有多少位好汉？",
-      "unit": "位",
-      "answer": 108
-    }
-  },
-  {
     "id": "estimate-net-021",
     "version": 1,
     "type": "numeric-fact",
@@ -315,19 +261,6 @@
       "unit": "厘米",
       "answer": 129.3,
       "note": "官方设定：身高、体重、胸围都是 129.3"
-    }
-  },
-  {
-    "id": "estimate-net-024",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "动漫游戏",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "初代奥特曼在地球上一次只能战斗多少分钟？",
-      "unit": "分钟",
-      "answer": 3
     }
   },
   {
@@ -385,19 +318,6 @@
     }
   },
   {
-    "id": "estimate-net-029",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "动漫游戏",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "一局标准的 5v5 MOBA 对战，地图上一共有多少名玩家？",
-      "unit": "名",
-      "answer": 10
-    }
-  },
-  {
     "id": "estimate-net-030",
     "version": 1,
     "type": "numeric-fact",
@@ -452,19 +372,6 @@
     }
   },
   {
-    "id": "estimate-net-034",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "动漫游戏",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "一颗骰子六个面的点数加起来是多少？",
-      "unit": "点",
-      "answer": 21
-    }
-  },
-  {
     "id": "estimate-net-035",
     "version": 1,
     "type": "numeric-fact",
@@ -492,32 +399,6 @@
     }
   },
   {
-    "id": "estimate-net-037",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "互联网",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "微信普通红包单个最多能发多少元？",
-      "unit": "元",
-      "answer": 200
-    }
-  },
-  {
-    "id": "estimate-net-038",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "互联网",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "一个微信群最多能有多少人？",
-      "unit": "人",
-      "answer": 500
-    }
-  },
-  {
     "id": "estimate-net-039",
     "version": 1,
     "type": "numeric-fact",
@@ -528,32 +409,6 @@
       "text": "微博最早的字数上限是多少个字？",
       "unit": "字",
       "answer": 140
-    }
-  },
-  {
-    "id": "estimate-net-040",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "互联网",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "居民身份证号码一共有多少位？",
-      "unit": "位",
-      "answer": 18
-    }
-  },
-  {
-    "id": "estimate-net-041",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "互联网",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "中国大陆的手机号码一共有多少位？",
-      "unit": "位",
-      "answer": 11
     }
   },
   {
@@ -646,33 +501,6 @@
       "text": "央视第一届春节联欢晚会是哪一年？",
       "unit": "年",
       "answer": 1983
-    }
-  },
-  {
-    "id": "estimate-net-049",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "互联网",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "大学英语四六级考试的满分是多少分？",
-      "unit": "分",
-      "answer": 710
-    }
-  },
-  {
-    "id": "estimate-net-050",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "互联网",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "多数省份的高考满分是多少分？",
-      "unit": "分",
-      "answer": 750,
-      "note": "个别省份不同"
     }
   },
   {
@@ -806,60 +634,6 @@
       "text": "现代标准古筝有多少根弦？",
       "unit": "根",
       "answer": 21
-    }
-  },
-  {
-    "id": "estimate-net-061",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "冷知识",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "一年有多少个节气？",
-      "unit": "个",
-      "answer": 24
-    }
-  },
-  {
-    "id": "estimate-net-062",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "冷知识",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "一「罗」是多少个？（十二打）",
-      "unit": "个",
-      "answer": 144,
-      "note": "12 × 12"
-    }
-  },
-  {
-    "id": "estimate-net-063",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "冷知识",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "数独的盘面一共有多少个格子？",
-      "unit": "个",
-      "answer": 81,
-      "note": "9 × 9"
-    }
-  },
-  {
-    "id": "estimate-net-064",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "冷知识",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "国际象棋开局时，棋盘上一共有多少个棋子？",
-      "unit": "个",
-      "answer": 32
     }
   }
 ]

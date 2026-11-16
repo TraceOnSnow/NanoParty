@@ -171,3 +171,5 @@ export const bundledContent: BundledContent[] = [
   ...(soupImported as BundledContent[]),
   ...(undercoverImported as BundledContent[]),
 ];
+
+export { retiredContentIds } from "./retired.ts";

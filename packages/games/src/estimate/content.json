@@ -1,19 +1,5 @@
 [
   {
-    "id": "estimate-demo-001",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "常识",
-    "source": "自制示例题（项目内置）",
-    "verification": "unverified",
-    "payload": {
-      "text": "国际象棋棋盘一共有多少个格子？",
-      "unit": "个",
-      "answer": 64,
-      "note": "8×8"
-    }
-  },
-  {
     "id": "estimate-demo-002",
     "version": 1,
     "type": "numeric-fact",
@@ -39,20 +25,6 @@
       "unit": "个",
       "answer": 361,
       "note": "19×19 标准棋盘"
-    }
-  },
-  {
-    "id": "estimate-demo-004",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "常识",
-    "source": "自制示例题（项目内置）",
-    "verification": "unverified",
-    "payload": {
-      "text": "一副标准扑克牌（含大小王）有多少张？",
-      "unit": "张",
-      "answer": 54,
-      "note": ""
     }
   },
   {
@@ -137,34 +109,6 @@
       "unit": "种",
       "answer": 118,
       "note": "口径：IUPAC 截至 2016 年确认"
-    }
-  },
-  {
-    "id": "estimate-demo-011",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "常识",
-    "source": "自制示例题（项目内置）",
-    "verification": "unverified",
-    "payload": {
-      "text": "一场标准足球比赛开球时，场上双方一共有多少名球员？",
-      "unit": "名",
-      "answer": 22,
-      "note": "每队 11 人"
-    }
-  },
-  {
-    "id": "estimate-demo-012",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "常识",
-    "source": "自制示例题（项目内置）",
-    "verification": "unverified",
-    "payload": {
-      "text": "中国共有多少个省级行政区？",
-      "unit": "个",
-      "answer": 34,
-      "note": "23 省、5 自治区、4 直辖市、2 特别行政区"
     }
   },
   {

@@ -1,29 +1,5 @@
 [
   {
-    "id": "fact-net-001",
-    "version": 1,
-    "type": "fact-blank",
-    "theme": "冷知识",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "哆啦A梦最害怕的动物是____。",
-      "answer": "老鼠"
-    }
-  },
-  {
-    "id": "fact-net-002",
-    "version": 1,
-    "type": "fact-blank",
-    "theme": "冷知识",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "《西游记》里，孙悟空的金箍棒原本是东海龙宫的____。",
-      "answer": "定海神针"
-    }
-  },
-  {
     "id": "fact-net-003",
     "version": 1,
     "type": "fact-blank",
@@ -88,43 +64,6 @@
     }
   },
   {
-    "id": "fact-net-008",
-    "version": 1,
-    "type": "fact-blank",
-    "theme": "冷知识",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "国际象棋里，唯一可以越过其他棋子走的是____。",
-      "answer": "马"
-    }
-  },
-  {
-    "id": "fact-net-009",
-    "version": 1,
-    "type": "fact-blank",
-    "theme": "冷知识",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "麻将「中发白」里的「发」，全称是____。",
-      "answer": "发财"
-    }
-  },
-  {
-    "id": "fact-net-010",
-    "version": 1,
-    "type": "fact-blank",
-    "theme": "冷知识",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "方便面最早诞生在____。",
-      "answer": "日本",
-      "note": "1958 年"
-    }
-  },
-  {
     "id": "fact-net-011",
     "version": 1,
     "type": "fact-blank",
@@ -148,30 +87,6 @@
       "text": "草莓表面的一颗颗小点，其实是它的____。",
       "answer": "果实",
       "note": "那是瘦果，红色的部分是膨大的花托"
-    }
-  },
-  {
-    "id": "fact-net-013",
-    "version": 1,
-    "type": "fact-blank",
-    "theme": "冷知识",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "北极熊毛发下面的皮肤是____色的。",
-      "answer": "黑"
-    }
-  },
-  {
-    "id": "fact-net-014",
-    "version": 1,
-    "type": "fact-blank",
-    "theme": "冷知识",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "网址开头的 www 是 World Wide ____ 的缩写。",
-      "answer": "Web"
     }
   },
   {
@@ -201,31 +116,6 @@
     }
   },
   {
-    "id": "fact-net-017",
-    "version": 1,
-    "type": "fact-blank",
-    "theme": "冷知识",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "网页显示「404」表示页面____。",
-      "answer": "找不到",
-      "note": "Not Found"
-    }
-  },
-  {
-    "id": "fact-net-018",
-    "version": 1,
-    "type": "fact-blank",
-    "theme": "冷知识",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "键盘第一行字母从左数的前六个连起来是____。",
-      "answer": "QWERTY"
-    }
-  },
-  {
     "id": "fact-net-019",
     "version": 1,
     "type": "fact-blank",
@@ -235,18 +125,6 @@
     "payload": {
       "text": "俄罗斯方块里一共有____种形状的方块。",
       "answer": "七"
-    }
-  },
-  {
-    "id": "fact-net-020",
-    "version": 1,
-    "type": "fact-blank",
-    "theme": "冷知识",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "凡尔赛原本是法国的一座____。",
-      "answer": "宫殿"
     }
   }
 ]
