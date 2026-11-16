@@ -1,0 +1,52 @@
+[
+  {
+    "id": "soup-hgt-001",
+    "version": 1,
+    "type": "soup",
+    "theme": "日常反转",
+    "source": "github.com/AZHi-xinxin/haiguitang-coop（samples/sample_soups.json，MIT）",
+    "verification": "unverified",
+    "payload": {
+      "surface": "我定了早上7点的闹钟。早上它响了，我按掉，继续睡。10点我自然醒过来，一看手机，闹钟设置明明还是7点，可它再也没有响过第二次。",
+      "solution": "我设的是'单次闹钟'，响过这一次就结束了。我以为闹钟每天早上都会响，按掉之后安心继续睡，结果再也不会响第二遍——迟到是我自己的认知问题。",
+      "facts": [
+        "我设的是单次闹钟，不是重复闹钟",
+        "按掉之后就彻底结束了",
+        "我以为闹钟会天天响",
+        "迟到是因为我自己的错误认知"
+      ],
+      "fixed": ["闹钟", "单次"],
+      "adaptable": ["手机"]
+    }
+  },
+  {
+    "id": "soup-hgt-002",
+    "version": 1,
+    "type": "soup",
+    "theme": "日常反转",
+    "source": "github.com/AZHi-xinxin/haiguitang-coop（samples/sample_soups.json，MIT）",
+    "verification": "unverified",
+    "payload": {
+      "surface": "我养了一缸热带鱼。昨天我给鱼缸换了水，用的是刚买的矿泉水。今天早上，鱼全死了。",
+      "solution": "我把鱼缸里的水一次性全换成了矿泉水。新水没有困过、没有调温，水温跟鱼缸差很多，水质也突变，鱼承受不住直接应激死了。问题不在矿泉水干不干净，在于换水方式太粗暴。",
+      "facts": ["一次性全换水而不是换一部分", "矿泉水没困水、没调温", "水温水质骤变", "鱼死于应激"],
+      "fixed": ["鱼缸", "矿泉水", "水温"],
+      "adaptable": ["热带鱼"]
+    }
+  },
+  {
+    "id": "soup-hgt-003",
+    "version": 1,
+    "type": "soup",
+    "theme": "日常反转",
+    "source": "github.com/AZHi-xinxin/haiguitang-coop（samples/sample_soups.json，MIT）",
+    "verification": "unverified",
+    "payload": {
+      "surface": "邮递员以前每天都会往我家门缝里塞一封信。有一天起，他不再塞信了，我反而特别高兴。",
+      "solution": "那些信是银行寄来的催款单。我欠的钱终于还清了，催款单自然就停了。所以邮递员不再塞信，对我而言是债务清空的好消息。",
+      "facts": ["信是催款单", "我欠了钱", "不再塞信是因为我还清了", "高兴是因为债务清空"],
+      "fixed": ["信", "银行", "催款单"],
+      "adaptable": ["邮递员"]
+    }
+  }
+]

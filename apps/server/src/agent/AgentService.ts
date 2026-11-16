@@ -34,7 +34,10 @@ export interface AgentRoomContext {
   note: string | null;
   /** Whether the running game takes candidate content from outside, and in which format. */
   content: { gameAcceptsOffers: true; type: string; guide: string } | { gameAcceptsOffers: false } | null;
+  /** This party's chat, already shaped by `shapeChat` (players whole, the host's own lines cut short). */
   recentChat: { speaker: string; text: string }[];
+  /** Players' lines from earlier parties of this room: a sample of how this group talks. */
+  earlierChat?: { speaker: string; text: string }[];
   /** How bold the host's proposals may be. Never changes what it is allowed to do. */
   mode: "normal" | "quirky";
   games: GameMeta[];
@@ -88,6 +91,40 @@ interface RoomAgentState {
   autoSteps: number;
   /** The player whose request the current flow serves; kept across the agent's own steps. */
   requester: string | null;
+  /** When the host proposed adjustments, by requester ("" = a flow of its own). */
+  adjustAsks: { requester: string; at: number }[];
+}
+
+/** The host may put forward one adjustment per requester in this window, and a few per room. */
+const ADJUST_PER_REQUESTER_MS = 3 * 60_000;
+const ADJUST_ROOM_WINDOW_MS = 10 * 60_000;
+const ADJUST_ROOM_MAX = 3;
+
+/** A reply longer than this is a runaway, not a chat line. */
+const MAX_REPLY_CHARS = 400;
+const MAX_SPLIT_LINES = 3;
+const SPLIT_LINE_CHARS = 30;
+
+/**
+ * What of the model's text actually reaches the chat: nothing when it chose to stay silent or
+ * leaked tool-call markup; otherwise the text without emphasis marks, as one message or, when
+ * it wrote a few short lines, as separate messages the way people send them.
+ */
+export function cleanReply(raw: string): string[] {
+  const text = raw.replace(/\*\*/g, "").trim();
+  if (!text) return [];
+  if (/^[（(]\s*不回\s*[）)]$/.test(text)) return [];
+  if (/DSML|<\s*[｜|]|invoke name=|<\/?(tool_call|function_calls?)>/i.test(text)) return [];
+  const lines = text
+    .split(/\n+/)
+    .map((l) => l.trim())
+    .filter((l) => l && !/^[（(]\s*不回\s*[）)]$/.test(l));
+  if (lines.length === 0) return [];
+  if (lines.length <= MAX_SPLIT_LINES && lines.every((l) => l.length <= SPLIT_LINE_CHARS)) return lines;
+  if (text.length <= MAX_REPLY_CHARS) return [text];
+  const cut = text.slice(0, MAX_REPLY_CHARS);
+  const end = Math.max(cut.lastIndexOf("。"), cut.lastIndexOf("\n"), cut.lastIndexOf("！"), cut.lastIndexOf("？"));
+  return [end > MAX_REPLY_CHARS / 2 ? cut.slice(0, end + 1) : cut];
 }
 
 /**
@@ -153,7 +190,7 @@ export class AgentService {
   private stateFor(roomId: string): RoomAgentState {
     let st = this.rooms.get(roomId);
     if (!st) {
-      st = { pending: [], running: false, lastNoticeAt: 0, autoSteps: 0, requester: null };
+      st = { pending: [], running: false, lastNoticeAt: 0, autoSteps: 0, requester: null, adjustAsks: [] };
       this.rooms.set(roomId, st);
     }
     return st;
@@ -208,11 +245,11 @@ export class AgentService {
       const result = await model.run({
         system: systemPrompt(context.mode),
         prompt: buildPrompt(context, batch),
-        tools: this.toolsFor(room, st.requester),
+        tools: this.toolsFor(room, st),
         signal: AbortSignal.timeout(this.limits.timeoutMs),
       });
       await this.record(room.roomId, "ok", result.inputTokens, result.outputTokens);
-      if (result.text) await room.postChat("agent", result.text);
+      for (const line of cleanReply(result.text)) await room.postChat("agent", line);
       room.setAiStatus({ enabled: true, state: "idle", ...this.mockFlag });
     } catch (err) {
       console.warn(`[agent] room=${room.roomId} call failed: ${err instanceof Error ? err.message : String(err)}`);
@@ -224,8 +261,28 @@ export class AgentService {
     }
   }
 
+  /** Names and descriptions of the host's tools, for tooling that rebuilds a request offline. */
+  static toolSummary(): { name: string; description: string }[] {
+    const service = new AgentService(null, null as never, {
+      timeoutMs: 0,
+      maxConcurrency: 1,
+      roomCallsPerMinute: 1,
+      dailyCallLimit: 1,
+    });
+    const st: RoomAgentState = {
+      pending: [],
+      running: false,
+      lastNoticeAt: 0,
+      autoSteps: 0,
+      requester: null,
+      adjustAsks: [],
+    };
+    return service.toolsFor(null as never, st).map((t) => ({ name: t.name, description: t.description }));
+  }
+
   /** The complete set of things the model can do. Each tool re-checks state and permissions itself. */
-  private toolsFor(room: AgentRoomPort, requester: string | null): AgentTool[] {
+  private toolsFor(room: AgentRoomPort, st: RoomAgentState): AgentTool[] {
+    const requester = st.requester;
     return [
       defineTool({
         name: "create_interaction",
@@ -277,7 +334,7 @@ export class AgentService {
       defineTool({
         name: "propose_adjustment",
         description:
-          "提出一个派对积分调整方案（加分、扣分、重分都行，可以是负数、可以离谱），显示在左侧主面板，由房主点确认后才入账。有人争分、讨价还价、要求补偿或惩罚时，别只在聊天里答应——用它把方案变成房主可以确认的真实操作。playerId 用成员列表里的 id。调用后要如实说「已提出，等房主确认」，不能说已经加了。新方案会替换之前没确认的方案。",
+          "提出一个派对积分调整方案（可以是负数），显示在左侧主面板，由房主点确认后才入账。不是有人要就给：只有你自己觉得该动分的时候才用。playerId 用成员列表里的 id。提了只能说「提了」，不能说已经加了或扣了。新方案会替换之前没确认的方案。同一个人短时间内反复要分，工具会拒绝，你照实拒绝他就行。",
         inputSchema: z.object({
           items: z
             .array(z.object({ playerId: z.string(), points: z.number().describe("加减的分数，可为负，最多一位小数") }))
@@ -285,7 +342,20 @@ export class AgentService {
             .max(8),
           reason: z.string().max(200).describe("给大家看的理由，可以玩梗，但不要编造没发生的事"),
         }),
-        run: async ({ items, reason }) => (await room.proposeAdjustment(items, reason, requester)).message,
+        run: async ({ items, reason }) => {
+          const now = Date.now();
+          st.adjustAsks = st.adjustAsks.filter((a) => now - a.at < ADJUST_ROOM_WINDOW_MS);
+          const who = requester ?? "";
+          if (st.adjustAsks.some((a) => a.requester === who && now - a.at < ADJUST_PER_REQUESTER_MS)) {
+            return "没提：这个人刚让你提过一次方案，几分钟内不再替他提。照实拒绝或者不理他，不要说已经提了。";
+          }
+          if (st.adjustAsks.length >= ADJUST_ROOM_MAX) {
+            return "没提：这十分钟里你已经提了好几个调分方案了，先停一停。照实拒绝，不要说已经提了。";
+          }
+          const made = await room.proposeAdjustment(items, reason, requester);
+          if (made.ok) st.adjustAsks.push({ requester: who, at: now });
+          return made.message;
+        },
       }),
       defineTool({
         name: "note_plan",

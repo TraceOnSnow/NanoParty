@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { GameProps } from "../registry.tsx";
 import { useAct } from "../shared.ts";
+import { CardBack, Felt, PlayHand, Seats } from "../table.tsx";
 import { GameHead, HostControls, useNames } from "../ui.tsx";
 
 // Mirrors CARDS in @apr/games (display only).
@@ -45,6 +46,19 @@ interface View {
   deadlineAt: number | null;
 }
 
+const DuelCard = ({ value, small }: { value: number; small?: boolean }) =>
+  small ? (
+    <span className="mini-card" title={`${CARDS[value]?.name}：${CARDS[value]?.text}`}>
+      {value} {CARDS[value]?.name}
+    </span>
+  ) : (
+    <span className="card-face duel-card">
+      <strong>{value}</strong>
+      <span>{CARDS[value]?.name}</span>
+      <em>{CARDS[value]?.text}</em>
+    </span>
+  );
+
 export function DuelGame({ view, room, paused, act }: GameProps) {
   const v = view as View;
   const name = useNames(room);
@@ -53,88 +67,115 @@ export function DuelGame({ view, room, paused, act }: GameProps) {
   const go = (action: object) => send({ ...action, step: v.step });
   const [card, setCard] = useState<number | null>(null);
   const [guess, setGuess] = useState(2);
-  const myTurn = v.phase === "play" && v.current === me;
-  const targets = card === null ? [] : v.alive.filter((p) => (card === 5 || p !== me) && !v.shielded.includes(p));
+  const myTurn = v.phase === "play" && v.current === me && !paused;
+  const forced = v.myHand.includes(7) && (v.myHand.includes(5) || v.myHand.includes(6));
+  const targetsFor = (c: number) =>
+    NEEDS_TARGET.includes(c) ? v.alive.filter((p) => (c === 5 || p !== me) && !v.shielded.includes(p)) : [];
+  const targets = card === null || !myTurn ? [] : targetsFor(card);
   const describe = (l: Log) =>
     `${name(l.by)} 打出 ${l.card}「${CARDS[l.card]?.name}」${l.target ? ` → ${name(l.target)}` : ""}${l.guess ? `（猜 ${l.guess}）` : ""}${l.discarded ? `，弃掉了 ${l.discarded}` : ""}${l.out.length ? `，${l.out.map(name).join("、")} 出局` : ""}`;
 
-  function playSelected(target?: string) {
-    if (card === null) return;
-    void go({ type: "play", card, target, guess: card === 1 ? guess : undefined }).then((ok) => ok && setCard(null));
-  }
+  const play = (c: number, target?: string) =>
+    void go({ type: "play", card: c, target, guess: c === 1 ? guess : undefined });
+  /** A card dropped on a seat goes at that player; dropped on the table it needs no target. */
+  const dropped = (c: number, where: string) => {
+    const options = targetsFor(c);
+    if (where.startsWith("seat:")) {
+      const p = where.slice(5);
+      if (options.includes(p)) play(c, p);
+      else if (options.length === 0) play(c);
+    } else if (options.length === 0) play(c);
+  };
 
   return (
-    <div className="game">
+    <div className="game wide">
       <GameHead
-        label={`第 ${v.round} 轮 · 赢 ${v.tokensToWin} 轮获胜 · 牌堆剩 ${v.deckLeft}`}
+        label={`第 ${v.round} 轮 · 先赢 ${v.tokensToWin} 轮的人获胜`}
         deadlineAt={v.phase === "play" ? v.deadlineAt : null}
         paused={paused}
       />
-      <table className="results">
-        <tbody>
-          {v.players.map((p) => (
-            <tr
-              key={p}
-              className={!v.alive.includes(p) ? "out-row" : p === v.current && v.phase === "play" ? "turn-row" : ""}
-            >
-              <td>
-                {name(p)} {"♦".repeat(v.tokens[p] ?? 0)}
-                {v.shielded.includes(p) ? " 🛡" : ""}
-              </td>
-              <td className="muted">弃牌：{(v.discards[p] ?? []).join(" ") || "—"}</td>
-              <td>{v.showdown?.[p] ?? ""}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Felt>
+        <Seats
+          room={room}
+          ids={v.players}
+          current={v.phase === "play" ? v.current : null}
+          out={v.players.filter((p) => !v.alive.includes(p))}
+          win={v.phase === "roundOver" ? v.roundWinners : []}
+          pickable={(p) => targets.includes(p)}
+          onPick={(p) => card !== null && play(card, p)}
+          note={(p) => (
+            <span className="tag">
+              赢 {v.tokens[p] ?? 0} 轮{v.shielded.includes(p) ? " · 🛡 护盾" : ""}
+              {!v.alive.includes(p) ? " · 出局" : ""}
+            </span>
+          )}
+        >
+          {(p) => (
+            <>
+              <span className="run">
+                {(v.discards[p] ?? []).map((c, i) => (
+                  // biome-ignore lint/suspicious/noArrayIndexKey: discards are append-only
+                  <DuelCard key={i} value={c} small />
+                ))}
+                {(v.discards[p] ?? []).length === 0 && <span className="muted small">还没打过牌</span>}
+              </span>
+              {v.showdown?.[p] != null && <span className="strength">最后手牌 {v.showdown[p]}</span>}
+              {v.mySeen.some((s) => s.about === p) && (
+                <span className="strength">你看过：{v.mySeen.find((s) => s.about === p)?.card}</span>
+              )}
+              {targets.includes(p) && <span className="strength">{p === me ? "对自己用" : "对 TA 用"}</span>}
+            </>
+          )}
+        </Seats>
+        <p className="felt-note">
+          <CardBack count={v.deckLeft} label="牌堆" />
+          <span>
+            每人手里只有一张牌。轮到你时摸一张，再从两张里打出一张，按牌上写的生效。牌堆摸完时手牌最大的人赢这一轮。
+          </span>
+        </p>
+      </Felt>
 
       {v.myHand.length > 0 && (
-        <div className="hand">
-          {v.myHand.map((c, i) => (
-            <button
-              // biome-ignore lint/suspicious/noArrayIndexKey: two equal cards are possible
-              key={i}
-              type="button"
-              className={`card-face duel-card${card === c ? " selected" : ""}`}
-              disabled={!myTurn || paused}
-              onClick={() => setCard(c)}
-            >
-              <strong>{c}</strong>
-              <span>{CARDS[c]?.name}</span>
-            </button>
-          ))}
-        </div>
-      )}
-      {myTurn && card === null && <p className="muted">轮到你：选一张要打出的牌。</p>}
-      {myTurn && card !== null && (
-        <div className="card">
-          <p>
-            {card}「{CARDS[card]?.name}」：{CARDS[card]?.text}
+        <>
+          <p className="muted">
+            {v.phase !== "play"
+              ? "你的手牌"
+              : v.current !== me
+                ? `等 ${name(v.current)}…`
+                : card === null
+                  ? forced
+                    ? "轮到你：手里同时有顾问和 5 / 6，这回合只能打顾问。"
+                    : "轮到你：点一张要打的牌；需要指定对象的可以直接拖到那个人身上。"
+                  : NEEDS_TARGET.includes(card)
+                    ? targets.length > 0
+                      ? "点桌上亮起来的人，对 TA 打出。"
+                      : "没有可以指定的人（都有护盾或出局），打出后没有效果。"
+                    : "确认打出。"}
           </p>
-          {card === 1 && (
-            <label className="answer-row">
-              猜点数
-              <input type="number" min={2} max={8} value={guess} onChange={(e) => setGuess(Number(e.target.value))} />
-            </label>
-          )}
-          {NEEDS_TARGET.includes(card) && targets.length > 0 ? (
-            <div className="host-row">
-              {targets.map((p) => (
-                <button key={p} type="button" className="primary" disabled={paused} onClick={() => playSelected(p)}>
-                  对 {p === me ? "自己" : name(p)} 打出
+          <PlayHand
+            cards={v.myHand}
+            face={(c) => <DuelCard value={c} />}
+            enabled={myTurn}
+            playable={(c) => !forced || c === 7}
+            confirm={(c) => (targetsFor(c).length > 0 ? null : `打出 ${c}「${CARDS[c]?.name}」`)}
+            onSelect={(c) => setCard(c)}
+            onPlay={dropped}
+            resetKey={v.step}
+          />
+          {myTurn && (card === 1 || v.myHand.includes(1)) && (
+            <div className="guess-row">
+              <span className="small">侦察要猜的点数：</span>
+              {[2, 3, 4, 5, 6, 7, 8].map((n) => (
+                <button key={n} type="button" className={guess === n ? "on" : ""} onClick={() => setGuess(n)}>
+                  {n} {CARDS[n]?.name}
                 </button>
               ))}
             </div>
-          ) : (
-            <button type="button" className="primary" disabled={paused} onClick={() => playSelected()}>
-              打出{NEEDS_TARGET.includes(card) ? "（没有可指定的人，无效果）" : ""}
-            </button>
           )}
-        </div>
+        </>
       )}
-      {!myTurn && v.phase === "play" && <p className="muted">等 {name(v.current)}…</p>}
-      {v.mySeen.length > 0 && (
-        <p className="notice">你知道：{v.mySeen.map((s) => `${name(s.about)} 拿着 ${s.card}`).join("；")}</p>
+      {v.myHand.length === 0 && v.phase === "play" && (
+        <p className="muted">{v.alive.includes(me) ? `等 ${name(v.current)}…` : "你这一轮出局了，看戏。"}</p>
       )}
       <ul className="describe-list">
         {[...v.log]

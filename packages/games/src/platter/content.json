@@ -1,0 +1,21 @@
+[
+  {
+    "id": "platter-theme-001",
+    "version": 1,
+    "type": "platter-theme",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "name": "零食局",
+      "kinds": [
+        { "label": "薯片" },
+        { "label": "可乐" },
+        { "label": "辣条" },
+        { "label": "泡面" },
+        { "label": "瓜子" },
+        { "label": "奶茶" }
+      ]
+    }
+  }
+]

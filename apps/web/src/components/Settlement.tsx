@@ -1,6 +1,7 @@
 import { type Ack, type AdjustmentView, type Command, formatTenths, type RoomView } from "@apr/shared";
 import { useState } from "react";
 import { draftForAi } from "../chatBus.ts";
+import { Confetti } from "./Confetti.tsx";
 
 type Run = (c: Command) => Promise<Ack>;
 const signed = (tenths: number) => `${tenths > 0 ? "+" : ""}${formatTenths(tenths)}`;
@@ -104,6 +105,7 @@ export function SettlementPanel({ view, command }: { view: RoomView; command: Ru
   const proposals = view.adjustments.filter((a) => a.segmentId === st.segmentId);
   return (
     <div className="game">
+      {st.rows.some((r) => r.tenths > 0) && <Confetti key={st.segmentId} />}
       <div className="game-head">
         <span className="tag">结算 · {st.gameName}</span>
         <span className="tag">{st.endedReason === "finished" ? "已打完" : "房主提前结束"}</span>

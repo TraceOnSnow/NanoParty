@@ -1,0 +1,51 @@
+{
+  "name": "seven",
+  "base": "http://localhost:3100",
+  "roomId": "room_Io_Xl2MiDKqZ",
+  "at": "2026-11-16T03:49:56.199Z",
+  "results": [
+    {
+      "id": "SV-01",
+      "text": "开局：七张手牌，每张显示类别、当前分值和效果",
+      "ok": true,
+      "evidence": "SV-01-1.png"
+    },
+    {
+      "id": "SV-02",
+      "text": "别人的手牌和牌堆没有发给任何客户端",
+      "ok": true,
+      "evidence": "SV-02-1.png"
+    },
+    {
+      "id": "SV-03",
+      "text": "没轮到的人不能摸牌",
+      "ok": true,
+      "evidence": "SV-03-1.png"
+    },
+    {
+      "id": "SV-04",
+      "text": "摸牌堆后手里八张，每张标出弃掉后的分数；点一下只是抬起，确认后才弃掉，弃牌区公开一张",
+      "ok": true,
+      "evidence": "SV-04-1.png"
+    },
+    {
+      "id": "SV-05",
+      "text": "下一个人可以从弃牌区把那张牌拿走",
+      "ok": true,
+      "evidence": "SV-05-1.png"
+    },
+    {
+      "id": "SV-07",
+      "text": "拖动：把牌堆拖进手牌是摸牌，把手牌拖到桌上是弃牌",
+      "ok": true,
+      "evidence": "SV-07-1.png"
+    },
+    {
+      "id": "SV-06",
+      "text": "弃牌区摆满后进入结算",
+      "ok": true,
+      "evidence": "SV-06-1.png"
+    }
+  ],
+  "problems": []
+}

@@ -1,6 +1,8 @@
-import { type FormEvent, useEffect, useState } from "react";
+import { type CSSProperties, type FormEvent, useEffect, useState } from "react";
+import { Avatar } from "../../components/Avatar.tsx";
 import type { GameProps } from "../registry.tsx";
 import { useCountdown } from "../shared.ts";
+import { Progress, useNames } from "../ui.tsx";
 
 // Mirrors EstimateView in @apr/games (kept local so the web app does not bundle game rules).
 interface EstimateView {
@@ -24,7 +26,7 @@ export function EstimateGame({ view, room, paused, act }: GameProps) {
   const [value, setValue] = useState("");
   const [error, setError] = useState<string | null>(null);
   const seconds = useCountdown(paused ? null : v.deadlineAt);
-  const name = (id: string) => room.members.find((m) => m.id === id)?.nickname ?? "?";
+  const name = useNames(room);
   const me = room.me.playerId;
   const participating = v.participants.includes(me);
 
@@ -79,13 +81,7 @@ export function EstimateGame({ view, room, paused, act }: GameProps) {
               </button>
             </form>
           )}
-          <ul className="chips">
-            {v.participants.map((id) => (
-              <li key={id} className={v.submitted.includes(id) ? "chip done" : "chip"}>
-                {name(id)} {v.submitted.includes(id) ? "✓" : "…"}
-              </li>
-            ))}
-          </ul>
+          <Progress ids={v.participants} done={v.submitted} name={name} />
           {room.me.isHost && (
             <div className="host-row">
               <button type="button" onClick={() => send({ type: "reveal" })} disabled={paused}>
@@ -105,23 +101,42 @@ export function EstimateGame({ view, room, paused, act }: GameProps) {
             答案：<strong>{v.reveal.answer}</strong> {v.question.unit}
             {v.reveal.note && <span className="muted">（{v.reveal.note}）</span>}
           </p>
-          <table className="results">
-            <tbody>
-              {v.reveal.results.map((r) => (
-                <tr key={r.playerId} className={r.points > 0 ? "win" : ""}>
-                  <td>{name(r.playerId)}</td>
-                  <td>{r.guess}</td>
-                  <td className="muted">差 {Number(r.diff.toFixed(3))}</td>
-                  <td>{r.points > 0 ? `+${r.points}` : ""}</td>
-                </tr>
-              ))}
-              {v.reveal.results.length === 0 && (
-                <tr>
-                  <td className="muted">本轮没有人作答</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+          <div className="number-line">
+            {[...v.reveal.results]
+              .sort((x, y) => x.guess - y.guess)
+              .flatMap((r, i, all) => {
+                const pin = (
+                  <span
+                    key={r.playerId}
+                    className={r.points > 0 ? "pin win" : "pin"}
+                    style={{ animationDelay: `${i * 0.3}s` } as CSSProperties}
+                  >
+                    <Avatar room={room} id={r.playerId} />
+                    <b>{r.guess}</b>
+                    <span className="small">{name(r.playerId)}</span>
+                    <span className="muted small">差 {Number(r.diff.toFixed(3))}</span>
+                    {r.points > 0 && <em>+{r.points}</em>}
+                  </span>
+                );
+                const answer = v.reveal?.answer ?? 0;
+                const flagHere = r.guess <= answer && (all[i + 1] === undefined || (all[i + 1]?.guess ?? 0) > answer);
+                const flag = (
+                  <span
+                    key="answer"
+                    className="pin flag"
+                    style={{ animationDelay: `${all.length * 0.3 + 0.3}s` } as CSSProperties}
+                  >
+                    <span className="flag-mark">🚩</span>
+                    <b>{answer}</b>
+                    <span className="small">正确答案</span>
+                  </span>
+                );
+                if (i === 0 && r.guess > answer) return [flag, pin];
+                return flagHere ? [pin, flag] : [pin];
+              })}
+            {v.reveal.results.length === 0 && <p className="muted">本轮没有人作答</p>}
+          </div>
+          <p className="muted small">从小到大排开，离旗子越近越准。</p>
           {room.me.isHost ? (
             <button type="button" className="primary" onClick={() => send({ type: "next" })} disabled={paused}>
               {v.totalRounds > 0 && v.round >= v.totalRounds ? "结束并回到大厅" : "下一轮"}

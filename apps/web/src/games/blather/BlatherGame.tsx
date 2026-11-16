@@ -1,5 +1,8 @@
+import { useEffect, useState } from "react";
+import { Avatar, Who } from "../../components/Avatar.tsx";
 import type { GameProps } from "../registry.tsx";
 import { useAct } from "../shared.ts";
+import { Qa, QaLog } from "../talk.tsx";
 import { GameHead, HostControls, lastRound, roundLabel, TextForm, useNames } from "../ui.tsx";
 
 interface View {
@@ -17,6 +20,8 @@ interface View {
   deadlineAt: number | null;
 }
 
+const BLANK = "____";
+
 export function BlatherGame({ view, room, paused, act }: GameProps) {
   const v = view as View;
   const name = useNames(room);
@@ -24,56 +29,103 @@ export function BlatherGame({ view, room, paused, act }: GameProps) {
   const { error, send } = useAct(act);
   const go = (action: object) => send({ ...action, step: v.step });
   const describing = me === v.describer;
+  const live = v.phase === "describe";
+  /** The sentence being put together: which frame and which word. */
+  const [draft, setDraft] = useState<{ frame: number; word: number } | null>(null);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: a new sentence or round clears the draft
+  useEffect(() => setDraft(null), [v.sentences.length, v.round]);
+  const said = (frame: { text: string }, word: string) => v.sentences.includes(frame.text.replace(BLANK, word));
+  const draftFrame = draft ? v.frames?.[draft.frame] : undefined;
+  const draftWord = draft && draftFrame ? draftFrame.words[draft.word] : undefined;
 
   return (
-    <div className="game">
+    <div className="game blather">
       <GameHead label={roundLabel(v.round, v.totalRounds)} deadlineAt={v.deadlineAt} paused={paused} />
-      <p className="muted">
-        描述者：<strong>{name(v.describer)}</strong>
-        {describing && v.phase === "describe" && "　只能用下面的词块拼句子，不要在语音里补充。"}
+      <p className="role-line">
+        <span>
+          描述 <Who room={room} id={v.describer} />
+        </span>
+        {live && <span className="muted small">只能用词块拼句子，语音里不许补充</span>}
       </p>
+
       {v.word && (
-        <p className="notice">
-          {v.phase === "reveal" ? "答案：" : "你要描述的词："}
-          <strong className="big-clue">{v.word}</strong>
-          {v.phase === "reveal" && (v.winner ? `　${name(v.winner)} 猜中了！` : "　没有人猜中。")}
-        </p>
-      )}
-
-      <ul className="describe-list">
-        {v.sentences.map((s) => (
-          <li key={s}>
-            <span className="text">{s}</span>
-          </li>
-        ))}
-        {v.sentences.length === 0 && v.phase === "describe" && <li className="muted">还没有句子…</li>}
-      </ul>
-
-      {v.frames && (
-        <div className="card">
-          {v.frames.map((f, fi) => (
-            <div key={f.text} className="frame">
-              <span className="muted">{f.text.replace("____", "…")}</span>
-              <span className="frame-words">
-                {f.words.map((w, wi) => (
-                  <button
-                    key={w}
-                    type="button"
-                    disabled={paused || v.sentences.includes(f.text.replace("____", w))}
-                    onClick={() => go({ type: "say", frame: fi, word: wi })}
-                  >
-                    {w}
-                  </button>
-                ))}
-              </span>
-            </div>
-          ))}
+        <div className="taboo-card">
+          <span className="muted small">{v.phase === "reveal" ? "答案" : "你要描述的词（别念出来）"}</span>
+          <strong className="taboo-word">{v.word}</strong>
+          {v.phase === "reveal" && (
+            <span className="answer">
+              {v.winner ? (
+                <>
+                  <Who room={room} id={v.winner} /> 猜中了！
+                </>
+              ) : (
+                "没有人猜中。"
+              )}
+            </span>
+          )}
         </div>
       )}
 
-      {v.phase === "describe" && !describing && v.participants.includes(me) && (
+      <div className="speech">
+        <Avatar room={room} id={v.describer} size="l" />
+        <div className="speech-lines">
+          {v.sentences.map((s, i) => (
+            <span key={s} className={i === v.sentences.length - 1 && live ? "speech-line fresh" : "speech-line"}>
+              {s}
+            </span>
+          ))}
+          {v.sentences.length === 0 && (
+            <span className="speech-line empty">
+              {describing ? "在下面挑词块，拼出第一句。" : `${name(v.describer)} 还在憋第一句…`}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {v.frames && live && (
+        <div className="frames">
+          {v.frames.map((f, fi) => {
+            const [before, after] = f.text.split(BLANK);
+            const pickedHere = draft?.frame === fi ? f.words[draft.word] : null;
+            return (
+              <div key={f.text} className={pickedHere ? "frame-strip on" : "frame-strip"}>
+                <span className="frame-text">
+                  {before}
+                  <b className={pickedHere ? "blank filled" : "blank"}>{pickedHere ?? "　？　"}</b>
+                  {after}
+                </span>
+                <span className="frame-words">
+                  {f.words.map((w, wi) => (
+                    <button
+                      key={w}
+                      type="button"
+                      className={draft?.frame === fi && draft.word === wi ? "word-block on" : "word-block"}
+                      disabled={paused || said(f, w)}
+                      onClick={() =>
+                        setDraft(draft?.frame === fi && draft.word === wi ? null : { frame: fi, word: wi })
+                      }
+                    >
+                      {w}
+                    </button>
+                  ))}
+                </span>
+              </div>
+            );
+          })}
+          <button
+            type="button"
+            className="primary wide"
+            disabled={paused || !draft}
+            onClick={() => draft && go({ type: "say", frame: draft.frame, word: draft.word })}
+          >
+            {draftFrame && draftWord ? `说出：${draftFrame.text.replace(BLANK, draftWord)}` : "先挑一个词块"}
+          </button>
+        </div>
+      )}
+
+      {live && !describing && v.participants.includes(me) && (
         <TextForm
-          placeholder="输入你的猜测"
+          placeholder="想到就猜，可以一直猜"
           button="猜"
           maxLength={20}
           disabled={paused}
@@ -82,33 +134,47 @@ export function BlatherGame({ view, room, paused, act }: GameProps) {
         />
       )}
       {v.guesses.length > 0 && (
-        <div className="word-log">
+        <QaLog>
           {v.guesses.map((g, i) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: the log is append-only
-            <div key={i} className={g.close === false ? "word invalid" : "word"}>
-              <span className="who">{name(g.by)}</span>
-              <span className="text">
-                {g.text}
-                {g.close === true && " 🔥 接近"}
-                {g.close === false && " ✗"}
-              </span>
-              {describing && v.phase === "describe" && g.close === null && (
-                <span className="host-row">
-                  <button type="button" onClick={() => go({ type: "react", index: i, close: true })}>
-                    接近
-                  </button>
-                  <button type="button" onClick={() => go({ type: "react", index: i, close: false })}>
-                    不对
-                  </button>
-                </span>
-              )}
-            </div>
+            <Qa
+              // biome-ignore lint/suspicious/noArrayIndexKey: the log is append-only
+              key={i}
+              room={room}
+              by={g.by}
+              text={g.text}
+              stamp={g.close === true ? "🔥 接近" : g.close === false ? "✗ 不对" : null}
+              tone={g.close === true ? "mid" : g.close === false ? "no" : undefined}
+              aside={
+                describing &&
+                live &&
+                g.close === null && (
+                  <>
+                    <button
+                      type="button"
+                      className="verdict-btn mid"
+                      title="接近"
+                      onClick={() => go({ type: "react", index: i, close: true })}
+                    >
+                      🔥
+                    </button>
+                    <button
+                      type="button"
+                      className="verdict-btn no"
+                      title="不对"
+                      onClick={() => go({ type: "react", index: i, close: false })}
+                    >
+                      ✗
+                    </button>
+                  </>
+                )
+              }
+            />
           ))}
-        </div>
+        </QaLog>
       )}
 
       <HostControls isHost={room.me.isHost} waitNote={v.phase === "reveal" ? "等待房主继续…" : undefined}>
-        {v.phase === "describe" && (
+        {live && (
           <button type="button" disabled={paused} onClick={() => go({ type: "advance" })}>
             没人猜得出，直接揭晓
           </button>

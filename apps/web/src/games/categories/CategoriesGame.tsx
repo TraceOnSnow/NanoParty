@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
 import type { GameProps } from "../registry.tsx";
 import { useAct } from "../shared.ts";
+import { Seats } from "../table.tsx";
 import { GameHead, HostControls, lastRound, roundLabel, TextForm, useNames } from "../ui.tsx";
 
 interface View {
@@ -27,12 +27,6 @@ export function CategoriesGame({ view, room, paused, act }: GameProps) {
   const { error, send } = useAct(act);
   const go = (action: object) => send({ ...action, step: v.step });
   const myTurn = v.phase === "playing" && v.current === me;
-  const listRef = useRef<HTMLDivElement>(null);
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: follow the newest word
-  useEffect(() => {
-    listRef.current?.scrollTo({ top: listRef.current.scrollHeight });
-  }, [v.words.length]);
 
   return (
     <div className="game">
@@ -46,31 +40,38 @@ export function CategoriesGame({ view, room, paused, act }: GameProps) {
         {v.category.hint && <span className="muted small">　{v.category.hint}</span>}
       </h2>
 
-      <ul className="chips">
-        {v.participants.map((id) => {
+      <Seats
+        room={room}
+        ids={v.participants}
+        wide
+        current={v.phase === "playing" ? v.current : null}
+        out={v.out.map((o) => o.playerId)}
+        win={v.phase === "roundOver" && v.winner ? [v.winner] : []}
+        note={(id) => {
           const out = v.out.find((o) => o.playerId === id);
-          return (
-            <li
-              key={id}
-              className={`chip ${out ? "out" : ""} ${v.phase === "playing" && v.current === id ? "turn" : ""}`}
-            >
-              {name(id)}
-              {out ? `（${OUT_LABEL[out.reason]}）` : ""}
-            </li>
-          );
-        })}
-      </ul>
-
-      <div className="word-log" ref={listRef}>
-        {v.words.length === 0 && <p className="muted">还没有人说词。</p>}
-        {v.words.map((w, i) => (
-          // biome-ignore lint/suspicious/noArrayIndexKey: the log is append-only
-          <div key={i} className={w.invalid ? "word invalid" : "word"}>
-            <span className="who">{name(w.playerId)}</span>
-            <span className="text">{w.text}</span>
-          </div>
-        ))}
-      </div>
+          return out ? <span className="tag">{OUT_LABEL[out.reason]}</span> : null;
+        }}
+      >
+        {(id) => (
+          <span className="said-words">
+            {v.words
+              .filter((w) => w.playerId === id)
+              .map((w, i) => (
+                // biome-ignore lint/suspicious/noArrayIndexKey: the log is append-only
+                <span key={i} className={w.invalid ? "mini-card free" : "mini-card"}>
+                  {w.invalid ? <s>{w.text}</s> : w.text}
+                </span>
+              ))}
+            {v.words.every((w) => w.playerId !== id) && <span className="muted small">还没说</span>}
+          </span>
+        )}
+      </Seats>
+      {v.words.length > 0 && (
+        <p className="muted small">
+          刚说的：<strong>{v.words.at(-1)?.text}</strong>（{name(v.words.at(-1)?.playerId ?? "")}）　已经有{" "}
+          {v.words.length} 个词，不能重复。
+        </p>
+      )}
 
       {v.phase === "playing" &&
         (myTurn ? (

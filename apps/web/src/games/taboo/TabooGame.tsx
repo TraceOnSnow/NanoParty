@@ -1,3 +1,4 @@
+import { Avatar, Who } from "../../components/Avatar.tsx";
 import type { GameProps } from "../registry.tsx";
 import { useAct } from "../shared.ts";
 import { GameHead, HostControls, roundLabel, TextForm, useNames } from "../ui.tsx";
@@ -30,47 +31,64 @@ export function TabooGame({ view, room, paused, act }: GameProps) {
   return (
     <div className="game">
       <GameHead label={roundLabel(v.turn, v.totalTurns, "回合")} deadlineAt={v.deadlineAt} paused={paused} />
-      <p className="muted">
-        描述者：<strong>{name(v.describer)}</strong>　裁判：<strong>{name(v.referee)}</strong>
+      <p className="role-line">
+        <span>
+          描述 <Who room={room} id={v.describer} />
+        </span>
+        <span>
+          裁判 <Who room={room} id={v.referee} />
+        </span>
       </p>
 
       {v.phase === "describe" && v.card && (
-        <div className="card taboo-card">
-          <h2>{v.card.word}</h2>
-          <p className="muted small">{describing ? "在语音里描述它，但不能说：" : "你是裁判，听到这些词就判犯规："}</p>
+        <div className="taboo-card">
+          <strong className="taboo-word">{v.card.word}</strong>
+          <p className="muted small">
+            {describing ? "在语音里描述它，但这些词不能说：" : "你是裁判：听到下面任何一个词就按犯规。"}
+          </p>
           <ul className="chips">
             {v.card.taboo.map((w) => (
-              <li key={w} className="chip undercover">
+              <li key={w} className="chip banned">
                 {w}
               </li>
             ))}
           </ul>
-          <div className="host-row">
-            {describing && (
-              <button type="button" disabled={paused} onClick={() => go({ type: "pass" })}>
-                跳过这个词
-              </button>
-            )}
-            {judging && (
-              <button type="button" disabled={paused} onClick={() => go({ type: "foul" })}>
-                犯规！
-              </button>
-            )}
-          </div>
+          {describing && (
+            <button type="button" disabled={paused} onClick={() => go({ type: "pass" })}>
+              跳过这个词
+            </button>
+          )}
+          {judging && (
+            <button type="button" className="buzzer" disabled={paused} onClick={() => go({ type: "foul" })}>
+              犯规！
+            </button>
+          )}
         </div>
       )}
       {v.phase === "describe" && !v.card && (
-        <TextForm
-          placeholder={`听 ${name(v.describer)} 的描述，输入你的猜测`}
-          button="猜"
-          maxLength={20}
-          disabled={paused}
-          resetKey={v.step}
-          onSubmit={(text) => go({ type: "guess", text })}
-        />
+        <>
+          <p className="muted">听 {name(v.describer)} 在语音里描述，想到就打出来，可以一直猜。</p>
+          <TextForm
+            placeholder="你猜是什么"
+            button="猜"
+            maxLength={20}
+            disabled={paused}
+            resetKey={v.step}
+            onSubmit={(text) => go({ type: "guess", text })}
+          />
+        </>
       )}
       {v.phase === "describe" && v.guesses.length > 0 && (
-        <p className="muted">猜过：{v.guesses.map((g) => `${name(g.by)}「${g.text}」`).join("　")}</p>
+        <div className="trick-strip">
+          <span className="muted small">猜过</span>
+          {v.guesses.map((g, i) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: guesses are append-only
+            <span key={i} className="trick-play">
+              <Avatar room={room} id={g.by} size="s" />
+              {g.text}
+            </span>
+          ))}
+        </div>
       )}
 
       {v.played.length > 0 && (

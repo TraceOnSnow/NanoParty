@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { GameProps } from "../registry.tsx";
 import { useAct } from "../shared.ts";
+import { Qa, QaLog, type Tone } from "../talk.tsx";
 import { GameHead, HostControls, lastRound, roundLabel, TextForm, useNames } from "../ui.tsx";
 
 type Verdict = "yes" | "no" | "irrelevant" | "partly" | "unknown" | "clarify";
@@ -54,6 +55,8 @@ export function SoupGame({ view, room, paused, act }: GameProps) {
   const { error, send } = useAct(act);
   const go = (action: object) => send({ ...action, step: v.step });
   const [fixing, setFixing] = useState<number | null>(null);
+  const [solving, setSolving] = useState(false);
+  const [theory, setTheory] = useState("");
   const isMaster = v.master === me;
   const ai = v.mode === "ai";
   const playing = v.phase === "play";
@@ -62,79 +65,167 @@ export function SoupGame({ view, room, paused, act }: GameProps) {
   const canAsk = playing && !v.knowsSolution && v.participants.includes(me);
   const aiDown = ai && v.log.some((e) => e.status === "failed");
 
+  const TONE: Record<Outcome, Tone> = {
+    yes: "yes",
+    no: "no",
+    irrelevant: "off",
+    partly: "mid",
+    unknown: "off",
+    clarify: "off",
+    correct: "win",
+    wrong: "no",
+    hint: "off",
+  };
+  const short = (k: Outcome) => LABEL[k].split("，")[0] as string;
+  const settled = v.log.filter((e) => e.kind === "question" && e.status === "answered");
+  const clues = (k: Verdict) => settled.filter((e) => e.verdict === k);
+  const todo = !ai && isMaster && playing ? v.log.filter(pending).length : 0;
+
   return (
-    <div className="game">
+    <div className="game soup">
       <GameHead
-        label={`${roundLabel(v.round, v.totalRounds)} · ${ai ? "AI 主持" : `汤主：${name(v.master)}`}`}
+        label={`${roundLabel(v.round, v.totalRounds, "碗")} · ${ai ? "AI 主持" : `汤主：${name(v.master)}`}`}
         deadlineAt={playing ? v.deadlineAt : null}
         paused={paused}
       />
-      <div className="card">
-        <span className="muted small">汤面</span>
+      <div className="soup-surface">
+        <span className="soup-label">🍲 汤面</span>
         <h2 className="question">{v.surface}</h2>
       </div>
       {v.solution && (
         <div className="card soup-solution">
-          <span className="muted small">{playing ? "汤底（只有你能看到，别说出来）" : "汤底"}</span>
+          <span className="soup-label">{playing ? "🤫 汤底（只有你能看到，别说出来）" : "🥄 汤底"}</span>
           <p>{v.solution}</p>
         </div>
       )}
+      {todo > 0 && <p className="turn-line mine">有 {todo} 条等你回答，标黄的就是。</p>}
 
-      <ul className="describe-list soup-log">
+      {settled.length >= 4 && (
+        <details className="clue-board" open>
+          <summary>
+            线索板：是 {clues("yes").length} · 不是 {clues("no").length} · 部分 {clues("partly").length}
+          </summary>
+          <div className="clue-cols">
+            {(["yes", "partly", "no"] as const).map(
+              (k) =>
+                clues(k).length > 0 && (
+                  <div key={k} className={`clue-col ${TONE[k]}`}>
+                    <b>{short(k)}</b>
+                    {clues(k).map((e) => (
+                      <span key={e.id}>{e.text}</span>
+                    ))}
+                  </div>
+                ),
+            )}
+          </div>
+        </details>
+      )}
+
+      <QaLog className="soup-log">
         {v.log.length === 0 && <li className="muted">还没有人提问。在下面输入一个能用「是 / 不是」回答的问题。</li>}
-        {v.log.map((e) => (
-          <li key={e.id} className={e.verdict === "correct" ? "picked" : e.status === "failed" ? "wrong" : ""}>
-            <span className="who">{e.kind === "hint" ? "提示" : name(e.by)}</span>
-            <span className="text">
-              {e.kind === "attempt" && <span className="tag">推理</span>}{" "}
-              {e.kind === "hint" ? (e.reply ?? "…") : e.text}
-              {e.corrections.length > 0 && (
-                <span className="muted small">
-                  <br />
-                  已更正：原为「{LABEL[e.corrections.at(-1)?.from ?? "unknown"]}」
-                  {e.corrections.at(-1)?.by === "ai" ? "（AI 重判）" : `（${name(e.corrections.at(-1)?.by ?? "")}）`}
-                  {e.corrections.at(-1)?.reason ? `：${e.corrections.at(-1)?.reason}` : ""}
-                </span>
+        {v.log.map((e) => {
+          const fix = e.corrections.at(-1);
+          const fixRow = playing && e.status === "answered" && e.kind === "question" && (
+            <span className="soup-fix">
+              {e.flagged.length > 0 && <span className="tag">{e.flagged.length} 人觉得判错了</span>}
+              {!e.flagged.includes(me) && v.participants.includes(me) && !v.knowsSolution && (
+                <button type="button" className="link" disabled={paused} onClick={() => go({ type: "flag", id: e.id })}>
+                  判错了？
+                </button>
               )}
-            </span>
-
-            {e.status === "answered" && e.kind !== "hint" && e.verdict && (
-              <strong className={e.verdict === "yes" || e.verdict === "correct" ? "plus" : ""}>
-                {LABEL[e.verdict]}
-              </strong>
-            )}
-            {e.status === "queued" && <span className="muted small">{ai ? "排队中…" : "等汤主…"}</span>}
-            {e.status === "judging" && <span className="muted small">AI 判定中…</span>}
-            {e.status === "failed" && (
-              <span className="host-row">
-                <span className="error small">AI 没答上来</span>
-                {(e.by === me || room.me.isHost) && playing && (
-                  <button type="button" disabled={paused} onClick={() => go({ type: "rejudge", id: e.id })}>
-                    重试
-                  </button>
-                )}
-              </span>
-            )}
-
-            {/* The soup master answers. */}
-            {playing && !ai && isMaster && pending(e) && (
-              <span className="host-row">
-                {e.kind === "question" ? (
-                  ANSWERS.map((k) => (
+              {ai && room.me.isHost && (
+                <button
+                  type="button"
+                  className="link"
+                  disabled={paused}
+                  onClick={() => go({ type: "rejudge", id: e.id })}
+                >
+                  让 AI 重判
+                </button>
+              )}
+              {v.knowsSolution &&
+                (fixing === e.id ? (
+                  ANSWERS.filter((k) => k !== e.verdict).map((k) => (
                     <button
                       key={k}
                       type="button"
                       disabled={paused}
+                      onClick={async () => {
+                        if (await go({ type: "correct", id: e.id, verdict: k })) setFixing(null);
+                      }}
+                    >
+                      改为 {short(k)}
+                    </button>
+                  ))
+                ) : (
+                  <button type="button" className="link" onClick={() => setFixing(e.id)}>
+                    更正
+                  </button>
+                ))}
+            </span>
+          );
+          return (
+            <Qa
+              key={e.id}
+              room={room}
+              by={e.kind === "hint" ? undefined : e.by}
+              label="提示"
+              text={
+                <>
+                  {e.kind === "attempt" && <span className="tag">推理</span>}{" "}
+                  {e.kind === "hint" ? (e.reply ?? "…") : e.text}
+                </>
+              }
+              note={
+                fix && (
+                  <span className="muted small">
+                    已更正：原为「{LABEL[fix.from ?? "unknown"]}」
+                    {fix.by === "ai" ? "（AI 重判）" : `（${name(fix.by)}）`}
+                    {fix.reason ? `：${fix.reason}` : ""}
+                  </span>
+                )
+              }
+              stamp={e.status === "answered" && e.kind !== "hint" && e.verdict ? short(e.verdict) : null}
+              tone={e.status === "failed" ? "no" : e.status === "answered" && e.verdict ? TONE[e.verdict] : undefined}
+              waiting={
+                e.status === "queued" ? (ai ? "排队中…" : "等汤主…") : e.status === "judging" ? "AI 判定中…" : null
+              }
+              todo={playing && !ai && isMaster && pending(e)}
+              aside={fixing !== e.id && fixRow}
+            >
+              {e.status === "failed" && (
+                <>
+                  <span className="error small">AI 没答上来</span>
+                  {(e.by === me || room.me.isHost) && playing && (
+                    <button type="button" disabled={paused} onClick={() => go({ type: "rejudge", id: e.id })}>
+                      重试
+                    </button>
+                  )}
+                </>
+              )}
+
+              {/* The soup master answers. */}
+              {playing &&
+                !ai &&
+                isMaster &&
+                pending(e) &&
+                (e.kind === "question" ? (
+                  ANSWERS.map((k) => (
+                    <button
+                      key={k}
+                      type="button"
+                      className={`verdict-btn ${TONE[k]}`}
+                      disabled={paused}
                       onClick={() => go({ type: "answer", id: e.id, verdict: k })}
                     >
-                      {LABEL[k].split("，")[0]}
+                      {short(k)}
                     </button>
                   ))
                 ) : (
                   <>
                     <button
                       type="button"
-                      className="primary"
+                      className="verdict-btn win"
                       disabled={paused}
                       onClick={() => go({ type: "judge", id: e.id, correct: true })}
                     >
@@ -142,68 +233,51 @@ export function SoupGame({ view, room, paused, act }: GameProps) {
                     </button>
                     <button
                       type="button"
+                      className="verdict-btn no"
                       disabled={paused}
                       onClick={() => go({ type: "judge", id: e.id, correct: false })}
                     >
                       不对
                     </button>
                   </>
-                )}
-              </span>
-            )}
+                ))}
 
-            {/* Corrections: report, re-judge, or fix by someone who knows the story. */}
-            {playing && e.status === "answered" && e.kind === "question" && (
-              <span className="host-row soup-fix">
-                {e.flagged.length > 0 && <span className="tag">{e.flagged.length} 人觉得判错了</span>}
-                {!e.flagged.includes(me) && v.participants.includes(me) && !v.knowsSolution && (
-                  <button
-                    type="button"
-                    className="link"
-                    disabled={paused}
-                    onClick={() => go({ type: "flag", id: e.id })}
-                  >
-                    判错了？
-                  </button>
-                )}
-                {ai && room.me.isHost && (
-                  <button
-                    type="button"
-                    className="link"
-                    disabled={paused}
-                    onClick={() => go({ type: "rejudge", id: e.id })}
-                  >
-                    让 AI 重判
-                  </button>
-                )}
-                {v.knowsSolution &&
-                  (fixing === e.id ? (
-                    ANSWERS.filter((k) => k !== e.verdict).map((k) => (
-                      <button
-                        key={k}
-                        type="button"
-                        disabled={paused}
-                        onClick={async () => {
-                          if (await go({ type: "correct", id: e.id, verdict: k })) setFixing(null);
-                        }}
-                      >
-                        改为 {LABEL[k].split("，")[0]}
-                      </button>
-                    ))
-                  ) : (
-                    <button type="button" className="link" onClick={() => setFixing(e.id)}>
-                      更正
-                    </button>
-                  ))}
-              </span>
-            )}
-          </li>
-        ))}
-      </ul>
+              {fixing === e.id && fixRow}
+            </Qa>
+          );
+        })}
+      </QaLog>
 
       {canAsk &&
         (waiting ? (
           <p className="muted">{ai ? "AI 正在判定你上一条…" : "等汤主回答你上一条…"}</p>
+        ) : solving ? (
+          <form
+            className="solve-form"
+            onSubmit={async (ev) => {
+              ev.preventDefault();
+              if (theory.trim() && (await go({ type: "solve", text: theory.trim() }))) {
+                setTheory("");
+                setSolving(false);
+              }
+            }}
+          >
+            <textarea
+              value={theory}
+              maxLength={200}
+              rows={3}
+              placeholder={`把来龙去脉写完整：谁、做了什么、为什么（由${ai ? " AI " : "汤主"}判断）`}
+              onChange={(ev) => setTheory(ev.target.value)}
+            />
+            <span className="host-row">
+              <button type="submit" className="primary" disabled={paused || !theory.trim()}>
+                提交推理
+              </button>
+              <button type="button" onClick={() => setSolving(false)}>
+                再问问
+              </button>
+            </span>
+          </form>
         ) : (
           <>
             <TextForm
@@ -214,14 +288,9 @@ export function SoupGame({ view, room, paused, act }: GameProps) {
               resetKey={v.log.length}
               onSubmit={(text) => go({ type: "ask", text })}
             />
-            <TextForm
-              placeholder={`知道了？写下完整推理（由${ai ? " AI " : "汤主"}判断）`}
-              button="提交推理"
-              maxLength={200}
-              disabled={paused}
-              resetKey={v.log.length}
-              onSubmit={(text) => go({ type: "solve", text })}
-            />
+            <button type="button" className="solve-open" disabled={paused} onClick={() => setSolving(true)}>
+              💡 我知道真相了，写推理
+            </button>
           </>
         ))}
       {playing && v.knowsSolution && (
@@ -249,7 +318,7 @@ export function SoupGame({ view, room, paused, act }: GameProps) {
             )}
           </p>
           {v.facts && v.facts.length > 0 && (
-            <div className="card">
+            <div className="card soup-facts">
               <span className="muted small">关键事实 · 谁最先问出来（仅供参考，不是评分）</span>
               <ul className="facts">
                 {v.facts.map((f) => (
@@ -264,7 +333,7 @@ export function SoupGame({ view, room, paused, act }: GameProps) {
       )}
 
       {playing && (
-        <div className="host-row">
+        <div className="host-row soup-tools">
           {ai && room.me.isHost && (
             <button type="button" disabled={paused} onClick={() => go({ type: "hint" })}>
               要一条提示

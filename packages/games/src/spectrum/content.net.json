@@ -1,0 +1,362 @@
+[
+  {
+    "id": "spectrum-net-001",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "i人",
+      "right": "e人"
+    }
+  },
+  {
+    "id": "spectrum-net-002",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "卷",
+      "right": "躺"
+    }
+  },
+  {
+    "id": "spectrum-net-003",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "老实人",
+      "right": "显眼包"
+    }
+  },
+  {
+    "id": "spectrum-net-004",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "社恐",
+      "right": "社牛"
+    }
+  },
+  {
+    "id": "spectrum-net-005",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "抽象",
+      "right": "正常"
+    }
+  },
+  {
+    "id": "spectrum-net-006",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "下头",
+      "right": "上头"
+    }
+  },
+  {
+    "id": "spectrum-net-007",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "阴间作息",
+      "right": "阳间作息"
+    }
+  },
+  {
+    "id": "spectrum-net-008",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "班味很重",
+      "right": "毫无班味"
+    }
+  },
+  {
+    "id": "spectrum-net-009",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "清汤寡水",
+      "right": "重口味"
+    }
+  },
+  {
+    "id": "spectrum-net-010",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "人间清醒",
+      "right": "恋爱脑"
+    }
+  },
+  {
+    "id": "spectrum-net-011",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "省钱",
+      "right": "报复性消费"
+    }
+  },
+  {
+    "id": "spectrum-net-012",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "适合一个人做",
+      "right": "适合一群人做"
+    }
+  },
+  {
+    "id": "spectrum-net-013",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "小学生喜欢",
+      "right": "退休大爷喜欢"
+    }
+  },
+  {
+    "id": "spectrum-net-014",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "花钱买罪受",
+      "right": "花钱买快乐"
+    }
+  },
+  {
+    "id": "spectrum-net-015",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "看起来很贵",
+      "right": "看起来很便宜"
+    }
+  },
+  {
+    "id": "spectrum-net-016",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "越吃越瘦",
+      "right": "越吃越胖"
+    }
+  },
+  {
+    "id": "spectrum-net-017",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "适合发朋友圈",
+      "right": "只敢发小号"
+    }
+  },
+  {
+    "id": "spectrum-net-018",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "一分钟就能学会",
+      "right": "一辈子也学不会"
+    }
+  },
+  {
+    "id": "spectrum-net-019",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "没人在乎",
+      "right": "全网吵翻"
+    }
+  },
+  {
+    "id": "spectrum-net-020",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "越早知道越好",
+      "right": "不知道比较好"
+    }
+  },
+  {
+    "id": "spectrum-net-021",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "令人安心",
+      "right": "令人紧张"
+    }
+  },
+  {
+    "id": "spectrum-net-022",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "浪费时间",
+      "right": "值得花时间"
+    }
+  },
+  {
+    "id": "spectrum-net-023",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "童年回忆",
+      "right": "新鲜玩意"
+    }
+  },
+  {
+    "id": "spectrum-net-024",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "很下饭",
+      "right": "倒胃口"
+    }
+  },
+  {
+    "id": "spectrum-net-025",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "应该免费",
+      "right": "多贵都值"
+    }
+  },
+  {
+    "id": "spectrum-net-026",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "越老越值钱",
+      "right": "越新越值钱"
+    }
+  },
+  {
+    "id": "spectrum-net-027",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "被低估了",
+      "right": "被吹过头了"
+    }
+  },
+  {
+    "id": "spectrum-net-028",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "想当邻居",
+      "right": "不想当邻居"
+    }
+  },
+  {
+    "id": "spectrum-net-029",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "适合当礼物",
+      "right": "千万别送"
+    }
+  },
+  {
+    "id": "spectrum-net-030",
+    "version": 1,
+    "type": "spectrum",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "left": "南方人懂",
+      "right": "北方人懂"
+    }
+  }
+]

@@ -23,7 +23,9 @@ export async function openRoom({ players = 4, names, outDir }) {
   const network = [];
   const pages = [];
   for (const [i, seat] of seats.entries()) {
-    const context = await browser.newContext({ viewport: { width: 1366, height: 860 } });
+    // WIDTH=390 reviews the phone layout.
+    const width = Number(process.env.WIDTH ?? 1366);
+    const context = await browser.newContext({ viewport: { width, height: width < 700 ? 800 : 860 } });
     await context.addInitScript(([k, v]) => localStorage.setItem(k, v), [`apr:session:${roomId}`, seat.sessionToken]);
     const page = await context.newPage();
     page.on("pageerror", (e) => problems.push(`[${seat.nickname}] page error: ${e.message}`));
@@ -67,7 +69,7 @@ export async function openRoom({ players = 4, names, outDir }) {
       const failed = results.filter((r) => !r.ok);
       writeFileSync(
         `${outDir}/${name}.json`,
-        JSON.stringify({ name, base: BASE, roomId, at: new Date().toISOString(), results, problems }, null, 2),
+        `${JSON.stringify({ name, base: BASE, roomId, at: new Date().toISOString(), results, problems }, null, 2)}\n`,
       );
       console.log(
         `\n${name}: ${results.length - failed.length}/${results.length} checks ok, ${problems.length} page problems`,
@@ -94,3 +96,9 @@ export async function click(page, selector, timeout = 4000) {
 
 export const has = async (page, selector) => (await page.locator(selector).locator("visible=true").count()) > 0;
 export const text = async (page, selector) => (await page.locator(selector).allInnerTexts()).join("\n");
+
+/** Starts a game from the lobby: choose its tile, then press the start button of the detail panel. */
+export async function startGame(page, name) {
+  await page.locator(".game-tile", { has: page.locator(`.cover-name:text-is("${name}")`) }).click();
+  await page.locator(".game-detail button.primary").click();
+}

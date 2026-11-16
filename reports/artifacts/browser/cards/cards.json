@@ -1,0 +1,63 @@
+{
+  "name": "cards",
+  "base": "http://localhost:3100",
+  "roomId": "room_X7uUgluygBC1",
+  "at": "2026-11-16T03:48:57.275Z",
+  "results": [
+    {
+      "id": "CT-01",
+      "text": "点一张牌：桌上标出它会落在哪一行",
+      "ok": true,
+      "evidence": "CT-01-1.png"
+    },
+    {
+      "id": "CT-02",
+      "text": "把牌拖到桌上就是暗出，手里少一张",
+      "ok": true,
+      "evidence": "CT-02-1.png"
+    },
+    {
+      "id": "CT-03",
+      "text": "把筹码拖到桌上等于说不要，牌上多一个筹码",
+      "ok": true,
+      "evidence": "CT-03-1.png"
+    },
+    {
+      "id": "CT-04",
+      "text": "把牌拖到自己面前等于收下",
+      "ok": true,
+      "evidence": "CT-04-1.png"
+    },
+    {
+      "id": "CT-05",
+      "text": "压牌出清：点牌后说明它的强度和会压掉谁",
+      "ok": true,
+      "evidence": "CT-05-1.png"
+    },
+    {
+      "id": "CT-06",
+      "text": "确认后牌出现在自己座位前",
+      "ok": true,
+      "evidence": "CT-06-1.png"
+    },
+    {
+      "id": "CT-07",
+      "text": "暗牌对决：选牌再点人（或确认）后出牌进入记录",
+      "ok": true,
+      "evidence": "CT-07-1.png"
+    },
+    {
+      "id": "CT-08",
+      "text": "翻牌诈唬：每人拖一张到桌上，四堆各一张",
+      "ok": true,
+      "evidence": "CT-08-1.png"
+    },
+    {
+      "id": "CT-09",
+      "text": "合作吃墩：认领完任务后把牌拖到桌上，牌出现在座位前",
+      "ok": true,
+      "evidence": "CT-09-1.png"
+    }
+  ],
+  "problems": []
+}

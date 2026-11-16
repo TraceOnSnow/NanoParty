@@ -1,0 +1,1262 @@
+[
+  {
+    "id": "wordpair-net-001",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "摸鱼",
+      "b": "划水"
+    }
+  },
+  {
+    "id": "wordpair-net-002",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "躺平",
+      "b": "摆烂"
+    }
+  },
+  {
+    "id": "wordpair-net-003",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "社恐",
+      "b": "i人"
+    }
+  },
+  {
+    "id": "wordpair-net-004",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "社牛",
+      "b": "e人"
+    }
+  },
+  {
+    "id": "wordpair-net-005",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "打工人",
+      "b": "社畜"
+    }
+  },
+  {
+    "id": "wordpair-net-006",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "吃瓜",
+      "b": "看热闹"
+    }
+  },
+  {
+    "id": "wordpair-net-007",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "种草",
+      "b": "安利"
+    }
+  },
+  {
+    "id": "wordpair-net-008",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "塌房",
+      "b": "翻车"
+    }
+  },
+  {
+    "id": "wordpair-net-009",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "杠精",
+      "b": "键盘侠"
+    }
+  },
+  {
+    "id": "wordpair-net-010",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "热搜",
+      "b": "头条"
+    }
+  },
+  {
+    "id": "wordpair-net-011",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "弹幕",
+      "b": "评论区"
+    }
+  },
+  {
+    "id": "wordpair-net-012",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "表情包",
+      "b": "梗图"
+    }
+  },
+  {
+    "id": "wordpair-net-013",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "点赞",
+      "b": "收藏"
+    }
+  },
+  {
+    "id": "wordpair-net-014",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "直播",
+      "b": "短视频"
+    }
+  },
+  {
+    "id": "wordpair-net-015",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "主播",
+      "b": "UP主"
+    }
+  },
+  {
+    "id": "wordpair-net-016",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "粉丝",
+      "b": "路人"
+    }
+  },
+  {
+    "id": "wordpair-net-017",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "拉黑",
+      "b": "删好友"
+    }
+  },
+  {
+    "id": "wordpair-net-018",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "已读不回",
+      "b": "不读不回"
+    }
+  },
+  {
+    "id": "wordpair-net-019",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "朋友圈",
+      "b": "QQ空间"
+    }
+  },
+  {
+    "id": "wordpair-net-020",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "群聊",
+      "b": "私聊"
+    }
+  },
+  {
+    "id": "wordpair-net-021",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "语音条",
+      "b": "语音通话"
+    }
+  },
+  {
+    "id": "wordpair-net-022",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "破防",
+      "b": "心态崩了"
+    }
+  },
+  {
+    "id": "wordpair-net-023",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "画饼",
+      "b": "打鸡血"
+    }
+  },
+  {
+    "id": "wordpair-net-024",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "情绪价值",
+      "b": "安全感"
+    }
+  },
+  {
+    "id": "wordpair-net-025",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "精神内耗",
+      "b": "焦虑"
+    }
+  },
+  {
+    "id": "wordpair-net-026",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "周报",
+      "b": "日报"
+    }
+  },
+  {
+    "id": "wordpair-net-027",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "团建",
+      "b": "年会"
+    }
+  },
+  {
+    "id": "wordpair-net-028",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "年终奖",
+      "b": "压岁钱"
+    }
+  },
+  {
+    "id": "wordpair-net-029",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "甲方",
+      "b": "老板"
+    }
+  },
+  {
+    "id": "wordpair-net-030",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "加班",
+      "b": "值班"
+    }
+  },
+  {
+    "id": "wordpair-net-031",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "调休",
+      "b": "请假"
+    }
+  },
+  {
+    "id": "wordpair-net-032",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "跳槽",
+      "b": "辞职"
+    }
+  },
+  {
+    "id": "wordpair-net-033",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "面试",
+      "b": "相亲"
+    }
+  },
+  {
+    "id": "wordpair-net-034",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "实习生",
+      "b": "临时工"
+    }
+  },
+  {
+    "id": "wordpair-net-035",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "同事",
+      "b": "同学"
+    }
+  },
+  {
+    "id": "wordpair-net-036",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "工位",
+      "b": "课桌"
+    }
+  },
+  {
+    "id": "wordpair-net-037",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "通勤",
+      "b": "上学路上"
+    }
+  },
+  {
+    "id": "wordpair-net-038",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "打卡",
+      "b": "签到"
+    }
+  },
+  {
+    "id": "wordpair-net-039",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "考公",
+      "b": "考研"
+    }
+  },
+  {
+    "id": "wordpair-net-040",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "副业",
+      "b": "兼职"
+    }
+  },
+  {
+    "id": "wordpair-net-041",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "PPT",
+      "b": "Word文档"
+    }
+  },
+  {
+    "id": "wordpair-net-042",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "开会",
+      "b": "上课"
+    }
+  },
+  {
+    "id": "wordpair-net-043",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "绩效",
+      "b": "成绩单"
+    }
+  },
+  {
+    "id": "wordpair-net-044",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "早八",
+      "b": "早自习"
+    }
+  },
+  {
+    "id": "wordpair-net-045",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "挂科",
+      "b": "补考"
+    }
+  },
+  {
+    "id": "wordpair-net-046",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "班主任",
+      "b": "辅导员"
+    }
+  },
+  {
+    "id": "wordpair-net-047",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "宿舍",
+      "b": "合租房"
+    }
+  },
+  {
+    "id": "wordpair-net-048",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "食堂",
+      "b": "外卖"
+    }
+  },
+  {
+    "id": "wordpair-net-049",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "图书馆",
+      "b": "自习室"
+    }
+  },
+  {
+    "id": "wordpair-net-050",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "军训",
+      "b": "体育课"
+    }
+  },
+  {
+    "id": "wordpair-net-051",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "期中考",
+      "b": "期末考"
+    }
+  },
+  {
+    "id": "wordpair-net-052",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "寒假",
+      "b": "暑假"
+    }
+  },
+  {
+    "id": "wordpair-net-053",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "同桌",
+      "b": "室友"
+    }
+  },
+  {
+    "id": "wordpair-net-054",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "社团",
+      "b": "兴趣班"
+    }
+  },
+  {
+    "id": "wordpair-net-055",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "论文",
+      "b": "作文"
+    }
+  },
+  {
+    "id": "wordpair-net-056",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "毕业照",
+      "b": "证件照"
+    }
+  },
+  {
+    "id": "wordpair-net-057",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "家长会",
+      "b": "运动会"
+    }
+  },
+  {
+    "id": "wordpair-net-058",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "手游",
+      "b": "端游"
+    }
+  },
+  {
+    "id": "wordpair-net-059",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "氪金",
+      "b": "充会员"
+    }
+  },
+  {
+    "id": "wordpair-net-060",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "闪现",
+      "b": "传送"
+    }
+  },
+  {
+    "id": "wordpair-net-061",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "外挂",
+      "b": "bug"
+    }
+  },
+  {
+    "id": "wordpair-net-062",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "存档",
+      "b": "截图"
+    }
+  },
+  {
+    "id": "wordpair-net-063",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "排位",
+      "b": "匹配"
+    }
+  },
+  {
+    "id": "wordpair-net-064",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "队友",
+      "b": "对手"
+    }
+  },
+  {
+    "id": "wordpair-net-065",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "网吧",
+      "b": "电竞酒店"
+    }
+  },
+  {
+    "id": "wordpair-net-066",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "手柄",
+      "b": "键盘"
+    }
+  },
+  {
+    "id": "wordpair-net-067",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "通关",
+      "b": "毕业"
+    }
+  },
+  {
+    "id": "wordpair-net-068",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "抽卡",
+      "b": "开盲盒"
+    }
+  },
+  {
+    "id": "wordpair-net-069",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "皮肤",
+      "b": "装备"
+    }
+  },
+  {
+    "id": "wordpair-net-070",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "新手村",
+      "b": "训练营"
+    }
+  },
+  {
+    "id": "wordpair-net-071",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "主播",
+      "b": "职业选手"
+    }
+  },
+  {
+    "id": "wordpair-net-072",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "螺蛳粉",
+      "b": "臭豆腐"
+    }
+  },
+  {
+    "id": "wordpair-net-073",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "外卖",
+      "b": "预制菜"
+    }
+  },
+  {
+    "id": "wordpair-net-074",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "麻辣烫",
+      "b": "冒菜"
+    }
+  },
+  {
+    "id": "wordpair-net-075",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "火锅",
+      "b": "串串"
+    }
+  },
+  {
+    "id": "wordpair-net-076",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "烧烤",
+      "b": "铁板烧"
+    }
+  },
+  {
+    "id": "wordpair-net-077",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "炸鸡",
+      "b": "汉堡"
+    }
+  },
+  {
+    "id": "wordpair-net-078",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "泡面",
+      "b": "挂面"
+    }
+  },
+  {
+    "id": "wordpair-net-079",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "辣条",
+      "b": "薯片"
+    }
+  },
+  {
+    "id": "wordpair-net-080",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "珍珠",
+      "b": "椰果"
+    }
+  },
+  {
+    "id": "wordpair-net-081",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "冰美式",
+      "b": "中药"
+    }
+  },
+  {
+    "id": "wordpair-net-082",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "自助餐",
+      "b": "食堂"
+    }
+  },
+  {
+    "id": "wordpair-net-083",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "夜宵",
+      "b": "早餐"
+    }
+  },
+  {
+    "id": "wordpair-net-084",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "汤圆",
+      "b": "元宵"
+    }
+  },
+  {
+    "id": "wordpair-net-085",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "粽子",
+      "b": "月饼"
+    }
+  },
+  {
+    "id": "wordpair-net-086",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "豆浆",
+      "b": "豆腐脑"
+    }
+  },
+  {
+    "id": "wordpair-net-087",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "煎饼果子",
+      "b": "手抓饼"
+    }
+  },
+  {
+    "id": "wordpair-net-088",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "熬夜",
+      "b": "通宵"
+    }
+  },
+  {
+    "id": "wordpair-net-089",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "闹钟",
+      "b": "生物钟"
+    }
+  },
+  {
+    "id": "wordpair-net-090",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "盲盒",
+      "b": "彩票"
+    }
+  },
+  {
+    "id": "wordpair-net-091",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "自拍",
+      "b": "证件照"
+    }
+  },
+  {
+    "id": "wordpair-net-092",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "充电宝",
+      "b": "充电器"
+    }
+  },
+  {
+    "id": "wordpair-net-093",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "地铁",
+      "b": "公交"
+    }
+  },
+  {
+    "id": "wordpair-net-094",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "共享单车",
+      "b": "电动车"
+    }
+  },
+  {
+    "id": "wordpair-net-095",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "合租",
+      "b": "住宿舍"
+    }
+  },
+  {
+    "id": "wordpair-net-096",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "房东",
+      "b": "中介"
+    }
+  },
+  {
+    "id": "wordpair-net-097",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "压岁钱",
+      "b": "份子钱"
+    }
+  },
+  {
+    "id": "wordpair-net-098",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "春运",
+      "b": "早高峰"
+    }
+  },
+  {
+    "id": "wordpair-net-099",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "健身房",
+      "b": "操场"
+    }
+  },
+  {
+    "id": "wordpair-net-100",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "养猫",
+      "b": "养狗"
+    }
+  },
+  {
+    "id": "wordpair-net-101",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "广场舞",
+      "b": "健身操"
+    }
+  },
+  {
+    "id": "wordpair-net-102",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "保温杯",
+      "b": "水壶"
+    }
+  },
+  {
+    "id": "wordpair-net-103",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "口罩",
+      "b": "面膜"
+    }
+  },
+  {
+    "id": "wordpair-net-104",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "雨伞",
+      "b": "遮阳伞"
+    }
+  },
+  {
+    "id": "wordpair-net-105",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "a": "拖鞋",
+      "b": "凉鞋"
+    }
+  }
+]

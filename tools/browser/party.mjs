@@ -4,7 +4,7 @@
  * adjustment, ending the party, the recap and the second party.
  *   node tools/browser/party.mjs            (server: pnpm dev:test)
  */
-import { click, has, openRoom, sleep, text } from "./lib.mjs";
+import { click, has, openRoom, sleep, startGame, text } from "./lib.mjs";
 
 const room = await openRoom({
   players: 4,
@@ -19,7 +19,7 @@ const btn = (t) => `button:has-text("${t}")`;
 await check(
   "AC-26",
   "大厅显示派对状态、偏好入口和带封面的游戏卡",
-  (await has(host, ".party-card")) && (await has(host, ".game-card .cover")),
+  (await has(host, ".party-card")) && (await has(host, ".game-tile .cover-glyph")),
 );
 await click(pages[1], 'summary:has-text("调整派对偏好")');
 await pages[1].locator('.prefs input[placeholder^="我的建议"]').fill("想玩魂系主题");
@@ -35,10 +35,7 @@ await check(
 );
 
 // ---- Start 谁最可能 with endless rounds; the picker is not always the host
-await host
-  .locator(".game-card", { has: host.locator('.cover-name:text-is("谁最可能")') })
-  .locator("button.primary")
-  .click();
+await startGame(host, "谁最可能");
 await host.waitForSelector(".topic-picker");
 let state = await room.state();
 if (state.segment.state.pick.picker === seats[0].playerId) {
@@ -153,10 +150,7 @@ await check(
 );
 
 // ---- A second game is abandoned: no party points (AC-18)
-await host
-  .locator(".game-card", { has: host.locator('.cover-name:text-is("谁最可能")') })
-  .locator("button.primary")
-  .click();
+await startGame(host, "谁最可能");
 await host.waitForSelector(".topic-picker");
 await api("/autoplay", {});
 await click(host, btn("放弃本场"));

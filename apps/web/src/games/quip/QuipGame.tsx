@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { Who } from "../../components/Avatar.tsx";
+import { Slip, Slips, Stickers } from "../answers.tsx";
 import type { GameProps } from "../registry.tsx";
 import { useAct } from "../shared.ts";
 import { GameHead, HostControls, lastRound, Progress, roundLabel, TextForm, useNames } from "../ui.tsx";
@@ -24,6 +27,13 @@ export function QuipGame({ view, room, paused, act }: GameProps) {
   const { error, send } = useAct(act);
   const go = (action: object) => send({ ...action, step: v.step });
   const playing = v.participants.includes(me);
+  const [chosen, setChosen] = useState<number | null>(null);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: a new step means new options
+  useEffect(() => setChosen(null), [v.step]);
+  const canVote = v.phase === "vote" && playing && v.myVote == null && !paused;
+  // Fewest votes first, so the favourite is the last one to appear.
+  const revealed = [...(v.reveal ?? [])].sort((a, b) => a.voters.length - b.voters.length || a.points - b.points);
+  const best = Math.max(0, ...revealed.map((r) => r.voters.length));
 
   return (
     <div className="game">
@@ -58,47 +68,56 @@ export function QuipGame({ view, room, paused, act }: GameProps) {
 
       {v.phase === "vote" && v.options && (
         <>
-          <p className="muted">回答已匿名展示，投给你最喜欢的一个（不能投自己的）。</p>
-          <ul className="describe-list">
+          <p className="muted">
+            {v.myVote != null ? "投好了，等其他人…" : "回答是匿名的。点你最喜欢的一个，再确认（不能投自己的）。"}
+          </p>
+          <Slips>
             {v.options.map((o) => (
-              <li key={o.index} className={v.myVote === o.index ? "picked" : ""}>
-                <span className="text">{o.text}</span>
-                {o.mine ? (
-                  <span className="tag">我写的</span>
-                ) : v.myVote === o.index ? (
-                  <span className="tag">已投</span>
-                ) : (
-                  playing &&
-                  v.myVote == null && (
-                    <button type="button" disabled={paused} onClick={() => go({ type: "vote", index: o.index })}>
-                      投这个
-                    </button>
-                  )
-                )}
-              </li>
+              <Slip
+                key={o.index}
+                selected={chosen === o.index || v.myVote === o.index}
+                disabled={!canVote || o.mine}
+                stamp={o.mine ? "我写的" : v.myVote === o.index ? "已投" : undefined}
+                onClick={() => setChosen(o.index)}
+              >
+                {o.text}
+              </Slip>
             ))}
-          </ul>
+          </Slips>
+          {canVote && (
+            <button
+              type="button"
+              className="primary wide"
+              disabled={chosen === null}
+              onClick={() => chosen !== null && go({ type: "vote", index: chosen })}
+            >
+              {chosen === null ? "点一张最好笑的" : "投这个"}
+            </button>
+          )}
           <Progress ids={v.participants} done={v.submitted} name={name} />
         </>
       )}
 
       {v.phase === "reveal" && v.reveal && (
-        <ul className="describe-list">
-          {v.reveal.length === 0 && <li className="muted">这一轮没有人作答。</li>}
-          {v.reveal.map((r) => (
-            <li key={r.playerId} className={r.points > r.voters.length ? "picked" : ""}>
-              <span className="who">{name(r.playerId)}</span>
-              <span className="text">
-                {r.text}
-                <br />
-                <span className="muted small">
-                  {r.voters.length > 0 ? `${r.voters.map(name).join("、")} 投了 TA` : "没有人投"}
-                </span>
-              </span>
-              {r.points > 0 && <strong className="plus">+{r.points}</strong>}
-            </li>
+        <Slips>
+          {revealed.length === 0 && <p className="muted">这一轮没有人作答。</p>}
+          {revealed.map((r, i) => (
+            <Slip
+              key={r.playerId}
+              order={i}
+              tone={best > 0 && r.voters.length === best ? "good" : "plain"}
+              stamp={r.points > 0 ? `+${r.points}` : undefined}
+              foot={
+                <>
+                  <Who room={room} id={r.playerId} />
+                  <Stickers room={room} ids={r.voters} label={`${r.voters.length} 票`} />
+                </>
+              }
+            >
+              {r.text}
+            </Slip>
           ))}
-        </ul>
+        </Slips>
       )}
 
       <HostControls isHost={room.me.isHost} waitNote={v.phase === "reveal" ? "等待房主继续…" : undefined}>

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { Slip, Slips, Stickers } from "../answers.tsx";
 import type { GameProps } from "../registry.tsx";
 import { useAct } from "../shared.ts";
 import { GameHead, HostControls, lastRound, Progress, roundLabel, TextForm, useNames } from "../ui.tsx";
@@ -24,6 +26,14 @@ export function BluffGame({ view, room, paused, act }: GameProps) {
   const { error, send } = useAct(act);
   const go = (action: object) => send({ ...action, step: v.step });
   const playing = v.participants.includes(me);
+  const [chosen, setChosen] = useState<number | null>(null);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: a new step means new options
+  useEffect(() => setChosen(null), [v.step]);
+  const canPick = v.phase === "select" && playing && v.myPick == null && !paused;
+  // Lies first (the ones that fooled fewest first), the truth last.
+  const revealed = [...(v.reveal?.options ?? [])].sort(
+    (a, b) => Number(a.truth) - Number(b.truth) || a.pickers.length - b.pickers.length,
+  );
 
   return (
     <div className="game">
@@ -58,41 +68,56 @@ export function BluffGame({ view, room, paused, act }: GameProps) {
 
       {v.phase === "select" && v.options && (
         <>
-          <p className="muted">其中只有一个是真的。选出你相信的那个。</p>
-          <div className="pick-grid">
+          <p className="muted">
+            其中只有一个是真的。{v.myPick != null ? "你选好了，等其他人…" : "点一张你相信的，再确认。"}
+          </p>
+          <Slips>
             {v.options.map((o) => (
-              <button
+              <Slip
                 key={o.index}
-                type="button"
-                className={v.myPick === o.index ? "pick picked" : "pick"}
-                disabled={paused || !playing || o.mine || v.myPick != null}
-                onClick={() => go({ type: "pick", index: o.index })}
+                selected={chosen === o.index || v.myPick === o.index}
+                disabled={!canPick || o.mine}
+                stamp={o.mine ? "我编的" : v.myPick === o.index ? "我信这个" : undefined}
+                onClick={() => setChosen(o.index)}
               >
                 {o.text}
-                {o.mine ? "（我编的）" : ""}
-              </button>
+              </Slip>
             ))}
-          </div>
+          </Slips>
+          {canPick && (
+            <button
+              type="button"
+              className="primary wide"
+              disabled={chosen === null}
+              onClick={() => chosen !== null && go({ type: "pick", index: chosen })}
+            >
+              {chosen === null ? "点一张你相信的" : "就信这个"}
+            </button>
+          )}
           <Progress ids={v.participants} done={v.submitted} name={name} />
         </>
       )}
 
       {v.phase === "reveal" && v.reveal && (
         <>
-          <ul className="describe-list">
-            {v.reveal.options.map((o) => (
-              <li key={o.text} className={o.truth ? "picked" : ""}>
-                <span className="text">
-                  <strong>{o.text}</strong>
-                  <br />
-                  <span className="muted small">
-                    {o.truth ? "✔ 真答案" : `${o.authors.map(name).join("、")} 编的`}
-                    {o.pickers.length > 0 ? ` · ${o.pickers.map(name).join("、")} 选了它` : " · 没人选"}
-                  </span>
-                </span>
-              </li>
+          <Slips>
+            {revealed.map((o, i) => (
+              <Slip
+                key={o.text}
+                order={i}
+                tone={o.truth ? "good" : "plain"}
+                stamp={o.truth ? "真的！" : o.pickers.length > 0 ? `骗到 ${o.pickers.length} 人` : undefined}
+                foot={
+                  <>
+                    {!o.truth && <Stickers room={room} ids={o.authors} label="编的人" />}
+                    <Stickers room={room} ids={o.pickers} label={o.truth ? "看穿的人" : "上当的人"} />
+                  </>
+                }
+              >
+                {o.text}
+              </Slip>
             ))}
-          </ul>
+          </Slips>
           {v.reveal.note && <p className="muted">{v.reveal.note}</p>}
         </>
       )}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { GameProps } from "../registry.tsx";
 import { useAct } from "../shared.ts";
 import { TEAM, TeamBar } from "../teams.tsx";
@@ -34,6 +34,10 @@ export function WordGridGame({ view, room, paused, act }: GameProps) {
   const go = (action: object) => send({ ...action, step: v.step });
   const [word, setWord] = useState("");
   const [count, setCount] = useState(1);
+  /** A word is chosen first and confirmed second: one slip of the finger can lose the game. */
+  const [chosen, setChosen] = useState<number | null>(null);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: a new step means the board changed
+  useEffect(() => setChosen(null), [v.step]);
   const myTurn = v.myTeam === v.turn;
   const canGuess = v.phase === "guess" && myTurn && !v.isCaptain;
 
@@ -43,6 +47,8 @@ export function WordGridGame({ view, room, paused, act }: GameProps) {
       <TeamBar
         teams={v.teams}
         name={name}
+        room={room}
+        me={room.me.playerId}
         note={[`还剩 ${v.remaining[0]}`, `还剩 ${v.remaining[1]}`]}
         badge={(p) => (v.captains.includes(p) ? "队长" : null)}
         active={v.phase === "gameOver" ? null : v.turn}
@@ -73,16 +79,19 @@ export function WordGridGame({ view, room, paused, act }: GameProps) {
           <button
             key={w}
             type="button"
-            className={`grid-word owner-${v.owners[i] ?? "unknown"}${v.revealed[i] ? " revealed" : ""}`}
+            className={`grid-word owner-${v.owners[i] ?? "unknown"}${v.revealed[i] ? " revealed" : ""}${chosen === i ? " chosen" : ""}`}
             disabled={!canGuess || paused || v.revealed[i]}
-            onClick={() => go({ type: "guess", index: i })}
+            onClick={() => setChosen(chosen === i ? null : i)}
           >
+            {v.revealed[i] && v.owners[i] === "trap" ? "💀 " : ""}
             {w}
           </button>
         ))}
       </div>
       {v.isCaptain && v.phase !== "gameOver" && (
-        <p className="muted small">你是队长：红 / 蓝边框是两队的词，灰色是路人，黑底是陷阱。变暗的是已翻开的。</p>
+        <p className="muted small">
+          你是队长，只有你看得到底色：红底、蓝底是两队的词，米色是路人，深色是陷阱。实心的是已经翻开的。
+        </p>
       )}
 
       {v.phase === "clue" && myTurn && v.isCaptain && (
@@ -94,22 +103,34 @@ export function WordGridGame({ view, room, paused, act }: GameProps) {
           }}
         >
           <input value={word} onChange={(e) => setWord(e.target.value)} maxLength={12} placeholder="提示词" />
-          <select value={count} onChange={(e) => setCount(Number(e.target.value))}>
-            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
-              <option key={n} value={n}>
-                {n} 个
-              </option>
-            ))}
-          </select>
+          <span className="stepper">
+            <button type="button" disabled={count <= 0} onClick={() => setCount((n) => Math.max(0, n - 1))}>
+              −
+            </button>
+            <strong>{count} 个</strong>
+            <button type="button" disabled={count >= 9} onClick={() => setCount((n) => Math.min(9, n + 1))}>
+              ＋
+            </button>
+          </span>
           <button type="submit" className="primary" disabled={paused}>
             给出提示
           </button>
         </form>
       )}
       {canGuess && (
-        <button type="button" disabled={paused} onClick={() => go({ type: "stop" })}>
-          不点了，结束回合
-        </button>
+        <div className="host-row">
+          <button
+            type="button"
+            className="primary"
+            disabled={paused || chosen === null}
+            onClick={() => chosen !== null && go({ type: "guess", index: chosen })}
+          >
+            {chosen === null ? "先点一个词" : `确认翻开「${v.words[chosen]}」`}
+          </button>
+          <button type="button" disabled={paused} onClick={() => go({ type: "stop" })}>
+            不点了，结束回合
+          </button>
+        </div>
       )}
 
       {v.log.length > 0 && (

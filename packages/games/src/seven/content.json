@@ -1,0 +1,23 @@
+[
+  {
+    "id": "seven-theme-001",
+    "version": 1,
+    "type": "seven-theme",
+    "theme": "通用",
+    "source": "自制（项目内置）",
+    "verification": "unverified",
+    "payload": {
+      "name": "夜市",
+      "suits": [
+        { "label": "小吃" },
+        { "label": "饮料" },
+        { "label": "摊主" },
+        { "label": "天气" },
+        { "label": "熟人" },
+        { "label": "麻烦" },
+        { "label": "运气" },
+        { "label": "地方" }
+      ]
+    }
+  }
+]

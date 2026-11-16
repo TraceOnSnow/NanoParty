@@ -184,6 +184,17 @@ AI_MOCK=true pnpm dev:test                     # 同上，用模拟模型
 
 `TEST_MODE=true` 会开放 `/api/test/*`（以任意玩家身份操作、读取完整游戏状态），**只用于本机或专用测试环境**；不设置时这些路由根本不存在。
 
+## 静态试玩版
+
+不需要服务器的版本：线下聚会时大家各拿手机输入同一个房间号，页面负责出题和发身份（17 款）；也可以一个人看一局演示（一个真人加三个脚本玩家）。构建出来是一组静态文件，可以放在个人主页或 Vercel 上。
+
+```bash
+pnpm demo:build      # 输出到 apps/web/dist-demo
+pnpm demo:preview    # http://localhost:4173
+```
+
+它和正式版的区别、部署方式见 [docs/static-demo.md](docs/static-demo.md)。
+
 ## 仓库结构
 
 ```
@@ -203,3 +214,17 @@ docs/            架构说明、ADR、各游戏规则规格
 ## 许可
 
 [PolyForm Noncommercial License 1.0.0](LICENSE.md)：可以自由用于个人和其他非商业用途（自己部署和朋友玩、学习、修改、分享）；不允许商业使用。内置题库与代码采用相同许可。
+
+## 私有内容包
+
+朋友之间的梗、外号做成的主题和题目不适合进公开仓库。把它们写成 JSON 放在项目目录下的 `private-content/`（已被 git 忽略），服务启动时会加载进题库；不用 Docker 时用 `CONTENT_DIR` 指向任意目录。
+
+每个文件是一个数组，每项为 `{ "id", "type", "payload", "version"?, "theme"? }`，`type` 和 `payload` 的格式与内置题库相同（见 `packages/games/src/contentTypes.ts`）。已经加载过的 `id + version` 不会被覆盖，修改内容时把 `version` 加一。
+
+例：给「凑一桌」换一套自己的材料名（`weight` 高的主题优先使用）：
+
+```json
+[{ "id": "my-platter", "type": "platter-theme", "payload": { "name": "自己人", "weight": 10, "kinds": [{ "label": "甲" }, { "label": "乙" }, { "label": "丙" }, { "label": "丁" }, { "label": "戊" }, { "label": "己" }] } }]
+```
+
+同一个目录里的 `game-notes.json` 可以给游戏加只在这台服务器上显示的叫法和备注（例如这群人习惯的称呼），格式为 `{ "<游戏 id>": { "alias": "显示名", "note": "一句备注" } }`，两项都可省略。它只影响大厅和标题栏的显示，规则、记录和 AI 仍使用游戏本身的名称。

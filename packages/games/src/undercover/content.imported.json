@@ -1,0 +1,3674 @@
+[
+  {
+    "id": "wordpair-yz-culture-001",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "小说",
+      "b": "漫画"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-002",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "电影",
+      "b": "电视剧"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-003",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "唱歌",
+      "b": "跳舞"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-004",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "小提琴",
+      "b": "架子鼓"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-005",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "话剧",
+      "b": "魔术"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-006",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "画画",
+      "b": "摄影"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-007",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "书法",
+      "b": "雕塑"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-008",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "童话",
+      "b": "新闻"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-009",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "诗歌",
+      "b": "散文"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-010",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "喜剧片",
+      "b": "恐怖片"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-011",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "独唱",
+      "b": "合唱"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-012",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "相声",
+      "b": "小品"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-013",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "剪纸",
+      "b": "折纸"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-014",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "油画",
+      "b": "水墨画"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-015",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "乐谱",
+      "b": "剧本"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-016",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "掌声",
+      "b": "喝彩"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-017",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "字幕",
+      "b": "配音"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-018",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "节拍",
+      "b": "旋律"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-019",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "木偶戏",
+      "b": "皮影戏"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-020",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "原唱版本",
+      "b": "翻唱版本"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-021",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "民谣",
+      "b": "摇滚"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-022",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "说唱",
+      "b": "快板"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-023",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "片头曲",
+      "b": "片尾曲"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-024",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "旁白",
+      "b": "独白"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-025",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "配音",
+      "b": "音效"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-026",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "漫画",
+      "b": "动画"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-027",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "漫画",
+      "b": "绘本"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-028",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "有声书",
+      "b": "广播剧"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-029",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "外传",
+      "b": "续集"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-030",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "重拍",
+      "b": "修复"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-031",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "倒叙",
+      "b": "插叙"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-032",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "比喻",
+      "b": "拟人"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-033",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "夸张",
+      "b": "反复"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-034",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "押韵",
+      "b": "对仗"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-035",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "相声",
+      "b": "脱口秀"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-036",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "哑剧",
+      "b": "舞剧"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-037",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "音乐剧",
+      "b": "歌剧"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-038",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "票房",
+      "b": "收视率"
+    }
+  },
+  {
+    "id": "wordpair-yz-culture-039",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "文化",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "楷书",
+      "b": "草书"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-040",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "牙刷",
+      "b": "梳子"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-041",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "纸巾",
+      "b": "毛巾"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-042",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "枕头",
+      "b": "靠垫"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-043",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "被子",
+      "b": "毯子"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-044",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "杯子",
+      "b": "碗"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-045",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "盘子",
+      "b": "托盘"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-046",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "筷子",
+      "b": "勺子"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-047",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "菜刀",
+      "b": "剪刀"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-048",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "扫帚",
+      "b": "拖把"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-049",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "垃圾桶",
+      "b": "脏衣篮"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-050",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "洗衣机",
+      "b": "烘干机"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-051",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "衣柜",
+      "b": "鞋柜"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-052",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "椅子",
+      "b": "凳子"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-053",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "拖鞋",
+      "b": "运动鞋"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-054",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "短裤",
+      "b": "裙子"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-055",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "手套",
+      "b": "袜子"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-056",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "帽子",
+      "b": "围巾"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-057",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "肥皂",
+      "b": "洗发水"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-058",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "纽扣",
+      "b": "拉链"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-059",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "洗衣液",
+      "b": "柔顺剂"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-060",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "洁面乳",
+      "b": "沐浴露"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-061",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "发胶",
+      "b": "发蜡"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-062",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "面霜",
+      "b": "身体乳"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-063",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "遮阳帽",
+      "b": "遮阳伞"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-064",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "羽绒服",
+      "b": "棉服"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-065",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "风衣",
+      "b": "雨披"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-066",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "领带",
+      "b": "领结"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-067",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "别针",
+      "b": "回形针"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-068",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "抽纸",
+      "b": "卷纸"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-069",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "樟脑丸",
+      "b": "干燥剂"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-070",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "洗手液",
+      "b": "免洗消毒液"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-071",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "厨房秤",
+      "b": "体重秤"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-072",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "熨斗",
+      "b": "挂烫机"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-073",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "折叠床",
+      "b": "沙发床"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-074",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "床单",
+      "b": "床笠"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-075",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "收纳箱",
+      "b": "行李箱"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-076",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "指甲剪",
+      "b": "指甲锉"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-077",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "防晒霜",
+      "b": "驱蚊液"
+    }
+  },
+  {
+    "id": "wordpair-yz-daily-078",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "日常",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "热水袋",
+      "b": "冰袋"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-079",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "饺子",
+      "b": "包子"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-080",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "馒头",
+      "b": "花卷"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-081",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "油条",
+      "b": "麻花"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-082",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "可乐",
+      "b": "橙汁"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-083",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "苹果",
+      "b": "梨"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-084",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "橙子",
+      "b": "柚子"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-085",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "草莓",
+      "b": "蓝莓"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-086",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "土豆",
+      "b": "红薯"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-087",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "黄瓜",
+      "b": "丝瓜"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-088",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "香菇",
+      "b": "木耳"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-089",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "鸡蛋",
+      "b": "鸭蛋"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-090",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "豆腐",
+      "b": "腐竹"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-091",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "饼干",
+      "b": "薯片"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-092",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "冰棍",
+      "b": "果冻"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-093",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "棒棒糖",
+      "b": "口香糖"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-094",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "火锅",
+      "b": "烧烤"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-095",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "生抽",
+      "b": "老抽"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-096",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "白醋",
+      "b": "陈醋"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-097",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "白砂糖",
+      "b": "冰糖"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-098",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "果酱",
+      "b": "蜂蜜"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-099",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "面粉",
+      "b": "淀粉"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-100",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "酵母",
+      "b": "泡打粉"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-101",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "菜籽油",
+      "b": "猪油"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-102",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "动物奶油",
+      "b": "植物奶油"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-103",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "淡奶油",
+      "b": "奶酪"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-104",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "可可粉",
+      "b": "咖啡粉"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-105",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "黑巧克力",
+      "b": "白巧克力"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-106",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "米醋",
+      "b": "料酒"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-107",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "八角",
+      "b": "桂皮"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-108",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "花椒",
+      "b": "胡椒"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-109",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "葱",
+      "b": "韭菜"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-110",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "香菜",
+      "b": "芹菜"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-111",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "生姜",
+      "b": "大蒜"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-112",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "莲藕",
+      "b": "山药"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-113",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "年糕",
+      "b": "糍粑"
+    }
+  },
+  {
+    "id": "wordpair-yz-food-114",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "吃喝",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "凉皮",
+      "b": "凉粉"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-115",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "老师",
+      "b": "学生"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-116",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "厨师",
+      "b": "服务员"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-117",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "消防员",
+      "b": "救生员"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-118",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "司机",
+      "b": "飞行员"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-119",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "农民",
+      "b": "园丁"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-120",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "快递员",
+      "b": "外卖员"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-121",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "记者",
+      "b": "主持人"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-122",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "歌手",
+      "b": "演员"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-123",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "画家",
+      "b": "摄影师"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-124",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "理发师",
+      "b": "化妆师"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-125",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "裁缝",
+      "b": "鞋匠"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-126",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "木匠",
+      "b": "瓦工"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-127",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "电工",
+      "b": "水管工"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-128",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "售货员",
+      "b": "收银员"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-129",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "导游",
+      "b": "游客"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-130",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "运动员",
+      "b": "教练"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-131",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "法官",
+      "b": "律师"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-132",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "房东",
+      "b": "租客"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-133",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "心理咨询师",
+      "b": "精神科医生"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-134",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "康复治疗师",
+      "b": "健身教练"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-135",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "外科医生",
+      "b": "内科医生"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-136",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "检察官",
+      "b": "法官"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-137",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "客服专员",
+      "b": "销售顾问"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-138",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "调解员",
+      "b": "人民陪审员"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-139",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "图书管理员",
+      "b": "档案管理员"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-140",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "文物修复师",
+      "b": "文物鉴定师"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-141",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "建筑设计师",
+      "b": "结构工程师"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-142",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "室内设计师",
+      "b": "陈列师"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-143",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "程序员",
+      "b": "软件测试员"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-144",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "应聘者",
+      "b": "面试官"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-145",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "导游",
+      "b": "领队"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-146",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "空中乘务员",
+      "b": "列车乘务员"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-147",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "调音师",
+      "b": "灯光师"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-148",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "配音演员",
+      "b": "拟音师"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-149",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "裁判",
+      "b": "解说员"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-150",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "验光师",
+      "b": "配镜师"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-151",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "花艺师",
+      "b": "园林设计师"
+    }
+  },
+  {
+    "id": "wordpair-yz-jobs-152",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "职业",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "焊工",
+      "b": "车工"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-153",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "猫",
+      "b": "狗"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-154",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "狮子",
+      "b": "老虎"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-155",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "大象",
+      "b": "长颈鹿"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-156",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "企鹅",
+      "b": "北极熊"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-157",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "海豚",
+      "b": "鲨鱼"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-158",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "乌龟",
+      "b": "蜗牛"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-159",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "青蛙",
+      "b": "鸭子"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-160",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "松树",
+      "b": "柳树"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-161",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "玫瑰",
+      "b": "向日葵"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-162",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "竹子",
+      "b": "仙人掌"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-163",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "山峰",
+      "b": "山谷"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-164",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "沙漠",
+      "b": "草原"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-165",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "海洋",
+      "b": "湖泊"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-166",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "火山",
+      "b": "冰山"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-167",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "晴天",
+      "b": "雨天"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-168",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "闪电",
+      "b": "彩虹"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-169",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "雪花",
+      "b": "冰雹"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-170",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "日出",
+      "b": "日落"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-171",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "月亮",
+      "b": "太阳"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-172",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "海狮",
+      "b": "海豹"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-173",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "骆驼",
+      "b": "羊驼"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-174",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "松鼠",
+      "b": "仓鼠"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-175",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "刺猬",
+      "b": "豪猪"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-176",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "飞蛾",
+      "b": "蝴蝶"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-177",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "蝉",
+      "b": "蟋蟀"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-178",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "鲤鱼",
+      "b": "鲫鱼"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-179",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "水獭",
+      "b": "海狸"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-180",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "天鹅",
+      "b": "白鹭"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-181",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "松树",
+      "b": "柏树"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-182",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "桃花",
+      "b": "樱花"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-183",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "三叶草",
+      "b": "含羞草"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-184",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "露水",
+      "b": "雨水"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-185",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "雾",
+      "b": "霾"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-186",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "霜",
+      "b": "雪"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-187",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "潮汐",
+      "b": "海浪"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-188",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "台风",
+      "b": "龙卷风"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-189",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "丘陵",
+      "b": "山脉"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-190",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "高原",
+      "b": "平原"
+    }
+  },
+  {
+    "id": "wordpair-yz-nature-191",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "自然",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "北极",
+      "b": "南极"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-192",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "公交车",
+      "b": "出租车"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-193",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "火车",
+      "b": "飞机"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-194",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "自行车",
+      "b": "摩托车"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-195",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "高铁",
+      "b": "地铁"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-196",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "帆船",
+      "b": "潜水艇"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-197",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "救护车",
+      "b": "消防车"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-198",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "机场",
+      "b": "火车站"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-199",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "码头",
+      "b": "停车场"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-200",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "医院",
+      "b": "药店"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-201",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "学校",
+      "b": "图书馆"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-202",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "超市",
+      "b": "菜市场"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-203",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "银行",
+      "b": "邮局"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-204",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "餐厅",
+      "b": "食堂"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-205",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "酒店",
+      "b": "民宿"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-206",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "商场",
+      "b": "步行街"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-207",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "公园",
+      "b": "广场"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-208",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "动物园",
+      "b": "水族馆"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-209",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "游乐园",
+      "b": "植物园"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-210",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "电影院",
+      "b": "剧院"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-211",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "书店",
+      "b": "文具店"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-212",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "出发层",
+      "b": "到达层"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-213",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "登机牌",
+      "b": "机票"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-214",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "护照",
+      "b": "签证"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-215",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "单程票",
+      "b": "往返票"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-216",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "直达航班",
+      "b": "中转航班"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-217",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "经济舱",
+      "b": "商务舱"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-218",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "卧铺",
+      "b": "硬座"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-219",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "始发站",
+      "b": "终点站"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-220",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "进站口",
+      "b": "出站口"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-221",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "行李托运",
+      "b": "行李寄存"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-222",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "包车",
+      "b": "拼车"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-223",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "渡轮",
+      "b": "游轮"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-224",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "电动自行车",
+      "b": "电动滑板车"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-225",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "房车",
+      "b": "露营帐篷"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-226",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "自由行",
+      "b": "跟团游"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-227",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "海关",
+      "b": "边检"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-228",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "免税店",
+      "b": "便利店"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-229",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "观景台",
+      "b": "灯塔"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-230",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "防波堤",
+      "b": "防洪堤"
+    }
+  },
+  {
+    "id": "wordpair-yz-places-231",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "地点",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "盘山公路",
+      "b": "滨海公路"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-232",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "游泳",
+      "b": "跑步"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-233",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "跳绳",
+      "b": "跳远"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-234",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "骑自行车",
+      "b": "轮滑"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-235",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "滑雪",
+      "b": "滑冰"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-236",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "登山",
+      "b": "潜水"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-237",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "拔河",
+      "b": "举重"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-238",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "拳击",
+      "b": "击剑"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-239",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "排球",
+      "b": "网球"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-240",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "象棋",
+      "b": "围棋"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-241",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "跳棋",
+      "b": "五子棋"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-242",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "拼图",
+      "b": "积木"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-243",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "风筝",
+      "b": "纸飞机"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-244",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "飞镖",
+      "b": "保龄球"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-245",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "台球",
+      "b": "高尔夫"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-246",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "射箭",
+      "b": "射击"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-247",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "仰卧起坐",
+      "b": "俯卧撑"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-248",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "跳房子",
+      "b": "捉迷藏"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-249",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "健身操",
+      "b": "太极拳"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-250",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "网球",
+      "b": "壁球"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-251",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "棒球",
+      "b": "垒球"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-252",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "瑜伽",
+      "b": "普拉提"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-253",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "越野跑",
+      "b": "公路跑"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-254",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "慢跑",
+      "b": "快走"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-255",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "登山",
+      "b": "攀岩"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-256",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "滑板",
+      "b": "轮滑"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-257",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "双板滑雪",
+      "b": "单板滑雪"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-258",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "蝶泳",
+      "b": "蛙泳"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-259",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "单杠",
+      "b": "双杠"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-260",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "平板支撑",
+      "b": "俯卧撑"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-261",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "哑铃",
+      "b": "壶铃"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-262",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "护腕",
+      "b": "护膝"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-263",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "记分牌",
+      "b": "计时器"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-264",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "红牌",
+      "b": "黄牌"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-265",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "加时赛",
+      "b": "点球大战"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-266",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "淘汰赛",
+      "b": "循环赛"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-267",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "主场",
+      "b": "客场"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-268",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "正手",
+      "b": "反手"
+    }
+  },
+  {
+    "id": "wordpair-yz-sports-269",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "运动",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "发球",
+      "b": "接发球"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-270",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "手机",
+      "b": "电脑"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-271",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "摄像头",
+      "b": "麦克风"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-272",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "台式电脑",
+      "b": "笔记本电脑"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-273",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "打印机",
+      "b": "扫描仪"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-274",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "电视机",
+      "b": "投影仪"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-275",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "遥控器",
+      "b": "游戏手柄"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-276",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "智能手表",
+      "b": "机械手表"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-277",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "二维码",
+      "b": "条形码"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-278",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "拍照",
+      "b": "录像"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-279",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "复制",
+      "b": "粘贴"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-280",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "下载",
+      "b": "上传"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-281",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "开机",
+      "b": "关机"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-282",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "登录",
+      "b": "退出登录"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-283",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "搜索",
+      "b": "浏览"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-284",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "电子邮件",
+      "b": "短信"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-285",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "Wi-Fi",
+      "b": "蓝牙"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-286",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "触摸屏",
+      "b": "实体键盘"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-287",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "备份",
+      "b": "同步"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-288",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "撤回",
+      "b": "删除"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-289",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "置顶",
+      "b": "收藏"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-290",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "静音",
+      "b": "免打扰"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-291",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "蓝牙",
+      "b": "NFC"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-292",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "有线充电",
+      "b": "无线充电"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-293",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "光学变焦",
+      "b": "数码变焦"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-294",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "广角镜头",
+      "b": "长焦镜头"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-295",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "分辨率",
+      "b": "刷新率"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-296",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "壁纸",
+      "b": "屏保"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-297",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "休眠",
+      "b": "关机"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-298",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "触控板",
+      "b": "触摸屏"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-299",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "昵称",
+      "b": "账号"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-300",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "流量",
+      "b": "网速"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-301",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "书签",
+      "b": "浏览记录"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-302",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "无痕浏览",
+      "b": "清除记录"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-303",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "云存储",
+      "b": "本地存储"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-304",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "加密",
+      "b": "压缩"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-305",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "黑名单",
+      "b": "白名单"
+    }
+  },
+  {
+    "id": "wordpair-yz-tech-306",
+    "version": 1,
+    "type": "word-pair",
+    "theme": "数码",
+    "source": "github.com/Yue-Zeyi/undercover（词对表，作者未声明许可；注明出处引用）",
+    "verification": "unverified",
+    "payload": {
+      "a": "验证码",
+      "b": "安全问题"
+    }
+  }
+]

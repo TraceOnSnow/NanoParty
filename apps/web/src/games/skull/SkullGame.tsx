@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { GameProps } from "../registry.tsx";
 import { useAct } from "../shared.ts";
+import { Felt, PlayHand, Seats, Stepper } from "../table.tsx";
 import { GameHead, HostControls, useNames } from "../ui.tsx";
 
 type Disc = "flower" | "skull";
@@ -26,6 +27,10 @@ interface View {
 
 const ICON: Record<Disc, string> = { flower: "🌸", skull: "💀" };
 
+const DiscFace = ({ disc, small }: { disc: Disc | "back"; small?: boolean }) => (
+  <span className={`disc ${disc}${small ? " small" : ""}`}>{disc === "back" ? "" : ICON[disc]}</span>
+);
+
 export function SkullGame({ view, room, paused, act }: GameProps) {
   const v = view as View;
   const name = useNames(room);
@@ -34,114 +39,122 @@ export function SkullGame({ view, room, paused, act }: GameProps) {
   const go = (action: object) => send({ ...action, step: v.step });
   const [bid, setBid] = useState(1);
   const total = Object.values(v.stackSizes).reduce((a, b) => a + b, 0);
-  const myTurn = v.current === me;
+  const myTurn = v.current === me && !paused;
   const out = (v.discCounts[me] ?? 0) === 0;
-  const flowersLeft = (v.myDiscs?.flowers ?? 0) - v.myStack.filter((d) => d === "flower").length;
+  const flowersLeft = Math.max(0, (v.myDiscs?.flowers ?? 0) - v.myStack.filter((d) => d === "flower").length);
   const skullLeft = !!v.myDiscs?.skull && !v.myStack.includes("skull");
-  const placeButtons = (
-    <div className="host-row">
-      <button type="button" disabled={paused || flowersLeft <= 0} onClick={() => go({ type: "place", disc: "flower" })}>
-        放 {ICON.flower}（剩 {Math.max(0, flowersLeft)}）
-      </button>
-      <button type="button" disabled={paused || !skullLeft} onClick={() => go({ type: "place", disc: "skull" })}>
-        放 {ICON.skull}
-      </button>
-    </div>
-  );
+  const inHand: Disc[] = [...Array<Disc>(flowersLeft).fill("flower"), ...(skullLeft ? (["skull"] as Disc[]) : [])];
+  const canPlace =
+    !out && !paused && ((v.phase === "setup" && !v.placed.includes(me)) || (v.phase === "turns" && myTurn));
   const minBid = (v.bid?.value ?? 0) + 1;
+  const myBid = Math.min(Math.max(bid, minBid), Math.max(total, 1));
+  const flipping = v.phase === "flipping" && myTurn;
+  const hiddenOf = (p: string) => (v.stackSizes[p] ?? 0) - v.flipped.filter((f) => f.owner === p).length;
 
   return (
-    <div className="game">
+    <div className="game wide">
       <GameHead
-        label={`第 ${v.round} 轮 · 桌上 ${total} 张${v.bid ? ` · 当前喊价 ${v.bid.value}（${name(v.bid.player)}）` : ""}`}
+        label={`第 ${v.round} 轮 · 桌上 ${total} 张${v.bid ? ` · ${name(v.bid.player)} 喊 ${v.bid.value}` : ""}`}
         deadlineAt={v.deadlineAt}
         paused={paused}
       />
-      <table className="results">
-        <tbody>
-          {v.players.map((p) => {
+      <Felt>
+        <Seats
+          room={room}
+          ids={v.players}
+          current={v.phase === "roundOver" || v.phase === "setup" ? null : v.current}
+          out={v.players.filter((p) => (v.discCounts[p] ?? 0) === 0)}
+          win={v.winner ? [v.winner] : []}
+          pickable={(p) => flipping && p !== me && hiddenOf(p) > 0}
+          onPick={(p) => void go({ type: "flip", owner: p })}
+          note={(p) => (
+            <span className="tag">
+              {"★".repeat(v.wins[p] ?? 0)} 剩 {v.discCounts[p]} 张{v.passed.includes(p) ? " · 不跟" : ""}
+            </span>
+          )}
+        >
+          {(p) => {
             const flipped = v.flipped.filter((f) => f.owner === p);
-            const hidden = (v.stackSizes[p] ?? 0) - flipped.length;
+            const hidden = hiddenOf(p);
             return (
-              <tr
-                key={p}
-                className={
-                  p === v.current && v.phase !== "roundOver"
-                    ? "turn-row"
-                    : (v.discCounts[p] ?? 0) === 0
-                      ? "out-row"
-                      : ""
-                }
-              >
-                <td>
-                  {name(p)} {"★".repeat(v.wins[p] ?? 0)}
-                </td>
-                <td className="muted">
-                  剩 {v.discCounts[p]} 张{v.passed.includes(p) ? " · 放弃" : ""}
-                </td>
-                <td className="stack">
-                  {"🂠".repeat(Math.max(0, hidden))}
+              <>
+                <span className="disc-stack">
+                  {Array.from({ length: Math.max(0, hidden) }, (_, i) => (
+                    // biome-ignore lint/suspicious/noArrayIndexKey: identical face-down discs
+                    <DiscFace key={`h${i}`} disc="back" />
+                  ))}
                   {flipped.map((f, i) => (
                     // biome-ignore lint/suspicious/noArrayIndexKey: flips are positional
-                    <span key={i}>{ICON[f.disc]}</span>
+                    <DiscFace key={`f${i}`} disc={f.disc} />
                   ))}
-                </td>
-                <td>
-                  {v.phase === "flipping" && myTurn && p !== me && hidden > 0 && (
-                    <button type="button" disabled={paused} onClick={() => go({ type: "flip", owner: p })}>
-                      翻这堆
-                    </button>
-                  )}
-                </td>
-              </tr>
+                  {hidden + flipped.length === 0 && <span className="muted small">还没放</span>}
+                </span>
+                {flipping && p !== me && hidden > 0 && <span className="strength">点这里翻一张</span>}
+              </>
             );
-          })}
-        </tbody>
-      </table>
-      {v.myStack.length > 0 && (
-        <p className="notice">你的牌堆（从下到上）：{v.myStack.map((d) => ICON[d]).join(" ")}</p>
-      )}
+          }}
+        </Seats>
+        {v.phase === "flipping" && (
+          <p className="felt-note">
+            {name(v.current)} 要翻出 {v.bid?.value} 朵花，已经翻了 {v.flipped.length} 张。翻到 💀 就失败。
+          </p>
+        )}
+      </Felt>
 
-      {!out &&
-        v.phase === "setup" &&
-        (v.placed.includes(me) ? <p className="muted">等其他人放第一张…</p> : placeButtons)}
-      {!out && v.phase === "turns" && myTurn && (
-        <>
-          <p className="muted">再放一张，或者喊价：</p>
-          {placeButtons}
-          <BidRow
-            min={1}
-            max={total}
-            value={bid}
-            setValue={setBid}
-            onBid={() => go({ type: "bid", value: bid })}
-            paused={paused}
-          />
-        </>
-      )}
-      {v.phase === "bidding" && myTurn && (
-        <>
-          <BidRow
-            min={minBid}
-            max={total}
-            value={Math.max(bid, minBid)}
-            setValue={setBid}
-            onBid={() => go({ type: "bid", value: Math.max(bid, minBid) })}
-            paused={paused}
-          />
-          <button type="button" disabled={paused} onClick={() => go({ type: "pass" })}>
-            放弃
-          </button>
-        </>
-      )}
-      {v.phase === "flipping" && (
-        <p className="muted">
-          {myTurn
-            ? `你要翻出 ${v.bid?.value} 朵花：已翻 ${v.flipped.length}。挑别人的牌堆翻。`
-            : `${name(v.current)} 在翻牌…`}
+      {v.myStack.length > 0 && (
+        <p className="notice my-stack">
+          你盖下的（从下到上）：
+          {v.myStack.map((d, i) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: stack order
+            <DiscFace key={i} disc={d} small />
+          ))}
+          <span className="muted small">只有你看得到</span>
         </p>
       )}
-      {(v.phase === "turns" || v.phase === "bidding") && !myTurn && <p className="muted">等 {name(v.current)}…</p>}
+
+      {!out && (v.phase === "setup" || v.phase === "turns") && (
+        <>
+          <p className="muted">
+            {v.phase === "setup"
+              ? v.placed.includes(me)
+                ? "等其他人盖第一张…"
+                : "每人先盖一张：点一张再确认，或者直接拖到桌上。"
+              : v.current === me
+                ? "轮到你：再盖一张，或者开始喊价（喊了之后大家就不能再盖了）。"
+                : `等 ${name(v.current)}…`}
+          </p>
+          <PlayHand
+            cards={inHand}
+            face={(d) => <DiscFace disc={d} />}
+            enabled={canPlace}
+            confirm={(d) => `盖一张 ${ICON[d]}`}
+            onPlay={(d) => void go({ type: "place", disc: d })}
+            resetKey={v.step}
+            empty="手里没有可以盖的了"
+          />
+        </>
+      )}
+      {!out && myTurn && (v.phase === "turns" || v.phase === "bidding") && (
+        <div className="bid-row">
+          <span>我能翻出</span>
+          <Stepper value={myBid} min={minBid} max={Math.max(total, minBid)} unit=" 朵花" onChange={setBid} />
+          <button
+            type="button"
+            className="primary"
+            disabled={myBid > total}
+            onClick={() => go({ type: "bid", value: myBid })}
+          >
+            喊 {myBid}
+          </button>
+          {v.phase === "bidding" && (
+            <button type="button" onClick={() => go({ type: "pass" })}>
+              不跟
+            </button>
+          )}
+        </div>
+      )}
+      {v.phase === "bidding" && v.current !== me && <p className="muted">等 {name(v.current)} 喊价或不跟…</p>}
+      {flipping && <p className="muted">你自己的已经先翻开了。接下来点别人的牌堆，一张一张翻。</p>}
 
       {v.result && (
         <p className="answer">
@@ -159,35 +172,6 @@ export function SkullGame({ view, room, paused, act }: GameProps) {
         )}
       </HostControls>
       {error && <p className="error">{error}</p>}
-    </div>
-  );
-}
-
-function BidRow(props: {
-  min: number;
-  max: number;
-  value: number;
-  setValue(n: number): void;
-  onBid(): void;
-  paused: boolean;
-}) {
-  return (
-    <div className="answer-row">
-      <input
-        type="number"
-        min={props.min}
-        max={props.max}
-        value={props.value}
-        onChange={(e) => props.setValue(Number(e.target.value))}
-      />
-      <button
-        type="button"
-        className="primary"
-        disabled={props.paused || props.value < props.min || props.value > props.max}
-        onClick={props.onBid}
-      >
-        喊价 {props.value}
-      </button>
     </div>
   );
 }

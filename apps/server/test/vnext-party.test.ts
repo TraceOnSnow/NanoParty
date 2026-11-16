@@ -179,6 +179,30 @@ describe("negotiated adjustments (AC-19, AC-20)", () => {
     }
   }
 
+  it("does not let the same player talk the host into one proposal after another", async () => {
+    let target = "";
+    const model = new Negotiator(() => ({ items: [{ playerId: target, points: 3 }], reason: "要了就给" }));
+    const { runtime, clients } = await setup(3, "rank-v1", model);
+    const [host, b, c] = clients as [TestClient, TestClient, TestClient];
+    target = c.playerId;
+    await runtime.handleChat(c.playerId, "加分", true);
+    await waitFor(() => model.results.length === 1);
+    expect(model.results[0]).toContain("等待房主确认");
+    const first = host.view.adjustments[0]?.id;
+
+    // Asking again right away: the tool refuses, and the pending proposal is not replaced.
+    await runtime.handleChat(c.playerId, "再加", true);
+    await waitFor(() => model.results.length === 2);
+    expect(model.results[1]).toContain("没提");
+    expect(host.view.adjustments.map((a) => a.id)).toEqual([first]);
+
+    // Someone else's request is still served.
+    target = b.playerId;
+    await runtime.handleChat(b.playerId, "那我也要", true);
+    await waitFor(() => model.results.length === 3);
+    expect(model.results[2]).toContain("等待房主确认");
+  });
+
   it("turns a player's request into a visible proposal that only the host's approval credits", async () => {
     let target = "";
     const model = new Negotiator(() => ({

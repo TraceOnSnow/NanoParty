@@ -9,12 +9,14 @@
  *   so anything a client has seen survives a restart.
  * - Clients only ever receive `view(state, player)`; raw game state never leaves this class.
  */
+
 import { adaptPuzzle, botAction, contentTypes, games, soupContentSchema } from "@apr/games";
 import {
   type Ack,
   type AdjustmentView,
   type AgentInteractionSpec,
   type AiStatus,
+  AVATARS,
   type CandidateRecord,
   type CanvasEffect,
   type ChatMessageView,
@@ -22,6 +24,7 @@ import {
   type CommandEnvelope,
   type ContentItem,
   DEFAULT_PREFS,
+  defaultAvatar,
   formatTenths,
   type GameContext,
   type GameModule,
@@ -41,6 +44,7 @@ import {
 import { and, asc, desc, eq, inArray, isNull, sql } from "drizzle-orm";
 import type { AgentRoomContext, AgentRoomPort, AgentService } from "../agent/AgentService.ts";
 import type { GameAiService } from "../agent/GameAi.ts";
+import { type ChatLine, shapeChat } from "../agent/prompt.ts";
 import type { ContentService } from "../content/ContentService.ts";
 import type { Db } from "../db/client.ts";
 import {
@@ -79,6 +83,8 @@ export interface RuntimeDeps {
   agent: AgentService;
   /** Referee and other per-game model work; kept apart from the host agent. */
   gameAi: GameAiService;
+  /** This server's own names and remarks for games, shown in the lobby only. */
+  gameNotes?: Record<string, { alias?: string; note?: string }>;
   now?: () => number;
   random?: () => number;
 }
@@ -117,16 +123,26 @@ function pickerOf(state: unknown): PlayerId | null {
   return s.pick?.picker ?? s.giver ?? null;
 }
 
-const CHAT_HISTORY = 100;
-const AGENT_CHAT_CONTEXT = 20;
+/** Kept in memory per room: enough for the host to read a whole evening. */
+const CHAT_HISTORY = 600;
+/** Sent to a client when it joins. */
+const CHAT_HISTORY_SENT = 100;
+/** Players' lines from earlier parties shown to the host as a sample of how the group talks. */
+const EARLIER_CHAT_LINES = 40;
 const AI_MENTION = /@(ai|主持)/i;
+
+const toChatLine = (m: ChatMessageView): ChatLine => ({
+  kind: m.sender.kind,
+  speaker: m.sender.kind === "player" ? m.sender.nickname : m.sender.kind === "agent" ? "AI" : "系统",
+  text: m.text,
+});
 const MAX_CACHED_COMMANDS = 500;
 
 export class RoomRuntime implements AgentRoomPort {
   private queue: Promise<unknown> = Promise.resolve();
   private readonly connections = new Map<number, { playerId: PlayerId; send: Send; close?: () => void }>();
   private nextConnId = 1;
-  private readonly members = new Map<PlayerId, { id: PlayerId; nickname: string }>();
+  private readonly members = new Map<PlayerId, { id: PlayerId; nickname: string; avatar: string | null }>();
   private readonly scores = new Map<PlayerId, number>();
   private chat: ChatMessageView[] = [];
   private segment: LiveSegment | null = null;
@@ -205,7 +221,7 @@ export class RoomRuntime implements AgentRoomPort {
       .from(players)
       .where(and(eq(players.roomId, roomId), isNull(players.removedAt)))
       .orderBy(asc(players.createdAt))) {
-      rt.members.set(p.id, { id: p.id, nickname: p.nickname });
+      rt.members.set(p.id, { id: p.id, nickname: p.nickname, avatar: p.avatar });
     }
 
     const totals = await db
@@ -363,7 +379,7 @@ export class RoomRuntime implements AgentRoomPort {
       );
     if (!player) return null;
     if (!this.members.has(player.id)) {
-      this.members.set(player.id, { id: player.id, nickname: player.nickname });
+      this.members.set(player.id, { id: player.id, nickname: player.nickname, avatar: player.avatar ?? null });
     }
     return player.id;
   }
@@ -372,7 +388,7 @@ export class RoomRuntime implements AgentRoomPort {
   connect(playerId: PlayerId, send: Send, close?: () => void): () => void {
     const connId = this.nextConnId++;
     this.connections.set(connId, { playerId, send, close });
-    send(MSG.chatHistory, this.chat);
+    send(MSG.chatHistory, this.chat.slice(-CHAT_HISTORY_SENT));
     this.broadcast();
     return () => {
       if (this.connections.delete(connId)) this.broadcast();
@@ -569,6 +585,14 @@ export class RoomRuntime implements AgentRoomPort {
           suggestions: command.text ? [...rest, { playerId, text: command.text }].slice(-16) : rest,
         };
         await this.savePrefs();
+        this.broadcast();
+        return { ok: true };
+      }
+      case "setAvatar": {
+        // Checked here as well as in the protocol schema: only a picture from the list is ever stored.
+        if (!(AVATARS as readonly string[]).includes(command.avatar)) return { ok: false, error: "没有这个头像" };
+        await this.deps.db.update(players).set({ avatar: command.avatar }).where(eq(players.id, playerId));
+        member.avatar = command.avatar;
         this.broadcast();
         return { ok: true };
       }
@@ -1499,12 +1523,13 @@ export class RoomRuntime implements AgentRoomPort {
       members: [...this.members.values()].map((m) => ({
         id: m.id,
         nickname: m.nickname,
+        avatar: m.avatar ?? defaultAvatar(m.id),
         isHost: m.id === this.hostPlayerId,
         connected: this.isConnected(m.id),
       })),
       sessionId: this.sessionId,
       scoreboard: this.scoreboard(),
-      games: Object.values(games).map((g) => g.meta),
+      games: Object.values(games).map((g) => ({ ...g.meta, ...this.deps.gameNotes?.[g.meta.id] })),
       segment: seg
         ? {
             id: seg.id,
@@ -1682,14 +1707,13 @@ export class RoomRuntime implements AgentRoomPort {
         : null,
       state: lines.filter(Boolean).join("\n"),
       mode: this.prefs.hostMode,
-      // Only this party's chat: earlier parties are not the host's business.
-      recentChat: this.chat
-        .filter((m) => m.sessionId === this.sessionId)
-        .slice(-AGENT_CHAT_CONTEXT)
-        .map((m) => ({
-          speaker: m.sender.kind === "player" ? m.sender.nickname : m.sender.kind === "agent" ? "AI 主持" : "系统",
-          text: m.text,
-        })),
+      recentChat: shapeChat(this.chat.filter((m) => m.sessionId === this.sessionId).map(toChatLine)),
+      // Earlier parties are not the host's business, except as a sample of how these people talk.
+      earlierChat: this.chat
+        .filter((m) => m.sessionId !== this.sessionId && m.sender.kind === "player")
+        .slice(-EARLIER_CHAT_LINES)
+        .map(toChatLine)
+        .map((m) => ({ speaker: m.speaker, text: m.text.slice(0, 80) })),
       games: Object.values(games).map((g) => g.meta),
     };
   }

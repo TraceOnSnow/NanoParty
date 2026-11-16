@@ -1,5 +1,8 @@
+import { useState } from "react";
+import { Avatar, Who } from "../../components/Avatar.tsx";
 import type { GameProps } from "../registry.tsx";
 import { useAct } from "../shared.ts";
+import { CardBack, Felt, PlayHand } from "../table.tsx";
 import { GameHead, HostControls, Progress, useNames } from "../ui.tsx";
 
 interface Placement {
@@ -29,38 +32,32 @@ interface View {
 // Mirrors penaltyOf in @apr/games (display only; the server does the scoring).
 const penaltyOf = (card: number) => (card % 11 === 0 ? 5 : card % 10 === 0 ? 3 : card % 5 === 0 ? 2 : 1);
 
-function Card({
-  value,
-  onClick,
-  disabled,
-  selected,
-}: {
-  value: number;
-  onClick?: () => void;
-  disabled?: boolean;
-  selected?: boolean;
-}) {
+function Card({ value, selected }: { value: number; selected?: boolean }) {
   const penalty = penaltyOf(value);
-  const className = `card-face p${penalty}${selected ? " selected" : ""}`;
-  const body = (
-    <>
+  return (
+    <span className={`card-face p${penalty}${selected ? " selected" : ""}`}>
       <strong>{value}</strong>
       <span>{"●".repeat(penalty)}</span>
-    </>
+    </span>
   );
-  return onClick ? (
-    <button
-      type="button"
-      className={className}
-      onClick={onClick}
-      disabled={disabled}
-      aria-label={`出 ${value}（罚 ${penalty} 分）`}
-    >
-      {body}
-    </button>
-  ) : (
-    <span className={className}>{body}</span>
-  );
+}
+
+const ROW_LIMIT = 5;
+const rowPenalty = (row: number[]) => row.reduce((s, c) => s + penaltyOf(c), 0);
+
+/** Where a card would land if it were placed right now (display only; other cards may go first). */
+function landing(rows: number[][], card: number): { row: number; takes: boolean } {
+  let row = -1;
+  rows.forEach((r, i) => {
+    const last = r.at(-1) as number;
+    if (last < card && (row === -1 || last > (rows[row]?.at(-1) as number))) row = i;
+  });
+  if (row >= 0) return { row, takes: (rows[row] as number[]).length >= ROW_LIMIT };
+  row = 0;
+  rows.forEach((r, i) => {
+    if (rowPenalty(r) < rowPenalty(rows[row] as number[])) row = i;
+  });
+  return { row, takes: true };
 }
 
 export function RowCardsGame({ view, room, paused, act }: GameProps) {
@@ -70,6 +67,9 @@ export function RowCardsGame({ view, room, paused, act }: GameProps) {
   const { error, send } = useAct(act);
   const go = (action: object) => send({ ...action, step: v.step });
   const playing = v.players.includes(me);
+  const [aim, setAim] = useState<number | null>(null);
+  const canPlay = v.phase === "choose" && playing && v.myCard == null && !paused;
+  const target = aim !== null && canPlay ? landing(v.rows, aim) : null;
 
   return (
     <div className="game wide">
@@ -79,61 +79,80 @@ export function RowCardsGame({ view, room, paused, act }: GameProps) {
         paused={paused}
       />
 
-      <div className="card-rows">
-        {v.rows.map((row, i) => (
-          // biome-ignore lint/suspicious/noArrayIndexKey: rows are positional
-          <div key={i} className="card-row">
-            {row.map((c) => (
-              <Card key={c} value={c} />
-            ))}
-            {Array.from({ length: 5 - row.length }, (_, k) => (
-              // biome-ignore lint/suspicious/noArrayIndexKey: empty slots are positional
-              <span key={`e${k}`} className="card-face empty" />
-            ))}
-            <span className="card-face danger" title="放下第六张的人收走这一行">
-              ✕
-            </span>
-          </div>
-        ))}
-      </div>
+      <Felt>
+        <div className="card-rows">
+          {v.rows.map((row, i) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: rows are positional
+            <div key={i} className={`card-row${target?.row === i ? (target.takes ? " aim bad" : " aim") : ""}`}>
+              {row.map((c) => (
+                <Card key={c} value={c} />
+              ))}
+              {Array.from({ length: ROW_LIMIT - row.length }, (_, k) => (
+                // biome-ignore lint/suspicious/noArrayIndexKey: empty slots are positional
+                <span key={`e${k}`} className="card-face empty" />
+              ))}
+              <span className="card-face danger" title="放下第六张的人收走这一行">
+                第六张
+              </span>
+              <span className="row-cost">这行 {rowPenalty(row)} 罚分</span>
+            </div>
+          ))}
+        </div>
+        {target && (
+          <p className="felt-note">
+            {target.takes
+              ? `现在放 ${aim} 会收走第 ${target.row + 1} 行（${rowPenalty(v.rows[target.row] ?? [])} 罚分）`
+              : `现在放 ${aim} 会接在第 ${target.row + 1} 行后面`}
+            。别人的牌更小的话会先放。
+          </p>
+        )}
+      </Felt>
 
       {v.lastTrick.length > 0 && (
-        <p className="muted small">
-          上一墩：
-          {v.lastTrick
-            .map(
-              (p) =>
-                `${name(p.playerId)} 出 ${p.card}${p.took ? `，收走第 ${p.row + 1} 行（${p.took.reduce((s, c) => s + penaltyOf(c), 0)} 罚分）` : ""}`,
-            )
-            .join("；")}
-        </p>
+        <div className="trick-strip">
+          <span className="muted small">上一墩</span>
+          {v.lastTrick.map((p) => (
+            <span key={p.playerId} className={`trick-play${p.took ? " took" : ""}`}>
+              <Avatar room={room} id={p.playerId} size="s" />
+              <b>{p.card}</b>
+              {p.took && (
+                <em>
+                  收走第 {p.row + 1} 行 −{rowPenalty(p.took)}
+                </em>
+              )}
+            </span>
+          ))}
+        </div>
       )}
 
-      {v.phase === "choose" && (
-        <>
-          {playing ? (
-            <>
-              <p className="muted">
-                {v.myCard != null ? "已出牌，等其他人…" : "选一张牌暗出。所有人出完后从小到大依次放置。"}
-              </p>
+      {v.phase === "choose" &&
+        (playing ? (
+          <>
+            <p className="muted">
+              {v.myCard != null
+                ? "你的牌已经盖在桌上，等其他人…"
+                : "挑一张暗出：点一下看它会落在哪行，再确认；也可以直接拖到桌上。"}
+            </p>
+            {v.myCard != null && (
               <div className="hand">
-                {v.myHand.map((c) => (
-                  <Card
-                    key={c}
-                    value={c}
-                    selected={v.myCard === c}
-                    disabled={paused || v.myCard != null}
-                    onClick={() => go({ type: "play", card: c })}
-                  />
-                ))}
+                <CardBack label="已出" />
+                <Card value={v.myCard} selected />
               </div>
-            </>
-          ) : (
-            <p className="muted">这一局开始时你还没加入，下一局开始参与。</p>
-          )}
-          <Progress ids={v.players} done={v.submitted} name={name} />
-        </>
-      )}
+            )}
+            <PlayHand
+              cards={v.myHand.filter((c) => c !== v.myCard)}
+              face={(c) => <Card value={c} />}
+              enabled={canPlay}
+              confirm={(c) => `暗出 ${c}`}
+              onSelect={(c) => setAim(c)}
+              onPlay={(c) => void go({ type: "play", card: c })}
+              resetKey={v.step}
+            />
+            <Progress ids={v.players} done={v.submitted} name={name} />
+          </>
+        ) : (
+          <p className="muted">这一局开始时你还没加入，下一局开始参与。</p>
+        ))}
 
       <table className="results">
         <tbody>
@@ -141,7 +160,9 @@ export function RowCardsGame({ view, room, paused, act }: GameProps) {
             .sort((a, b) => (v.penalties[a] ?? 0) - (v.penalties[b] ?? 0))
             .map((id) => (
               <tr key={id} className={v.winners.includes(id) ? "win" : ""}>
-                <td>{name(id)}</td>
+                <td>
+                  <Who room={room} id={id} />
+                </td>
                 <td className="muted">罚分 {v.penalties[id] ?? 0}</td>
                 <td>{v.winners.includes(id) ? "+3" : ""}</td>
               </tr>

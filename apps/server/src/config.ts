@@ -13,6 +13,8 @@ const envSchema = z.object({
   DATABASE_URL: optionalString,
   PGLITE_DIR: optionalString,
   WEB_DIST: optionalString,
+  /** Directory of private content packs (JSON) loaded at start-up; see content/privatePack.ts. */
+  CONTENT_DIR: optionalString,
   /** Set to "1" when running behind a reverse proxy so client IPs are read from X-Forwarded-For. */
   TRUST_PROXY: optionalString,
   /**
@@ -51,6 +53,7 @@ export interface Config {
   databaseUrl?: string;
   pgliteDir?: string;
   webDist: string;
+  contentDir?: string;
   trustProxy: boolean;
   testMode: boolean;
   ai: {
@@ -87,6 +90,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
     databaseUrl: e.DATABASE_URL,
     pgliteDir: e.DATABASE_URL ? undefined : (e.PGLITE_DIR ?? `${DEFAULT_DATA_DIR}/pglite`),
     webDist: e.WEB_DIST ?? DEFAULT_WEB_DIST,
+    contentDir: e.CONTENT_DIR,
     trustProxy: e.TRUST_PROXY === "1" || e.TRUST_PROXY === "true",
     testMode: e.TEST_MODE === "true",
     ai: {

@@ -1,3 +1,5 @@
+import { type CSSProperties, useEffect, useState } from "react";
+import { Stickers } from "../answers.tsx";
 import type { GameProps } from "../registry.tsx";
 import { useAct } from "../shared.ts";
 import { GameHead, HostControls, lastRound, Progress, roundLabel, useNames } from "../ui.tsx";
@@ -23,6 +25,38 @@ interface View {
 const SIDE = { higher: "更高", lower: "更低" };
 const pct = (n: number, of: number) => (of > 0 ? `${Math.round((n / of) * 100)}%` : "—");
 
+/** A ladder from 0 to everyone: press a rung to choose it; `fill` lights the rungs up to the real count. */
+function Meter(props: {
+  total: number;
+  fill?: number | null;
+  mark?: number | null;
+  pending?: number | null;
+  onPick?: (n: number) => void;
+}) {
+  const { total, fill, mark, pending } = props;
+  return (
+    <div className="meter">
+      {Array.from({ length: total + 1 }, (_, n) => n).map((n) => (
+        <button
+          key={n}
+          type="button"
+          className={`meter-step${fill != null && n <= fill && (n > 0 || fill === 0) ? " full" : ""}${fill === n ? " top" : ""}${
+            mark === n ? " mark" : ""
+          }${pending === n ? " pending" : ""}`}
+          style={fill != null ? ({ animationDelay: `${n * 0.25}s` } as CSSProperties) : undefined}
+          disabled={!props.onPick}
+          onClick={() => props.onPick?.(n)}
+        >
+          <b>{n} 人</b>
+          <span>{pct(n, total)}</span>
+          {mark === n && <em>猜的</em>}
+          {fill === n && <em className="real">实际</em>}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export function PercentGame({ view, room, paused, act }: GameProps) {
   const v = view as View;
   const name = useNames(room);
@@ -33,6 +67,15 @@ export function PercentGame({ view, room, paused, act }: GameProps) {
   const guessing = me === v.guesser;
   const total = v.reveal?.answered ?? v.answered.length;
   const others = v.participants.filter((p) => p !== v.guesser);
+  const [pending, setPending] = useState<number | null>(null);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: a new step means a new choice
+  useEffect(() => setPending(null), [v.step]);
+  const betsOn = (side: Side) =>
+    Object.entries(v.reveal?.bets ?? {})
+      .filter(([, x]) => x === side)
+      .map(([p]) => p);
+  const actual = v.reveal?.yes ?? 0;
+  const won = (side: Side) => v.guess !== null && (side === "higher" ? actual > v.guess : actual < v.guess);
 
   return (
     <div className="game">
@@ -47,21 +90,16 @@ export function PercentGame({ view, room, paused, act }: GameProps) {
           {!playing ? (
             <p className="muted">你将从下一轮开始参与。</p>
           ) : v.myAnswer === null ? (
-            <div className="host-row">
-              <button
-                type="button"
-                className="primary"
-                disabled={paused}
-                onClick={() => go({ type: "answer", yes: true })}
-              >
+            <div className="yes-no">
+              <button type="button" className="yes" disabled={paused} onClick={() => go({ type: "answer", yes: true })}>
                 是
               </button>
-              <button type="button" disabled={paused} onClick={() => go({ type: "answer", yes: false })}>
+              <button type="button" className="no" disabled={paused} onClick={() => go({ type: "answer", yes: false })}>
                 否
               </button>
             </div>
           ) : (
-            <p className="notice">你答了「{v.myAnswer ? "是" : "否"}」。</p>
+            <p className="notice">你答了「{v.myAnswer ? "是" : "否"}」，只有你自己知道。</p>
           )}
           <Progress ids={v.participants} done={v.answered} name={name} />
         </>
@@ -70,24 +108,29 @@ export function PercentGame({ view, room, paused, act }: GameProps) {
       {v.phase === "guess" &&
         (guessing ? (
           <>
-            <p className="muted">{total} 个人作答了。你猜有几个人答「是」？</p>
-            <div className="host-row">
-              {Array.from({ length: total + 1 }, (_, n) => n).map((n) => (
-                <button key={n} type="button" disabled={paused} onClick={() => go({ type: "guess", count: n })}>
-                  {n} 人（{pct(n, total)}）
-                </button>
-              ))}
-            </div>
+            <p className="muted">{total} 个人作答了。你猜有几个人答「是」？点一格，再确认。</p>
+            <Meter total={total} pending={pending} onPick={paused ? undefined : setPending} />
+            <button
+              type="button"
+              className="primary wide"
+              disabled={paused || pending === null}
+              onClick={() => pending !== null && go({ type: "guess", count: pending })}
+            >
+              {pending === null ? "先点一格" : `就猜 ${pending} 人（${pct(pending, total)}）`}
+            </button>
           </>
         ) : (
           <p className="muted">等 {name(v.guesser)} 猜比例…</p>
         ))}
 
-      {(v.phase === "bet" || v.phase === "reveal") && v.guess !== null && (
-        <p className="notice">
-          {name(v.guesser)} 猜：<strong className="big-clue">{pct(v.guess, total)}</strong>（{v.guess} / {total}{" "}
-          人答「是」）
-        </p>
+      {v.phase === "bet" && v.guess !== null && (
+        <>
+          <p className="notice">
+            {name(v.guesser)} 猜：<strong className="big-clue">{pct(v.guess, total)}</strong>（{v.guess} / {total}{" "}
+            人答「是」）
+          </p>
+          <Meter total={total} mark={v.guess} />
+        </>
       )}
       {v.phase === "bet" && (
         <>
@@ -96,11 +139,16 @@ export function PercentGame({ view, room, paused, act }: GameProps) {
           ) : v.myBet ? (
             <p className="muted">你押了「{SIDE[v.myBet]}」。</p>
           ) : (
-            <div className="host-row">
-              <span>实际比这个</span>
-              {(["higher", "lower"] as const).map((side) => (
-                <button key={side} type="button" disabled={paused} onClick={() => go({ type: "bet", side })}>
-                  {SIDE[side]}
+            <div className="yes-no">
+              {(["lower", "higher"] as const).map((side) => (
+                <button
+                  key={side}
+                  type="button"
+                  className={side}
+                  disabled={paused}
+                  onClick={() => go({ type: "bet", side })}
+                >
+                  {side === "lower" ? "◀ 实际更低" : "实际更高 ▶"}
                 </button>
               ))}
             </div>
@@ -110,26 +158,31 @@ export function PercentGame({ view, room, paused, act }: GameProps) {
       )}
 
       {v.phase === "reveal" && v.reveal && (
-        <div className="card">
-          <h2>
-            实际：{pct(v.reveal.yes, v.reveal.answered)}（{v.reveal.yes} / {v.reveal.answered} 人答「是」）
-          </h2>
+        <>
+          <Meter total={v.reveal.answered} fill={v.reveal.yes} mark={v.guess} />
+          <p className="answer">
+            实际 <strong>{pct(v.reveal.yes, v.reveal.answered)}</strong>（{v.reveal.yes} / {v.reveal.answered}{" "}
+            人答「是」）
+            {v.guess !== null &&
+              (v.guess === v.reveal.yes
+                ? `，${name(v.guesser)} 猜得分毫不差！`
+                : `，${name(v.guesser)} 猜的是 ${v.guess} 人。`)}
+          </p>
           {v.guess === null ? (
             <p className="muted">这一轮没有形成竞猜，不计分。</p>
           ) : (
-            <ul className="chips">
-              {Object.entries(v.reveal.bets).map(([p, side]) => {
-                const yes = v.reveal?.yes ?? 0;
-                const right = side === "higher" ? yes > (v.guess ?? 0) : yes < (v.guess ?? 0);
-                return (
-                  <li key={p} className={right ? "chip done" : "chip"}>
-                    {name(p)}：{SIDE[side]} {right ? "✓" : "✗"}
-                  </li>
-                );
-              })}
-            </ul>
+            <div className="bet-sides">
+              {(["lower", "higher"] as const).map((side) => (
+                <span key={side} className={won(side) ? "side won" : "side"}>
+                  <b>
+                    押{SIDE[side]} {won(side) ? "✓" : "✗"}
+                  </b>
+                  <Stickers room={room} ids={betsOn(side)} />
+                </span>
+              ))}
+            </div>
           )}
-        </div>
+        </>
       )}
 
       <HostControls isHost={room.me.isHost} waitNote={v.phase === "reveal" ? "等待房主继续…" : undefined}>

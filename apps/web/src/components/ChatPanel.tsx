@@ -1,6 +1,7 @@
 import { type Ack, CHAT_MAX, type ChatMessageView, type RoomView } from "@apr/shared";
 import { type KeyboardEvent, useEffect, useRef, useState } from "react";
 import { onChatDraft } from "../chatBus.ts";
+import { Avatar } from "./Avatar.tsx";
 
 interface Props {
   view: RoomView;
@@ -71,15 +72,22 @@ export function ChatPanel({ view, chat, say }: Props) {
         }}
       >
         {chat.map((m, i) => (
-          <div key={m.id} className={`msg ${m.sender.kind}`}>
+          <div
+            key={m.id}
+            className={`msg ${m.sender.kind}${m.sender.kind === "player" && m.sender.playerId === view.me.playerId ? " mine" : ""}`}
+          >
             {/* A new party starts here: the chat is kept, the AI host only reads the current party. */}
             {i > 0 && m.sessionId !== chat[i - 1]?.sessionId && (
               <span className="chat-divider">—— 新的一场派对 ——</span>
             )}
-            {m.sender.kind !== "system" && (
-              <span className="who">{m.sender.kind === "player" ? m.sender.nickname : "AI 主持"}</span>
-            )}
-            <span className="text">{m.text}</span>
+            {m.sender.kind === "player" && <Avatar room={view} id={m.sender.playerId} size="s" />}
+            {m.sender.kind === "agent" && <span className="avatar s ai">🤖</span>}
+            <span className="bubble">
+              {m.sender.kind !== "system" && (
+                <span className="who">{m.sender.kind === "player" ? m.sender.nickname : "AI"}</span>
+              )}
+              <span className="text">{m.text}</span>
+            </span>
           </div>
         ))}
         {chat.length === 0 && <p className="muted">群聊只是聊天；答题请在左侧操作。</p>}

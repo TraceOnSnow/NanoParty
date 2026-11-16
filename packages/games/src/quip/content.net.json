@@ -1,0 +1,464 @@
+[
+  {
+    "id": "quip-net-001",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "给「上班」这件事写一句诚实的广告词。"
+    }
+  },
+  {
+    "id": "quip-net-002",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "如果摸鱼是一项奥运项目，它的比赛规则是什么？"
+    }
+  },
+  {
+    "id": "quip-net-003",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "老板说「我简单说两句」之后，最可怕的下一句是什么？"
+    }
+  },
+  {
+    "id": "quip-net-004",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "写一条绝对不会被批准的请假理由。"
+    }
+  },
+  {
+    "id": "quip-net-005",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "给周一早上的自己发一条语音，内容是？"
+    }
+  },
+  {
+    "id": "quip-net-006",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "年会上最不想抽到的奖品是什么？"
+    }
+  },
+  {
+    "id": "quip-net-007",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "辞职信的第一句怎么写最体面？"
+    }
+  },
+  {
+    "id": "quip-net-008",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "如果工位会说话，它每天下班后会吐槽什么？"
+    }
+  },
+  {
+    "id": "quip-net-009",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "给「调休」发明一个更诚实的名字。"
+    }
+  },
+  {
+    "id": "quip-net-010",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "面试官问「你最大的缺点是什么」，最离谱的诚实回答是？"
+    }
+  },
+  {
+    "id": "quip-net-011",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "发明一个明年会火的网络热词，并解释它的意思。"
+    }
+  },
+  {
+    "id": "quip-net-012",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "给「已读不回」找一个最离谱的借口。"
+    }
+  },
+  {
+    "id": "quip-net-013",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "朋友圈设置三天可见的人，到底在藏什么？"
+    }
+  },
+  {
+    "id": "quip-net-014",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "如果外卖骑手能给顾客打分，最常见的差评是什么？"
+    }
+  },
+  {
+    "id": "quip-net-015",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "给你的手机相册起一个诚实的名字。"
+    }
+  },
+  {
+    "id": "quip-net-016",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "凌晨三点还不睡的人，都在干什么？"
+    }
+  },
+  {
+    "id": "quip-net-017",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "把「我没事」翻译成真实意思。"
+    }
+  },
+  {
+    "id": "quip-net-018",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "家族群里最不该发的一条消息是什么？"
+    }
+  },
+  {
+    "id": "quip-net-019",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "如果「对方正在输入…」持续了十分钟，他到底在写什么？"
+    }
+  },
+  {
+    "id": "quip-net-020",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "给一款专门劝人别买东西的 App 起个名字。"
+    }
+  },
+  {
+    "id": "quip-net-021",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "减肥失败的第 100 个理由是什么？"
+    }
+  },
+  {
+    "id": "quip-net-022",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "闹钟响了之后，大脑想出的最离谱的赖床理由是？"
+    }
+  },
+  {
+    "id": "quip-net-023",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "给「拖延症」写一句励志口号。"
+    }
+  },
+  {
+    "id": "quip-net-024",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "相亲时最让人想当场离开的开场白是什么？"
+    }
+  },
+  {
+    "id": "quip-net-025",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "如果猫会说话，它对铲屎官说的第一句话是？"
+    }
+  },
+  {
+    "id": "quip-net-026",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "过年回家，亲戚问的第一个问题应该怎么优雅地回答？"
+    }
+  },
+  {
+    "id": "quip-net-027",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "发明一个只有成年人才懂的童话结局。"
+    }
+  },
+  {
+    "id": "quip-net-028",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "超市里最没必要存在的商品是什么？"
+    }
+  },
+  {
+    "id": "quip-net-029",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "给一家只在凌晨营业的店想一个经营项目。"
+    }
+  },
+  {
+    "id": "quip-net-030",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "健身卡办了以后去了几次？请用一句话狡辩。"
+    }
+  },
+  {
+    "id": "quip-net-031",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "如果人类可以像手机一样显示电量，最尴尬的场景是什么？"
+    }
+  },
+  {
+    "id": "quip-net-032",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "外星人第一次看到广场舞，会在报告里怎么写？"
+    }
+  },
+  {
+    "id": "quip-net-033",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "给一种不存在的奶茶口味起名，并说明喝了会怎样。"
+    }
+  },
+  {
+    "id": "quip-net-034",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "如果动物也要上班，谁最容易被裁？为什么？"
+    }
+  },
+  {
+    "id": "quip-net-035",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "发明一个毫无用处但大家都想要的手机功能。"
+    }
+  },
+  {
+    "id": "quip-net-036",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "假如月亮是一个 App，它的差评第一条是什么？"
+    }
+  },
+  {
+    "id": "quip-net-037",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "如果空气要收费，套餐会怎么设计？"
+    }
+  },
+  {
+    "id": "quip-net-038",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "给地球写一条一星差评。"
+    }
+  },
+  {
+    "id": "quip-net-039",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "如果后悔药真的存在，说明书上的副作用是什么？"
+    }
+  },
+  {
+    "id": "quip-net-040",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "一千年后的考古学家挖出一个奶茶杯，会怎么解释它？"
+    }
+  },
+  {
+    "id": "quip-net-041",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "如果影子能辞职，它的离职原因是什么？"
+    }
+  },
+  {
+    "id": "quip-net-042",
+    "version": 1,
+    "type": "quip-prompt",
+    "theme": "脑洞",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "给「星期一」设计一个惩罚。"
+    }
+  }
+]

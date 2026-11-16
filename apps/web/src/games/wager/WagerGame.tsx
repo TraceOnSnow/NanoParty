@@ -1,4 +1,6 @@
 import { type FormEvent, useEffect, useState } from "react";
+import { Avatar, Who } from "../../components/Avatar.tsx";
+import { useDragDrop } from "../drag.tsx";
 import type { GameProps } from "../registry.tsx";
 import { useAct } from "../shared.ts";
 import { GameHead, HostControls, lastRound, Progress, roundLabel, useNames } from "../ui.tsx";
@@ -26,9 +28,15 @@ export function WagerGame({ view, room, paused, act }: GameProps) {
   const [value, setValue] = useState("");
   const go = (action: object) => send({ ...action, step: v.step });
   const playing = v.participants.includes(me);
+  const [pick, setPick] = useState<string | null>(null);
+  const canBet = v.phase === "bet" && playing && v.myBet == null && !paused;
+  const { dragging, grab, ghost } = useDragDrop<string>((_, target) => setPick(target));
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: clear the field each round
-  useEffect(() => setValue(""), [v.round]);
+  useEffect(() => {
+    setValue("");
+    setPick(null);
+  }, [v.round]);
 
   function submit(e: FormEvent) {
     e.preventDefault();
@@ -82,39 +90,59 @@ export function WagerGame({ view, room, paused, act }: GameProps) {
       {(v.phase === "bet" || v.phase === "reveal") && v.guesses && (
         <>
           {v.phase === "bet" && <p className="muted">所有估计已公开。押一个你认为最接近答案的（可以押自己）。</p>}
-          <ul className="describe-list">
-            {v.guesses.map((g) => {
-              const backers = Object.entries(v.reveal?.bets ?? {})
-                .filter(([, on]) => on === g.playerId)
-                .map(([p]) => p);
-              return (
-                <li
-                  key={g.playerId}
-                  className={v.reveal?.closest.includes(g.playerId) || v.myBet === g.playerId ? "picked" : ""}
-                >
-                  <span className="who">{name(g.playerId)}</span>
-                  <span className="text">
-                    <strong>{g.value}</strong> {v.question.unit}
-                    {v.reveal && (
-                      <>
-                        <br />
-                        <span className="muted small">
-                          {backers.length > 0 ? `${backers.map(name).join("、")} 押了 TA` : "没人押"}
-                        </span>
-                      </>
-                    )}
-                  </span>
-                  {v.phase === "bet" && playing && v.myBet == null && (
-                    <button type="button" disabled={paused} onClick={() => go({ type: "bet", on: g.playerId })}>
-                      押 TA
-                    </button>
-                  )}
-                  {v.myBet === g.playerId && <span className="tag">已押</span>}
-                  {v.reveal?.closest.includes(g.playerId) && <span className="tag">最接近</span>}
-                </li>
-              );
-            })}
-          </ul>
+          <div className="bet-mat">
+            {[...v.guesses]
+              .sort((x, y) => x.value - y.value)
+              .map((g) => {
+                const backers = Object.entries(v.reveal?.bets ?? {})
+                  .filter(([, on]) => on === g.playerId)
+                  .map(([p]) => p);
+                const closest = v.reveal?.closest.includes(g.playerId);
+                const mine = (v.myBet ?? pick) === g.playerId;
+                return (
+                  <button
+                    key={g.playerId}
+                    type="button"
+                    data-drop={g.playerId}
+                    className={`bet-card${closest ? " closest" : ""}${mine ? " picked" : ""}${dragging ? " target" : ""}`}
+                    disabled={!canBet}
+                    onClick={() => setPick(pick === g.playerId ? null : g.playerId)}
+                  >
+                    <Who room={room} id={g.playerId} />
+                    <strong>{g.value}</strong>
+                    <span className="muted small">{v.question.unit}</span>
+                    <span className="bet-chips">
+                      {mine && !v.reveal && <Avatar room={room} id={me} size="s" />}
+                      {backers.map((p) => (
+                        <Avatar key={p} room={room} id={p} size="s" />
+                      ))}
+                    </span>
+                    {closest && <span className="stamp ok">最接近</span>}
+                  </button>
+                );
+              })}
+          </div>
+          {canBet && (
+            <div className="bet-hand">
+              <button
+                type="button"
+                className="bet-chip"
+                onPointerDown={grab(me, <Avatar room={room} id={me} size="l" />)}
+              >
+                <Avatar room={room} id={me} size="l" />
+              </button>
+              <span className="muted small">把你的筹码拖到一个估计上，或者直接点那张卡。</span>
+              <button
+                type="button"
+                className="primary"
+                disabled={pick === null}
+                onClick={() => pick && go({ type: "bet", on: pick })}
+              >
+                {pick ? `押 ${name(pick)}` : "先选一个"}
+              </button>
+            </div>
+          )}
+          {v.phase === "bet" && playing && v.myBet != null && <p className="notice">已下注，等其他人…</p>}
           {v.phase === "bet" && <Progress ids={v.participants} done={v.submitted} name={name} />}
         </>
       )}
@@ -136,6 +164,7 @@ export function WagerGame({ view, room, paused, act }: GameProps) {
           </button>
         )}
       </HostControls>
+      {ghost}
       {error && <p className="error">{error}</p>}
     </div>
   );

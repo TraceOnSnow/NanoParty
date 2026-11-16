@@ -1,9 +1,12 @@
 /** Small building blocks shared by game panels. */
+
 import { type FormEvent, type ReactNode, useEffect, useState } from "react";
+import { playerHue } from "../components/Avatar.tsx";
 import type { GameProps } from "./registry.tsx";
 import { useCountdown } from "./shared.ts";
 
 export function useNames(room: GameProps["room"]) {
+  pictures = Object.fromEntries(room.members.map((m) => [m.id, m.avatar]));
   return (id: string) => room.members.find((m) => m.id === id)?.nickname ?? "?";
 }
 
@@ -26,13 +29,20 @@ export function Progress({ ids, done, name }: { ids: string[]; done: string[]; n
   return (
     <ul className="chips">
       {ids.map((id) => (
-        <li key={id} className={done.includes(id) ? "chip done" : "chip"}>
+        <li key={id} className={done.includes(id) ? "chip done" : "chip waiting"}>
+          <span className="avatar s" style={{ "--hue": playerHue(id) } as React.CSSProperties}>
+            {avatarOf(id)}
+          </span>
           {name(id)} {done.includes(id) ? "✓" : "…"}
         </li>
       ))}
     </ul>
   );
 }
+
+/** The latest room's pictures, for small components that only get a `name` function. */
+let pictures: Record<string, string> = {};
+const avatarOf = (id: string) => pictures[id] ?? "❔";
 
 /** One-line text submission. Clears itself when `resetKey` changes. */
 export function TextForm(props: {

@@ -5,19 +5,18 @@
  *   node tools/browser/soup-canvas.mjs      (server: pnpm dev:test with AI_MOCK=true)
  */
 import { chromium } from "playwright";
-import { BASE, click, has, openRoom, sleep, text } from "./lib.mjs";
+import { BASE, click, has, openRoom, sleep, startGame, text } from "./lib.mjs";
 
 const outDir = "reports/artifacts/browser/soup-canvas";
 const room = await openRoom({ players: 4, names: ["阿明", "小白", "老陈", "琪琪"], outDir });
 const { pages, check, seats } = room;
 const [host] = pages;
 const btn = (t) => `button:has-text("${t}")`;
-const card = (name) => host.locator(".game-card", { has: host.locator(`.cover-name:text-is("${name}")`) });
 
 // ---------------------------------------------------------------- AI soup (AC-12, AC-13, AC-14, AC-10)
-await card("海龟汤").locator('summary:has-text("设置")').click();
-await card("海龟汤").locator('input[type="checkbox"]').check();
-await card("海龟汤").locator("button.primary").click();
+await host.locator(".game-tile", { has: host.locator('.cover-name:text-is("海龟汤")') }).click();
+await host.locator('.game-detail input[type="checkbox"]').check();
+await host.locator(".game-detail button.primary").click();
 await host.waitForSelector(".topic-picker");
 let state = await room.state();
 const picker = pages[room.indexOf(state.segment.state.pick.picker)];
@@ -96,7 +95,7 @@ await click(host, btn("放弃本场"));
 await host.waitForSelector(".lobby");
 
 // ---------------------------------------------------------------- Canvas multi-step flow (AC-16, AC-09)
-await card("猜刻度").locator("button.primary").click();
+await startGame(host, "猜刻度");
 await host.waitForSelector(".topic-picker");
 state = await room.state();
 const giverIndex = room.indexOf(state.segment.state.giver);
@@ -150,10 +149,7 @@ const page = await (await solo.newContext({ viewport: { width: 1366, height: 860
 await page.goto(`${BASE}/test`);
 await click(page, btn("创建测试房间"));
 await page.waitForSelector(".test-bar");
-await page
-  .locator(".game-card", { has: page.locator('.cover-name:text-is("谁最可能")') })
-  .locator("button.primary")
-  .click();
+await startGame(page, "谁最可能");
 await page.waitForSelector(".topic-picker");
 await click(page, btn("其他人各走一步"));
 await click(page, btn("其他人各走一步"));

@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Who } from "../../components/Avatar.tsx";
+import { SortList } from "../drag.tsx";
 import type { GameProps } from "../registry.tsx";
 import { useAct } from "../shared.ts";
 import { GameHead, HostControls, lastRound, Progress, roundLabel, TextForm, useNames } from "../ui.tsx";
@@ -32,14 +34,6 @@ export function RankingGame({ view, room, paused, act }: GameProps) {
   // biome-ignore lint/correctness/useExhaustiveDependencies: start from the presented order each time ordering opens
   useEffect(() => setOrder(v.answers?.map((a) => a.playerId) ?? []), [v.step]);
 
-  const move = (index: number, delta: number) =>
-    setOrder((current) => {
-      const next = [...current];
-      const target = index + delta;
-      if (target < 0 || target >= next.length) return current;
-      [next[index], next[target]] = [next[target] as string, next[index] as string];
-      return next;
-    });
   const textOf = (id: string) => v.answers?.find((a) => a.playerId === id)?.text ?? "";
 
   return (
@@ -78,7 +72,7 @@ export function RankingGame({ view, room, paused, act }: GameProps) {
               )}
             </>
           ) : (
-            <p className="muted">{isCaptain ? "你是本轮队长，等大家写完后由你排序。" : "你将从下一轮开始参与。"}</p>
+            <p className="notice">{isCaptain ? "你是本轮队长，等大家写完后由你排序。" : "你将从下一轮开始参与。"}</p>
           )}
           <Progress ids={writers} done={v.submitted} name={name} />
         </>
@@ -87,27 +81,26 @@ export function RankingGame({ view, room, paused, act }: GameProps) {
       {v.phase === "order" &&
         (isCaptain ? (
           <>
-            <p className="muted">把回答从低（上）到高（下）排好，然后确认。</p>
-            <ul className="describe-list">
-              {order.map((id, i) => (
-                <li key={id}>
-                  <span className="who">{name(id)}</span>
+            <p className="muted">把回答从低（上）到高（下）排好：按住一行拖动，或者用右边的箭头。排完点确认。</p>
+            <p className="scale-end">↑ {v.scenario.low}</p>
+            <SortList
+              ids={order}
+              disabled={paused}
+              onChange={setOrder}
+              render={(id) => (
+                <>
+                  <Who room={room} id={id} />
                   <span className="text">{textOf(id)}</span>
-                  <button type="button" disabled={paused || i === 0} onClick={() => move(i, -1)} aria-label="上移">
-                    ↑
-                  </button>
-                  <button
-                    type="button"
-                    disabled={paused || i === order.length - 1}
-                    onClick={() => move(i, 1)}
-                    aria-label="下移"
-                  >
-                    ↓
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <button type="button" className="primary" disabled={paused} onClick={() => go({ type: "order", order })}>
+                </>
+              )}
+            />
+            <p className="scale-end">↓ {v.scenario.high}</p>
+            <button
+              type="button"
+              className="primary wide"
+              disabled={paused}
+              onClick={() => go({ type: "order", order })}
+            >
               确认排序
             </button>
           </>
@@ -117,7 +110,7 @@ export function RankingGame({ view, room, paused, act }: GameProps) {
             <ul className="describe-list">
               {v.answers?.map((a) => (
                 <li key={a.playerId}>
-                  <span className="who">{name(a.playerId)}</span>
+                  <Who room={room} id={a.playerId} />
                   <span className="text">{a.text}</span>
                 </li>
               ))}
@@ -142,8 +135,8 @@ export function RankingGame({ view, room, paused, act }: GameProps) {
               const wrong = prev !== undefined && (v.reveal?.numbers[prev] ?? 0) > n;
               return (
                 <li key={id} className={wrong ? "wrong" : ""}>
-                  <strong className="big">{n}</strong>
-                  <span className="who">{name(id)}</span>
+                  <strong className="big number-badge">{n}</strong>
+                  <Who room={room} id={id} />
                   <span className="text">{textOf(id)}</span>
                 </li>
               );

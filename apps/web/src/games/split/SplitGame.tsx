@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Avatar, Who } from "../../components/Avatar.tsx";
+import { Slip, Slips } from "../answers.tsx";
 import type { GameProps } from "../registry.tsx";
 import { useAct } from "../shared.ts";
 import { GameHead, HostControls, lastRound, Progress, roundLabel, TextForm, useNames } from "../ui.tsx";
@@ -20,6 +22,18 @@ interface View {
 
 const BLANK = "____";
 const fillIn = (text: string, fill: string) => text.replace(BLANK, `【${fill}】`);
+/** Only the clause that holds the blank: the full question is already the heading. */
+const clause = (text: string, fill: string) => {
+  const [before = "", after = ""] = text.split(BLANK);
+  const head = before.slice(Math.max(before.lastIndexOf("，"), before.lastIndexOf("。")) + 1);
+  return (
+    <>
+      <span className="muted">…{head}</span>
+      <b>{fill}</b>
+      <span className="muted">{after.split(/[。？！]/)[0]}</span>
+    </>
+  );
+};
 
 export function SplitGame({ view, room, paused, act }: GameProps) {
   const v = view as View;
@@ -65,32 +79,43 @@ export function SplitGame({ view, room, paused, act }: GameProps) {
 
       {v.phase === "vote" && v.versions && (
         <>
-          <ul className="describe-list">
+          <p className="muted">
+            {voting ? "每个版本都表个态（自己写的不用）。" : v.myVotes ? "表态完了，等其他人…" : "等大家表态…"}
+          </p>
+          <Slips>
             {v.versions.map((x) => (
-              <li key={x.author}>
-                <span className="who">{name(x.author)}</span>
-                <span className="text">{fillIn(v.dilemma.text, x.fill)}</span>
-                {x.author === me ? (
-                  <span className="tag">我写的</span>
-                ) : voting ? (
-                  <span className="host-row">
-                    {[true, false].map((yes) => (
-                      <button
-                        key={String(yes)}
-                        type="button"
-                        className={answers[x.author] === yes ? "primary" : ""}
-                        onClick={() => setAnswers((a) => ({ ...a, [x.author]: yes }))}
-                      >
-                        {yes ? v.dilemma.yes : v.dilemma.no}
-                      </button>
-                    ))}
-                  </span>
-                ) : v.myVotes ? (
-                  <span className="tag">{v.myVotes[x.author] ? v.dilemma.yes : v.dilemma.no}</span>
-                ) : null}
-              </li>
+              <Slip
+                key={x.author}
+                stamp={
+                  x.author === me
+                    ? "我写的"
+                    : v.myVotes
+                      ? v.myVotes[x.author]
+                        ? v.dilemma.yes
+                        : v.dilemma.no
+                      : undefined
+                }
+                foot={
+                  x.author !== me && voting ? (
+                    <span className="split-choice">
+                      {[true, false].map((yes) => (
+                        <button
+                          key={String(yes)}
+                          type="button"
+                          className={answers[x.author] === yes ? (yes ? "on yes" : "on no") : ""}
+                          onClick={() => setAnswers((a) => ({ ...a, [x.author]: yes }))}
+                        >
+                          {yes ? v.dilemma.yes : v.dilemma.no}
+                        </button>
+                      ))}
+                    </span>
+                  ) : undefined
+                }
+              >
+                {clause(v.dilemma.text, x.fill)}
+              </Slip>
             ))}
-          </ul>
+          </Slips>
           {voting && (
             <button
               type="button"
@@ -106,22 +131,43 @@ export function SplitGame({ view, room, paused, act }: GameProps) {
       )}
 
       {v.phase === "reveal" && v.results && (
-        <ul className="describe-list">
-          {v.results.map((r) => (
-            <li key={r.author} className={r.points > 0 ? "picked" : ""}>
-              <span className="who">{name(r.author)}</span>
-              <span className="text">
-                {fillIn(v.dilemma.text, r.fill)}
-                <br />
-                <span className="muted small">
-                  {v.dilemma.yes} {r.yes.length}（{r.yes.map(name).join("、") || "—"}）· {v.dilemma.no} {r.no.length}（
-                  {r.no.map(name).join("、") || "—"}）
-                </span>
-              </span>
-              {r.points > 0 && <strong className="plus">+{r.points}</strong>}
-            </li>
-          ))}
-        </ul>
+        <Slips>
+          {[...v.results]
+            .sort((x, y) => x.points - y.points)
+            .map((r, i) => (
+              <Slip
+                key={r.author}
+                order={i}
+                tone={r.points > 0 ? "good" : "plain"}
+                stamp={r.points > 0 ? `+${r.points}` : undefined}
+                foot={
+                  <>
+                    <Who room={room} id={r.author} />
+                    <span className="split-bar">
+                      <span className="yes" style={{ flexGrow: r.yes.length || 0.3 }}>
+                        <b>
+                          {v.dilemma.yes} {r.yes.length}
+                        </b>
+                        {r.yes.map((id) => (
+                          <Avatar key={id} room={room} id={id} size="s" />
+                        ))}
+                      </span>
+                      <span className="no" style={{ flexGrow: r.no.length || 0.3 }}>
+                        {r.no.map((id) => (
+                          <Avatar key={id} room={room} id={id} size="s" />
+                        ))}
+                        <b>
+                          {r.no.length} {v.dilemma.no}
+                        </b>
+                      </span>
+                    </span>
+                  </>
+                }
+              >
+                {clause(v.dilemma.text, r.fill)}
+              </Slip>
+            ))}
+        </Slips>
       )}
 
       <HostControls isHost={room.me.isHost} waitNote={v.phase === "reveal" ? "等待房主继续…" : undefined}>

@@ -8,6 +8,7 @@ import { MockAgentModel } from "./agent/mockModel.ts";
 import { type AgentModel, AnthropicAgentModel } from "./agent/model.ts";
 import type { Config } from "./config.ts";
 import { ContentService } from "./content/ContentService.ts";
+import { loadGameNotes, loadPrivatePacks } from "./content/privatePack.ts";
 import { openDb } from "./db/client.ts";
 import { mountRoutes } from "./http/routes.ts";
 import { createPartyRoomClass, PARTY_ID_OPTION, PARTY_ROOM_NAME } from "./rooms/PartyRoom.ts";
@@ -32,6 +33,7 @@ export async function startApp(config: Config, overrides: AppOverrides = {}): Pr
 
   const content = new ContentService(db);
   await content.seed(bundledContent);
+  await content.seed(loadPrivatePacks(config.contentDir));
 
   const build = (name: string): AgentModel | null =>
     config.ai.mock
@@ -59,7 +61,7 @@ export async function startApp(config: Config, overrides: AppOverrides = {}): Pr
   // Same model service, separate role: the referee gets game secrets, the host agent never does.
   const gameAi = new GameAiService(judgeModel, db, config.ai, config.ai.mock ? "模拟" : config.ai.judgeModel);
 
-  const manager = new RoomManager({ db, content, agent, gameAi });
+  const manager = new RoomManager({ db, content, agent, gameAi, gameNotes: loadGameNotes(config.contentDir) });
 
   const server = new Server({
     transport: new WebSocketTransport(),

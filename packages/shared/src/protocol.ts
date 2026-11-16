@@ -2,7 +2,9 @@
  * Wire protocol between web client and server (REST + realtime messages).
  * Client -> server payloads are validated with zod on the server.
  */
+
 import { z } from "zod";
+import { AVATARS } from "./avatars.ts";
 import type { CanvasView } from "./canvas.ts";
 import type { GameMeta, PlayerId } from "./game.ts";
 import type { SettlementRow } from "./scoring.ts";
@@ -138,6 +140,8 @@ export const commandSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("setPrefs"), prefs: partyPrefsInput }),
   /** Anyone: add (or replace) their own suggestion for the party's preferences. */
   z.object({ type: z.literal("suggestPrefs"), text: z.string().trim().max(120) }),
+  /** Anyone: choose your own picture. */
+  z.object({ type: z.literal("setAvatar"), avatar: z.enum(AVATARS) }),
   z.object({ type: z.literal("transferHost"), playerId: z.string() }),
   /** Host: try the AI recap of an ended party again. */
   z.object({ type: z.literal("retrySummary"), sessionId: z.string() }),
@@ -182,6 +186,8 @@ export type Ack = { ok: true } | { ok: false; error: string };
 export interface MemberView {
   id: PlayerId;
   nickname: string;
+  /** One of AVATARS. */
+  avatar: string;
   isHost: boolean;
   connected: boolean;
 }

@@ -78,6 +78,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@apr/games':
+        specifier: workspace:*
+        version: link:../../packages/games
       '@apr/shared':
         specifier: workspace:*
         version: link:../../packages/shared

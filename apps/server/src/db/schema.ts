@@ -26,6 +26,8 @@ export const players = pgTable(
       .references(() => rooms.id, { onDelete: "cascade" }),
     /** Display only. Never used for permissions or reconnect identity. */
     nickname: text("nickname").notNull(),
+    /** The picture the player chose (an emoji from a fixed list); null = the default for their id. */
+    avatar: text("avatar"),
     /** SHA-256 of the player's session token; the token itself is never stored. */
     sessionTokenHash: text("session_token_hash").notNull().unique(),
     /** Set when the host removes the player; the session token stops working. */

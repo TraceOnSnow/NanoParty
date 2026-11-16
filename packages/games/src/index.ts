@@ -1,40 +1,60 @@
 import type { ContentItem, GameModule } from "@apr/shared";
 import { blatherGame } from "./blather/game.ts";
 import bluffContent from "./bluff/content.json" with { type: "json" };
+import bluffNet from "./bluff/content.net.json" with { type: "json" };
 import { bluffGame } from "./bluff/game.ts";
 import categoriesContent from "./categories/content.json" with { type: "json" };
+import categoriesNet from "./categories/content.net.json" with { type: "json" };
 import { categoriesGame } from "./categories/game.ts";
 import { cloverGame } from "./clover/game.ts";
 import { codeBreakGame } from "./codebreak/game.ts";
 import { crewGame } from "./crew/game.ts";
 import { duelGame } from "./duel/game.ts";
 import estimateContent from "./estimate/content.json" with { type: "json" };
+import estimateNet from "./estimate/content.net.json" with { type: "json" };
 import { estimateGame } from "./estimate/game.ts";
 import { flushGame } from "./flush/game.ts";
 import mostlikelyContent from "./mostlikely/content.json" with { type: "json" };
+import mostlikelyNet from "./mostlikely/content.net.json" with { type: "json" };
 import { mostLikelyGame } from "./mostlikely/game.ts";
 import { noThanksGame } from "./nothanks/game.ts";
 import oneclueContent from "./oneclue/content.json" with { type: "json" };
+import oneclueNet from "./oneclue/content.net.json" with { type: "json" };
 import { oneClueGame } from "./oneclue/game.ts";
 import percentContent from "./percent/content.json" with { type: "json" };
+import percentNet from "./percent/content.net.json" with { type: "json" };
 import { percentGame } from "./percent/game.ts";
+import platterContent from "./platter/content.json" with { type: "json" };
+import { platterGame } from "./platter/game.ts";
 import pollmineContent from "./pollmine/content.json" with { type: "json" };
+import pollmineNet from "./pollmine/content.net.json" with { type: "json" };
 import { pollMineGame } from "./pollmine/game.ts";
 import quipContent from "./quip/content.json" with { type: "json" };
+import quipNet from "./quip/content.net.json" with { type: "json" };
 import { quipGame } from "./quip/game.ts";
 import rankingContent from "./ranking/content.json" with { type: "json" };
+import rankingNet from "./ranking/content.net.json" with { type: "json" };
 import { rankingGame } from "./ranking/game.ts";
 import { rowCardsGame } from "./rowcards/game.ts";
+import sevenContent from "./seven/content.json" with { type: "json" };
+import { sevenGame } from "./seven/game.ts";
 import { skullGame } from "./skull/game.ts";
+import soupImported from "./soup/content.imported.json" with { type: "json" };
 import soupContent from "./soup/content.json" with { type: "json" };
+import soupNet from "./soup/content.net.json" with { type: "json" };
 import { soupGame } from "./soup/game.ts";
 import spectrumContent from "./spectrum/content.json" with { type: "json" };
+import spectrumNet from "./spectrum/content.net.json" with { type: "json" };
 import { spectrumGame } from "./spectrum/game.ts";
 import splitContent from "./split/content.json" with { type: "json" };
+import splitNet from "./split/content.net.json" with { type: "json" };
 import { splitGame } from "./split/game.ts";
 import tabooContent from "./taboo/content.json" with { type: "json" };
+import tabooNet from "./taboo/content.net.json" with { type: "json" };
 import { tabooGame } from "./taboo/game.ts";
+import undercoverImported from "./undercover/content.imported.json" with { type: "json" };
 import undercoverContent from "./undercover/content.json" with { type: "json" };
+import undercoverNet from "./undercover/content.net.json" with { type: "json" };
 import { undercoverGame } from "./undercover/game.ts";
 import { wagerGame } from "./wager/game.ts";
 import { wordGridGame } from "./wordgrid/game.ts";
@@ -55,10 +75,12 @@ export * from "./mostlikely/game.ts";
 export * from "./nothanks/game.ts";
 export * from "./oneclue/game.ts";
 export * from "./percent/game.ts";
+export * from "./platter/game.ts";
 export * from "./pollmine/game.ts";
 export * from "./quip/game.ts";
 export * from "./ranking/game.ts";
 export * from "./rowcards/game.ts";
+export * from "./seven/game.ts";
 export * from "./skull/game.ts";
 export * from "./soup/adapt.ts";
 export * from "./soup/game.ts";
@@ -109,6 +131,8 @@ export const games: Record<string, GameModule<any, any, any, any>> = {
   [pollMineGame.meta.id]: pollMineGame,
   [percentGame.meta.id]: percentGame,
   [estimateGame.meta.id]: estimateGame,
+  [platterGame.meta.id]: platterGame,
+  [sevenGame.meta.id]: sevenGame,
 };
 
 export const bundledContent: BundledContent[] = [
@@ -126,4 +150,24 @@ export const bundledContent: BundledContent[] = [
   ...(pollmineContent as BundledContent[]),
   ...(tabooContent as BundledContent[]),
   ...(estimateContent as BundledContent[]),
+  ...(platterContent as BundledContent[]),
+  ...(sevenContent as BundledContent[]),
+  // Wider packs written for the project (content.net.json) and lists by other people, each item
+  // naming where it came from (content.imported.json; see docs/content-sources.md).
+  ...(oneclueNet as BundledContent[]),
+  ...(tabooNet as BundledContent[]),
+  ...(undercoverNet as BundledContent[]),
+  ...(estimateNet as BundledContent[]),
+  ...(quipNet as BundledContent[]),
+  ...(mostlikelyNet as BundledContent[]),
+  ...(splitNet as BundledContent[]),
+  ...(pollmineNet as BundledContent[]),
+  ...(percentNet as BundledContent[]),
+  ...(spectrumNet as BundledContent[]),
+  ...(rankingNet as BundledContent[]),
+  ...(categoriesNet as BundledContent[]),
+  ...(bluffNet as BundledContent[]),
+  ...(soupNet as BundledContent[]),
+  ...(soupImported as BundledContent[]),
+  ...(undercoverImported as BundledContent[]),
 ];

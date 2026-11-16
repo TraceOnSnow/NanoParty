@@ -1,0 +1,252 @@
+[
+  {
+    "id": "fact-net-001",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "哆啦A梦最害怕的动物是____。",
+      "answer": "老鼠"
+    }
+  },
+  {
+    "id": "fact-net-002",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "《西游记》里，孙悟空的金箍棒原本是东海龙宫的____。",
+      "answer": "定海神针"
+    }
+  },
+  {
+    "id": "fact-net-003",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "「内卷」一词最早是____学里的一个学术概念。",
+      "answer": "人类",
+      "note": "involution，人类学研究中用来描述没有发展的增长"
+    }
+  },
+  {
+    "id": "fact-net-004",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "emoji 这个词来自____语。",
+      "answer": "日",
+      "note": "絵文字"
+    }
+  },
+  {
+    "id": "fact-net-005",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "二维码最早是由一家____公司发明的。",
+      "answer": "日本",
+      "note": "1994 年，Denso Wave"
+    }
+  },
+  {
+    "id": "fact-net-006",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "「蓝牙」这个名字来自一位____国王的绰号。",
+      "answer": "丹麦",
+      "note": "哈拉尔·蓝牙王"
+    }
+  },
+  {
+    "id": "fact-net-007",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "扑克牌的四张 K 里，唯一没有胡子的是____K。",
+      "answer": "红桃"
+    }
+  },
+  {
+    "id": "fact-net-008",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "国际象棋里，唯一可以越过其他棋子走的是____。",
+      "answer": "马"
+    }
+  },
+  {
+    "id": "fact-net-009",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "麻将「中发白」里的「发」，全称是____。",
+      "answer": "发财"
+    }
+  },
+  {
+    "id": "fact-net-010",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "方便面最早诞生在____。",
+      "answer": "日本",
+      "note": "1958 年"
+    }
+  },
+  {
+    "id": "fact-net-011",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "可口可乐最初是被当作一种____来卖的。",
+      "answer": "药",
+      "note": "作为药用饮品在药房出售"
+    }
+  },
+  {
+    "id": "fact-net-012",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "草莓表面的一颗颗小点，其实是它的____。",
+      "answer": "果实",
+      "note": "那是瘦果，红色的部分是膨大的花托"
+    }
+  },
+  {
+    "id": "fact-net-013",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "北极熊毛发下面的皮肤是____色的。",
+      "answer": "黑"
+    }
+  },
+  {
+    "id": "fact-net-014",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "网址开头的 www 是 World Wide ____ 的缩写。",
+      "answer": "Web"
+    }
+  },
+  {
+    "id": "fact-net-015",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "文件格式 PDF 里的 P 代表____。",
+      "answer": "Portable",
+      "note": "Portable Document Format"
+    }
+  },
+  {
+    "id": "fact-net-016",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "USB 里的 U 代表____。",
+      "answer": "Universal",
+      "note": "Universal Serial Bus"
+    }
+  },
+  {
+    "id": "fact-net-017",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "网页显示「404」表示页面____。",
+      "answer": "找不到",
+      "note": "Not Found"
+    }
+  },
+  {
+    "id": "fact-net-018",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "键盘第一行字母从左数的前六个连起来是____。",
+      "answer": "QWERTY"
+    }
+  },
+  {
+    "id": "fact-net-019",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "俄罗斯方块里一共有____种形状的方块。",
+      "answer": "七"
+    }
+  },
+  {
+    "id": "fact-net-020",
+    "version": 1,
+    "type": "fact-blank",
+    "theme": "冷知识",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "凡尔赛原本是法国的一座____。",
+      "answer": "宫殿"
+    }
+  }
+]

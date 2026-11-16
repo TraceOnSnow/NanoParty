@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { Avatar } from "../../components/Avatar.tsx";
+import { Slip, Slips, Stickers } from "../answers.tsx";
 import type { GameProps } from "../registry.tsx";
 import { useAct } from "../shared.ts";
 import { GameHead, HostControls, lastRound, Progress, roundLabel, useNames } from "../ui.tsx";
@@ -21,7 +24,18 @@ export function MostLikelyGame({ view, room, paused, act }: GameProps) {
   const me = room.me.playerId;
   const { error, send } = useAct(act);
   const go = (action: object) => send({ ...action, step: v.step });
-  const canVote = v.phase === "vote" && v.participants.includes(me) && v.myVote == null;
+  const canVote = v.phase === "vote" && v.participants.includes(me) && v.myVote == null && !paused;
+  const [chosen, setChosen] = useState<string | null>(null);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: a new step means a new question
+  useEffect(() => setChosen(null), [v.step]);
+  const tally = v.participants
+    .map((id) => ({
+      id,
+      voters: Object.entries(v.reveal?.votes ?? {})
+        .filter(([, t]) => t === id)
+        .map(([p]) => p),
+    }))
+    .sort((a, b) => a.voters.length - b.voters.length);
 
   return (
     <div className="game">
@@ -35,44 +49,51 @@ export function MostLikelyGame({ view, room, paused, act }: GameProps) {
       {v.phase === "vote" && (
         <>
           {!v.participants.includes(me) && <p className="muted">你将从下一轮开始参与。</p>}
-          <div className="pick-grid">
+          <Slips people>
             {v.participants.map((id) => (
-              <button
+              <Slip
                 key={id}
-                type="button"
-                className={v.myVote === id ? "pick picked" : "pick"}
-                disabled={paused || !canVote}
-                onClick={() => go({ type: "vote", target: id })}
+                selected={chosen === id || v.myVote === id}
+                disabled={!canVote}
+                stamp={v.myVote === id ? "我投的" : undefined}
+                onClick={() => setChosen(id)}
               >
+                <Avatar room={room} id={id} size="l" />
                 {name(id)}
                 {id === me ? "（我）" : ""}
-              </button>
+              </Slip>
             ))}
-          </div>
+          </Slips>
+          {canVote && (
+            <button
+              type="button"
+              className="primary wide"
+              disabled={chosen === null}
+              onClick={() => chosen !== null && go({ type: "vote", target: chosen })}
+            >
+              {chosen === null ? "点一个人" : `就是 ${name(chosen)}`}
+            </button>
+          )}
+          {v.myVote != null && <p className="muted">投好了，等其他人…</p>}
           <Progress ids={v.participants} done={v.submitted} name={name} />
         </>
       )}
 
       {v.phase === "reveal" && v.reveal && (
-        <table className="results">
-          <tbody>
-            {v.participants
-              .map((id) => ({
-                id,
-                voters: Object.entries(v.reveal?.votes ?? {})
-                  .filter(([, t]) => t === id)
-                  .map(([p]) => p),
-              }))
-              .sort((a, b) => b.voters.length - a.voters.length)
-              .map(({ id, voters }) => (
-                <tr key={id} className={v.reveal?.top.includes(id) ? "win" : ""}>
-                  <td>{name(id)}</td>
-                  <td className="muted">{voters.map(name).join("、") || "—"}</td>
-                  <td>{voters.length} 票</td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+        <Slips people>
+          {tally.map(({ id, voters }, i) => (
+            <Slip
+              key={id}
+              order={i}
+              tone={v.reveal?.top.includes(id) ? "good" : "plain"}
+              stamp={v.reveal?.top.includes(id) ? "就是你" : undefined}
+              foot={<Stickers room={room} ids={voters} label={`${voters.length} 票`} />}
+            >
+              <Avatar room={room} id={id} size="l" />
+              {name(id)}
+            </Slip>
+          ))}
+        </Slips>
       )}
 
       <HostControls isHost={room.me.isHost} waitNote={v.phase === "reveal" ? "等待房主继续…" : undefined}>

@@ -1,0 +1,354 @@
+[
+  {
+    "id": "yesno-net-001",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你今天摸过鱼吗？"
+    }
+  },
+  {
+    "id": "yesno-net-002",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你这周熬过夜吗（凌晨一点后才睡）？"
+    }
+  },
+  {
+    "id": "yesno-net-003",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你手机里有超过一千张照片吗？"
+    }
+  },
+  {
+    "id": "yesno-net-004",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你现在的手机电量低于 50% 吗？"
+    }
+  },
+  {
+    "id": "yesno-net-005",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你有过把外卖放到凉了才想起来吃的经历吗？"
+    }
+  },
+  {
+    "id": "yesno-net-006",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你设过三个以上的连续闹钟吗？"
+    }
+  },
+  {
+    "id": "yesno-net-007",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你曾经假装没看到过工作或学习群的消息吗？"
+    }
+  },
+  {
+    "id": "yesno-net-008",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你有过半夜看购物软件然后下单的经历吗？"
+    }
+  },
+  {
+    "id": "yesno-net-009",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你现在购物车里有超过二十件东西吗？"
+    }
+  },
+  {
+    "id": "yesno-net-010",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你最近一个月运动过吗？"
+    }
+  },
+  {
+    "id": "yesno-net-011",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你有过为了凑满减多买东西吗？"
+    }
+  },
+  {
+    "id": "yesno-net-012",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你会给外卖写备注吗？"
+    }
+  },
+  {
+    "id": "yesno-net-013",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你有办了卡却几乎没用过的会员或健身卡吗？"
+    }
+  },
+  {
+    "id": "yesno-net-014",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你曾经在电梯里假装看手机躲避聊天吗？"
+    }
+  },
+  {
+    "id": "yesno-net-015",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你有过发了朋友圈又秒删吗？"
+    }
+  },
+  {
+    "id": "yesno-net-016",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你有一个只有自己知道的小号吗？"
+    }
+  },
+  {
+    "id": "yesno-net-017",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你打游戏时把锅甩给过网络吗？"
+    }
+  },
+  {
+    "id": "yesno-net-018",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你有过对着镜子练习要说的话吗？"
+    }
+  },
+  {
+    "id": "yesno-net-019",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你睡前一定要刷一会儿手机吗？"
+    }
+  },
+  {
+    "id": "yesno-net-020",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你曾经把「在路上了」说得比实际早吗？"
+    }
+  },
+  {
+    "id": "yesno-net-021",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你今天喝水超过三杯了吗？"
+    }
+  },
+  {
+    "id": "yesno-net-022",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你有过坐过站的经历吗？"
+    }
+  },
+  {
+    "id": "yesno-net-023",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你现在微信未读消息超过十条吗？"
+    }
+  },
+  {
+    "id": "yesno-net-024",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你会给家里的电器或者玩偶起名字吗？"
+    }
+  },
+  {
+    "id": "yesno-net-025",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你有过一个人去吃火锅吗？"
+    }
+  },
+  {
+    "id": "yesno-net-026",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你会在看剧时开倍速吗？"
+    }
+  },
+  {
+    "id": "yesno-net-027",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你相信星座或者 MBTI 能说明点什么吗？"
+    }
+  },
+  {
+    "id": "yesno-net-028",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你有过给陌生的猫狗打招呼吗？"
+    }
+  },
+  {
+    "id": "yesno-net-029",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你今年读完过一本完整的书吗？"
+    }
+  },
+  {
+    "id": "yesno-net-030",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你有过因为一首歌单曲循环一整天吗？"
+    }
+  },
+  {
+    "id": "yesno-net-031",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你出门前会反复确认门有没有锁吗？"
+    }
+  },
+  {
+    "id": "yesno-net-032",
+    "version": 1,
+    "type": "yesno-prompt",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "你会把快递盒攒起来舍不得扔吗？"
+    }
+  }
+]

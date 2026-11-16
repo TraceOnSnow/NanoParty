@@ -1,0 +1,51 @@
+{
+  "name": "platter",
+  "base": "http://localhost:3100",
+  "roomId": "room_J6gtkmvjJwOS",
+  "at": "2026-11-16T03:49:48.177Z",
+  "results": [
+    {
+      "id": "PL-01",
+      "text": "开局：三张规则牌、六张材料牌、每人一栏",
+      "ok": true,
+      "evidence": "PL-01-1.png"
+    },
+    {
+      "id": "PL-02",
+      "text": "没轮到的人，桌上的牌都点不了",
+      "ok": true,
+      "evidence": "PL-02-1.png"
+    },
+    {
+      "id": "PL-03",
+      "text": "拿一张规则牌：点一下只是选中，确认后才出现在自己的盘子里并显示当前分值",
+      "ok": true,
+      "evidence": "PL-03-1.png"
+    },
+    {
+      "id": "PL-04",
+      "text": "拿两张材料：只选一张不能拿，拿完桌面补满",
+      "ok": true,
+      "evidence": "PL-04-1.png"
+    },
+    {
+      "id": "PL-05",
+      "text": "翻牌：规则牌变成材料，本回合不能再翻，仍要拿牌",
+      "ok": true,
+      "evidence": "PL-05-1.png"
+    },
+    {
+      "id": "PL-07",
+      "text": "拖动：把规则牌拖到自己的盘子里就拿走，轮到下一个人",
+      "ok": true,
+      "evidence": "PL-07-1.png"
+    },
+    {
+      "id": "PL-06",
+      "text": "所有牌拿完后进入结算",
+      "ok": true,
+      "evidence": "PL-06-1.png"
+    }
+  ],
+  "problems": []
+}

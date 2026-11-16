@@ -1,5 +1,7 @@
+import { useState } from "react";
 import type { GameProps } from "../registry.tsx";
 import { useAct } from "../shared.ts";
+import { CardBack, Felt, PlayHand, Seats } from "../table.tsx";
 import { GameHead, HostControls, useNames } from "../ui.tsx";
 
 interface View {
@@ -18,63 +20,99 @@ interface View {
   deadlineAt: number | null;
 }
 
+const Face = ({ value, className = "" }: { value: number; className?: string }) => (
+  <span className={`card-face ${className}`}>
+    <strong>{value}</strong>
+  </span>
+);
+
+/** Strength of every card on the table: its number times how many equal cards lie there. */
+function strengths(table: Record<string, number | null>): Record<string, number> {
+  const values = Object.values(table).filter((c): c is number => c != null);
+  return Object.fromEntries(
+    Object.entries(table).map(([p, c]) => [p, c == null ? 0 : c * values.filter((x) => x === c).length]),
+  );
+}
+
 export function FlushGame({ view, room, paused, act }: GameProps) {
   const v = view as View;
   const name = useNames(room);
   const me = room.me.playerId;
   const { error, send } = useAct(act);
   const go = (action: object) => send({ ...action, step: v.step });
-  const myTurn = v.phase === "play" && v.current === me;
+  const myTurn = v.phase === "play" && v.current === me && !paused;
+  const [aim, setAim] = useState<number | null>(null);
+  const now = strengths(v.table);
+  // What the table would look like after my card: display only, the server decides.
+  const after = aim !== null && myTurn ? strengths({ ...v.table, [me]: aim }) : null;
+  const knocked = after
+    ? v.players.filter((p) => p !== me && v.table[p] != null && (after[p] ?? 0) < (after[me] ?? 0))
+    : [];
+  const sorted = [...v.myHand].sort((a, b) => a - b);
 
   return (
-    <div className="game">
+    <div className="game wide">
       <GameHead
-        label={`第 ${v.game} 局 · 摸牌堆剩 ${v.drawLeft} 张`}
+        label={`第 ${v.game} 局 / 共 ${v.totalGames} 局`}
         deadlineAt={v.phase === "play" ? v.deadlineAt : null}
         paused={paused}
       />
-      <table className="results">
-        <tbody>
-          {v.players.map((p) => (
-            <tr key={p} className={p === v.current && v.phase === "play" ? "turn-row" : p === v.winner ? "win" : ""}>
-              <td>{name(p)}</td>
-              <td className="muted">手牌 {v.handSizes[p]}</td>
-              <td>
-                {v.table[p] != null ? (
-                  <span className="card-face">
-                    <strong>{v.table[p]}</strong>
-                  </span>
-                ) : (
-                  <span className="muted">—</span>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Felt>
+        <Seats
+          room={room}
+          ids={v.players}
+          current={v.phase === "play" ? v.current : null}
+          win={v.winner ? [v.winner] : []}
+          note={(p) => <span className="tag">手牌 {v.handSizes[p]}</span>}
+        >
+          {(p) =>
+            v.table[p] != null ? (
+              <>
+                <Face value={v.table[p] as number} className={knocked.includes(p) ? "doomed" : ""} />
+                <span className="strength">
+                  强度 {now[p]}
+                  {knocked.includes(p) ? " · 会被压掉" : ""}
+                </span>
+              </>
+            ) : (
+              <>
+                <span className="card-face empty" />
+                <span className="strength muted">面前没牌</span>
+              </>
+            )
+          }
+        </Seats>
+        <p className="felt-note">
+          <CardBack count={v.drawLeft} label="摸牌堆" />
+          <span>
+            强度 = 点数 × 桌上同点数的张数。打出的牌会压掉所有强度更低的牌，被压的人摸一张。先把手牌和面前都清空的人赢。
+          </span>
+        </p>
+      </Felt>
       {v.last && (
         <p className="muted small">
           {name(v.last.playerId)} 打出 {v.last.card}
-          {v.last.knocked.length > 0 ? `，压掉了 ${v.last.knocked.map(name).join("、")}（各摸一张）` : ""}
+          {v.last.knocked.length > 0 ? `，压掉了 ${v.last.knocked.map(name).join("、")}（各摸一张）` : "，没压到人"}
         </p>
       )}
       {v.phase === "play" && (
         <>
-          <p className="muted">{myTurn ? "轮到你：打一张牌到面前。" : `等 ${name(v.current)} 出牌…`}</p>
-          <div className="hand">
-            {v.myHand.map((c, i) => (
-              <button
-                // biome-ignore lint/suspicious/noArrayIndexKey: duplicate values are allowed
-                key={i}
-                type="button"
-                className="card-face"
-                disabled={!myTurn || paused}
-                onClick={() => go({ type: "play", card: c })}
-              >
-                <strong>{c}</strong>
-              </button>
-            ))}
-          </div>
+          <p className="muted">
+            {v.current === me
+              ? after
+                ? `打 ${aim}：强度 ${after[me]}，${knocked.length > 0 ? `压掉 ${knocked.map(name).join("、")}` : "压不到人"}。`
+                : `轮到你${v.table[me] != null ? "（面前那张撑过一圈，先弃掉）" : ""}：点一张看效果，或者直接拖到桌上。`
+              : `等 ${name(v.current)} 出牌…`}
+          </p>
+          <PlayHand
+            cards={sorted}
+            face={(c) => <Face value={c} />}
+            enabled={myTurn}
+            confirm={(c) => `打出 ${c}`}
+            onSelect={(c) => setAim(c)}
+            onPlay={(c) => void go({ type: "play", card: c })}
+            resetKey={v.step}
+          />
         </>
       )}
       {v.phase === "gameOver" && v.winner && <p className="answer">{name(v.winner)} 最先出清手牌！</p>}

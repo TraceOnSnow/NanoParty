@@ -10,9 +10,11 @@ import { estimateContentSchema } from "./estimate/game.ts";
 import { mostlikelyContentSchema } from "./mostlikely/game.ts";
 import { oneclueContentSchema } from "./oneclue/game.ts";
 import { yesnoContentSchema } from "./percent/game.ts";
+import { platterThemeSchema } from "./platter/game.ts";
 import { pollContentSchema } from "./pollmine/game.ts";
 import { quipContentSchema } from "./quip/game.ts";
 import { rankingContentSchema } from "./ranking/game.ts";
+import { sevenThemeSchema } from "./seven/game.ts";
 import { soupContentSchema } from "./soup/game.ts";
 import { spectrumContentSchema } from "./spectrum/game.ts";
 import { splitContentSchema } from "./split/game.ts";
@@ -83,6 +85,16 @@ export const contentTypes: Record<string, ContentTypeDef> = {
     schema: tabooContentSchema,
     guide:
       '禁词描述的词卡：{"word": 目标词, "taboo": [2–5 个描述它时最容易说出口的禁词]}。例：{"word":"火锅","taboo":["辣","涮","重庆","锅底"]}',
+  },
+  "platter-theme": {
+    schema: platterThemeSchema,
+    guide:
+      '凑一桌的主题：给六种材料起名。{"name": 主题名, "kinds": [恰好 6 个 {"label": 不超过 10 个字的名字}]}。例：{"name":"零食局","kinds":[{"label":"薯片"},{"label":"可乐"},{"label":"辣条"},{"label":"泡面"},{"label":"瓜子"},{"label":"奶茶"}]}',
+  },
+  "seven-theme": {
+    schema: sevenThemeSchema,
+    guide:
+      '攒七张的主题：给八个类别起名，可选地给每张牌起名。{"name": 主题名, "suits": [恰好 8 个 {"label": 不超过 8 个字}], "cards": 可选，8 组、每组恰好 7 个不超过 12 个字的牌名}',
   },
   poll: {
     schema: pollContentSchema,

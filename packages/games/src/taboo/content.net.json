@@ -1,0 +1,1022 @@
+[
+  {
+    "id": "taboo-net-001",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "摸鱼",
+      "taboo": ["上班", "偷懒", "老板", "划水"]
+    }
+  },
+  {
+    "id": "taboo-net-002",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "内卷",
+      "taboo": ["竞争", "加班", "努力", "躺平"]
+    }
+  },
+  {
+    "id": "taboo-net-003",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "躺平",
+      "taboo": ["内卷", "努力", "放弃", "摆烂"]
+    }
+  },
+  {
+    "id": "taboo-net-004",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "破防",
+      "taboo": ["心态", "崩溃", "哭", "游戏"]
+    }
+  },
+  {
+    "id": "taboo-net-005",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "社死",
+      "taboo": ["尴尬", "丢人", "公开", "脚趾"]
+    }
+  },
+  {
+    "id": "taboo-net-006",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "社恐",
+      "taboo": ["害怕", "人多", "说话", "内向"]
+    }
+  },
+  {
+    "id": "taboo-net-007",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "显眼包",
+      "taboo": ["搞笑", "出风头", "注意", "丢人"]
+    }
+  },
+  {
+    "id": "taboo-net-008",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "搭子",
+      "taboo": ["朋友", "一起", "吃饭", "伙伴"]
+    }
+  },
+  {
+    "id": "taboo-net-009",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "恋爱脑",
+      "taboo": ["对象", "喜欢", "分手", "理智"]
+    }
+  },
+  {
+    "id": "taboo-net-010",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "吃瓜",
+      "taboo": ["八卦", "明星", "围观", "热搜"]
+    }
+  },
+  {
+    "id": "taboo-net-011",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "种草",
+      "taboo": ["推荐", "想买", "安利", "拔草"]
+    }
+  },
+  {
+    "id": "taboo-net-012",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "画饼",
+      "taboo": ["老板", "承诺", "升职", "空话"]
+    }
+  },
+  {
+    "id": "taboo-net-013",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "背锅",
+      "taboo": ["责任", "错", "甩", "领导"]
+    }
+  },
+  {
+    "id": "taboo-net-014",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "塌房",
+      "taboo": ["明星", "偶像", "粉丝", "丑闻"]
+    }
+  },
+  {
+    "id": "taboo-net-015",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "翻车",
+      "taboo": ["失败", "直播", "出错", "车"]
+    }
+  },
+  {
+    "id": "taboo-net-016",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "真香",
+      "taboo": ["打脸", "后悔", "吃", "拒绝"]
+    }
+  },
+  {
+    "id": "taboo-net-017",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "杠精",
+      "taboo": ["抬杠", "反驳", "评论", "吵架"]
+    }
+  },
+  {
+    "id": "taboo-net-018",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "热搜",
+      "taboo": ["微博", "榜", "明星", "话题"]
+    }
+  },
+  {
+    "id": "taboo-net-019",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "弹幕",
+      "taboo": ["视频", "飘", "评论", "屏幕"]
+    }
+  },
+  {
+    "id": "taboo-net-020",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "表情包",
+      "taboo": ["聊天", "图片", "斗图", "发"]
+    }
+  },
+  {
+    "id": "taboo-net-021",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "情绪价值",
+      "taboo": ["安慰", "夸", "对象", "陪伴"]
+    }
+  },
+  {
+    "id": "taboo-net-022",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "精神内耗",
+      "taboo": ["焦虑", "想太多", "纠结", "累"]
+    }
+  },
+  {
+    "id": "taboo-net-023",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "电子榨菜",
+      "taboo": ["吃饭", "视频", "下饭", "手机"]
+    }
+  },
+  {
+    "id": "taboo-net-024",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "特种兵旅游",
+      "taboo": ["景点", "赶", "大学生", "省钱"]
+    }
+  },
+  {
+    "id": "taboo-net-025",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "已读不回",
+      "taboo": ["消息", "微信", "回复", "看见"]
+    }
+  },
+  {
+    "id": "taboo-net-026",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "周报",
+      "taboo": ["每周", "写", "领导", "总结"]
+    }
+  },
+  {
+    "id": "taboo-net-027",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "团建",
+      "taboo": ["公司", "同事", "周末", "活动"]
+    }
+  },
+  {
+    "id": "taboo-net-028",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "年终奖",
+      "taboo": ["过年", "钱", "公司", "发"]
+    }
+  },
+  {
+    "id": "taboo-net-029",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "调休",
+      "taboo": ["放假", "补班", "周末", "节日"]
+    }
+  },
+  {
+    "id": "taboo-net-030",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "甲方",
+      "taboo": ["客户", "需求", "改", "乙方"]
+    }
+  },
+  {
+    "id": "taboo-net-031",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "KPI",
+      "taboo": ["考核", "指标", "业绩", "绩效"]
+    }
+  },
+  {
+    "id": "taboo-net-032",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "跳槽",
+      "taboo": ["换工作", "离职", "公司", "涨薪"]
+    }
+  },
+  {
+    "id": "taboo-net-033",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "面试",
+      "taboo": ["简历", "HR", "求职", "问题"]
+    }
+  },
+  {
+    "id": "taboo-net-034",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "打卡",
+      "taboo": ["上班", "迟到", "指纹", "考勤"]
+    }
+  },
+  {
+    "id": "taboo-net-035",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "通勤",
+      "taboo": ["地铁", "上班", "路上", "挤"]
+    }
+  },
+  {
+    "id": "taboo-net-036",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "裁员",
+      "taboo": ["失业", "公司", "赔偿", "优化"]
+    }
+  },
+  {
+    "id": "taboo-net-037",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "上岸",
+      "taboo": ["考公", "考研", "成功", "录取"]
+    }
+  },
+  {
+    "id": "taboo-net-038",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "下午茶",
+      "taboo": ["三点", "奶茶", "蛋糕", "同事"]
+    }
+  },
+  {
+    "id": "taboo-net-039",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "准点下班",
+      "taboo": ["加班", "六点", "走", "老板"]
+    }
+  },
+  {
+    "id": "taboo-net-040",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "打工",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "工位",
+      "taboo": ["桌子", "办公室", "电脑", "座位"]
+    }
+  },
+  {
+    "id": "taboo-net-041",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "早八",
+      "taboo": ["第一节课", "起床", "八点", "困"]
+    }
+  },
+  {
+    "id": "taboo-net-042",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "DDL",
+      "taboo": ["截止", "作业", "最后", "赶"]
+    }
+  },
+  {
+    "id": "taboo-net-043",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "挂科",
+      "taboo": ["不及格", "考试", "补考", "分数"]
+    }
+  },
+  {
+    "id": "taboo-net-044",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "小组作业",
+      "taboo": ["队友", "分工", "PPT", "划水"]
+    }
+  },
+  {
+    "id": "taboo-net-045",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "占座",
+      "taboo": ["图书馆", "书", "位置", "自习"]
+    }
+  },
+  {
+    "id": "taboo-net-046",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "军训",
+      "taboo": ["教官", "晒", "迷彩", "开学"]
+    }
+  },
+  {
+    "id": "taboo-net-047",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "点名",
+      "taboo": ["老师", "逃课", "到", "签到"]
+    }
+  },
+  {
+    "id": "taboo-net-048",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "期末周",
+      "taboo": ["复习", "考试", "熬夜", "图书馆"]
+    }
+  },
+  {
+    "id": "taboo-net-049",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "同桌",
+      "taboo": ["旁边", "座位", "课桌", "同学"]
+    }
+  },
+  {
+    "id": "taboo-net-050",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "家长会",
+      "taboo": ["老师", "爸妈", "成绩", "学校"]
+    }
+  },
+  {
+    "id": "taboo-net-051",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "晚自习",
+      "taboo": ["晚上", "教室", "作业", "高中"]
+    }
+  },
+  {
+    "id": "taboo-net-052",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "校园",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "寒假作业",
+      "taboo": ["假期", "最后一天", "补", "抄"]
+    }
+  },
+  {
+    "id": "taboo-net-053",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "开黑",
+      "taboo": ["一起", "语音", "朋友", "组队"]
+    }
+  },
+  {
+    "id": "taboo-net-054",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "挂机",
+      "taboo": ["不动", "队友", "举报", "离开"]
+    }
+  },
+  {
+    "id": "taboo-net-055",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "氪金",
+      "taboo": ["充钱", "花钱", "皮肤", "抽卡"]
+    }
+  },
+  {
+    "id": "taboo-net-056",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "非酋",
+      "taboo": ["运气", "抽卡", "脸黑", "欧皇"]
+    }
+  },
+  {
+    "id": "taboo-net-057",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "保底",
+      "taboo": ["抽卡", "次数", "必出", "运气"]
+    }
+  },
+  {
+    "id": "taboo-net-058",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "外挂",
+      "taboo": ["作弊", "封号", "透视", "开"]
+    }
+  },
+  {
+    "id": "taboo-net-059",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "新手村",
+      "taboo": ["开始", "一级", "教程", "出生"]
+    }
+  },
+  {
+    "id": "taboo-net-060",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "存档",
+      "taboo": ["保存", "读档", "进度", "记录"]
+    }
+  },
+  {
+    "id": "taboo-net-061",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "掉线",
+      "taboo": ["网络", "断", "重连", "卡"]
+    }
+  },
+  {
+    "id": "taboo-net-062",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "躺赢",
+      "taboo": ["队友", "带", "不出力", "胜利"]
+    }
+  },
+  {
+    "id": "taboo-net-063",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "闪现",
+      "taboo": ["技能", "位移", "撞墙", "召唤师"]
+    }
+  },
+  {
+    "id": "taboo-net-064",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "游戏",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "网吧",
+      "taboo": ["包夜", "电脑", "上网", "泡面"]
+    }
+  },
+  {
+    "id": "taboo-net-065",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "螺蛳粉",
+      "taboo": ["臭", "柳州", "酸笋", "粉"]
+    }
+  },
+  {
+    "id": "taboo-net-066",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "预制菜",
+      "taboo": ["加热", "料理包", "现做", "外卖"]
+    }
+  },
+  {
+    "id": "taboo-net-067",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "冰美式",
+      "taboo": ["咖啡", "苦", "消肿", "打工人"]
+    }
+  },
+  {
+    "id": "taboo-net-068",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "小龙虾",
+      "taboo": ["剥", "夏天", "麻辣", "壳"]
+    }
+  },
+  {
+    "id": "taboo-net-069",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "疯狂星期四",
+      "taboo": ["炸鸡", "V我", "五十", "周四"]
+    }
+  },
+  {
+    "id": "taboo-net-070",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "泡面",
+      "taboo": ["开水", "三分钟", "桶", "调料"]
+    }
+  },
+  {
+    "id": "taboo-net-071",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "自助餐",
+      "taboo": ["随便吃", "回本", "扶墙", "不限量"]
+    }
+  },
+  {
+    "id": "taboo-net-072",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "减脂餐",
+      "taboo": ["减肥", "鸡胸肉", "沙拉", "水煮"]
+    }
+  },
+  {
+    "id": "taboo-net-073",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "夜宵",
+      "taboo": ["晚上", "烧烤", "饿", "胖"]
+    }
+  },
+  {
+    "id": "taboo-net-074",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "吃喝",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "拼单",
+      "taboo": ["一起买", "凑", "便宜", "砍一刀"]
+    }
+  },
+  {
+    "id": "taboo-net-075",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "熬夜",
+      "taboo": ["晚睡", "黑眼圈", "手机", "凌晨"]
+    }
+  },
+  {
+    "id": "taboo-net-076",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "拖延症",
+      "taboo": ["明天", "最后", "不想做", "DDL"]
+    }
+  },
+  {
+    "id": "taboo-net-077",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "盲盒",
+      "taboo": ["抽", "隐藏款", "未知", "拆"]
+    }
+  },
+  {
+    "id": "taboo-net-078",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "充电宝",
+      "taboo": ["没电", "借", "手机", "共享"]
+    }
+  },
+  {
+    "id": "taboo-net-079",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "相亲",
+      "taboo": ["对象", "介绍", "父母", "见面"]
+    }
+  },
+  {
+    "id": "taboo-net-080",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "压岁钱",
+      "taboo": ["过年", "红包", "长辈", "妈妈保管"]
+    }
+  },
+  {
+    "id": "taboo-net-081",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "春运",
+      "taboo": ["回家", "火车", "抢票", "过年"]
+    }
+  },
+  {
+    "id": "taboo-net-082",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "合租",
+      "taboo": ["室友", "房租", "分摊", "客厅"]
+    }
+  },
+  {
+    "id": "taboo-net-083",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "脱发",
+      "taboo": ["头发", "秃", "熬夜", "发际线"]
+    }
+  },
+  {
+    "id": "taboo-net-084",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "铲屎官",
+      "taboo": ["猫", "狗", "主人", "养"]
+    }
+  },
+  {
+    "id": "taboo-net-085",
+    "version": 1,
+    "type": "taboo-card",
+    "theme": "生活",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "word": "广场舞",
+      "taboo": ["大妈", "音乐", "晚上", "跳"]
+    }
+  }
+]

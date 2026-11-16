@@ -18,8 +18,14 @@ export function useAct(act: (action: unknown) => Promise<Ack>) {
   const [error, setError] = useState<string | null>(null);
   const send = async (action: object) => {
     const ack = await act(action);
-    setError(ack.ok ? null : ack.error);
+    // "Expired" only means the table moved on while the button was being pressed.
+    setError(ack.ok ? null : ack.error === "该操作已过期" ? "慢了一步，这一步已经过去了" : ack.error);
     return ack.ok;
   };
+  useEffect(() => {
+    if (!error) return;
+    const t = setTimeout(() => setError(null), 3000);
+    return () => clearTimeout(t);
+  }, [error]);
   return { error, setError, send };
 }

@@ -1,0 +1,206 @@
+[
+  {
+    "id": "cat-net-001",
+    "version": 1,
+    "type": "category",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "name": "热词园",
+      "hint": "说一个网络流行语"
+    }
+  },
+  {
+    "id": "cat-net-002",
+    "version": 1,
+    "type": "category",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "name": "App 园",
+      "hint": "说一个手机 App"
+    }
+  },
+  {
+    "id": "cat-net-003",
+    "version": 1,
+    "type": "category",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "name": "表情包园",
+      "hint": "说一个常见表情包的内容"
+    }
+  },
+  {
+    "id": "cat-net-004",
+    "version": 1,
+    "type": "category",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "name": "游戏园",
+      "hint": "说一款电子游戏"
+    }
+  },
+  {
+    "id": "cat-net-005",
+    "version": 1,
+    "type": "category",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "name": "外卖园",
+      "hint": "说一种外卖常点的东西"
+    }
+  },
+  {
+    "id": "cat-net-006",
+    "version": 1,
+    "type": "category",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "name": "奶茶园",
+      "hint": "说一种奶茶或咖啡饮品"
+    }
+  },
+  {
+    "id": "cat-net-007",
+    "version": 1,
+    "type": "category",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "name": "借口园",
+      "hint": "说一个迟到或请假的借口"
+    }
+  },
+  {
+    "id": "cat-net-008",
+    "version": 1,
+    "type": "category",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "name": "打工园",
+      "hint": "说一个职场黑话"
+    }
+  },
+  {
+    "id": "cat-net-009",
+    "version": 1,
+    "type": "category",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "name": "校园",
+      "hint": "说一门课程的名字"
+    }
+  },
+  {
+    "id": "cat-net-010",
+    "version": 1,
+    "type": "category",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "name": "动漫园",
+      "hint": "说一部动画或漫画"
+    }
+  },
+  {
+    "id": "cat-net-011",
+    "version": 1,
+    "type": "category",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "name": "电视剧园",
+      "hint": "说一部电视剧"
+    }
+  },
+  {
+    "id": "cat-net-012",
+    "version": 1,
+    "type": "category",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "name": "歌手园",
+      "hint": "说一位歌手或乐队"
+    }
+  },
+  {
+    "id": "cat-net-013",
+    "version": 1,
+    "type": "category",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "name": "小吃园",
+      "hint": "说一种地方小吃"
+    }
+  },
+  {
+    "id": "cat-net-014",
+    "version": 1,
+    "type": "category",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "name": "童年园",
+      "hint": "说一个童年玩过的东西或游戏"
+    }
+  },
+  {
+    "id": "cat-net-015",
+    "version": 1,
+    "type": "category",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "name": "地铁园",
+      "hint": "说一个你坐过的地铁站或公交站名"
+    }
+  },
+  {
+    "id": "cat-net-016",
+    "version": 1,
+    "type": "category",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "name": "节日园",
+      "hint": "说一个节日"
+    }
+  },
+  {
+    "id": "cat-net-017",
+    "version": 1,
+    "type": "category",
+    "theme": "网络",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "name": "颜文字园",
+      "hint": "说一个 emoji 的名字"
+    }
+  }
+]

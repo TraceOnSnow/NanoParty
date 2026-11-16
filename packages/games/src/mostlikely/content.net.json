@@ -1,0 +1,387 @@
+[
+  {
+    "id": "who-net-001",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能把「马上到」说成「刚出门」？"
+    }
+  },
+  {
+    "id": "who-net-002",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能在群里发完消息又撤回？"
+    }
+  },
+  {
+    "id": "who-net-003",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能凌晨三点还在线？"
+    }
+  },
+  {
+    "id": "who-net-004",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能点外卖凑单凑到比原价还贵？"
+    }
+  },
+  {
+    "id": "who-net-005",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能把闹钟设十个然后全部按掉？"
+    }
+  },
+  {
+    "id": "who-net-006",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能出门十分钟就想回家？"
+    }
+  },
+  {
+    "id": "who-net-007",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能在 KTV 一个人霸麦？"
+    }
+  },
+  {
+    "id": "who-net-008",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能看恐怖片时全程捂眼睛？"
+    }
+  },
+  {
+    "id": "who-net-009",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能为了省两块钱走两公里？"
+    }
+  },
+  {
+    "id": "who-net-010",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能把「最后一把」打到天亮？"
+    }
+  },
+  {
+    "id": "who-net-011",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能在朋友圈发完秒删？"
+    }
+  },
+  {
+    "id": "who-net-012",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能旅游时做最详细的攻略？"
+    }
+  },
+  {
+    "id": "who-net-013",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能旅游时全程只会说「都行」？"
+    }
+  },
+  {
+    "id": "who-net-014",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能第一个在聚会上喊饿？"
+    }
+  },
+  {
+    "id": "who-net-015",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能把别人的梗讲冷？"
+    }
+  },
+  {
+    "id": "who-net-016",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能和导航吵架？"
+    }
+  },
+  {
+    "id": "who-net-017",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能被诈骗电话聊到对方先挂？"
+    }
+  },
+  {
+    "id": "who-net-018",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能抽卡抽到保底？"
+    }
+  },
+  {
+    "id": "who-net-019",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能说「我不吃了」然后吃得最多？"
+    }
+  },
+  {
+    "id": "who-net-020",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能买了书就当读过了？"
+    }
+  },
+  {
+    "id": "who-net-021",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能办了健身卡只去洗澡？"
+    }
+  },
+  {
+    "id": "who-net-022",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能记得所有人的生日？"
+    }
+  },
+  {
+    "id": "who-net-023",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能忘了自己的生日？"
+    }
+  },
+  {
+    "id": "who-net-024",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能和陌生的猫聊起来？"
+    }
+  },
+  {
+    "id": "who-net-025",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能中了彩票还照常上班？"
+    }
+  },
+  {
+    "id": "who-net-026",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能在电梯里尴尬到假装看手机？"
+    }
+  },
+  {
+    "id": "who-net-027",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能开会时偷偷点外卖？"
+    }
+  },
+  {
+    "id": "who-net-028",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能把语音当成对讲机一条条地发？"
+    }
+  },
+  {
+    "id": "who-net-029",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能在游戏里甩锅给网络？"
+    }
+  },
+  {
+    "id": "who-net-030",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能突然消失一周然后若无其事地回来？"
+    }
+  },
+  {
+    "id": "who-net-031",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能先说「我请客」又第一个 AA？"
+    }
+  },
+  {
+    "id": "who-net-032",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能成为所有群里的潜水冠军？"
+    }
+  },
+  {
+    "id": "who-net-033",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能被老板的饼画得最饱？"
+    }
+  },
+  {
+    "id": "who-net-034",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能在世界末日那天还在回工作消息？"
+    }
+  },
+  {
+    "id": "who-net-035",
+    "version": 1,
+    "type": "who-prompt",
+    "theme": "熟人",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "谁最可能养一只宠物然后被宠物养？"
+    }
+  }
+]

@@ -1,0 +1,242 @@
+[
+  {
+    "id": "poll-net-001",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "周末突然多出一天假，你最想干什么？",
+      "options": ["睡到自然醒", "打一整天游戏", "出门玩", "补之前欠的活", "发呆什么都不干", "约朋友吃饭"]
+    }
+  },
+  {
+    "id": "poll-net-002",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "深夜最容易点哪种外卖？",
+      "options": ["烧烤", "炸鸡", "麻辣烫", "小龙虾", "粥", "奶茶", "忍住不点"]
+    }
+  },
+  {
+    "id": "poll-net-003",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "最受不了哪种队友？",
+      "options": ["挂机的", "甩锅的", "一直指挥的", "全程不说话的", "送完还嘴硬的", "中途有事的"]
+    }
+  },
+  {
+    "id": "poll-net-004",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "哪种工作消息最让人血压升高？",
+      "options": ["在吗", "方便电话吗", "这个很简单", "下班前给我", "我们对齐一下", "收到请回复"]
+    }
+  },
+  {
+    "id": "poll-net-005",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "奶茶一般点几分糖？",
+      "options": ["全糖", "七分", "五分", "三分", "不另外加糖", "不喝奶茶"]
+    }
+  },
+  {
+    "id": "poll-net-006",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "最想删掉手机里哪类 App？",
+      "options": ["工作沟通软件", "短视频", "购物", "外卖", "游戏", "一个都舍不得"]
+    }
+  },
+  {
+    "id": "poll-net-007",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "起床最需要什么？",
+      "options": ["十个闹钟", "一泡尿", "工资", "别人喊", "阳光", "根本起不来"]
+    }
+  },
+  {
+    "id": "poll-net-008",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "聚会上你一般是哪种人？",
+      "options": ["气氛组", "干饭组", "拍照组", "倾听组", "早退组", "组局的那个"]
+    }
+  },
+  {
+    "id": "poll-net-009",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "最想拥有哪种「打工人超能力」？",
+      "options": ["不用通勤", "开会自动静音", "一键写周报", "老板看不见我", "工资自动翻倍", "永远不困"]
+    }
+  },
+  {
+    "id": "poll-net-010",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "过年最怕被问什么？",
+      "options": ["工资多少", "有对象了吗", "什么时候结婚", "什么时候买房", "胖了还是瘦了", "给大家表演一个"]
+    }
+  },
+  {
+    "id": "poll-net-011",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "旅游时最看重什么？",
+      "options": ["吃", "拍照", "睡得好", "不排队", "便宜", "有人安排好一切"]
+    }
+  },
+  {
+    "id": "poll-net-012",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "压力大的时候最想干什么？",
+      "options": ["暴饮暴食", "睡觉", "打游戏", "购物", "运动", "找人吐槽", "独处"]
+    }
+  },
+  {
+    "id": "poll-net-013",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "哪种声音最让人崩溃？",
+      "options": ["闹钟", "工作软件提示音", "装修电钻", "指甲划黑板", "蚊子", "别人外放短视频"]
+    }
+  },
+  {
+    "id": "poll-net-014",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "最想穿越回哪个阶段？",
+      "options": ["幼儿园", "小学", "初中", "高中", "大学", "哪也不去"]
+    }
+  },
+  {
+    "id": "poll-net-015",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "手机电量低于多少开始慌？",
+      "options": ["80%", "50%", "30%", "20%", "10%", "关机了再说"]
+    }
+  },
+  {
+    "id": "poll-net-016",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "最常用哪种方式拒绝别人？",
+      "options": ["我看看", "改天吧", "最近有点忙", "已读不回", "直接说不", "不会拒绝"]
+    }
+  },
+  {
+    "id": "poll-net-017",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "火锅里的灵魂是哪个？",
+      "options": ["毛肚", "肥牛", "虾滑", "土豆", "宽粉", "蘸料", "锅底"]
+    }
+  },
+  {
+    "id": "poll-net-018",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "哪种家务最不想做？",
+      "options": ["洗碗", "拖地", "晾衣服", "倒垃圾", "换被套", "刷马桶"]
+    }
+  },
+  {
+    "id": "poll-net-019",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "理想的社交距离是？",
+      "options": ["天天见", "一周一次", "一个月一次", "线上就好", "有事再联系", "别联系"]
+    }
+  },
+  {
+    "id": "poll-net-020",
+    "version": 1,
+    "type": "poll",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "如果只能留一个调料，你留？",
+      "options": ["辣椒", "醋", "酱油", "蒜", "香菜", "老干妈", "盐"]
+    }
+  }
+]

@@ -1,5 +1,5 @@
 import type { Ack } from "@apr/shared";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { clearSession, loadSession } from "../api.ts";
 import { CanvasPanel } from "../components/CanvasPanel.tsx";
 import { ChatPanel } from "../components/ChatPanel.tsx";
@@ -19,6 +19,18 @@ export function RoomPage({ roomId }: { roomId: string }) {
   const conn = useRoom(roomId, token);
   const [error, setError] = useState<string | null>(null);
   const { view } = conn;
+  // Phones show one panel at a time; messages that arrive while the chat is hidden are counted.
+  const [tab, setTab] = useState<"game" | "chat">("game");
+  const seen = useRef(0);
+  const total = conn.chat.length;
+  if (tab === "chat") seen.current = total;
+  const unread = Math.max(0, total - seen.current);
+  // A rejected action explains itself for a few seconds, then gets out of the way.
+  useEffect(() => {
+    if (!error) return;
+    const t = setTimeout(() => setError(null), 4000);
+    return () => clearTimeout(t);
+  }, [error]);
 
   if (conn.status === "denied") {
     return (
@@ -51,11 +63,11 @@ export function RoomPage({ roomId }: { roomId: string }) {
   const gameMeta = segment ? view.games.find((g) => g.id === segment.gameId) : undefined;
 
   return (
-    <div className="room">
+    <div className={`room tab-${tab}`}>
       <TestBar roomId={roomId} me={view.me.playerId} />
       <header className="room-bar">
         <strong>{view.room.name}</strong>
-        {gameMeta && <span className="tag">{gameMeta.name}</span>}
+        {gameMeta && <span className="tag">{gameMeta.alias ?? gameMeta.name}</span>}
         <span className="spacer" />
         {conn.status !== "connected" && <span className="tag warn">连接中断，正在重连…</span>}
         {segment && view.me.isHost && (
@@ -169,9 +181,18 @@ export function RoomPage({ roomId }: { roomId: string }) {
       </section>
 
       <aside className="side-panel">
-        <Scoreboard view={view} />
+        <Scoreboard view={view} command={(c) => run(conn.command(c))} />
         <ChatPanel view={view} chat={conn.chat} say={conn.say} />
       </aside>
+
+      <nav className="room-tabs">
+        <button type="button" className={tab === "game" ? "on" : ""} onClick={() => setTab("game")}>
+          {segment ? (gameMeta?.alias ?? gameMeta?.name ?? "游戏") : view.settlement ? "结算" : "大厅"}
+        </button>
+        <button type="button" className={tab === "chat" ? "on" : ""} onClick={() => setTab("chat")}>
+          聊天和积分{unread > 0 && <span className="badge">{unread > 99 ? "99+" : unread}</span>}
+        </button>
+      </nav>
     </div>
   );
 }

@@ -1,0 +1,249 @@
+[
+  {
+    "id": "scn-net-001",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一种迟到的理由",
+      "low": "最没人信",
+      "high": "最让人信服"
+    }
+  },
+  {
+    "id": "scn-net-002",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一个下班后的安排",
+      "low": "最累",
+      "high": "最放松"
+    }
+  },
+  {
+    "id": "scn-net-003",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一种零食",
+      "low": "最健康",
+      "high": "最罪恶"
+    }
+  },
+  {
+    "id": "scn-net-004",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一种发朋友圈的内容",
+      "low": "最没人点赞",
+      "high": "点赞最多"
+    }
+  },
+  {
+    "id": "scn-net-005",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一种周末的状态",
+      "low": "最宅",
+      "high": "最野"
+    }
+  },
+  {
+    "id": "scn-net-006",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一种社交场合",
+      "low": "最自在",
+      "high": "最想逃"
+    }
+  },
+  {
+    "id": "scn-net-007",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一种花钱的方式",
+      "low": "最理智",
+      "high": "最冲动"
+    }
+  },
+  {
+    "id": "scn-net-008",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一个起床时间",
+      "low": "最养生",
+      "high": "最阴间"
+    }
+  },
+  {
+    "id": "scn-net-009",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一种游戏里的行为",
+      "low": "最让队友感动",
+      "high": "最让队友破防"
+    }
+  },
+  {
+    "id": "scn-net-010",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一句老板的话",
+      "low": "最让人安心",
+      "high": "最让人心慌"
+    }
+  },
+  {
+    "id": "scn-net-011",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一种表白方式",
+      "low": "最土",
+      "high": "最浪漫"
+    }
+  },
+  {
+    "id": "scn-net-012",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一件家里的东西",
+      "low": "最没用",
+      "high": "最离不开"
+    }
+  },
+  {
+    "id": "scn-net-013",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一个网络热词",
+      "low": "最过气",
+      "high": "最新"
+    }
+  },
+  {
+    "id": "scn-net-014",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一种夜宵",
+      "low": "最克制",
+      "high": "最放纵"
+    }
+  },
+  {
+    "id": "scn-net-015",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一种道歉的方式",
+      "low": "最敷衍",
+      "high": "最真诚"
+    }
+  },
+  {
+    "id": "scn-net-016",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一种动物",
+      "low": "最适合当老板",
+      "high": "最适合当同事"
+    }
+  },
+  {
+    "id": "scn-net-017",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一个假期去处",
+      "low": "最省钱",
+      "high": "最烧钱"
+    }
+  },
+  {
+    "id": "scn-net-018",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一种声音",
+      "low": "最治愈",
+      "high": "最烦人"
+    }
+  },
+  {
+    "id": "scn-net-019",
+    "version": 1,
+    "type": "scale-scenario",
+    "theme": "日常",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "说一个年龄",
+      "low": "最无忧无虑",
+      "high": "压力最大"
+    }
+  }
+]

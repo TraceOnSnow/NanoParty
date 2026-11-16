@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import type { GameProps } from "../registry.tsx";
 import { useAct } from "../shared.ts";
 import { TEAM, TeamBar } from "../teams.tsx";
@@ -26,32 +27,51 @@ interface View {
 export function PollMineGame({ view, room, paused, act }: GameProps) {
   const v = view as View;
   const name = useNames(room);
+  const me = room.me.playerId;
   const { error, send } = useAct(act);
   const go = (action: object) => send({ ...action, step: v.step });
-  const canVote = v.phase === "vote" && v.myTeam !== null && v.myVote === null;
-  const canOpen = v.phase === "hunt" && v.myTeam === v.turn;
+  const [chosen, setChosen] = useState<number | null>(null);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: a new step means the board changed
+  useEffect(() => setChosen(null), [v.step]);
+  const canVote = v.phase === "vote" && v.myTeam !== null && v.myVote === null && !paused;
+  const canOpen = v.phase === "hunt" && v.myTeam === v.turn && !paused;
+  const people = v.teams.flat().length;
+  const last = v.opened.at(-1);
 
   return (
-    <div className="game">
+    <div className="game pollmine">
       <GameHead label={roundLabel(v.round, v.totalRounds)} deadlineAt={v.deadlineAt} paused={paused} />
       <TeamBar
         teams={v.teams}
         name={name}
-        note={
-          [0, 1].map(
-            (t) => `${v.points[t as 0 | 1]} 分 · ${"♥".repeat(v.lives[t as 0 | 1]) || "没命了"}`,
-          ) as Pair<string>
-        }
+        room={room}
+        me={me}
+        note={[0, 1].map((t) => `${v.points[t as 0 | 1]} 分`) as Pair<string>}
         active={v.phase === "hunt" ? v.turn : null}
       />
+      <div className="lives-row">
+        {([0, 1] as const).map((t) => (
+          <span key={t} className={`lives team-${t}`}>
+            {v.lives[t] > 0 ? "❤️".repeat(v.lives[t]) : "💀 没命了"}
+          </span>
+        ))}
+      </div>
       <h2 className="question">{v.text}</h2>
       {v.phase === "vote" && (
-        <p className="muted">{canVote ? "秘密选出你自己的答案（不会公开是谁选的）。" : "等其他人作答…"}</p>
+        <p className={canVote ? "turn-line mine" : "turn-line"}>
+          {canVote
+            ? "先悄悄选出你自己的答案（不会公开是谁选的）。"
+            : v.myVote !== null
+              ? "选好了，等其他人…"
+              : "等其他人作答…"}
+        </p>
       )}
       {v.phase === "hunt" && (
-        <p className="muted">
+        <p className={canOpen ? "turn-line mine" : "turn-line"}>
           {canOpen ? "轮到你们：翻一个「有人选了」的选项。" : `等${TEAM[v.turn]}翻选项…`}
-          没人选的选项会扣一条命。
+          翻到没人选的会掉一条命。
+          {last &&
+            `　刚才${TEAM[last.team]}翻开「${v.options[last.option]}」：${last.count > 0 ? `${last.count} 人选了` : "没人选，掉一条命"}`}
         </p>
       )}
 
@@ -59,24 +79,55 @@ export function PollMineGame({ view, room, paused, act }: GameProps) {
         {v.options.map((o, i) => {
           const opened = v.opened.find((x) => x.option === i);
           const count = opened?.count ?? v.counts?.[i];
+          const live = canVote || (canOpen && !opened);
           return (
             <button
               key={o}
               type="button"
-              className={`poll-option${opened ? (opened.count > 0 ? ` hit team-${opened.team}` : " miss") : ""}${v.myVote === i ? " mine" : ""}`}
-              disabled={paused || !(canVote || (canOpen && !opened))}
-              onClick={() => go({ type: canVote ? "vote" : "open", option: i })}
+              className={`poll-option${opened ? (opened.count > 0 ? ` hit team-${opened.team}` : " miss") : ""}${
+                v.myVote === i ? " mine" : ""
+              }${chosen === i ? " selected" : ""}${count === undefined ? " closed" : " open"}${
+                last?.option === i && v.phase === "hunt" ? " fresh" : ""
+              }`}
+              disabled={!live}
+              onClick={() => setChosen(chosen === i ? null : i)}
             >
-              <span>{o}</span>
-              {count !== undefined && <strong>{count} 人</strong>}
+              <span className="poll-text">{o}</span>
+              {count === undefined ? (
+                v.phase === "hunt" && <span className="poll-back">？</span>
+              ) : count > 0 ? (
+                <span className="poll-count">
+                  <span className="poll-dots">
+                    {Array.from({ length: people }, (_, k) => (
+                      // biome-ignore lint/suspicious/noArrayIndexKey: fixed positions
+                      <i key={k} className={k < count ? "on" : ""} />
+                    ))}
+                  </span>
+                  <strong>{count} 人</strong>
+                </span>
+              ) : (
+                <span className="poll-count">
+                  <strong>{opened ? "💥 没人选" : "0 人"}</strong>
+                </span>
+              )}
               {v.myVote === i && <span className="tag">我选的</span>}
+              {opened && <span className={`poll-by team-${opened.team}`}>{TEAM[opened.team]}翻的</span>}
             </button>
           );
         })}
       </div>
+      {chosen !== null && (canVote || canOpen) && (
+        <button
+          type="button"
+          className="primary wide"
+          onClick={() => go({ type: canVote ? "vote" : "open", option: chosen })}
+        >
+          {canVote ? `我选「${v.options[chosen]}」` : `翻开「${v.options[chosen]}」`}
+        </button>
+      )}
       {v.phase === "vote" && <Progress ids={v.teams.flat()} done={v.voted} name={name} />}
       {v.phase === "reveal" && (
-        <p className="notice">
+        <p className="answer">
           本轮 {v.points[0]} : {v.points[1]}，
           {v.points[0] === v.points[1] ? "打平" : `${TEAM[v.points[0] > v.points[1] ? 0 : 1]}获胜`}。
         </p>

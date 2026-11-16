@@ -14,10 +14,12 @@ import { NoThanksGame } from "./nothanks/NoThanksGame.tsx";
 import { OneClueGame } from "./oneclue/OneClueGame.tsx";
 import type { CustomField } from "./PickPanel.tsx";
 import { PercentGame } from "./percent/PercentGame.tsx";
+import { PlatterGame } from "./platter/PlatterGame.tsx";
 import { PollMineGame } from "./pollmine/PollMineGame.tsx";
 import { QuipGame } from "./quip/QuipGame.tsx";
 import { RankingGame } from "./ranking/RankingGame.tsx";
 import { RowCardsGame } from "./rowcards/RowCardsGame.tsx";
+import { SevenGame } from "./seven/SevenGame.tsx";
 import { SkullGame } from "./skull/SkullGame.tsx";
 import { SoupGame } from "./soup/SoupGame.tsx";
 import { SpectrumGame } from "./spectrum/SpectrumGame.tsx";
@@ -55,6 +57,8 @@ export const gameComponents: Record<string, ComponentType<GameProps>> = {
   crew: CrewGame,
   skull: SkullGame,
   nothanks: NoThanksGame,
+  platter: PlatterGame,
+  seven: SevenGame,
   flush: FlushGame,
   duel: DuelGame,
   wordgrid: WordGridGame,

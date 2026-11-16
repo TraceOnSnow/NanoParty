@@ -1,0 +1,314 @@
+[
+  {
+    "id": "split-net-001",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "每个月多拿五千块，但____。你干吗？",
+      "yes": "干",
+      "no": "不干"
+    }
+  },
+  {
+    "id": "split-net-002",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "可以永远不用上班，但____。你换吗？",
+      "yes": "换",
+      "no": "不换"
+    }
+  },
+  {
+    "id": "split-net-003",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "手机永远满电，但____。你要吗？",
+      "yes": "要",
+      "no": "不要"
+    }
+  },
+  {
+    "id": "split-net-004",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "吃什么都不会胖，但____。你愿意吗？",
+      "yes": "愿意",
+      "no": "不愿意"
+    }
+  },
+  {
+    "id": "split-net-005",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "可以读到别人的想法，但____。你要这个能力吗？",
+      "yes": "要",
+      "no": "不要"
+    }
+  },
+  {
+    "id": "split-net-006",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "每天多出两个小时，但____。你接受吗？",
+      "yes": "接受",
+      "no": "不接受"
+    }
+  },
+  {
+    "id": "split-net-007",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "能回到任意一天重来一次，但____。你回去吗？",
+      "yes": "回",
+      "no": "不回"
+    }
+  },
+  {
+    "id": "split-net-008",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "所有游戏都满级满皮肤，但____。你换吗？",
+      "yes": "换",
+      "no": "不换"
+    }
+  },
+  {
+    "id": "split-net-009",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "外卖永远免费，但____。你签吗？",
+      "yes": "签",
+      "no": "不签"
+    }
+  },
+  {
+    "id": "split-net-010",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "再也不会社死，但____。你愿意吗？",
+      "yes": "愿意",
+      "no": "不愿意"
+    }
+  },
+  {
+    "id": "split-net-011",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "可以瞬间移动，但____。你用吗？",
+      "yes": "用",
+      "no": "不用"
+    }
+  },
+  {
+    "id": "split-net-012",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "每次考试、考核都能过，但____。你要吗？",
+      "yes": "要",
+      "no": "不要"
+    }
+  },
+  {
+    "id": "split-net-013",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "能和你的宠物说话，但____。你想吗？",
+      "yes": "想",
+      "no": "不想"
+    }
+  },
+  {
+    "id": "split-net-014",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "一夜之间涨粉一百万，但____。你接吗？",
+      "yes": "接",
+      "no": "不接"
+    }
+  },
+  {
+    "id": "split-net-015",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "永远不用排队，但____。你选吗？",
+      "yes": "选",
+      "no": "不选"
+    }
+  },
+  {
+    "id": "split-net-016",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "可以删除一段记忆，但____。你删吗？",
+      "yes": "删",
+      "no": "不删"
+    }
+  },
+  {
+    "id": "split-net-017",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "每天都能睡到自然醒，但____。你换吗？",
+      "yes": "换",
+      "no": "不换"
+    }
+  },
+  {
+    "id": "split-net-018",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "老板永远听你的，但____。你干吗？",
+      "yes": "干",
+      "no": "不干"
+    }
+  },
+  {
+    "id": "split-net-019",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "知道所有问题的答案，但____。你想知道吗？",
+      "yes": "想",
+      "no": "不想"
+    }
+  },
+  {
+    "id": "split-net-020",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "这辈子不会再丢任何东西，但____。你同意吗？",
+      "yes": "同意",
+      "no": "不同意"
+    }
+  },
+  {
+    "id": "split-net-021",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "免费环游世界一年，但____。你去吗？",
+      "yes": "去",
+      "no": "不去"
+    }
+  },
+  {
+    "id": "split-net-022",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "拥有一个永远支持你的 AI 朋友，但____。你要吗？",
+      "yes": "要",
+      "no": "不要"
+    }
+  },
+  {
+    "id": "split-net-023",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "可以随时暂停时间，但____。你用吗？",
+      "yes": "用",
+      "no": "不用"
+    }
+  },
+  {
+    "id": "split-net-024",
+    "version": 1,
+    "type": "split-prompt",
+    "theme": "两难",
+    "source": "自制（项目内置·年轻人语境扩充）",
+    "verification": "unverified",
+    "payload": {
+      "text": "从此说什么都有人捧场，但____。你换吗？",
+      "yes": "换",
+      "no": "不换"
+    }
+  }
+]

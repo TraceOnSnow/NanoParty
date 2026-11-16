@@ -1,3 +1,5 @@
+import { Who } from "../../components/Avatar.tsx";
+import { Slip, Slips } from "../answers.tsx";
 import type { GameProps } from "../registry.tsx";
 import { useAct } from "../shared.ts";
 import { GameHead, HostControls, lastRound, Progress, roundLabel, TextForm, useNames } from "../ui.tsx";
@@ -73,15 +75,20 @@ export function OneClueGame({ view, room, paused, act }: GameProps) {
       )}
 
       {(v.phase === "guess" || v.phase === "reveal") && v.clues && (
-        <ul className="chips clue-chips">
-          {v.clues.length === 0 && <li className="muted">没有人写线索。</li>}
-          {v.clues.map((c) => (
-            <li key={c.playerId} className={c.cancelled ? "chip out" : "chip done"}>
-              <span className="muted">{name(c.playerId)}：</span>
-              {c.text ?? "（撞词作废）"}
-            </li>
+        <Slips>
+          {v.clues.length === 0 && <p className="muted">没有人写线索。</p>}
+          {v.clues.map((c, i) => (
+            <Slip
+              key={c.playerId}
+              order={v.phase === "guess" ? i : undefined}
+              tone={c.cancelled ? "bad" : "plain"}
+              stamp={c.cancelled ? "撞词作废" : undefined}
+              foot={<Who room={room} id={c.playerId} />}
+            >
+              {c.text ?? "？？？"}
+            </Slip>
           ))}
-        </ul>
+        </Slips>
       )}
 
       {v.phase === "guess" &&

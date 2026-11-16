@@ -1,6 +1,8 @@
 import { type FormEvent, useEffect, useState } from "react";
+import { Stickers } from "../answers.tsx";
 import type { GameProps } from "../registry.tsx";
 import { useAct, useCountdown } from "../shared.ts";
+import { Seats } from "../table.tsx";
 
 type Role = "civilian" | "undercover";
 const ROLE_LABEL: Record<Role, string> = { civilian: "平民", undercover: "卧底" };
@@ -40,6 +42,7 @@ export function UndercoverGame({ view, room, paused, act }: GameProps) {
   const { error, setError, send } = useAct(act);
   const [text, setText] = useState("");
   const [wordShown, setWordShown] = useState(true);
+  const [chosen, setChosen] = useState<string | null>(null);
   const seconds = useCountdown(paused ? null : v.deadlineAt);
   const inGame = v.players.includes(me);
   const amAlive = v.alive.includes(me);
@@ -48,6 +51,7 @@ export function UndercoverGame({ view, room, paused, act }: GameProps) {
   // biome-ignore lint/correctness/useExhaustiveDependencies: reset the input whenever the phase moves on
   useEffect(() => {
     setText("");
+    setChosen(null);
     setError(null);
   }, [v.step]);
 
@@ -58,10 +62,12 @@ export function UndercoverGame({ view, room, paused, act }: GameProps) {
     if (text.trim()) void withStep({ type: "describe", text: text.trim() });
   }
 
-  const votesFor = (turn: TurnRecord, target: string) =>
-    Object.entries(turn.votes)
+  const voting = v.phase === "vote" && amAlive && v.myVote == null && !paused;
+  const shown = v.phase === "result" || v.phase === "gameOver";
+  const votersOf = (target: string) =>
+    Object.entries(lastTurn?.votes ?? {})
       .filter(([, t]) => t === target)
-      .map(([voter]) => name(voter));
+      .map(([voter]) => voter);
 
   return (
     <div className="game">
@@ -84,23 +90,54 @@ export function UndercoverGame({ view, room, paused, act }: GameProps) {
         <p className="notice">这一局开始时你还没加入，下一局会给你发词。现在可以先围观。</p>
       )}
 
-      <ul className="chips">
-        {v.players.map((id) => {
-          const out = !v.alive.includes(id);
+      <Seats
+        room={room}
+        ids={v.players}
+        wide
+        out={v.players.filter((id) => !v.alive.includes(id))}
+        chosen={chosen ?? v.myVote}
+        pickable={(id) => voting && id !== me && v.alive.includes(id)}
+        onPick={setChosen}
+        note={(id) => {
           const role = v.revealedRoles[id];
-          const acted = v.submitted.includes(id);
-          return (
-            <li
-              key={id}
-              className={`chip ${out ? "out" : acted ? "done" : ""} ${role === "undercover" ? "undercover" : ""}`}
-            >
-              {name(id)}
-              {role ? `（${ROLE_LABEL[role]}）` : ""}
-              {out ? " 出局" : (v.phase === "describe" || v.phase === "vote") && acted ? " ✓" : ""}
-            </li>
-          );
-        })}
-      </ul>
+          const out = !v.alive.includes(id);
+          if (role)
+            return (
+              <span className={`tag role ${role}`}>
+                {ROLE_LABEL[role]}
+                {out ? " · 出局" : ""}
+              </span>
+            );
+          if (out) return <span className="tag">出局</span>;
+          if (v.phase === "describe")
+            return <span className="tag">{v.submitted.includes(id) ? "写好了 ✓" : "在写…"}</span>;
+          if (v.phase === "vote") return <span className="tag">{v.submitted.includes(id) ? "投好了 ✓" : "在想…"}</span>;
+          return null;
+        }}
+      >
+        {(id) => (
+          <>
+            {v.history.map((t) =>
+              t.descriptions[id] ? (
+                <span key={t.turn} className={shown && t === lastTurn ? "said" : "said old"}>
+                  <i>{t.turn}</i>
+                  {t.descriptions[id]}
+                </span>
+              ) : null,
+            )}
+            {v.phase === "vote" && v.alive.includes(id) && (
+              <span className="said">
+                <i>{v.turn}</i>
+                {v.descriptions?.[id] ?? <span className="muted">（没写）</span>}
+              </span>
+            )}
+            {shown && lastTurn && (votersOf(id).length > 0 || lastTurn.eliminated === id) && (
+              <Stickers room={room} ids={votersOf(id)} label={`${votersOf(id).length} 票`} />
+            )}
+            {v.myVote === id && v.phase === "vote" && <span className="strength">你投了 TA</span>}
+          </>
+        )}
+      </Seats>
 
       {v.phase === "describe" &&
         (amAlive ? (
@@ -126,28 +163,30 @@ export function UndercoverGame({ view, room, paused, act }: GameProps) {
           <p className="muted">等待在场玩家写描述…</p>
         ))}
 
-      {v.phase === "vote" && v.descriptions && (
+      {v.phase === "vote" && (
         <>
-          <p className="muted">描述已公开。语音讨论后，投出你认为是卧底的人。得票最高者出局，平票无人出局。</p>
-          <ul className="describe-list">
-            {v.alive.map((id) => (
-              <li key={id} className={v.myVote === id ? "picked" : ""}>
-                <span className="who">{name(id)}</span>
-                <span className="text">{v.descriptions?.[id] ?? <span className="muted">（没有提交描述）</span>}</span>
-                {amAlive && id !== me && v.myVote == null && (
-                  <button type="button" disabled={paused} onClick={() => withStep({ type: "vote", target: id })}>
-                    投 TA
-                  </button>
-                )}
-                {v.myVote === id && <span className="tag">你投了 TA</span>}
-              </li>
-            ))}
-          </ul>
+          <p className="muted">
+            {voting
+              ? "每个人说过的话都在自己名下。语音聊完，点你怀疑的人，再确认。票最多的出局，平票没人出局。"
+              : amAlive
+                ? "投好了，等其他人…"
+                : "你已出局，看他们投。"}
+          </p>
+          {voting && (
+            <button
+              type="button"
+              className="primary wide"
+              disabled={chosen === null}
+              onClick={() => chosen !== null && withStep({ type: "vote", target: chosen })}
+            >
+              {chosen === null ? "点一个你怀疑的人" : `投 ${name(chosen)}`}
+            </button>
+          )}
         </>
       )}
 
       {(v.phase === "result" || v.phase === "gameOver") && lastTurn && (
-        <div className="card">
+        <div className={`verdict${v.outcome ? ` ${v.outcome.winner}` : ""}`}>
           {v.outcome ? (
             <>
               <h2>{v.outcome.winner === "civilian" ? "平民获胜！" : "卧底获胜！"}</h2>
@@ -163,17 +202,7 @@ export function UndercoverGame({ view, room, paused, act }: GameProps) {
                 : "平票，没有人出局。游戏继续。"}
             </h2>
           )}
-          <ul className="vote-list">
-            {v.players
-              .filter((id) => votesFor(lastTurn, id).length > 0)
-              .map((id) => (
-                <li key={id}>
-                  <strong>{name(id)}</strong> {votesFor(lastTurn, id).length} 票
-                  <span className="muted">（{votesFor(lastTurn, id).join("、")}）</span>
-                </li>
-              ))}
-            {Object.keys(lastTurn.votes).length === 0 && <li className="muted">本轮没有人投票。</li>}
-          </ul>
+          {lastTurn && Object.keys(lastTurn.votes).length === 0 && <p className="muted">本轮没有人投票。</p>}
         </div>
       )}
 
@@ -209,24 +238,6 @@ export function UndercoverGame({ view, room, paused, act }: GameProps) {
         (v.phase === "result" || v.phase === "gameOver") && <p className="muted">等待房主继续…</p>
       )}
 
-      {v.history.length > 0 && (
-        <details className="history">
-          <summary>本局已公开的描述</summary>
-          {v.history.map((t) => (
-            <div key={t.turn}>
-              <h3>第 {t.turn} 轮</h3>
-              <ul>
-                {Object.entries(t.descriptions).map(([id, d]) => (
-                  <li key={id}>
-                    <span className="muted">{name(id)}：</span>
-                    {d}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </details>
-      )}
       {error && <p className="error">{error}</p>}
     </div>
   );

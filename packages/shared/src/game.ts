@@ -98,6 +98,12 @@ export interface GameMeta {
   options?: GameOption[];
   /** Config key (0/1) that turns on a mode needing the referee AI; rejected when no model is configured. */
   aiOption?: string;
+  /**
+   * Set per server, never by the game: what this server's players call the game, and a short
+   * remark shown next to it in the lobby. Display only; rules, records and the AI use `name`.
+   */
+  alias?: string;
+  note?: string;
 }
 
 export interface GameOption {

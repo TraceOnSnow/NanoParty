@@ -1,0 +1,51 @@
+{
+  "name": "clover",
+  "base": "http://localhost:3100",
+  "roomId": "room_4xrYcU9jyXxj",
+  "at": "2026-11-16T03:49:59.832Z",
+  "results": [
+    {
+      "id": "CL-01",
+      "text": "写提示：四张卡摆成一圈，四条边各有一个输入框",
+      "ok": true,
+      "evidence": "CL-01-1.png"
+    },
+    {
+      "id": "CL-02",
+      "text": "还原：桌面上四个空位、四条提示，下面五张卡",
+      "ok": true,
+      "evidence": "CL-02-1.png"
+    },
+    {
+      "id": "CL-03",
+      "text": "把一张卡从下面拖到第二个位置",
+      "ok": true,
+      "evidence": "CL-03-1.png"
+    },
+    {
+      "id": "CL-04",
+      "text": "点一下摆好的卡：调转方向",
+      "ok": true,
+      "evidence": "CL-04-1.png"
+    },
+    {
+      "id": "CL-05",
+      "text": "在位置之间拖动：卡换到第四个位置，方向保留",
+      "ok": true,
+      "evidence": "CL-05-1.png"
+    },
+    {
+      "id": "CL-06",
+      "text": "拖回下面：位置空出来",
+      "ok": true,
+      "evidence": "CL-06-1.png"
+    },
+    {
+      "id": "CL-07",
+      "text": "出题的人不能动卡",
+      "ok": true,
+      "evidence": "CL-07-1.png"
+    }
+  ],
+  "problems": []
+}
