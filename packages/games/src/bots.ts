@@ -19,6 +19,35 @@ const pick: Bot = (v, me) =>
 const other = (ids: PlayerId[], me: PlayerId) => ids.find((p) => p !== me) ?? me;
 
 const bots: Record<string, Bot> = {
+  flipout(v, me) {
+    const live = (v.players as PlayerId[]).filter((p) => v.status[p] !== "bust");
+    if (v.phase === "turn" && v.current === me) {
+      const mine = (v.cards[me] ?? []) as { kind: string; special?: string }[];
+      const numbers = mine.filter((c) => c.kind === "num").length;
+      return mine.some((c) => c.special === "zero") || numbers < 3 ? { type: "hit" } : { type: "stay" };
+    }
+    if (v.pending?.by !== me) return null;
+    if (v.phase === "assign") return { type: "give", target: other(live, me) };
+    if (v.phase === "use") {
+      const act = v.pending.card.act as string;
+      const holders = live.filter((p) => (v.cards[p] ?? []).length > 0 && (act !== "steal" || p !== me));
+      const pickOf = (p: PlayerId) => ({ player: p, cardId: v.cards[p][0].id });
+      const cards = holders.slice(0, act === "swap" ? 2 : 1).map(pickOf);
+      return { type: "use", cards };
+    }
+    return null;
+  },
+  climb(v, me) {
+    if (v.current !== me) return null;
+    if (v.phase === "move") return { type: "move", option: 0 };
+    if (v.phase !== "decide") return null;
+    // Bank after two advances in a turn; otherwise keep rolling.
+    const steps = Object.entries(v.climbers as Record<string, number>).reduce(
+      (sum, [column, height]) => sum + height - (v.saved[me]?.[column] ?? 0),
+      0,
+    );
+    return steps >= 2 ? { type: "stop" } : { type: "roll" };
+  },
   spectrum(v, me) {
     if (v.phase === "pick") return v.giver === me && v.candidates.length > 0 ? { type: "choose", index: 0 } : null;
     if (v.phase === "clue") return v.giver === me ? { type: "clue", text: "差不多中间偏右" } : null;

@@ -6,6 +6,7 @@ import { bluffGame } from "./bluff/game.ts";
 import categoriesContent from "./categories/content.json" with { type: "json" };
 import categoriesNet from "./categories/content.net.json" with { type: "json" };
 import { categoriesGame } from "./categories/game.ts";
+import { climbGame } from "./climb/game.ts";
 import { cloverGame } from "./clover/game.ts";
 import { codeBreakGame } from "./codebreak/game.ts";
 import { crewGame } from "./crew/game.ts";
@@ -13,6 +14,7 @@ import { duelGame } from "./duel/game.ts";
 import estimateContent from "./estimate/content.json" with { type: "json" };
 import estimateNet from "./estimate/content.net.json" with { type: "json" };
 import { estimateGame } from "./estimate/game.ts";
+import { flipoutGame } from "./flipout/game.ts";
 import { flushGame } from "./flush/game.ts";
 import mostlikelyContent from "./mostlikely/content.json" with { type: "json" };
 import mostlikelyNet from "./mostlikely/content.net.json" with { type: "json" };
@@ -64,12 +66,14 @@ export * from "./blather/game.ts";
 export * from "./bluff/game.ts";
 export * from "./bots.ts";
 export * from "./categories/game.ts";
+export * from "./climb/game.ts";
 export * from "./clover/game.ts";
 export * from "./codebreak/game.ts";
 export * from "./contentTypes.ts";
 export * from "./crew/game.ts";
 export * from "./duel/game.ts";
 export * from "./estimate/game.ts";
+export * from "./flipout/game.ts";
 export * from "./flush/game.ts";
 export * from "./mostlikely/game.ts";
 export * from "./nothanks/game.ts";
@@ -133,6 +137,8 @@ export const games: Record<string, GameModule<any, any, any, any>> = {
   [estimateGame.meta.id]: estimateGame,
   [platterGame.meta.id]: platterGame,
   [sevenGame.meta.id]: sevenGame,
+  [climbGame.meta.id]: climbGame,
+  [flipoutGame.meta.id]: flipoutGame,
 };
 
 export const bundledContent: BundledContent[] = [

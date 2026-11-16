@@ -3,11 +3,13 @@ import type { ComponentType } from "react";
 import { BlatherGame } from "./blather/BlatherGame.tsx";
 import { BluffGame } from "./bluff/BluffGame.tsx";
 import { CategoriesGame } from "./categories/CategoriesGame.tsx";
+import { ClimbGame } from "./climb/ClimbGame.tsx";
 import { CloverGame } from "./clover/CloverGame.tsx";
 import { CodeBreakGame } from "./codebreak/CodeBreakGame.tsx";
 import { CrewGame } from "./crew/CrewGame.tsx";
 import { DuelGame } from "./duel/DuelGame.tsx";
 import { EstimateGame } from "./estimate/EstimateGame.tsx";
+import { FlipoutGame } from "./flipout/FlipoutGame.tsx";
 import { FlushGame } from "./flush/FlushGame.tsx";
 import { MostLikelyGame } from "./mostlikely/MostLikelyGame.tsx";
 import { NoThanksGame } from "./nothanks/NoThanksGame.tsx";
@@ -59,6 +61,8 @@ export const gameComponents: Record<string, ComponentType<GameProps>> = {
   nothanks: NoThanksGame,
   platter: PlatterGame,
   seven: SevenGame,
+  climb: ClimbGame,
+  flipout: FlipoutGame,
   flush: FlushGame,
   duel: DuelGame,
   wordgrid: WordGridGame,
