@@ -1,201 +1,5 @@
 [
   {
-    "id": "estimate-net-001",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "算笔账",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "每天一杯 500 毫升的奶茶，喝满一年（365 天），一共喝了多少升？",
-      "unit": "升",
-      "answer": 182.5,
-      "note": "0.5 × 365"
-    }
-  },
-  {
-    "id": "estimate-net-002",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "算笔账",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "每个工作日摸鱼 1 小时，一年 250 个工作日，相当于白拿了多少个 8 小时工作日的工资？",
-      "unit": "天",
-      "answer": 31.25,
-      "note": "250 ÷ 8"
-    }
-  },
-  {
-    "id": "estimate-net-003",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "算笔账",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "一部 40 集、每集 45 分钟的剧，全程 2 倍速刷完要多少小时？",
-      "unit": "小时",
-      "answer": 15,
-      "note": "40 × 45 ÷ 2 ÷ 60"
-    }
-  },
-  {
-    "id": "estimate-net-004",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "算笔账",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "每天刷 2 小时短视频，一年下来相当于连续不停地刷了多少天？",
-      "unit": "天",
-      "answer": 30.4,
-      "note": "730 小时 ÷ 24，约 30.4 天"
-    }
-  },
-  {
-    "id": "estimate-net-005",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "算笔账",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "每晚少睡 1.5 小时，一年一共少睡多少小时？",
-      "unit": "小时",
-      "answer": 547.5,
-      "note": "1.5 × 365"
-    }
-  },
-  {
-    "id": "estimate-net-006",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "算笔账",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "一首 4 分钟的歌单曲循环一整天，能听多少遍？",
-      "unit": "遍",
-      "answer": 360,
-      "note": "1440 ÷ 4"
-    }
-  },
-  {
-    "id": "estimate-net-007",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "算笔账",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "月薪 8000，每天一杯 15 元的奶茶，一个月（30 天）奶茶钱占工资的百分之几？",
-      "unit": "%",
-      "answer": 5.625,
-      "note": "450 ÷ 8000"
-    }
-  },
-  {
-    "id": "estimate-net-009",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "算笔账",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "十亿秒大约是多少年？",
-      "unit": "年",
-      "answer": 31.7,
-      "note": "10⁹ ÷ (365.25 × 86400)"
-    }
-  },
-  {
-    "id": "estimate-net-010",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "算笔账",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "一百万秒大约是多少天？",
-      "unit": "天",
-      "answer": 11.57,
-      "note": "10⁶ ÷ 86400"
-    }
-  },
-  {
-    "id": "estimate-net-011",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "算笔账",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "一万小时如果一口气不停地过完，是多少天？",
-      "unit": "天",
-      "answer": 416.7,
-      "note": "10000 ÷ 24"
-    }
-  },
-  {
-    "id": "estimate-net-012",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "算笔账",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "一年（365 天）一共有多少分钟？",
-      "unit": "分钟",
-      "answer": 525600,
-      "note": "365 × 24 × 60"
-    }
-  },
-  {
-    "id": "estimate-net-013",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "算笔账",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "每天存 10 块钱，要存多少年才能存够 10 万？",
-      "unit": "年",
-      "answer": 27.4,
-      "note": "100000 ÷ 3650"
-    }
-  },
-  {
-    "id": "estimate-net-014",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "算笔账",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "每分钟打 60 个字，不吃不喝打完一本 80 万字的小说要多少小时？",
-      "unit": "小时",
-      "answer": 222.2,
-      "note": "800000 ÷ 60 ÷ 60"
-    }
-  },
-  {
-    "id": "estimate-net-015",
-    "version": 1,
-    "type": "numeric-fact",
-    "theme": "名著",
-    "source": "自制（项目内置·年轻人语境扩充）",
-    "verification": "unverified",
-    "payload": {
-      "text": "《西游记》里，孙悟空一个筋斗云能翻多少里？",
-      "unit": "里",
-      "answer": 108000,
-      "note": "十万八千里"
-    }
-  },
-  {
     "id": "estimate-net-016",
     "version": 1,
     "type": "numeric-fact",
@@ -634,6 +438,369 @@
       "text": "现代标准古筝有多少根弦？",
       "unit": "根",
       "answer": 21
+    }
+  },
+  {
+    "id": "estimate-net-065",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "游戏",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "街机《吃豆人》理论上的满分是多少分？",
+      "unit": "分",
+      "answer": 3333360,
+      "note": "吃满前 255 关且一条命不丢；第 256 关因程序溢出无法通关"
+    }
+  },
+  {
+    "id": "estimate-net-066",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "游戏",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "初代《超级马里奥兄弟》（1985）一共有多少关？",
+      "unit": "关",
+      "answer": 32,
+      "note": "8 个世界，每个世界 4 关"
+    }
+  },
+  {
+    "id": "estimate-net-067",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "游戏",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "任意打乱的三阶魔方，最多多少步之内一定能还原？",
+      "unit": "步",
+      "answer": 20,
+      "note": "2010 年算出的「上帝之数」，把转 180° 也算作一步"
+    }
+  },
+  {
+    "id": "estimate-net-068",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "动漫",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "按官方设定，哆啦A梦出生在公元哪一年？",
+      "unit": "年",
+      "answer": 2112,
+      "note": "2112 年 9 月 3 日"
+    }
+  },
+  {
+    "id": "estimate-net-069",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "动漫",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "初代高达（RX-78-2）的设定身高是多少米？",
+      "unit": "米",
+      "answer": 18,
+      "note": "横滨那台能动的实物也是按 18 米造的"
+    }
+  },
+  {
+    "id": "estimate-net-070",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "互联网",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "YouTube 上的第一个视频有多少秒长？",
+      "unit": "秒",
+      "answer": 19,
+      "note": "2005 年 4 月上传的《Me at the zoo》"
+    }
+  },
+  {
+    "id": "estimate-net-071",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "互联网",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "1999 年诞生的第一套 emoji 一共有多少个？",
+      "unit": "个",
+      "answer": 176,
+      "note": "栗田穰崇为日本 NTT DoCoMo 设计，每个 12×12 像素"
+    }
+  },
+  {
+    "id": "estimate-net-072",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "互联网",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "马化腾本人的 QQ 号是多少？",
+      "unit": "",
+      "answer": 10001,
+      "note": "五位数的早期号码"
+    }
+  },
+  {
+    "id": "estimate-net-073",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "人类极限",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "有可靠记录的最长寿的人活了多少岁？",
+      "unit": "岁",
+      "answer": 122,
+      "note": "法国人雅娜·卡尔芒，122 岁 164 天"
+    }
+  },
+  {
+    "id": "estimate-net-074",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "人类极限",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "有可靠记录的史上最高的人身高多少厘米？",
+      "unit": "厘米",
+      "answer": 272,
+      "note": "美国人罗伯特·瓦德罗，1940 年最后一次测量"
+    }
+  },
+  {
+    "id": "estimate-net-075",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "人类极限",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "背诵圆周率小数位的吉尼斯纪录是多少位？",
+      "unit": "位",
+      "answer": 70000,
+      "note": "印度人拉吉维尔·米纳 2015 年蒙眼背了近 10 小时"
+    }
+  },
+  {
+    "id": "estimate-net-076",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "人类极限",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "一张纸连续对折的纪录是多少次？",
+      "unit": "次",
+      "answer": 12,
+      "note": "2002 年一名美国高中生用约 1200 米长的纸完成；用胶带接起来的纸不算"
+    }
+  },
+  {
+    "id": "estimate-net-077",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "太空",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "到目前为止，一共有多少人在月球表面行走过？",
+      "unit": "人",
+      "answer": 12,
+      "note": "全部来自 1969–1972 年的阿波罗计划"
+    }
+  },
+  {
+    "id": "estimate-net-078",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "地理",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "俄罗斯全国横跨多少个时区？",
+      "unit": "个",
+      "answer": 11
+    }
+  },
+  {
+    "id": "estimate-net-079",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "历史建筑",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "传说故宫有 9999 间半房，1973 年专家实地清点的结果是多少间？",
+      "unit": "间",
+      "answer": 8707,
+      "note": "按「四柱一间」计；2012 年故宫再次清点为 9371 间"
+    }
+  },
+  {
+    "id": "estimate-net-080",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "文化",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "《康熙字典》一共收了多少个汉字？",
+      "unit": "个",
+      "answer": 47035,
+      "note": "含重复字"
+    }
+  },
+  {
+    "id": "estimate-net-081",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "文化",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "主流英语词典里最长的单词有多少个字母？",
+      "unit": "个",
+      "answer": 45,
+      "note": "pneumonoultramicroscopicsilicovolcanoconiosis，一种肺病"
+    }
+  },
+  {
+    "id": "estimate-net-082",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "艺术",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "《蒙娜丽莎》这幅画有多高（厘米）？",
+      "unit": "厘米",
+      "answer": 77,
+      "note": "77 × 53 厘米，比很多人想象的小"
+    }
+  },
+  {
+    "id": "estimate-net-083",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "艺术",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "约翰·凯奇那首全程不发出声音的名曲，一共「演奏」多少秒？",
+      "unit": "秒",
+      "answer": 273,
+      "note": "《4分33秒》"
+    }
+  },
+  {
+    "id": "estimate-net-084",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "艺术",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "音乐家巴赫一共有多少个孩子？",
+      "unit": "个",
+      "answer": 20,
+      "note": "两任妻子，7 个加 13 个，约一半夭折"
+    }
+  },
+  {
+    "id": "estimate-net-085",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "体育",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "足球世界杯的大力神杯有多高（厘米）？",
+      "unit": "厘米",
+      "answer": 36.8,
+      "note": "重约 6.2 公斤"
+    }
+  },
+  {
+    "id": "estimate-net-086",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "体育",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "一枚奥运金牌里至少要有多少克黄金？",
+      "unit": "克",
+      "answer": 6,
+      "note": "国际奥委会规定：主体是纯度 92.5% 以上的银，表面镀金"
+    }
+  },
+  {
+    "id": "estimate-net-087",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "体育",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "一个标准的羽毛球上有多少根羽毛？",
+      "unit": "根",
+      "answer": 16,
+      "note": "世界羽联规则"
+    }
+  },
+  {
+    "id": "estimate-net-088",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "影视",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "奥斯卡小金人有多重（公斤）？",
+      "unit": "公斤",
+      "answer": 3.85,
+      "note": "8.5 磅；高 34.3 厘米"
+    }
+  },
+  {
+    "id": "estimate-net-089",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "动物",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "非洲象平均怀孕多少个月才生下小象？",
+      "unit": "个月",
+      "answer": 22,
+      "note": "哺乳动物里最长"
+    }
+  },
+  {
+    "id": "estimate-net-090",
+    "version": 1,
+    "type": "numeric-fact",
+    "theme": "动物",
+    "source": "自制（项目内置·冷知识，2026-11 逐条联网核对）",
+    "verification": "verified",
+    "payload": {
+      "text": "长颈鹿的脖子里有多少块颈椎骨？",
+      "unit": "块",
+      "answer": 7,
+      "note": "和人一样多，只是每块特别长"
     }
   }
 ]

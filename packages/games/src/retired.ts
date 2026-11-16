@@ -4,7 +4,8 @@
  * these ids at startup, so they stop being drawn while past rounds that used them stay readable.
  *
  * Withdrawn so far: number and trivia questions that are no fun to guess, because the answer is
- * stated in the question or is something everyone at the table knows exactly.
+ * stated in the question or is something everyone at the table knows exactly, and number
+ * questions that are plain arithmetic.
  */
 export const retiredContentIds: string[] = [
   "estimate-net-008",
@@ -38,4 +39,18 @@ export const retiredContentIds: string[] = [
   "fact-net-017",
   "fact-net-018",
   "fact-net-020",
+  "estimate-net-001",
+  "estimate-net-002",
+  "estimate-net-003",
+  "estimate-net-004",
+  "estimate-net-005",
+  "estimate-net-006",
+  "estimate-net-007",
+  "estimate-net-009",
+  "estimate-net-010",
+  "estimate-net-011",
+  "estimate-net-012",
+  "estimate-net-013",
+  "estimate-net-014",
+  "estimate-net-015",
 ];
