@@ -4955,3 +4955,65 @@ button.flip-card:hover {
   align-items: center;
   gap: 6px;
 }
+
+/* ---- echo: matching answers ---- */
+.echo-topic {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+}
+.echo-write {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+}
+.echo-write button {
+  grid-column: 1 / -1;
+}
+.echo-bank,
+.echo-open,
+.echo-bets,
+.echo-hand {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.echo-bank b {
+  font-size: 20px;
+}
+.echo-open {
+  padding: 10px 12px;
+  background: var(--card);
+  border: 2.5px solid var(--ink);
+  border-radius: 16px;
+}
+.echo-open.bad {
+  border-style: dashed;
+}
+.echo-answer {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.echo-answer.shown button:first-child {
+  text-decoration: line-through;
+}
+.echo-bet {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 38px;
+  padding: 4px 6px;
+}
+.echo-bet em {
+  font-style: normal;
+  font-size: 10px;
+}
+.echo-bet.taken {
+  background: #ffe9a8;
+}
+.echo-answer.shown button:first-child {
+  opacity: 0.55;
+}

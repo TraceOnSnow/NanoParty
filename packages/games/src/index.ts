@@ -11,6 +11,7 @@ import { cloverGame } from "./clover/game.ts";
 import { codeBreakGame } from "./codebreak/game.ts";
 import { crewGame } from "./crew/game.ts";
 import { duelGame } from "./duel/game.ts";
+import { echoGame } from "./echo/game.ts";
 import estimateContent from "./estimate/content.json" with { type: "json" };
 import estimateNet from "./estimate/content.net.json" with { type: "json" };
 import { estimateGame } from "./estimate/game.ts";
@@ -73,6 +74,7 @@ export * from "./codebreak/game.ts";
 export * from "./contentTypes.ts";
 export * from "./crew/game.ts";
 export * from "./duel/game.ts";
+export * from "./echo/game.ts";
 export * from "./estimate/game.ts";
 export * from "./flipout/game.ts";
 export * from "./flush/game.ts";
@@ -142,6 +144,7 @@ export const games: Record<string, GameModule<any, any, any, any>> = {
   [climbGame.meta.id]: climbGame,
   [flipoutGame.meta.id]: flipoutGame,
   [spellGame.meta.id]: spellGame,
+  [echoGame.meta.id]: echoGame,
 };
 
 export const bundledContent: BundledContent[] = [

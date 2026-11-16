@@ -19,6 +19,18 @@ const pick: Bot = (v, me) =>
 const other = (ids: PlayerId[], me: PlayerId) => ids.find((p) => p !== me) ?? me;
 
 const bots: Record<string, Bot> = {
+  echo(v, me) {
+    if (v.phase === "write" && v.players.includes(me) && !v.written.includes(me)) {
+      // The first three are the same for every bot, so some answers match.
+      const tag = me.slice(-3);
+      return { type: "write", answers: ["测试甲", "测试乙", "测试丙", `独${tag}一`, `独${tag}二`, `独${tag}三`] };
+    }
+    if (v.phase === "play" && v.current === me) {
+      const index = (v.myAnswers ?? []).findIndex((a: { shown: boolean }) => !a.shown);
+      return index < 0 ? null : { type: "play", index };
+    }
+    return null;
+  },
   spell(v, me) {
     if (v.phase !== "play" || v.current !== me) return null;
     if (v.casts > 0) return { type: "end" };

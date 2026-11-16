@@ -8,6 +8,7 @@ import { CloverGame } from "./clover/CloverGame.tsx";
 import { CodeBreakGame } from "./codebreak/CodeBreakGame.tsx";
 import { CrewGame } from "./crew/CrewGame.tsx";
 import { DuelGame } from "./duel/DuelGame.tsx";
+import { EchoGame } from "./echo/EchoGame.tsx";
 import { EstimateGame } from "./estimate/EstimateGame.tsx";
 import { FlipoutGame } from "./flipout/FlipoutGame.tsx";
 import { FlushGame } from "./flush/FlushGame.tsx";
@@ -65,6 +66,7 @@ export const gameComponents: Record<string, ComponentType<GameProps>> = {
   climb: ClimbGame,
   flipout: FlipoutGame,
   spell: SpellGame,
+  echo: EchoGame,
   flush: FlushGame,
   duel: DuelGame,
   wordgrid: WordGridGame,
@@ -83,6 +85,10 @@ export const customTopicFields: Record<string, CustomField[]> = {
   mostlikely: [{ key: "text", label: "题目", placeholder: "谁最可能……？" }],
   categories: [
     { key: "name", label: "类别", placeholder: "类别名，如 水果园" },
+    { key: "hint", label: "提示", placeholder: "提示（选填）", optional: true },
+  ],
+  echo: [
+    { key: "name", label: "类别", placeholder: "类别名，如 水果" },
     { key: "hint", label: "提示", placeholder: "提示（选填）", optional: true },
   ],
   ranking: [
