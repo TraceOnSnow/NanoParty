@@ -7,11 +7,13 @@ import { ClimbGame } from "./climb/ClimbGame.tsx";
 import { CloverGame } from "./clover/CloverGame.tsx";
 import { CodeBreakGame } from "./codebreak/CodeBreakGame.tsx";
 import { CrewGame } from "./crew/CrewGame.tsx";
+import { DelveGame } from "./delve/DelveGame.tsx";
 import { DuelGame } from "./duel/DuelGame.tsx";
 import { EchoGame } from "./echo/EchoGame.tsx";
 import { EstimateGame } from "./estimate/EstimateGame.tsx";
 import { FlipoutGame } from "./flipout/FlipoutGame.tsx";
 import { FlushGame } from "./flush/FlushGame.tsx";
+import { LiarGame } from "./liar/LiarGame.tsx";
 import { MostLikelyGame } from "./mostlikely/MostLikelyGame.tsx";
 import { NoThanksGame } from "./nothanks/NoThanksGame.tsx";
 import { OneClueGame } from "./oneclue/OneClueGame.tsx";
@@ -28,6 +30,7 @@ import { SoupGame } from "./soup/SoupGame.tsx";
 import { SpectrumGame } from "./spectrum/SpectrumGame.tsx";
 import { SpellGame } from "./spell/SpellGame.tsx";
 import { SplitGame } from "./split/SplitGame.tsx";
+import { SyncGame } from "./sync/SyncGame.tsx";
 import { TabooGame } from "./taboo/TabooGame.tsx";
 import { UndercoverGame } from "./undercover/UndercoverGame.tsx";
 import { WagerGame } from "./wager/WagerGame.tsx";
@@ -67,6 +70,9 @@ export const gameComponents: Record<string, ComponentType<GameProps>> = {
   flipout: FlipoutGame,
   spell: SpellGame,
   echo: EchoGame,
+  sync: SyncGame,
+  delve: DelveGame,
+  liar: LiarGame,
   flush: FlushGame,
   duel: DuelGame,
   wordgrid: WordGridGame,

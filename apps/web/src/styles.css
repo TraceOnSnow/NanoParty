@@ -5017,3 +5017,119 @@ button.flip-card:hover {
 .echo-answer.shown button:first-child {
   opacity: 0.55;
 }
+
+/* ---- liar: dice under cups ---- */
+.liar-call,
+.liar-bid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.liar-call strong {
+  font-size: 34px;
+  line-height: 1;
+}
+.liar-dice {
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: 2px;
+}
+.liar-dice .hit {
+  color: var(--accent-text);
+}
+.liar-qty {
+  min-width: 64px;
+  text-align: center;
+  font-size: 22px;
+}
+.liar-face {
+  font-size: 28px;
+  line-height: 1;
+  padding: 4px 10px;
+}
+
+/* ---- delve: the cave path ---- */
+.delve-path {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px;
+  background: #3a3350;
+  border: 2.5px solid var(--ink);
+  border-radius: 18px;
+}
+.delve-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 92px;
+  height: 84px;
+  color: var(--ink);
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  text-align: center;
+}
+.delve-card em {
+  font-style: normal;
+  font-size: 11px;
+}
+.delve-card.gems {
+  background: #d9f5e6;
+}
+.delve-card.hazard {
+  background: #ffd9d9;
+}
+.delve-card.hazard.boom {
+  background: #cf1f1f;
+  color: #fff;
+}
+.delve-card.relic {
+  background: #ffe9a8;
+}
+.delve-card.back {
+  background: #554c75;
+  color: #fff;
+  font-size: 28px;
+  border-style: dashed;
+}
+
+/* ---- sync: cooperative ascending numbers ---- */
+.sync-status,
+.sync-pile,
+.sync-hand {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.sync-status span:first-child {
+  color: var(--bad);
+  font-size: 20px;
+}
+.sync-status span:nth-child(2) {
+  font-size: 20px;
+}
+.sync-card {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 54px;
+  height: 72px;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--ink);
+  background: #fff;
+  border: 2.5px solid var(--ink);
+  border-radius: 12px;
+  box-shadow: 0 3px 0 var(--ink);
+}
+.sync-card.top {
+  min-width: 72px;
+  height: 96px;
+  font-size: 34px;
+  background: #ffe9a8;
+}

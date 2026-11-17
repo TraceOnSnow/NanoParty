@@ -19,6 +19,25 @@ const pick: Bot = (v, me) =>
 const other = (ids: PlayerId[], me: PlayerId) => ids.find((p) => p !== me) ?? me;
 
 const bots: Record<string, Bot> = {
+  sync(v) {
+    // Bots have no feel for timing: they simply play their lowest card.
+    if (v.phase !== "play" || !v.myHand || v.myHand.length === 0) return null;
+    return { type: "play", card: v.myHand[0], round: v.round };
+  },
+  delve(v, me) {
+    if (v.phase !== "choose" || !v.inside.includes(me) || v.myChoice !== null) return null;
+    // Walk out once a hazard is showing and there is something to take home.
+    const hazards = (v.path as { kind: string }[]).filter((c) => c.kind === "hazard").length;
+    return { type: "choose", stay: hazards === 0 || (v.carried[me] ?? 0) < 4 };
+  },
+  liar(v, me) {
+    if (v.phase !== "bid" || v.current !== me) return null;
+    if (!v.bid) return { type: "bid", quantity: v.minOpening, face: 2 };
+    // Raise while the bid is under a third of the dice, then call it.
+    return v.bid.quantity < Math.ceil(v.totalDice / 3)
+      ? { type: "bid", quantity: v.bid.quantity + 1, face: v.bid.face }
+      : { type: "open" };
+  },
   echo(v, me) {
     if (v.phase === "write" && v.players.includes(me) && !v.written.includes(me)) {
       // The first three are the same for every bot, so some answers match.

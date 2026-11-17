@@ -10,6 +10,7 @@ import { climbGame } from "./climb/game.ts";
 import { cloverGame } from "./clover/game.ts";
 import { codeBreakGame } from "./codebreak/game.ts";
 import { crewGame } from "./crew/game.ts";
+import { delveGame } from "./delve/game.ts";
 import { duelGame } from "./duel/game.ts";
 import { echoGame } from "./echo/game.ts";
 import estimateContent from "./estimate/content.json" with { type: "json" };
@@ -17,6 +18,7 @@ import estimateNet from "./estimate/content.net.json" with { type: "json" };
 import { estimateGame } from "./estimate/game.ts";
 import { flipoutGame } from "./flipout/game.ts";
 import { flushGame } from "./flush/game.ts";
+import { liarGame } from "./liar/game.ts";
 import mostlikelyContent from "./mostlikely/content.json" with { type: "json" };
 import mostlikelyNet from "./mostlikely/content.net.json" with { type: "json" };
 import { mostLikelyGame } from "./mostlikely/game.ts";
@@ -53,6 +55,7 @@ import { spellGame } from "./spell/game.ts";
 import splitContent from "./split/content.json" with { type: "json" };
 import splitNet from "./split/content.net.json" with { type: "json" };
 import { splitGame } from "./split/game.ts";
+import { syncGame } from "./sync/game.ts";
 import tabooContent from "./taboo/content.json" with { type: "json" };
 import tabooNet from "./taboo/content.net.json" with { type: "json" };
 import { tabooGame } from "./taboo/game.ts";
@@ -73,11 +76,13 @@ export * from "./clover/game.ts";
 export * from "./codebreak/game.ts";
 export * from "./contentTypes.ts";
 export * from "./crew/game.ts";
+export * from "./delve/game.ts";
 export * from "./duel/game.ts";
 export * from "./echo/game.ts";
 export * from "./estimate/game.ts";
 export * from "./flipout/game.ts";
 export * from "./flush/game.ts";
+export * from "./liar/game.ts";
 export * from "./mostlikely/game.ts";
 export * from "./nothanks/game.ts";
 export * from "./oneclue/game.ts";
@@ -94,6 +99,7 @@ export * from "./soup/game.ts";
 export * from "./spectrum/game.ts";
 export * from "./spell/game.ts";
 export * from "./split/game.ts";
+export * from "./sync/game.ts";
 export * from "./taboo/game.ts";
 export * from "./undercover/game.ts";
 export * from "./wager/game.ts";
@@ -145,6 +151,9 @@ export const games: Record<string, GameModule<any, any, any, any>> = {
   [flipoutGame.meta.id]: flipoutGame,
   [spellGame.meta.id]: spellGame,
   [echoGame.meta.id]: echoGame,
+  [syncGame.meta.id]: syncGame,
+  [delveGame.meta.id]: delveGame,
+  [liarGame.meta.id]: liarGame,
 };
 
 export const bundledContent: BundledContent[] = [
