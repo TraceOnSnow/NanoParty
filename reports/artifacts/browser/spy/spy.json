@@ -1,0 +1,45 @@
+{
+  "name": "spy",
+  "base": "http://localhost:3100",
+  "roomId": "room_KomD_f8A6Ys-",
+  "at": "2026-11-17T00:36:22.616Z",
+  "results": [
+    {
+      "id": "SY-01",
+      "text": "知情的三个人看到同一个地点，外人看到「你是外人」",
+      "ok": true,
+      "evidence": "SY-01-1.png"
+    },
+    {
+      "id": "SY-02",
+      "text": "地点没有发给外人，谁是外人没有发给其他人",
+      "ok": true,
+      "evidence": "SY-02-1.png"
+    },
+    {
+      "id": "SY-03",
+      "text": "发起指认：被指认的人不能投票，其他人看到同意 / 不同意",
+      "ok": true,
+      "evidence": "SY-03-1.png"
+    },
+    {
+      "id": "SY-04",
+      "text": "没过半：回到提问，发起人这一轮不能再指认",
+      "ok": true,
+      "evidence": "SY-04-1.png"
+    },
+    {
+      "id": "SY-05",
+      "text": "外人猜「学校」猜错：这一轮结束，公布地点和外人，其他人得分",
+      "ok": true,
+      "evidence": "SY-05-1.png"
+    },
+    {
+      "id": "SY-06",
+      "text": "没有页面报错",
+      "ok": true,
+      "evidence": "SY-06-1.png"
+    }
+  ],
+  "problems": []
+}

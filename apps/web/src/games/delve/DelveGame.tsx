@@ -47,30 +47,33 @@ export function DelveGame({ view, room, paused, act }: GameProps) {
         paused={paused}
       />
       <div className="delve-path">
-        {v.path.map((c, i) => (
-          // biome-ignore lint/suspicious/noArrayIndexKey: cards in the order they were turned over
-          <span
-            key={i}
-            className={`delve-card ${c.kind}${c.kind === "hazard" && v.collapsed === c.hazard ? " boom" : ""}`}
-          >
-            {c.kind === "gems" ? (
-              <>
-                <strong>💎 {c.value}</strong>
-                <em>路上剩 {c.left}</em>
-              </>
-            ) : c.kind === "hazard" ? (
-              <>
-                <strong>⚠ {c.hazard}</strong>
-                <em>{seen.filter((h) => h === c.hazard).length >= 2 ? "第二次！" : "再来一次就塌"}</em>
-              </>
-            ) : (
-              <>
-                <strong>🏺 遗物</strong>
-                <em>{c.taken ? "已被带走" : "独自离开才能带走"}</em>
-              </>
-            )}
-          </span>
-        ))}
+        {v.path.map((c, i) => {
+          // A hazard is deadly only the second time it shows up on this path.
+          const second =
+            c.kind === "hazard" &&
+            v.path.slice(0, i).some((earlier) => earlier.kind === "hazard" && earlier.hazard === c.hazard);
+          return (
+            // biome-ignore lint/suspicious/noArrayIndexKey: cards in the order they were turned over
+            <span key={i} className={`delve-card ${c.kind}${second ? " boom" : ""}`}>
+              {c.kind === "gems" ? (
+                <>
+                  <strong>💎 {c.value}</strong>
+                  <em>路上剩 {c.left}</em>
+                </>
+              ) : c.kind === "hazard" ? (
+                <>
+                  <strong>⚠ {c.hazard}</strong>
+                  <em>{second ? "第二次！" : "再来一次就塌"}</em>
+                </>
+              ) : (
+                <>
+                  <strong>🏺 遗物</strong>
+                  <em>{c.taken ? "已被带走" : "独自离开才能带走"}</em>
+                </>
+              )}
+            </span>
+          );
+        })}
         {v.phase === "choose" && <span className="delve-card back">？</span>}
       </div>
       <p className="muted small">

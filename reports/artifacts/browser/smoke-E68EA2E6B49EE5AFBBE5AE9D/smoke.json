@@ -1,0 +1,33 @@
+{
+  "name": "smoke",
+  "base": "http://localhost:3100",
+  "roomId": "room_JAl6KJGiTG0t",
+  "at": "2026-11-17T00:37:13.128Z",
+  "results": [
+    {
+      "id": "SM-01",
+      "text": "探洞寻宝：4 个玩家都看到了游戏面板",
+      "ok": true,
+      "evidence": "SM-01-1.png"
+    },
+    {
+      "id": "SM-02",
+      "text": "探洞寻宝：测试玩家走了 20 步（被拒 0 步），面板仍在，阶段「roundOver」",
+      "ok": true,
+      "evidence": "SM-02-1.png"
+    },
+    {
+      "id": "SM-03",
+      "text": "探洞寻宝：最后一位玩家的画面",
+      "ok": true,
+      "evidence": "SM-03-1.png"
+    },
+    {
+      "id": "SM-04",
+      "text": "探洞寻宝：没有页面报错",
+      "ok": true,
+      "evidence": "SM-04-1.png"
+    }
+  ],
+  "problems": []
+}

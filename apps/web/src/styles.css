@@ -5133,3 +5133,182 @@ button.flip-card:hover {
   font-size: 34px;
   background: #ffe9a8;
 }
+
+/* ---- spy: one outsider ---- */
+.spy-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px;
+  text-align: center;
+  background: #d9f5e6;
+  border: 2.5px solid var(--ink);
+  border-radius: 18px;
+}
+.spy-card strong {
+  font-size: 34px;
+}
+.spy-card.outsider {
+  background: #2b2540;
+  color: #fff;
+}
+.spy-places {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* ---- dish: pass a card and bluff ---- */
+.dish-pass {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--card);
+  border: 2.5px solid var(--ink);
+  border-radius: 16px;
+}
+.dish-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.dish-card {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 64px;
+  height: 52px;
+  padding: 0 8px;
+  font-weight: 800;
+  color: var(--ink);
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  box-shadow: 0 2px 0 var(--ink);
+}
+.dish-card em {
+  font-style: normal;
+  font-size: 11px;
+}
+.dish-card.back {
+  background: #2b2540;
+  color: #fff;
+}
+.dish-card.small {
+  min-width: 0;
+  height: 32px;
+  font-size: 13px;
+  box-shadow: none;
+}
+.dish-card.danger {
+  background: #ffd9d9;
+}
+.dish-card.picked {
+  outline: 3px solid var(--accent);
+  transform: translateY(-4px);
+}
+
+/* ---- fireworks: cooperative hidden hands ---- */
+.fw-table,
+.fw-hint {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.fw-status {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-left: 8px;
+}
+.fw-mine {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.fw-slot {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.fw-card {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 62px;
+  margin: 2px;
+  color: var(--ink);
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 9px;
+  box-shadow: 0 2px 0 var(--ink);
+}
+.fw-card strong {
+  font-size: 22px;
+  line-height: 1;
+}
+.fw-card em {
+  font-style: normal;
+  font-size: 12px;
+}
+.fw-card i {
+  position: absolute;
+  top: -8px;
+  right: -6px;
+  padding: 0 3px;
+  font-style: normal;
+  font-size: 10px;
+  color: #fff;
+  background: var(--ink);
+  border-radius: 6px;
+}
+.fw-card.red {
+  background: #ffb3b3;
+}
+.fw-card.yellow {
+  background: #ffe680;
+}
+.fw-card.green {
+  background: #a8e6bf;
+}
+.fw-card.blue {
+  background: #a9d2ff;
+}
+.fw-card.white {
+  background: #fff;
+}
+.fw-card.unknown {
+  background: #2b2540;
+  color: #fff;
+}
+.fw-card.stack {
+  width: 58px;
+  height: 78px;
+}
+.fw-card.picked {
+  outline: 3px solid var(--accent);
+  transform: translateY(-5px);
+}
+
+.sync-card,
+.fw-card strong,
+.flip-card,
+.stone {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.sync-card.low {
+  background: #ffe9a8;
+  cursor: pointer;
+}
+.sync-card:disabled {
+  opacity: 0.7;
+}

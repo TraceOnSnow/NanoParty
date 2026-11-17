@@ -19,6 +19,31 @@ const pick: Bot = (v, me) =>
 const other = (ids: PlayerId[], me: PlayerId) => ids.find((p) => p !== me) ?? me;
 
 const bots: Record<string, Bot> = {
+  fireworks(v, me) {
+    if (v.phase !== "play" || v.current !== me || !v.myHand?.length) return null;
+    // Bots discard when they can and otherwise spend a hint on the next player's first card.
+    if (v.hints < 8) return { type: "discard", cardId: v.myHand[0].id };
+    const target = other(v.players, me);
+    return { type: "hint", target, number: v.hands[target][0].number };
+  },
+  dish(v, me) {
+    const unseen = (v.players as PlayerId[]).filter((p) => p !== me && !(v.pass?.seen ?? []).includes(p));
+    if (v.phase === "offer" && v.current === me && v.myHand?.length) {
+      return { type: "offer", kind: v.myHand[0], target: other(v.players, me), claim: v.myHand[0] };
+    }
+    if (v.phase === "respond" && v.pass?.holder === me) return { type: "call", truth: true };
+    if (v.phase === "relay" && v.pass?.holder === me && unseen[0]) {
+      return { type: "relay", target: unseen[0], claim: v.pass.claim };
+    }
+    return null;
+  },
+  spy(v, me) {
+    if (!v.players.includes(me)) return null;
+    if (v.phase === "vote" && v.vote && v.vote.target !== me && v.vote.myVote === null)
+      return { type: "vote", yes: true };
+    if (v.phase === "final" && v.myFinal === null) return { type: "final", target: other(v.players, me) };
+    return null;
+  },
   sync(v) {
     // Bots have no feel for timing: they simply play their lowest card.
     if (v.phase !== "play" || !v.myHand || v.myHand.length === 0) return null;

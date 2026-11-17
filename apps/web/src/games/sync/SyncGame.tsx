@@ -77,7 +77,7 @@ export function SyncGame({ view, room, paused, act }: GameProps) {
               <button
                 key={card}
                 type="button"
-                className={`sync-card${i === 0 ? " primary" : ""}`}
+                className={`sync-card${i === 0 ? " low" : ""}`}
                 disabled={i !== 0 || paused}
                 title={i === 0 ? "出这张" : "只能先出最小的"}
                 onClick={() => send({ type: "play", card, round: v.round })}
@@ -108,7 +108,7 @@ export function SyncGame({ view, room, paused, act }: GameProps) {
               </span>
             ))
           ) : (
-            <span className="muted small">{"🂠".repeat(Math.min(v.counts[p] ?? 0, 12))}</span>
+            <span className="muted small">{"▮".repeat(Math.min(v.counts[p] ?? 0, 12))}</span>
           )
         }
       </Seats>

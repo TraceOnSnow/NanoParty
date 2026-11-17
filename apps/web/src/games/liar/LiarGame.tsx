@@ -148,7 +148,7 @@ export function LiarGame({ view, room, paused, act }: GameProps) {
           v.dice ? (
             <Dice values={v.dice[p] ?? []} hit={counted} />
           ) : (
-            <span className="muted small">{p === me ? "杯子里是你的骰子" : "🥤 扣着"}</span>
+            <span className="muted small">{p === me ? "杯子里是你的骰子" : "杯子扣着"}</span>
           )
         }
       </Seats>
