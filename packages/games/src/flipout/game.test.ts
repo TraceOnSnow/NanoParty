@@ -69,11 +69,13 @@ describe("flipout", () => {
     expect(flipRoundScore(cards("n0", "n1-1", "n2-1", "n3-1", "n4-1", "n5-1", "n6-1"), "active", true)).toBe(36);
   });
 
-  it("deals one card to everyone and never shows the deck", () => {
+  it("deals a card to everyone, loses none, and never shows the deck", () => {
     const t = new Table(game, makeCtx(["a", "b", "c"], [], Math.random));
     const s = t.state as FlipoutState;
     expect(total(s)).toBe(108);
-    if (s.phase === "turn") expect(Object.values(s.cards).every((c) => c.length >= 1)).toBe(true);
+    // A player may end the deal with nothing in front of them: they drew an action card, or
+    // their only card was stolen or discarded. What must hold is that no card went missing.
+    expect(Object.keys(s.cards)).toEqual(["a", "b", "c"]);
     const wire = t.wire("a");
     expect(wire).not.toContain('"deck"');
     expect(wire).not.toContain('"discard"');
