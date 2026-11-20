@@ -21,6 +21,7 @@ import { fireworksGame } from "./fireworks/game.ts";
 import { flipoutGame } from "./flipout/game.ts";
 import { flushGame } from "./flush/game.ts";
 import { liarGame } from "./liar/game.ts";
+import { meldGame } from "./meld/game.ts";
 import mostlikelyContent from "./mostlikely/content.json" with { type: "json" };
 import mostlikelyNet from "./mostlikely/content.net.json" with { type: "json" };
 import { mostLikelyGame } from "./mostlikely/game.ts";
@@ -88,6 +89,7 @@ export * from "./fireworks/game.ts";
 export * from "./flipout/game.ts";
 export * from "./flush/game.ts";
 export * from "./liar/game.ts";
+export * from "./meld/game.ts";
 export * from "./mostlikely/game.ts";
 export * from "./nothanks/game.ts";
 export * from "./oneclue/game.ts";
@@ -163,6 +165,7 @@ export const games: Record<string, GameModule<any, any, any, any>> = {
   [syncGame.meta.id]: syncGame,
   [delveGame.meta.id]: delveGame,
   [liarGame.meta.id]: liarGame,
+  [meldGame.meta.id]: meldGame,
 };
 
 export const bundledContent: BundledContent[] = [

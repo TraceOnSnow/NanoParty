@@ -5302,6 +5302,7 @@ button.flip-card:hover {
 .sync-card,
 .fw-card strong,
 .flip-card,
+.meld-tile,
 .stone {
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
 }
@@ -5311,4 +5312,98 @@ button.flip-card:hover {
 }
 .sync-card:disabled {
   opacity: 0.7;
+}
+
+/* ---- meld: number tiles laid in runs and groups ---- */
+.meld-table {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  min-height: 64px;
+  padding: 10px;
+  background: #e6f2e9;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+}
+.meld-set {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: rgb(255 255 255 / 0.6);
+  border: 2px solid transparent;
+  border-radius: 9px;
+}
+.meld-set.bad {
+  border-color: #d33a3a;
+  border-style: dashed;
+}
+.meld-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 42px;
+  padding: 0;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1;
+  background: #fff8e6;
+  border: 2px solid var(--ink);
+  border-radius: 7px;
+  box-shadow: 0 2px 0 var(--ink);
+}
+button.meld-tile {
+  cursor: pointer;
+}
+.meld-tile.red {
+  color: #cf2a2a;
+}
+.meld-tile.blue {
+  color: #1463c4;
+}
+.meld-tile.yellow {
+  color: #b87400;
+}
+.meld-tile.black {
+  color: #1d1a2b;
+}
+.meld-tile.wild {
+  color: #8a35c9;
+  background: #f3e3ff;
+}
+.meld-tile.fresh {
+  background: #ffe9a8;
+}
+.meld-tile.picked {
+  outline: 3px solid var(--accent);
+  transform: translateY(-4px);
+}
+.meld-tile.small {
+  width: 24px;
+  height: 31px;
+  font-size: 14px;
+  border-radius: 5px;
+  box-shadow: none;
+}
+.meld-drop {
+  min-height: 42px;
+  padding: 0 8px;
+  font-size: 13px;
+  border-style: dashed;
+}
+.meld-rack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.meld-hand {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 3px;
+}
+.meld .seat-body {
+  flex-wrap: wrap;
+  gap: 2px;
 }

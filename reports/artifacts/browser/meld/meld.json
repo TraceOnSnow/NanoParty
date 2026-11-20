@@ -1,0 +1,57 @@
+{
+  "name": "meld",
+  "base": "http://localhost:3100",
+  "roomId": "room_HLHA63ZTG2tY",
+  "at": "2026-11-20T17:03:47.898Z",
+  "results": [
+    {
+      "id": "ME-01",
+      "text": "三个玩家都看到面板，各自 14 张牌（14、14、14）",
+      "ok": true,
+      "evidence": "ME-01-1.png"
+    },
+    {
+      "id": "ME-02",
+      "text": "只摆一张牌：这一组标红，出牌按钮不可用",
+      "ok": true,
+      "evidence": "ME-02-1.png"
+    },
+    {
+      "id": "ME-03",
+      "text": "点「重来」后牌回到手里",
+      "ok": true,
+      "evidence": "ME-03-1.png"
+    },
+    {
+      "id": "ME-04",
+      "text": "阿明 用「帮我找现成的组」摆出了第一次出牌",
+      "ok": true,
+      "evidence": "ME-04-1.png"
+    },
+    {
+      "id": "ME-05",
+      "text": "小白 把 黄7 接到桌上第 3 组，可以出牌",
+      "ok": true,
+      "evidence": "ME-05-1.png"
+    },
+    {
+      "id": "ME-06",
+      "text": "服务端接受了这次拆拼，那一组多了一张",
+      "ok": true,
+      "evidence": "ME-06-1.png"
+    },
+    {
+      "id": "ME-07",
+      "text": "走了 8 个回合：出牌 3 次，桌上 4 组",
+      "ok": true,
+      "evidence": "ME-07-1.png"
+    },
+    {
+      "id": "ME-08",
+      "text": "没有人收到过别人手里的牌（0 处泄露）",
+      "ok": true,
+      "evidence": "ME-08-1.png"
+    }
+  ],
+  "problems": []
+}

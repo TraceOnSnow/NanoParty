@@ -16,6 +16,7 @@ import { FireworksGame } from "./fireworks/FireworksGame.tsx";
 import { FlipoutGame } from "./flipout/FlipoutGame.tsx";
 import { FlushGame } from "./flush/FlushGame.tsx";
 import { LiarGame } from "./liar/LiarGame.tsx";
+import { MeldGame } from "./meld/MeldGame.tsx";
 import { MostLikelyGame } from "./mostlikely/MostLikelyGame.tsx";
 import { NoThanksGame } from "./nothanks/NoThanksGame.tsx";
 import { OneClueGame } from "./oneclue/OneClueGame.tsx";
@@ -79,6 +80,7 @@ export const gameComponents: Record<string, ComponentType<GameProps>> = {
   sync: SyncGame,
   delve: DelveGame,
   liar: LiarGame,
+  meld: MeldGame,
   flush: FlushGame,
   duel: DuelGame,
   wordgrid: WordGridGame,

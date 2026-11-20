@@ -5,6 +5,7 @@
  * thing, and only player actions — never the host's "next round" or "end" decisions.
  */
 import type { PlayerId } from "@apr/shared";
+import { MELD_OPENING, type MeldTile, meldFindSets, meldShape } from "./meld/game.ts";
 
 // biome-ignore lint/suspicious/noExplicitAny: views are game-specific
 type View = any;
@@ -19,6 +20,15 @@ const pick: Bot = (v, me) =>
 const other = (ids: PlayerId[], me: PlayerId) => ids.find((p) => p !== me) ?? me;
 
 const bots: Record<string, Bot> = {
+  meld(v, me) {
+    if (v.phase !== "play" || v.current !== me || !v.myHand) return null;
+    // Bots lay whole sets from their own rack and never rearrange the table.
+    const sets = meldFindSets(v.myHand as MeldTile[]);
+    const value = sets.reduce((sum, set) => sum + (meldShape(set)?.value ?? 0), 0);
+    if (sets.length === 0 || (!v.opened[me] && value < MELD_OPENING)) return { type: "draw" };
+    const ids = (set: MeldTile[]) => set.map((t) => t.id);
+    return { type: "meld", sets: [...(v.table as MeldTile[][]).map(ids), ...sets.map(ids)] };
+  },
   fireworks(v, me) {
     if (v.phase !== "play" || v.current !== me || !v.myHand?.length) return null;
     // Bots discard when they can and otherwise spend a hint on the next player's first card.
