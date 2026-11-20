@@ -322,3 +322,26 @@
 .seed-cell.own-trap:hover:not(:disabled) {
   background: var(--ink);
 }
+
+.static-about {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.static-about img {
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--ink);
+  border-radius: var(--r-s);
+}
+.static-about ul {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.static-about a {
+  color: #0b5c99;
+  font-weight: 700;
+}

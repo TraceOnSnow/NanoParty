@@ -6,7 +6,7 @@
  * the table, the page only deals topics and secrets. Only games that work this way are listed —
  * games whose table keeps changing (cards in hand, chips, tricks) are not.
  */
-import { bundledContent, undercoverCountFor, WORDS, wolvesFor } from "@apr/games";
+import { bundledContent, SPY_PLACES, undercoverCountFor, WORDS, wolvesFor } from "@apr/games";
 import { seeded, shuffled } from "./rng.ts";
 
 export type Owner = "red" | "blue" | "neutral" | "trap";
@@ -280,6 +280,32 @@ export const SEED_GAMES: SeedGame[] = [
       return [
         line(`${i.players} 个人里有 ${count} 个卧底。没人知道自己是不是。`),
         { kind: "secret", label: `${i.seat} 号的词`, who: "只有你自己看", body: [big(mine)] },
+      ];
+    },
+  },
+  {
+    id: "spy",
+    name: "地点疑云",
+    needs: ["seat"],
+    minPlayers: 3,
+    maxPlayers: 12,
+    unit: "局",
+    how: "所有人点开自己的那一份：除了一个外人，大家看到的是同一个地点。然后互相提问——点名问一个人和这个地点有关的问题，被问的人答完再问别人。问得太直白会把地点漏给外人，答得太含糊会被当成外人。随时可以提议指认，大家举手表决；外人也可以随时喊停猜地点。",
+    deal(i) {
+      const random = rand(i, "spy");
+      // Places follow one shuffled order per room, so a room does not see the same place twice in a row.
+      const order = shuffled(SPY_PLACES, seeded(`${i.code}:spy:places`));
+      const place = order[(i.round - 1) % order.length] as string;
+      const outsider = 1 + Math.floor(random() * i.players);
+      return [
+        line(`${i.players} 个人里有 1 个外人。`),
+        {
+          kind: "secret",
+          label: `${i.seat} 号看这里`,
+          who: "只有你自己看",
+          body: [i.seat === outsider ? big("你是外人", "你不知道地点") : big(place, "你们现在在")],
+        },
+        { kind: "list", label: "所有可能的地点（外人从这里面猜）", items: [...SPY_PLACES] },
       ];
     },
   },

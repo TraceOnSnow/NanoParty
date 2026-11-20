@@ -110,4 +110,16 @@ describe("same room code", () => {
     expect(codes.size).toBeGreaterThan(1);
     for (const c of codes) expect(new Set(c.split(" - ")).size).toBe(3);
   });
+
+  it("tells every seat the same place except one outsider, and changes the place each round", () => {
+    for (const round of [1, 2, 3]) {
+      const shown = [1, 2, 3, 4, 5, 6].map((seat) => secret(deal("spy", { seat, round })));
+      const outsiders = shown.filter((t) => t === "你是外人");
+      expect(outsiders.length).toBe(1);
+      expect(new Set(shown.filter((t) => t !== "你是外人")).size).toBe(1);
+    }
+    const place = (round: number) =>
+      [1, 2, 3].map((seat) => secret(deal("spy", { seat, round }))).find((t) => t !== "你是外人");
+    expect(place(1)).not.toBe(place(2));
+  });
 });

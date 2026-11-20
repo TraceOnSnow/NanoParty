@@ -22,6 +22,13 @@ const INTROS: Record<string, string> = {
   nothanks: "拒牌筹码。牌面就是罚分，不想要就交一个筹码让给下家。筹码用完了？那就只能含泪收下。",
   rowcards: "别拿第六张。所有人同时出牌，从小到大接到四行牌的末尾；谁的牌成了某一行的第六张，就把前五张全收走。",
   seven: "攒七张。摸一张、弃一张，手里永远七张。牌和牌之间会互相加分、互相作废，弃牌区摆满就结算。",
+  climb: "贪心登顶。四颗骰子两两相加往上爬，见好就收能存档；再掷一次要是走不了，这回合就白爬。先占三列的人赢。",
+  flipout: "别翻重。一张张翻，翻到自己面前已经有的数字就爆，这轮零分。减分牌可以塞给别人——别客气。",
+  liar: "吹牛骰子。每人五颗骰子只看得到自己的，轮流往上叫「几个几」。觉得上家在吹，就开他。",
+  delve: "探洞寻宝。每翻一张牌，各位同时决定继续走还是回营地。同一种危险出现第二次，还在洞里的人就白忙一趟。",
+  dish: "黑暗料理。扣着推一张牌，说它是什么——可以说谎。收到的人要么猜真假，要么偷看一眼再甩给别人。",
+  spell:
+    "盲念咒语。你面前的石头只有你自己看不到。喊一个数字：有，咒语生效；没有，掉血。看看别人面前有什么，推一推自己的。",
   platter: "凑一桌。每回合拿一张规则牌或者两张材料。规则牌决定你的材料值多少分，所以先看清自己盘子里有什么。",
 };
 
@@ -114,6 +121,59 @@ const REACTIONS: Record<string, React> = {
       : null,
     b.phase !== "finished" && v.phase === "finished" ? `摊牌。${v.winners.map(name).join("、")} 的七张最能打。` : null,
   ],
+  climb: (b, v, name) => [
+    v.last?.kind === "bust" && v.step !== b.step
+      ? `${name(v.last.by)} 掷出来怎么分都走不了，这回合白爬。贪心是要交学费的。`
+      : null,
+    v.last?.kind === "stop" && v.last.columns?.length && v.step !== b.step
+      ? `${name(v.last.by)} 拿下了 ${v.last.columns.join("、")} 列！`
+      : null,
+    b.phase !== "gameOver" && v.phase === "gameOver" ? `${v.winners.map(name).join("、")} 先占满三列，赢了。` : null,
+  ],
+  flipout: (b, v, name) => {
+    const fresh = (v.log as View[]).slice(-1)[0];
+    const lines: (string | null)[] = [];
+    if (fresh && v.step !== b.step) {
+      if (fresh.kind === "bust") lines.push(`${name(fresh.by)} 翻重了，这轮清零。`);
+      if (fresh.kind === "flip7") lines.push(`${name(fresh.by)} 集齐七张！这一轮到此为止，再加 15 分。`);
+      if (fresh.kind === "wipe") lines.push(`${name(fresh.by)} 翻到厄运 7，面前的牌全没了。`);
+    }
+    if (b.phase !== "gameOver" && v.phase === "gameOver")
+      lines.push(`${v.winners.map(name).join("、")} 总分最高，赢了。`);
+    return lines;
+  },
+  liar: (b, v, name) => [
+    !b.result && v.result
+      ? `开！全桌一共 ${v.result.count} 个，叫的是 ${v.result.bid.quantity} 个。${name(v.result.loser)} 输了这一轮。`
+      : null,
+    b.phase !== "finished" && v.phase === "finished" ? `打完了。${v.winners.map(name).join("、")} 输得最少。` : null,
+  ],
+  delve: (b, v, name) => [
+    !b.collapsed && v.collapsed ? `第二次${v.collapsed}！还在洞里的各位，这一趟白走了。` : null,
+    v.lastLeft && v.step !== b.step && !v.collapsed
+      ? `${v.lastLeft.players.map(name).join("、")} 回营地了${v.lastLeft.relics ? "，还顺走了遗物" : ""}。`
+      : null,
+    b.phase !== "finished" && v.phase === "finished"
+      ? `帐篷打开。${v.winners.map(name).join("、")} 带出来的最多。`
+      : null,
+  ],
+  dish: (b, v, name) => [
+    v.last && v.step !== b.step && !v.pass && b.pass
+      ? `翻开是${v.last.card}，${name(v.last.sender)} 说的是${v.last.claim}。${name(v.last.taker)} 收下。`
+      : null,
+    !b.loser && v.loser ? `${name(v.loser)} 输了。这桌菜归你。` : null,
+  ],
+  spell: (b, v, name) => {
+    const fresh = (v.log as View[]).slice(-1)[0];
+    return [
+      fresh && v.step !== b.step && !fresh.hit ? `${name(fresh.by)} 喊 ${fresh.number}，没有。掉血。` : null,
+      b.phase === "play" && v.phase !== "play"
+        ? v.roundWinner
+          ? `${name(v.roundWinner)} 拿下这一轮。`
+          : "这一轮结束，活着的各得一分。"
+        : null,
+    ];
+  },
   platter: (b, v, name) => [
     b.phase !== "finished" && v.phase === "finished"
       ? `桌子清空了。${v.winners.map(name).join("、")} 这一盘配得最好。`

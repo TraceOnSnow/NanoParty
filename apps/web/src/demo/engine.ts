@@ -247,6 +247,8 @@ export class Table {
       for (const [key, value] of Object.entries(defaults.data as Record<string, unknown>)) {
         if (this.mode === "manual" && key.endsWith("Seconds")) config[key] = 0;
         if (this.mode === "demo" && key === "rounds" && typeof value === "number") config[key] = Math.min(value, 3);
+        // Point targets are cut down too, so a demo game ends in a few minutes.
+        if (this.mode === "demo" && key === "target" && typeof value === "number") config[key] = Math.ceil(value / 3);
       }
     }
     const parsed = module.configSchema.safeParse(config);

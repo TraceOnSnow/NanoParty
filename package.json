@@ -19,7 +19,7 @@
     "tester": "pnpm --filter @apr/server exec tsx --env-file-if-exists=../../.env tools/tester.ts",
     "host-replay": "pnpm --filter @apr/server exec tsx tools/host-replay.ts",
     "model-eval": "pnpm --filter @apr/server exec tsx --env-file-if-exists=../../.env tools/model-eval.ts",
-    "dev:test": "pnpm --filter @apr/web build && cd apps/server && PORT=${PORT:-3100} TEST_MODE=true DATABASE_URL= PGLITE_DIR=${PGLITE_DIR:-../../data/test-pglite} tsx --env-file-if-exists=../../.env src/index.ts",
+    "dev:test": "pnpm --filter @apr/web build && cd apps/server && PORT=${PORT:-3100} TEST_MODE=true DATABASE_URL= PGLITE_DIR=${PGLITE_DIR:-../../data/test-pglite} pnpm exec tsx --env-file-if-exists=../../.env src/index.ts",
     "demo:build": "pnpm --filter @apr/web demo:build",
     "demo:preview": "pnpm --filter @apr/web demo:preview"
   },

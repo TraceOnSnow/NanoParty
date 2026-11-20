@@ -74,6 +74,44 @@ export function SpellGame({ view, room, paused, act }: GameProps) {
         paused={paused}
       />
 
+      <Seats
+        room={room}
+        ids={v.players}
+        current={live ? v.current : null}
+        out={v.players.filter((p) => (v.life[p] ?? 0) <= 0)}
+        win={v.winners.length ? v.winners : v.roundWinner ? [v.roundWinner] : []}
+        note={(p) => (
+          <span className="tag">
+            ♥ {v.life[p] ?? 0} · {v.points[p] ?? 0} 分{over && v.gained ? `（+${v.gained[p] ?? 0}）` : ""}
+            {(v.takenCount[p] ?? 0) > 0 ? ` · 秘密石 ${v.takenCount[p]}` : ""}
+          </span>
+        )}
+      >
+        {(p) =>
+          v.hands[p] ? (
+            v.hands[p].length === 0 ? (
+              <span className="muted small">石头喊完了</span>
+            ) : (
+              [...v.hands[p]]
+                .sort((a, b) => a - b)
+                .map((n, i) => (
+                  // biome-ignore lint/suspicious/noArrayIndexKey: identical stones
+                  <span key={i} className="stone">
+                    {n}
+                  </span>
+                ))
+            )
+          ) : (
+            Array.from({ length: v.myCount ?? 0 }, (_, i) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: identical hidden stones
+              <span key={i} className="stone hidden" title="你自己的石头，只有别人看得到">
+                ?
+              </span>
+            ))
+          )
+        }
+      </Seats>
+
       <div className="spell-book">
         {SPELLS.map((s) => {
           const allowed = myTurn && s.n >= v.floor;
@@ -119,44 +157,6 @@ export function SpellGame({ view, room, paused, act }: GameProps) {
         {v.secretLeft} 块）里。
         {v.myTaken.length > 0 && ` 你拿到的秘密石：${v.myTaken.join("、")}。`}
       </p>
-
-      <Seats
-        room={room}
-        ids={v.players}
-        current={live ? v.current : null}
-        out={v.players.filter((p) => (v.life[p] ?? 0) <= 0)}
-        win={v.winners.length ? v.winners : v.roundWinner ? [v.roundWinner] : []}
-        note={(p) => (
-          <span className="tag">
-            ♥ {v.life[p] ?? 0} · {v.points[p] ?? 0} 分{over && v.gained ? `（+${v.gained[p] ?? 0}）` : ""}
-            {(v.takenCount[p] ?? 0) > 0 ? ` · 秘密石 ${v.takenCount[p]}` : ""}
-          </span>
-        )}
-      >
-        {(p) =>
-          v.hands[p] ? (
-            v.hands[p].length === 0 ? (
-              <span className="muted small">石头喊完了</span>
-            ) : (
-              [...v.hands[p]]
-                .sort((a, b) => a - b)
-                .map((n, i) => (
-                  // biome-ignore lint/suspicious/noArrayIndexKey: identical stones
-                  <span key={i} className="stone">
-                    {n}
-                  </span>
-                ))
-            )
-          ) : (
-            Array.from({ length: v.myCount ?? 0 }, (_, i) => (
-              // biome-ignore lint/suspicious/noArrayIndexKey: identical hidden stones
-              <span key={i} className="stone hidden" title="你自己的石头，只有别人看得到">
-                ?
-              </span>
-            ))
-          )
-        }
-      </Seats>
 
       <div className="spell-board">
         <span className="muted small">已经用掉、摆在桌面上的：</span>

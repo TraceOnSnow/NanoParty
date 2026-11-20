@@ -184,6 +184,93 @@ const scripts: Record<string, Script> = {
     }
     return { type: "takeItems", slots: taken };
   },
+  climb(v, me) {
+    if (v.current !== me) return null;
+    if (v.phase === "move") return { type: "move", option: Math.floor(Math.random() * v.options.length) };
+    if (v.phase !== "decide") return null;
+    const steps = Object.entries((v.climbers ?? {}) as Record<string, number>).reduce(
+      (sum, [column, height]) => sum + height - (v.saved[me]?.[column] ?? 0),
+      0,
+    );
+    // Greedier with little at stake; almost always banks once three climbers are out.
+    const out = Object.keys(v.climbers ?? {}).length;
+    const stop = steps > 0 && (out >= 3 ? chance(0.8) : steps >= 3 ? chance(0.6) : chance(0.15));
+    return { type: stop ? "stop" : "roll" };
+  },
+  flipout(v, me) {
+    const live = (v.players as string[]).filter((p) => v.status[p] !== "bust");
+    if (v.phase === "turn" && v.current === me) {
+      const mine = (v.cards[me] ?? []) as { kind: string; special?: string }[];
+      const numbers = mine.filter((c) => c.kind === "num").length;
+      const mustHit = mine.some((c) => c.special === "zero");
+      return mustHit || numbers < 3 || (numbers < 5 && chance(0.45)) ? { type: "hit" } : { type: "stay" };
+    }
+    if (v.pending?.by !== me) return null;
+    const others = live.filter((p) => p !== me);
+    if (v.phase === "assign") {
+      // Bad cards go to whoever is ahead this round; "one more" and "flip four" too.
+      const lead = [...others].sort((a, b) => (v.preview[b] ?? 0) - (v.preview[a] ?? 0))[0];
+      return { type: "give", target: lead ?? me };
+    }
+    if (v.phase === "use") {
+      const act = v.pending.card.act as string;
+      const holders = (act === "steal" ? others : live).filter((p) => (v.cards[p] ?? []).length > 0);
+      const pickOf = (p: string) => ({ player: p, cardId: (any(v.cards[p]) as { id: string }).id });
+      const chosen = act === "swap" ? holders.slice(0, 2) : [any(holders.filter((p) => p !== me)) ?? holders[0]];
+      return { type: "use", cards: chosen.filter(Boolean).map((p) => pickOf(p as string)) };
+    }
+    return null;
+  },
+  liar(v, me) {
+    if (v.phase !== "bid" || v.current !== me || !v.myDice) return null;
+    const mine = (face: number) =>
+      (v.myDice as number[]).filter((d) => d === face || (v.onesWild && face !== 1 && d === 1)).length;
+    // What the table probably holds of a face: my own plus a third of everyone else's dice.
+    const likely = (face: number) => mine(face) + (v.totalDice - 5) / (v.onesWild && face !== 1 ? 3 : 6);
+    if (!v.bid) {
+      const face = [2, 3, 4, 5, 6].sort((a, b) => mine(b) - mine(a))[0] as number;
+      return { type: "bid", quantity: v.minOpening, face };
+    }
+    if (v.bid.quantity > likely(v.bid.face) + (chance(0.3) ? 1.5 : 0.5)) return { type: "open" };
+    const best = [2, 3, 4, 5, 6].sort((a, b) => mine(b) - mine(a))[0] as number;
+    const sameCount = best > v.bid.face && v.bid.face !== 1;
+    return { type: "bid", quantity: sameCount ? v.bid.quantity : v.bid.quantity + 1, face: best };
+  },
+  delve(v, me) {
+    if (v.phase !== "choose" || !v.inside.includes(me) || v.myChoice !== null) return null;
+    const hazards = (v.path as { kind: string }[]).filter((c) => c.kind === "hazard").length;
+    const carried = v.carried[me] ?? 0;
+    // The more danger showing and the more in hand, the likelier a script walks out.
+    const leave = carried > 0 && chance(Math.min(0.9, hazards * 0.18 + carried * 0.035));
+    return { type: "choose", stay: !leave };
+  },
+  dish(v, me) {
+    const unseen = (v.players as string[]).filter((p) => p !== me && !(v.pass?.seen ?? []).includes(p));
+    if (v.phase === "offer" && v.current === me && v.myHand?.length) {
+      const kind = any(v.myHand as string[]) as string;
+      const target = any((v.players as string[]).filter((p) => p !== me)) as string;
+      return { type: "offer", kind, target, claim: chance(0.5) ? kind : (any(v.kinds as string[]) as string) };
+    }
+    if (v.phase === "respond" && v.pass?.holder === me) {
+      if (unseen.length > 0 && chance(0.25)) return { type: "peek" };
+      return { type: "call", truth: chance(0.5) };
+    }
+    if (v.phase === "relay" && v.pass?.holder === me && unseen.length > 0) {
+      const truth = v.pass.card as string;
+      return { type: "relay", target: any(unseen), claim: chance(0.5) ? truth : (any(v.kinds as string[]) as string) };
+    }
+    return null;
+  },
+  spell(v, me) {
+    if (v.phase !== "play" || v.current !== me) return null;
+    if (v.casts > 0 && chance(0.6)) return { type: "end" };
+    // Call the number with the most stones this script cannot see anywhere.
+    const seen = (n: number) =>
+      (v.board[n] ?? 0) +
+      (Object.values(v.hands) as number[][]).reduce((sum, hand) => sum + hand.filter((x) => x === n).length, 0);
+    const options = [1, 2, 3, 4, 5, 6, 7, 8].filter((n) => n >= v.floor).sort((a, b) => b - seen(b) - (a - seen(a)));
+    return options[0] ? { type: "cast", number: options[0] } : { type: "end" };
+  },
 };
 
 /** Games in which the scripted players can hold up their end of the table. */

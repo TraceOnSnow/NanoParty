@@ -8,10 +8,11 @@ import { customTopicFields, gameComponents } from "../games/registry.tsx";
 import { SCRIPTED_GAMES } from "./bots.ts";
 import { CREDITS, GAME_COUNT } from "./catalog.ts";
 import { type Seat, Table, type TableOptions } from "./engine.ts";
+import phonesClip from "./media/phones.gif";
 import { SeedRoom } from "./SeedRoom.tsx";
 import { SEED_GAMES } from "./seed.ts";
 
-const REPO_URL = (import.meta.env.VITE_REPO_URL as string | undefined) ?? "";
+const REPO_URL = (import.meta.env.VITE_REPO_URL as string | undefined) || "https://github.com/TraceOnSnow/NanoParty";
 const coverHue = (id: string) => [...id].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) % 360, 7);
 const randomCode = () => String(1000 + Math.floor(Math.random() * 9000));
 
@@ -129,6 +130,33 @@ function Landing({ go }: { go(screen: Screen): void }) {
         >
           进入演示房间
         </button>
+      </section>
+
+      <section className="card static-about">
+        <h2>完整版长什么样</h2>
+        <img
+          src={phonesClip}
+          alt="四台手机在同一个房间里玩吹牛骰子：叫数是公开的，每台手机只显示自己的骰子"
+          loading="lazy"
+          width={1200}
+          height={585}
+        />
+        <p>
+          完整版里每个人用自己的手机或电脑进同一个房间：公共信息所有人一样，自己的骰子、手牌和身份只在自己屏幕上。一共{" "}
+          {GAME_COUNT} 款游戏，旁边可以有一个真的 AI 主持接话、出题、当裁判；不配 AI 也都能玩。
+        </p>
+        <h3>怎么做的</h3>
+        <ul>
+          <li>每款游戏是一段确定性的规则：不联网、不读时钟、不调用模型，所以能直接搬进这个静态页面里跑。</li>
+          <li>秘密只留在服务端，每个人只收到自己该看到的那一份；每款有秘密的游戏都带一条「别人看不到」的测试。</li>
+          <li>AI 主持只能通过一组受控工具行动，改不了规则，也动不了成绩。</li>
+          <li>状态先写数据库再生效，掉线重连、服务重启之后都能接着玩。</li>
+        </ul>
+        <p>
+          <a href={REPO_URL} target="_blank" rel="noreferrer">
+            源码、设计说明和部署方法在 GitHub
+          </a>
+        </p>
       </section>
 
       <details className="card static-credits">
